@@ -1,0 +1,160 @@
+#!/boot/apps/Squirrel/Squirrel.5.3
+/*
+ * EzViewer
+ *
+ * file ?	EzViewer
+ * what	?	EzViewer main script
+ * who	?	jlv
+ * when	?	02/08/01
+ * last	?	02/17/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+
+/* Load a set of colors defined in a script file */
+
+load :_install + '/Libraries/Colors.sqi'
+
+make "Version '0.5'
+
+to Export :mime :ext
+	make.local "f FilePanel "save "last.dir ["file] "single "allow [:mime] []
+	if (is.string :f) {
+		make "Status 'Exporting ...'
+		Busy true
+		$img~save :f :ext
+		Busy false
+		make "Status 'Exporting ... done'
+	}
+end
+
+to Load :f
+	Busy true
+	make "Status 'Loading ...'
+	catch "error {	
+		make.local "i Image :f
+		if (is.image :i) {
+			$win~config "title "set ('EzViewer' + ' : ' + :f)
+			$view~display :i
+			$m3~enable true
+			$m4~enable true
+			make "img :i
+			make "Status 'Loading ... done'
+			make "thefile :f
+		} {
+			throw "error	
+		}
+	} {
+		make "Status 'Loading ... failed!'
+		$m3~enable false
+		$m4~enable false		
+	}
+	
+	Busy false
+end
+
+
+to About
+	make.local "icon entry.icon :_file "get "large
+	Info :icon "Ok ('EzViewer b' + :Version) '\nA simple image 
+	viewer written in Squirrel' :_version '\n\nFeedback : 
+	jlv@kirilla.com\n\n(c) Kirilla 2001'
+end
+
+to Help
+	launch :_path + '/Manual/index.html'
+end
+
+make "last.dir ''
+
+
+/* load all the Add-Ons we need */
+
+use 'GUI' 'Storage' 'String Processing' 'List Processing' 'Imaging'
+
+make "icon entry.icon :_file "get "small
+
+
+make "win Window "titled 'EzViewer' [100 100]
+		
+make "bar MenuBar
+
+make "m0 Menu :icon
+make "m1 Menu "File
+
+make "m2 Menu "Display
+$m2~config "radio "set true 
+
+make "m3 Menu "Comment
+$m3~enable false
+
+print trans.mime
+
+make "m5 Menu "Favorites
+
+make "m4 Menu "Export
+make "i 1
+for.each "format (trans.mime) {
+	if (sfind :format 'image/') {
+		$m4~add ('as ' + (safter :format 'image/')) "Export :format lindex (trans.name) :i
+	}
+	make "i :i + 1
+}
+$m4~enable false
+
+$m0~add "Help "Help
+$m0~add "separator
+$m0~add 'About ...' "About
+
+$m1~add ["Load 'L'] {
+	make "file FilePanel "open "last.dir ["file] "single "allow ['image/*'] []
+	if (is.string :file) {	
+		Load :file
+	}		
+}
+make "s0 $m1~add ['Load from ...' 'F']
+$m1~i.enable :s0 false
+$m1~add :m4
+$m1~add "separator
+$m1~add ["Quit 'Q'] {
+	$win~quit	
+}
+
+make "s1 $m2~add "Adapt
+make "s2 $m2~add "Center
+make "s3 $m2~add "Scale
+make "s4 $m2~add "Scroll
+
+$m3~add ["Edit 'E']
+$m3~add ["Remove 'M']
+
+make "s5 $m5~add ["Add 'A']
+make "s6 $m5~add ["Remove 'R']
+$m5~add "separator
+
+$m5~i.enable :s5 false
+$m5~i.enable :s6 false
+
+$bar~add :m0 :m1 :m2 :m3 :m5
+
+make "view Viewer [200 200]
+$view~config "expand "set true true
+
+;;; create the status message area
+make.local "status Frame "lowered
+$status~config "expand "set true false	
+
+;;; create the Banner widget that display the message
+make.local "msg Banner "Status "left
+$msg~config "high.color "set :Blue
+$msg~config "expand "set true false
+
+;;; glue everything
+Glue :status "top [] :msg
+Glue :win "top [] :bar :view
+Glue :win "bottom []  :status
+
+$win~show
+
+make "Status 'Ready ...'

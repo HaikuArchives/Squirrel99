@@ -1,0 +1,331 @@
+\begin{theindex}
+\addcontentsline{toc}{section}{Index}
+
+  \item append node to list, 7
+
+  \indexspace
+
+  \item comparison function, 3
+  \item constraint, 3
+  \item create
+    \subitem dictionary object, 33
+    \subitem hash object, 24
+    \subitem list object, 8
+
+  \indexspace
+
+  \item defines, \see{macros}{54}
+  \item delete
+    \subitem arbitrary node of a list, 9
+    \subitem first node of a list, 8
+    \subitem last node of a list, 9
+  \item Dict
+    \subitem function names, 31
+    \subitem macro names, 31
+    \subitem reserved symbols, 32
+    \subitem tag names, 31
+    \subitem typedef names, 31
+  \item {\tt  dict_alloc_insert} function, 37
+  \item {\tt  dict_allow_dupes} function, 39
+  \item {\tt  dict_comp_t} type, 32
+  \item {\tt  dict_contains} function, 39
+  \item {\tt  dict_count} function, 39
+  \item {\tt  dict_create} function, 33
+  \item {\tt  dict_delete} function, 37
+  \item {\tt  dict_delete_free} function, 37
+  \item {\tt  dict_destroy} function, 33
+  \item {\tt  dict_first} function, 38
+  \item {\tt  dict_free} function, 34
+  \item {\tt  dict_free_nodes} function, 34
+  \item {\tt  DICT_H} macro, 31
+  \item {\tt  dict_init} function, 34
+  \item {\tt  dict_insert} function, 36
+  \item {\tt  dict_isempty} function, 39
+  \item {\tt  dict_isfull} function, 39
+  \item {\tt  dict_last} function, 38
+  \item {\tt  dict_load_begin} function, 42
+  \item {\tt  dict_load_end} function, 42
+  \item {\tt  dict_load_next} function, 42
+  \item {\tt  dict_load_t} type, 33
+  \item {\tt  dict_lookup} function, 34
+  \item {\tt  dict_lower_bound} function, 35
+  \item {\tt  dict_next} function, 38
+  \item {\tt  dict_prev} function, 38
+  \item {\tt  dict_process} function, 41
+  \item {\tt  dict_set_allocator} function, 33
+  \item {\tt  dict_t} type, 32
+  \item {\tt  dict_upper_bound} function, 35
+  \item {\tt  dict_verify} function, 34
+  \item {\tt  dictcount_t} type, 32
+  \item {\tt  DICTCOUNT_T_MAX} macro, 31, 32
+  \item Dictionary, 30
+    \subitem creation of, 33
+    \subitem predecessor of an element, 30
+    \subitem successor of an element, 30
+  \item {\tt  dnode_alloc_t} type, 32
+  \item {\tt  dnode_create} function, 40
+  \item {\tt  dnode_destroy} function, 40
+  \item {\tt  dnode_free_t} type, 32
+  \item {\tt  dnode_get} function, 41
+  \item {\tt  dnode_getkey} function, 41
+  \item {\tt  dnode_init} function, 40
+  \item {\tt  dnode_is_in_a_dict} function, 40
+  \item {\tt  dnode_process_t} type, 32
+  \item {\tt  dnode_put} function, 41
+  \item {\tt  dnode_t} type, 32
+
+  \indexspace
+
+  \item {\tt  except_alloc} function, 52
+  \item {\tt  except_call} enum constant, 48
+  \item {\tt  except_checked_cleanup_pop} macro, 48
+  \item {\tt  except_cleanup_pop} macro, 48
+  \item {\tt  except_cleanup_push} macro, 48
+  \item {\tt  except_code} function, 47
+  \item {\tt  except_data} function, 47
+  \item {\tt  except_deinit} function, 45
+  \item {\tt  except_free} function, 52
+  \item {\tt  except_group} function, 47
+  \item {\tt  except_id_t} type, 44
+  \item {\tt  except_init} function, 44
+  \item {\tt  except_message} function, 47
+  \item {\tt  except_no_call} enum constant, 48
+  \item {\tt  except_rethrow} function, 45
+  \item {\tt  except_set_allocator} function, 51
+  \item {\tt  except_t} type, 44
+  \item {\tt  except_take_data} function, 47
+  \item {\tt  except_throw} function, 45
+  \item {\tt  except_throwd} function, 46
+  \item {\tt  except_throwf} function, 46
+  \item {\tt  except_try_pop} macro, 51
+  \item {\tt  except_try_push} macro, 49
+  \item {\tt  except_unhandled_catcher} function, 46
+  \item Exception, 43
+    \subitem function names, 43
+    \subitem macro names, 43
+    \subitem reserved symbols, 44
+    \subitem typedef names, 43
+  \item Exception component
+    \subitem reference implementation, 52
+  \item external names, \see {functions}{54}
+
+  \indexspace
+
+  \item functions
+    \subitem defined by Dict, 31
+    \subitem defined by Exception, 43
+    \subitem defined by Hash, 21
+    \subitem defined by List, 6
+
+  \indexspace
+
+  \item Hash
+    \subitem allocator function, 23
+    \subitem creation of, 24
+    \subitem deallocator function, 23
+    \subitem external objects, 22
+    \subitem function names, 21
+    \subitem macro names, 22
+    \subitem reserved symbols, 22
+    \subitem tag names, 21
+    \subitem typedef names, 21
+  \item {\tt  hash_alloc_insert} function, 27
+  \item {\tt  hash_comp_t} type, 22
+  \item {\tt  hash_count} function, 28
+  \item {\tt  hash_create} function, 24
+  \item {\tt  hash_delete} function, 26
+  \item {\tt  hash_delete_free} function, 27
+  \item {\tt  hash_destroy} function, 24
+  \item {\tt  hash_free} function, 25
+  \item {\tt  hash_free_nodes} function, 25
+  \item {\tt  HASH_H} macro, 22
+  \item {\tt  hash_init} function, 25
+  \item {\tt  hash_insert} function, 26
+  \item {\tt  hash_isempty} function, 28
+  \item {\tt  hash_isfull} function, 28
+  \item {\tt  hash_lookup} function, 26
+  \item {\tt  hash_scan_begin} function, 28
+  \item {\tt  hash_scan_delete} function, 29
+  \item {\tt  hash_scan_delfree} function, 29
+  \item {\tt  hash_scan_next} function, 29
+  \item {\tt  hash_set_allocator} function, 24
+  \item {\tt  hash_size} function, 28
+  \item {\tt  hash_t} type, 22
+  \item {\tt  hash_val_t} type, 23
+  \item {\tt  HASH_VAL_T_BIT} macro, 22
+  \item {\tt  hash_val_t_bit} object, 23
+  \item {\tt  HASH_VAL_T_MAX} macro, 22, 23
+  \item {\tt  hash_verify} function, 29
+  \item {\tt  hashcount_t} type, 23
+  \item {\tt  HASHCOUNT_T_MAX} macro, 22, 23
+  \item hashing function, 23, 24
+  \item {\tt  hnode_create} function, 30
+  \item {\tt  hnode_destroy} function, 30
+  \item {\tt  hnode_get} function, 27
+  \item {\tt  hnode_getkey} function, 27
+  \item {\tt  hnode_init} function, 30
+  \item {\tt  hnode_put} function, 27
+  \item {\tt  hnode_t} type, 22
+  \item {\tt  hscan_t} type, 22
+
+  \indexspace
+
+  \item identifiers, \see {symbols}{54}
+  \item implementation
+    \subitem List operations, 19
+    \subitem List types, 19
+  \item implementation-defined, 3
+  \item insert
+    \subitem node into list, 11
+
+  \indexspace
+
+  \item List, 6
+    \subitem appending a node, 7
+    \subitem count, 6, 8
+    \subitem creation of, 8
+    \subitem deletion, 8, 9, 20
+    \subitem destruction of, 9
+    \subitem find operation, 15
+    \subitem first node, 8, 10, 19
+    \subitem function names, 6
+    \subitem insertion, 11, 21
+    \subitem last node, 9, 12
+    \subitem macro names, 7
+    \subitem merge operation, 12
+    \subitem node range extraction, 10
+    \subitem node transfer, 15
+    \subitem predecessor of an element, 6
+    \subitem prepending a node, 13
+    \subitem reference implementation, 19
+    \subitem reserved symbols, 7
+    \subitem size, 8
+    \subitem sort operation, 14
+    \subitem successor of an element, 6
+    \subitem tag names, 6
+    \subitem testing for presence of node, 8
+    \subitem typedef names, 6
+  \item {\tt  list_append} function, 7
+  \item {\tt  list_contains} function, 8
+  \item {\tt  list_count} function, 8
+  \item {\tt  list_create} function, 8
+  \item {\tt  list_del_first} function, 8
+  \item {\tt  list_del_last} function, 9
+  \item {\tt  list_delete} function, 9
+  \item {\tt  list_destroy} function, 9
+  \item {\tt  list_destroy_nodes} function, 9
+  \item {\tt  list_extract} function, 10
+  \item {\tt  list_find} function, 15
+  \item {\tt  list_first} function, 10
+  \item {\tt  LIST_H} macro, 7
+  \item {\tt  list_init} function, 10
+  \item {\tt  list_ins_after} function, 11
+  \item {\tt  list_ins_before} function, 11
+  \item {\tt  list_is_sorted} function, 11
+  \item {\tt  list_isempty} function, 12
+  \item {\tt  list_isfull} function, 12
+  \item {\tt  list_last} function, 12
+  \item {\tt  list_merge} function, 12
+  \item {\tt  list_next} function, 13
+  \item {\tt  list_prepend} function, 13
+  \item {\tt  list_prev} function, 13
+  \item {\tt  list_process} function, 14
+  \item {\tt  list_return_nodes} function, 14
+  \item {\tt  list_sort} function, 14
+  \item {\tt  list_t} type, 7
+  \item {\tt  list_transfer} function, 15
+  \item {\tt  list_verify} function, 15
+  \item {\tt  listcount_t} type, 7
+  \item {\tt  LISTCOUNT_T_MAX} macro, 7
+  \item {\tt  lnode_borrow} function, 16
+  \item {\tt  lnode_create} function, 16
+  \item {\tt  lnode_destroy} function, 16
+  \item {\tt  lnode_get} function, 16
+  \item {\tt  lnode_init} function, 16
+  \item {\tt  lnode_is_in_a_list} function, 17
+  \item {\tt  lnode_pool_create} function, 17
+  \item {\tt  lnode_pool_destroy} function, 17
+  \item {\tt  lnode_pool_init} function, 17
+  \item {\tt  lnode_pool_isempty} function, 18
+  \item {\tt  lnode_pool_isfrom} function, 18
+  \item {\tt  lnode_put} function, 18
+  \item {\tt  lnode_return} function, 18
+  \item {\tt  lnode_t} type, 7
+  \item {\tt  lnodepool_t} type, 7
+
+  \indexspace
+
+  \item macros
+    \subitem and side effects, 8--10, 12, 13, 28, 39
+    \subitem defined by Dict, 31
+    \subitem defined by Exception, 43
+    \subitem defined by Hash, 22
+    \subitem defined by List, 7
+
+  \indexspace
+
+  \item names, \see {symbols}{54}
+  \item {\tt  NDEBUG} macro, 2
+
+  \indexspace
+
+  \item predecessor
+    \subitem of a dictionary element, 30
+    \subitem of a list element, 6
+  \item prepend node to list, 13
+  \item preprocessor symbols, \see{macros}{54}
+  \item production mode, 2
+
+  \indexspace
+
+  \item reference implementation, \see {implementation}{54}
+  \item reserved symbols, \see{symbols}{54}
+
+  \indexspace
+
+  \item sentinel node
+    \subitem of linked list, 19
+  \item size
+    \subitem of a list, 6
+  \item structure names, \see{tags}{54}
+  \item successor
+    \subitem of a dictionary element, 30
+    \subitem of a list element, 6
+  \item symbols
+    \subitem function names, \see{functions}{54}
+    \subitem preprocessor, \see{macros}{54}
+    \subitem reserved by Dict, 32
+    \subitem reserved by Exception, 44
+    \subitem reserved by Hash, 22
+    \subitem reserved by List, 7
+    \subitem type names, \see{typedefs}{54}
+
+  \indexspace
+
+  \item tags
+    \subitem defined by Dict, 31
+    \subitem defined by Hash, 21
+    \subitem defined by List, 6
+  \item typedefs
+    \subitem defined by Dict, 31
+    \subitem defined by Hash, 21
+    \subitem defined by List, 6
+    \subitem implementation of List, 19
+
+  \indexspace
+
+  \item undefined behavior, 2
+  \item unwinding, 46
+  \item user, 4
+  \item user data, 4
+
+  \indexspace
+
+  \item verification mode, 2
+
+  \indexspace
+
+  \item {\tt  XCEPT_CODE_ANY} macro, 44
+  \item {\tt  XCEPT_GROUP_ANY} macro, 44
+  \item {\tt  XCEPT_H} macro, 43
+\end{theindex}

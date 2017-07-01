@@ -1,0 +1,496 @@
+/*
+ * beMegaVox
+ *
+ * file ?	Squirrel Presentation
+ * what	?	Squirrel Presentation
+ * who	?	jlv
+ * when	?	10/03/00
+ * last	?	11/19/00
+ *
+ *
+ * (c) Kirilla 2000
+ */
+ 
+/*
+ * function    : null
+ * purpose     : Used by the Linked Function
+ * input       :
+ *
+ * line, output line 
+ *
+ * output      : none
+ * side effect : none
+ */ 
+to null :line
+; nothing special to do
+end
+ 
+/*********** link function ***********/
+  
+/*
+ * function    : Hello
+ * purpose     : Launch or Edit the Hello Demo
+ * input       :
+ *
+ * b, mouse button used
+ *
+ * output      : none
+ * side effect : none
+ */   
+to Hello :b
+	if :b=1 {
+		launch :_install + '/Demos/Hello World.sqi'
+	} {
+		exec.bg "null '/boot/apps/Hekkelman/pe' :_install+'/Demos/Hello World.sqi'		
+	}
+end 
+
+/*
+ * function    : GUI
+ * purpose     : Launch or Edit the GUI Demo
+ * input       :
+ *
+ * b, mouse button used
+ *
+ * output      : none
+ * side effect : none
+ */
+to GUI :b
+	if :b=1 {
+		launch :_install + '/Demos/GUI Demo.sqi'
+	} {
+		exec.bg "null '/boot/apps/Hekkelman/pe' :_install+'/Demos/GUI Demo.sqi'		
+	}	
+end 
+
+/*
+ * function    : EzCalc
+ * purpose     : Launch or Edit the EzCalc Demo
+ * input       :
+ *
+ * b, mouse button used
+ *
+ * output      : none
+ * side effect : none
+ */
+to EzCalc :b
+	if :b=1 {
+		launch :_install + '/Demos/Ezcalc.sqi'
+	} {
+		exec.bg "null '/boot/apps/Hekkelman/pe'	:_install+'/Demos/Ezcalc.sqi'	
+	}
+end 
+
+/*
+ * function    : MTSK
+ * purpose     : Launch or Edit the Multi-Threaded Skippy Demo
+ * input       :
+ *
+ * b, mouse button used
+ *
+ * output      : none
+ * side effect : none
+ */
+to MTSk :b
+	if :b=1 {
+		launch :_install + '/Demos/Multi-Threaded Skippy.sqi'
+	} {
+		exec.bg "null '/boot/apps/Hekkelman/pe'	:_install+'/Demos/Multi-Threaded Skippy.sqi'
+	}
+end 
+
+/*
+ * function    : Attr
+ * purpose     : Launch or Edit the Attributes Demo
+ * input       :
+ *
+ * b, mouse button used
+ *
+ * output      : none
+ * side effect : none
+ */
+to Attr :b
+	if :b=1 {
+		launch :_install + '/Demos/Attributes.sqi'
+	} {
+		exec.bg "null '/boot/apps/Hekkelman/pe'	:_install+'/Demos/Attributes.sqi'
+	}
+end 
+
+/*
+ * function    : Sort
+ * purpose     : Launch or Edit the Quick Sort Demo
+ * input       :
+ *
+ * b, mouse button used
+ *
+ * output      : none
+ * side effect : none
+ */
+to Sort :b
+	if :b=1 {
+		launch :_install + '/Demos/Quick Sort.sqi'
+	} {
+		exec.bg "null '/boot/apps/Hekkelman/pe'	:_install+'/Demos/Quick Sort.sqi'		
+	}
+end 
+
+/*
+ * function    : MegaVox
+ * purpose     : Launch BeMegaVox (if installed)
+ * input       :
+ *
+ * b, mouse button used
+ *
+ * output      : none
+ * side effect : none
+ */
+to MegaPhone :b
+	if (entry.isfile '/boot/home/e-/New Squirrel/Tests/beMegaVox/beMegaVox.sqi') {
+		launch '/boot/home/e-/New Squirrel/Tests/beMegaVox/beMegaVox.sqi'
+	} {
+		Question "stop ["Ok] 'Sorry, I can not find that demo .. :('			
+	}
+end 
+
+/*
+ * function    : Temp
+ * purpose     : Launch or Edit the Multi-Threaded App Demo
+ * input       :
+ *
+ * b, mouse button used
+ *
+ * output      : none
+ * side effect : none
+ */
+to Temp :b
+	if (entry.isfile '/boot/home/e-/New Squirrel/Tests/BeTemp/Temp.sqi') {
+		launch '/boot/home/e-/New Squirrel/Tests/BeTemp/Temp.sqi'
+	} {
+		Question "stop ["Ok] 'Sorry, I can not find that demo .. :('	
+	}
+end 
+  
+/*********** Slide functions ***********/
+
+/*
+ * function	   : Slide1
+ * purpose     : Render the slide 1
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide1 :s
+	RenderFrame :s 1 (llength :slides)
+	RenderBigTitle :s 'Squirrel\nA scripting language for BeOS'
+end
+
+/*
+ * function	   : Slide2
+ * purpose     : Render the slide 2
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide2 :s
+	RenderFrame :s 2 (llength :slides)
+	GotoTop :s
+	RenderTitle :s 'Contents'
+	Tab :s 20
+	Space :s 30
+	RenderNumbered :s 1 'Why Squirrel ?' :title.size
+	Space :s 5
+	RenderNumbered :s 2 'What is Squirrel ?' :title.size
+	Space :s 5
+	RenderNumbered :s 3 'What can Squirrel do ?' :title.size
+	Space :s 5
+	RenderNumbered :s 4 'A quick glance at Squirrel syntax' :title.size 
+	Space :s 5
+	RenderNumbered :s 5 'Development considerations' :title.size
+	Space :s 5
+	RenderNumbered :s 6 'The Workshop' :title.size
+end
+
+/*
+ * function	   : Slide3
+ * purpose     : Render the slide 3
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide3 :s
+	RenderFrame :s 3 (llength :slides)
+	GotoTop :s
+	RenderTitle :s 'Why Squirrel ?'
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize :s "circle 'Lack of an easy way to build GUI under BeOS' :std.size
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize :s "triangle 'BeOS Interface Kit, great but not easy' :std.size
+	Space :s 10
+	RenderItemize :s "triangle 'No other choice at that time (June \'99)' :std.size
+	Space :s 10
+	UnTab :s :std.tab
+	RenderItemize :s "circle 'Lack of a simple programming language available' :std.size
+	Space :s 10	
+end
+
+/*
+ * function	   : Slide4
+ * purpose     : Render the slide 4
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide4 :s
+	RenderFrame :s 4 (llength :slides)
+	GotoTop :s
+	RenderTitle :s 'What is Squirrel ?'
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize :s "circle 'Scripting Language dialect of Logo' :std.size
+	Space :s 10
+	RenderItemize :s "circle 'Dedicated to BeOS' :std.size
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize :s "triangle 'Files Attributes' :std.size2
+	Space :s 10
+	RenderItemize :s "triangle 'Mime Types' :std.size2
+	Space :s 10	
+	RenderItemize :s "triangle 'Multi Threading' :std.size2
+	Space :s 10
+	RenderItemize :s "triangle 'Mailing' :std.size2
+	Space :s 10
+	RenderItemize :s "triangle 'Messanging' :std.size2
+	Space :s 10
+	RenderItemize :s "triangle 'Interface Kit' :std.size2
+	Space :s 10	
+	UnTab :s :std.tab
+	RenderItemize :s "circle 'Is Squirrel for you ?' :std.size
+	Space :s 10		
+	RenderItemize :s "circle 'What can you do with it ?' :std.size
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize :s "triangle 'Prototyping' :std.size
+	Space :s 10
+	RenderItemize :s "triangle 'Building GUI for your script' :std.size
+	Space :s 10
+	RenderItemize :s "triangle 'Building real applications' :std.size			
+end
+
+/*
+ * function	   : Slide5
+ * purpose     : Render the slide 5
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide5 :s
+	RenderFrame :s 5 (llength :slides)
+	GotoTop :s
+	RenderTitle :s 'What can Squirrel do ?'
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize :s "circle 'Simple GUI demos' :std.size
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize.link :s "triangle 'Hello world!' :std.size "Hello :Blue
+	Space :s 10
+	RenderItemize.link :s "triangle 'GUI Demo' :std.size "GUI :Blue
+	Space :s 10
+	RenderItemize.link :s "triangle 'EzCalc' :std.size "EzCalc :Blue
+	Space :s 10	
+	RenderItemize.link :s "triangle 'Multi-threaded Skippy' :std.size "MTSk :Blue
+	Space :s 10	
+	UnTab :s :std.tab
+	RenderItemize :s "circle 'Console demos' :std.size
+	Tab :s :std.tab
+	Space :s 10
+	RenderItemize.link :s "triangle 'Playing with file attributes' :std.size "Attr :Blue
+	Space :s 10
+	RenderItemize.link :s "triangle 'Quick Sort' :std.size "Sort :Blue
+	Space :s 10	
+	UnTab :s :std.tab
+	RenderItemize :s "circle 'Some more real applications' :std.size
+	Tab :s :std.tab
+	Space :s 10
+	RenderItemize.link :s "triangle 'Multi-Threaded application' :std.size "Temp :Blue
+	Space :s 10	
+	RenderItemize.link :s "triangle 'beMegaPhone' :std.size "MegaPhone :Blue
+	Space :s 10
+	RenderItemize :s "triangle 'This presentation ...' :std.size  :Blue	
+end
+
+/*
+ * function	   : Slide6
+ * purpose     : Render the slide 6
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide6 :s
+	RenderFrame :s 6 (llength :slides)
+	GotoTop :s
+	RenderTitle :s 'A quick glance at Squirrel syntax'
+	Space :s 10
+	Tab :s 300
+			
+	make.local "l [
+		'to bubble :list'
+		''
+		'     local "sorted "size "a "b "j'
+		'     make "sorted false'
+		'     make "size (llength :list)-1'
+		''
+		'     while not :sorted {'
+		''
+		'          make "sorted true'
+		''
+		'          for ["i 1 :size] {'
+		''	
+		'               make "a lindex :list :i'
+		'               make "b lindex :list :i+1'
+		''	
+		'               if :a>:b {'
+		'                   make "sorted false'
+		'                   lindex :list :i :b'
+		'                   lindex :list :i+1 :a'
+		'               }'
+		''
+		'          }'
+		'     }'
+		''
+		'   output :list'
+		''	
+		'end'
+	]	
+	
+	RenderCode :s :l 10
+end
+
+/*
+ * function	   : Slide7
+ * purpose     : Render the slide 7
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide7 :s
+	RenderFrame :s 7 (llength :slides)
+	GotoTop :s
+	RenderTitle :s 'Development considerations'
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize :s "circle 'Shrink development time' :std.size
+	Space :s 10
+	RenderItemize :s "circle 'Pro and cons on using Squirrel' :std.size
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize :s "triangle 'Pros' :std.size :Blue
+	Space :s 10		
+	Tab :s :std.tab
+	RenderItemize :s "circle 'Immediat feedback on the way your GUI is looking' :std.size
+	Space :s 10	
+	RenderItemize :s "circle 'An application is a set of text files, so easy to compress and distribute' :std.size
+	Space :s 10		
+	RenderItemize :s "circle 'Maintaining an application is easier' :std.size
+	Space :s 10		
+	RenderItemize :s "circle 'Applications are easily configurable and adaptable by the end user' :std.size
+	Space :s 10
+	UnTab :s :std.tab
+	RenderItemize :s "triangle 'Cons' :std.size :Red
+	Space :s 10		
+	Tab :s :std.tab
+	RenderItemize :s "circle 'End users need to have Squirrel installed' :std.size
+	Space :s 10	
+	RenderItemize :s "circle 'Source code is disclosed' :std.size
+end
+
+/*
+ * function	   : Slide8
+ * purpose     : Render the slide 8
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide8 :s
+	RenderFrame :s 8 (llength :slides)
+	GotoTop :s
+	RenderTitle :s 'The Workshop'
+	Space :s 10
+	Tab :s :std.tab
+	RenderItemize :s "circle 'A detailed look in beMegaVox' :std.size
+	Space :s 10
+	RenderItemize :s "circle 'Code review of some of the demos' :std.size
+	Space :s 10		
+	RenderItemize :s "circle 'Build an application from scratch' :std.size
+	Space :s 10	
+end
+
+/*********** global variable ***********/
+
+; list of all the slides of the presentation
+make "slides [		
+	"Slide1
+	"Slide2
+	"Slide3
+	"Slide4
+	"Slide5
+	"Slide6
+	"Slide7
+	"Slide8
+]
+
+; width and height of the presentation slides
+make "width		800
+make "height 	600 
+
+; various sizes used in the presentation
+; left position to start text from
+make "top.col 30
+; top position of the first text line of a page
+make "top.line 100
+; Font size used in the document
+make "std.size 16
+make "std.size2 12
+; Font size of the title
+make "title.size 26
+; Tabulation space
+make "std.tab 50
+
+; Shall will display a clock ?
+make "show.clock true
+
+; Background color of the slide
+make "L.color :White
+
+; informations on the presentation
+make "app.title 'Squirrel'
+make "pres.title ' Squirrel Presentation '
+make "pres.event ' BeGeistert 5 - 7/8 October 2000 ' 
+make "pres.author 'Jean-Louis Villecroze'

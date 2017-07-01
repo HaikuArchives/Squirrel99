@@ -1,0 +1,7 @@
+This is makeindex, version 2.13 [07-Mar-1997] (using kpathsea).
+Scanning style file ./docs.ist..done (2 attributes redefined, 0 ignored).
+Scanning input file docs.idx....done (288 entries accepted, 0 rejected).
+Sorting entries.....done (2717 comparisons).
+Generating output file docs.ind....done (331 lines written, 0 warnings).
+Output written in docs.ind.
+Transcript written in docs.ilg.

@@ -1,0 +1,9 @@
+
+Diagram "if"/"while" statements generated for predicates 27-Feb-98
+
+
+&&
+  ||
+    LA(1)==ID
+    LA(1)==Number
+  isU(LT(1)->getText())

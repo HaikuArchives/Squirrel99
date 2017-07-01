@@ -1,0 +1,12 @@
+-- Listing 14 (number on the far left are line number and not in the script) --------
+ 1 to M_F_Load :t
+ 2	
+ 3	make "current_file FilePanel "open "current_dir ["file] "single "allow ['text/plain']
+ 4
+ 5	if (is.string :current_file) {
+ 6		make "Status 'Loading file ...'
+ 7		$t~load :current_file
+ 8		make "Status 'Loading file ... done'
+ 9	}
+10 end
+-- end of Listing 14 -----------------------------------------------------------------

@@ -1,0 +1,615 @@
+<<
+/* parser.dlg -- DLG Description of scanner
+ *
+ * Generated from: SQI-grammar.g
+ *
+ * Terence Parr, Will Cohen, and Hank Dietz: 1989-1999
+ * Purdue University Electrical Engineering
+ * With AHPCRC, University of Minnesota
+ * ANTLR Version 1.33MR20
+ */
+
+#define ANTLR_VERSION	13320
+#include "tokens.h"
+#include "AToken.h"
+
+#ifndef sqiheader
+#define sqiheader
+#include "SQI-Obj.h"
+#include "SQI-heap.h"
+#include "SQI-exception.h"
+#include "SQI-varmap.h"
+#include "SQI-ufunc.h"
+#include "SQI-interp.h"
+#include "SQI-squirrel.h"
+#include "SQI-builtin.h"
+#include "SQI-clean.h"
+#include <stack>
+extern stack <char *> TheFilenames;
+#endif
+>>
+
+<<%%parserclass SQIParser>>
+
+<<%%lexprefix
+
+
+#include    "NestedTokenStream.h"
+#include <stack>
+char *mystrdup(const char *);
+extern stack<char *> TheFilenames;
+
+  
+>>
+
+<<%%lexmember
+
+NestedTokenStream           *nestedTokenStream;
+const char *                filename;
+virtual _ANTLRTokenPtr      getToken();
+>>
+
+
+%%START
+
+@
+	<<
+		free(TheFilenames.top());TheFilenames.pop();  
+		return EOFT;
+	>>
+
+/\*
+	<<
+		mode(C_COMMENT);skip();  
+		return (ANTLRTokenType)28;
+	>>
+
+;
+	<<
+		mode(C_COMMENT2);skip();  
+		return (ANTLRTokenType)29;
+	>>
+
+'
+	<<
+		mode (STRINGS);more ();  
+		return (ANTLRTokenType)30;
+	>>
+
+:
+	<<
+		return COLON;
+	>>
+
+\(
+	<<
+		return LPAR;
+	>>
+
+\)
+	<<
+		return RPAR;
+	>>
+
+\{
+	<<
+		return LBRACE;
+	>>
+
+\}
+	<<
+		return RBRACE;
+	>>
+
+\"([a-zA-Z0-9\.\_]|\\[tbnarv])+
+	<<
+		return AWORD;
+	>>
+
+\[
+	<<
+		return LBRAK;
+	>>
+
+\]
+	<<
+		return RBRAK;
+	>>
+
+\+
+	<<
+		return PLUS;
+	>>
+
+\-
+	<<
+		return MINUS;
+	>>
+
+\*
+	<<
+		return TIMES;
+	>>
+
+//
+	<<
+		return IDIV;
+	>>
+
+/
+	<<
+		return DIV;
+	>>
+
+%
+	<<
+		return MOD;
+	>>
+
+=
+	<<
+		return EQUALS;
+	>>
+
+\<\>
+	<<
+		return NOT_EQUALS;
+	>>
+
+\>
+	<<
+		return GT;
+	>>
+
+\>=
+	<<
+		return GTE;
+	>>
+
+\<
+	<<
+		return LT;
+	>>
+
+\<=
+	<<
+		return LTE;
+	>>
+
+and
+	<<
+		return AND;
+	>>
+
+or
+	<<
+		return OR;
+	>>
+
+not
+	<<
+		return NOT;
+	>>
+
+\*\*
+	<<
+		return POW;
+	>>
+
+\&
+	<<
+		return BAND;
+	>>
+
+\|
+	<<
+		return BIOR;
+	>>
+
+\^
+	<<
+		return BEOR;
+	>>
+
+\<\<
+	<<
+		return BLSH;
+	>>
+
+\>\>
+	<<
+		return BRSH;
+	>>
+
+$
+	<<
+		return OBJECT;
+	>>
+
+\~
+	<<
+		return MEMBER;
+	>>
+
+tag
+	<<
+		return TAG;
+	>>
+
+goto
+	<<
+		return GOTO;
+	>>
+
+to
+	<<
+		return TO;
+	>>
+
+end
+	<<
+		return END;
+	>>
+
+run
+	<<
+		return RUN;
+	>>
+
+runresult
+	<<
+		return RUNRESULT;
+	>>
+
+repeat
+	<<
+		return REPEAT;
+	>>
+
+if
+	<<
+		return IF;
+	>>
+
+ifelse
+	<<
+		return IFELSE;
+	>>
+
+iftrue
+	<<
+		return IFTRUE;
+	>>
+
+iffalse
+	<<
+		return IFFALSE;
+	>>
+
+catch
+	<<
+		return CATCH;
+	>>
+
+for
+	<<
+		return FOR;
+	>>
+
+do.while
+	<<
+		return DOWHILE;
+	>>
+
+while
+	<<
+		return WHILE;
+	>>
+
+do.until
+	<<
+		return DOUNTIL;
+	>>
+
+until
+	<<
+		return UNTIL;
+	>>
+
+for.each
+	<<
+		return FOREACH;
+	>>
+
+switch
+	<<
+		return SWITCH;
+	>>
+
+case
+	<<
+		return CASE;
+	>>
+
+range
+	<<
+		return RANGE;
+	>>
+
+other
+	<<
+		return OTHER;
+	>>
+
+true
+	<<
+		return TTRUE;
+	>>
+
+false
+	<<
+		return TFALSE;
+	>>
+
+#!
+	<<
+		advance();while((ch!='\n')&&(ch!=-1)) advance();  
+		return COMMENT2;
+	>>
+
+#include
+	<<
+		mode(LC_INCLUDE);skip();  
+		return INCLUDE;
+	>>
+
+[\t\ ]+
+	<<
+		skip();  
+		return SPACE;
+	>>
+
+\\\\\n
+	<<
+		skip();newline();  
+		return NEXTLINE;
+	>>
+
+[\n\r]
+	<<
+		newline();  
+		return LF;
+	>>
+
+,
+	<<
+		return COMMA;
+	>>
+
+[a-zA-Z_][a-zA-Z0-9_\.\?\!]*
+	<<
+		return AID;
+	>>
+
+[0-9]x[0-9a-fA-F]+
+	<<
+		return EXA;
+	>>
+
+([0-9]+.[0-9]* | [0-9]*.[0-9]+) {[eE]{[\-\+]}[0-9]+}
+	<<
+		return FLOAT;
+	>>
+
+[0-9]+
+	<<
+		return INTEGER;
+	>>
+
+
+%%C_COMMENT
+
+@
+	<<
+		return EOFT;
+	>>
+
+[\n\r]
+	<<
+		skip();newline();  
+		return (ANTLRTokenType)2;
+	>>
+
+\*/
+	<<
+		mode(START);skip();  
+		return (ANTLRTokenType)3;
+	>>
+
+\*~[/]
+	<<
+		skip();  
+		return (ANTLRTokenType)4;
+	>>
+
+~[\*\n\r]+
+	<<
+		skip();  
+		return (ANTLRTokenType)5;
+	>>
+
+
+%%C_COMMENT2
+
+@
+	<<
+		return EOFT;
+	>>
+
+[\n\r]
+	<<
+		mode(START);newline();skip();  
+		return (ANTLRTokenType)6;
+	>>
+
+\*~[/]
+	<<
+		skip();  
+		return (ANTLRTokenType)7;
+	>>
+
+~[\*\n\r]+
+	<<
+		skip();  
+		return (ANTLRTokenType)8;
+	>>
+
+
+%%STRINGS
+
+@
+	<<
+		return EOFT;
+	>>
+
+[\t\b]
+	<<
+		more (); replstr("");  
+		return (ANTLRTokenType)9;
+	>>
+
+[\n\r]
+	<<
+		newline(); more(); replstr("");  
+		return (ANTLRTokenType)10;
+	>>
+
+\^o
+	<<
+		replchar ((char) 147); more ();   
+		return (ANTLRTokenType)11;
+	>>
+
+\\n
+	<<
+		replchar ((char) 0x0A); more ();   
+		return (ANTLRTokenType)12;
+	>>
+
+\\t
+	<<
+		replchar ((char) 0x09); more ();   
+		return (ANTLRTokenType)13;
+	>>
+
+\\v
+	<<
+		replchar ((char) 0x0B); more ();   
+		return (ANTLRTokenType)14;
+	>>
+
+\\b
+	<<
+		replchar ((char) 0x08); more ();   
+		return (ANTLRTokenType)15;
+	>>
+
+\\r
+	<<
+		replchar ((char) 0x0D); more ();   
+		return (ANTLRTokenType)16;
+	>>
+
+\\f
+	<<
+		replchar ((char) 0x0C); more ();   
+		return (ANTLRTokenType)17;
+	>>
+
+\\a
+	<<
+		replchar ((char) 0x07); more ();   
+		return (ANTLRTokenType)18;
+	>>
+
+\\\\
+	<<
+		replchar ((char) 0x5C); more ();   
+		return (ANTLRTokenType)19;
+	>>
+
+\\?
+	<<
+		replchar ((char) 0x3F); more ();   
+		return (ANTLRTokenType)20;
+	>>
+
+\\'
+	<<
+		replchar ((char) 0x27); more ();   
+		return (ANTLRTokenType)21;
+	>>
+
+\"
+	<<
+		replchar ((char) 0x22); more ();   
+		return (ANTLRTokenType)22;
+	>>
+
+~[']
+	<<
+		more();  
+		return (ANTLRTokenType)23;
+	>>
+
+'
+	<<
+		mode(START);   
+		return STR;
+	>>
+
+
+%%LC_INCLUDE
+
+@
+	<<
+		return EOFT;
+	>>
+
+[\t \ ]+
+	<<
+		skip();  
+		return WS;
+	>>
+
+\n
+	<<
+		skip();newline();set_endcol(0);  
+		return NL;
+	>>
+
+( [A-Z a-z 0-9 \. _]+ ) | ( \' ~[\n \t \r \']* \' )
+	<<
+		
+		mode(START);
+		char *p=_lextext;
+		if (*p=='\'') p++;
+		for (char *q=p; *q != '\0'; q++) if (*q=='\'') *q='\0';
+		const char *    nestedFilename=mystrdup(p);
+		FILE *          nestedFILE=fopen(nestedFilename,"r");
+		if (nestedFILE == 0) {
+			fprintf(stderr,"Can't open #include file \"%s\"\n",nestedFilename);
+		} else {
+			DLGFileInput  *dlgFileInput=new DLGFileInput(nestedFILE);
+			DLGLexer      *dlgLexer=new DLGLexer(dlgFileInput,2000);
+			dlgLexer->nestedTokenStream=nestedTokenStream;
+			dlgLexer->setToken(token_to_fill);
+			dlgLexer->filename=nestedFilename;
+			TheFilenames.push(strdup(nestedFilename));
+			nestedTokenStream->newTokenStream(dlgLexer);
+		};
+		nestedTokenStream->skip();
+		return Filename;
+	>>
+
+%%

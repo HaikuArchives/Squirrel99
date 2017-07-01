@@ -1,0 +1,51 @@
+Garbage collection of ANTLRTokens disabled
+
+ ( = <#2> result <#1> ( + <#10> ( + <#8> ( + <#4> a <#3> ( * <#6> b <#5> ) ) d <#9> ) ( * <#12> e <#11> ) ) )
+TokenType (\=) Text (=) AST # 2  Line=1  Col=8
+  TokenType (ID) Text (result) AST # 1  Line=1  Col=1
+  TokenType (\+) Text (+) AST # 10  Line=2  Col=25
+    TokenType (\+) Text (+) AST # 8  Line=2  Col=21
+      TokenType (\+) Text (+) AST # 4  Line=1  Col=12
+        TokenType (ID) Text (a) AST # 3  Line=1  Col=10
+        TokenType (\*) Text (*) AST # 6  Line=1  Col=16
+          TokenType (ID) Text (b) AST # 5  Line=1  Col=14
+      TokenType (ID) Text (d) AST # 9  Line=2  Col=23
+    TokenType (\*) Text (*) AST # 12  Line=3  Col=29
+      TokenType (ID) Text (e) AST # 11  Line=3  Col=28
+
+*** Dump of ASTs on list ***
+
+DumpList TokenType (Eof) AST # 14
+DumpList TokenType (ID) Text (f) AST # 13  Line=3  Col=30
+DumpList TokenType (\*) Text (*) AST # 12  Line=3  Col=29
+DumpList TokenType (ID) Text (e) AST # 11  Line=3  Col=28
+DumpList TokenType (\+) Text (+) AST # 10  Line=2  Col=25
+DumpList TokenType (ID) Text (d) AST # 9  Line=2  Col=23
+DumpList TokenType (\+) Text (+) AST # 8  Line=2  Col=21
+DumpList TokenType (ID) Text (c) AST # 7  Line=2  Col=19
+DumpList TokenType (\*) Text (*) AST # 6  Line=1  Col=16
+DumpList TokenType (ID) Text (b) AST # 5  Line=1  Col=14
+DumpList TokenType (\+) Text (+) AST # 4  Line=1  Col=12
+DumpList TokenType (ID) Text (a) AST # 3  Line=1  Col=10
+DumpList TokenType (\=) Text (=) AST # 2  Line=1  Col=8
+DumpList TokenType (ID) Text (result) AST # 1  Line=1  Col=1
+
+*** End of Dump ***
+
+AST elements on NoLeak List
+
+*** Dump of ASTs on list ***
+
+DumpList TokenType (ID) Text (f) AST # 13  Line=3  Col=30
+DumpList TokenType (ID) Text (c) AST # 7  Line=2  Col=19
+
+*** End of Dump ***
+
+Tokens remaining on NoLeak List after AST::destroyList
+
+*** Dump of Tokens on list ***
+
+DumpList TokenType "EOF" Token # 15
+
+*** End of Dump ***
+

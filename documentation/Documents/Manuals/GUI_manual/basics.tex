@@ -1,0 +1,496 @@
+\chapter{Basis of GUI Building}
+
+Like most of the recent (or less) scripting languages like Tcl or Python, \squirrel disposes of a special tool for building Graphical User Interfaces, in much the same way as Tk has been added to Tcl or Python.
+
+This Add-On to \squirrel is a warper to the {\em Be Interface Kit} and was written for the \squirrel programming language. This Add-On makes it easy to create widgets and frameworks to be placed on a window.\\
+
+This manual concentrates on the features of the GUI Add-On of \squirrel rather than on the Be Interface Kit.  You may consult the {\em Be Developer Guide} for a complete coverage of this Kit as well as other Kits.\\
+
+{\em Graphical User Interfaces} are rather difficult to put on static paper as they are dynamic. We encourage you to run each example found in this chapter to get a better feeling for them.  Experimenting with this Add-On and \squirrel is also a good way to learn GUI programming. Installing other packages other than \squirrel is not required since this Add-on is part of the standard \squirrel distribution.\\
+
+Let's start now by a set of small examples to illustrate the very basics of GUI building with \squirrel.\\
+
+\section{Hello World}
+
+Traditionally, the first example on whatever computer language is always this one, with or without GUI. As shown below, it takes four lines of \squirrel to produce the code :
+	
+\example{ex1}	
+\begin{listing}{1}
+make "hello Window "titled 'Squirrel' [100 100]
+make "button Button 'Hello World !'
+Glue :hello "top [] :button 
+$hello~show	
+\end{listing}
+
+That's all ... no inheritance and no class.  It's that simple. A window is created when the code is executed and it's look like :
+
+\scr{s1}{ex1-1.eps}{Hello World}{92pt}{55pt}
+
+Even a trivial example like this {\em Hello World} demonstrates a great deal about the common steps in GUI programming :
+
+\begin{enumerate}
+\item Create a window
+\item Create a widget
+\item Arrange the widget on a parent (a window here)
+\item Brins the window to the screen
+\end{enumerate}
+
+Once the window is created, \squirrel will wait for it to be destroyed and will process all the user-generated events. When the window appears, the widgets will be displayed only after being glued (placed) first on the window or on a parent widget.\\
+
+The {\tt Glue} primitive used to place the button on the window is the {\em geometry manager} which controls how the widgets are arranged in a parent widget (or a window). The first input of this primitive is always the parent followed by the side the child is to be placed.  In this particular case, it would be the top side. The third input is the vertical and horizontal padding. It's a space in pixels which will separate the widgets from the side of the parent or the other widgets glued on the parent. It's always defined as a list of two integers. If the list is empty, no padding is used. The last input is the widget that needs to be glued on the parent. It could be more than one widget by adding other objects as input to the primitive.\\
+
+Widget gluing is how Squirrel arranges widgets in a parent. It's a very easy and popular way of placing the widgets.\\
+
+\section{Running GUI Programs}
+
+There are different ways to run a \squirrel GUI program, like with any other script:\\
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c|p{6cm}|l|}
+\hline
+\bf Methods & \multicolumn{1}{c|}{\bf Descriptions} & \multicolumn{1}{c|}{\bf Command} \\
+\hline
+Program file & Passing the program file as argument to \squirrel & \verb?% Squirrel.dr4 myfile.sqi? \\
+\hline
+Package file & Loading the program file from \squirrel & \tt load myfile.sqi \\
+\hline
+Shell script & Adding \verb?#!/path/Squirrel.5? as first line of the program file & \verb?% myfile.sqi? \\
+\hline
+Interactively & Typing the code in the \squirrel console & \verb?@> make "hello Window? \\
+\hline
+\end{tabular}
+\end{center}
+\caption{The 4 different methods to run a \squirrel script}
+\label{runscript}
+\end{table}
+
+You may choose the method which fits best your needs. The use of {\em Package files} within a {\em Shell script} is the most common.
+
+\section{Adding respond to the user actions}
+
+The example \ref{ex1} features a button, which when the user clicks on it, could perform an operation. We didn't use this possibility in the example so we could have simply written our {\em Hello World} example using a simple Text widget :
+
+\example{ex2}	
+\begin{listing}{1}
+make "hello Window "titled 'Squirrel' [100 100]
+make "text Text 'Hello World !'
+Glue :hello "top [] :text 
+$hello~show
+\end{listing}
+
+The result is:\\
+
+\screen{s2}{ex1-2.eps}{Hello World with a Text widget}
+
+The window that we have created inherited its size from when the widgets were glued on. In our two examples, the size of the window is not the same as the size of the button and the text are not the same. The way the window was created allows the user to resize it by using the bottom right corner of the border as shown in the next figure:\\
+
+\clearpage
+
+\screen{s2.1}{ex1-3.eps}{Hello World resized}
+
+If we want our Example \ref{ex1} to perform an action when the button is pressed by the user, we will have to insert a function to the primitive {\tt Hook} a {\em callback} function (also called : hook) which can then be triggered by the user.
+
+\example{ex3}	
+\begin{listing}{1}
+to exit :src
+	$hello~quit
+end
+
+make "hello Window "titled 'Squirrel' [100 100]
+make "button Button 'Hello World !'
+Hook :button "invoked "exit
+Glue :hello "top [] :button 
+$hello~show
+\end{listing}
+
+The function {\tt exit} will ask the window to quit, which then terminates the application when the button will be pressed. Take note of the inputs of the primitive {\tt Hook} on line 7 : first we have the widget to register a hook for, followed by the name of the event, and then the name of the function to execute. A further in depth discussion will be given on the {\tt Hook} primitive and {\em callbacks}.\\
+
+Hook functions can be any kind of function or primitive. However, their inputs must match the number expected by \squirrel. In the Example \ref{ex3} the exit function had one argument which was filled when the hook was called by \squirrel to the calling widget.  In this example, the calling widget was the button.
+
+\section{Event Driving programming}
+
+\squirrel works in much the same way as most GUI programming languages do such as {\em Tcl} or {\em Delphi}. It's event driven. The coding of an interface starts with the creation of the widget, followed by the registration of the action to perform, when events trigger them.\\
+
+Programming a GUI is a combination of event driven programming and sequential programming. Events trigger functions which in turn execute sequential instructions or generate another event, which will triggers events and so on ...
+
+\section{Widgets as parents}
+
+As mentioned earlier, a widget could also be a parent to other widgets. Not all the widgets could assume this role.  The widget Frame demonstrates this possibility in the next example:
+
+\example{ex4}	
+\begin{listing}{1}
+make "hello Window "titled 'Squirrel' [100 100]
+make "frame Frame
+make "text Text 'Hello World !'
+Glue :frame "top [] :text
+Glue :hello "top [] :frame
+$hello~show
+\end{listing}
+
+This example builds a frame widget and glues on it a simple text widget displaying the string {\tt 'Hello World !'}. The next figure illustrates this :\\
+
+\screen{s4}{ex1-4.eps}{Hello World with a frame}
+
+The window offers pretty much the same feature except it's a bit larger than in the Example \ref{ex2}. As well, the background of the text widget is now gray. All the changes are due to the frame widget, which by default bares a gray color.  This is the color inherited by other widgets that get glued on.\\
+
+Let's now try to glue three widgets on a frame, a text and two buttons:
+
+\example{ex5}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "f Frame "flatened
+make "text Text 'How\'s the weather out there ?'
+make "b1 Button 'Good'
+make "b2 Button 'Bad'
+Glue :f "top [] :text
+Glue :f "left [] :b1 
+Glue :f "right [] :b2
+Glue :win "top [] :f
+$win~show
+\end{listing}
+
+This example creates three widgets, stores them in the variable {\tt text}, {\tt b1} and {\tt b2} and glues them on the frame. Since we want a special layout for each widget, we need to issue three calls to the primitive {\tt Glue} in order to glue each widget where we want:\\
+
+\screen{s5}{ex1-5.eps}{3 widgets in a frame}
+
+\section{Gluing widgets}
+
+The layout of the widgets in the previous example could appear a bit surprising but it's actually what we have asked for. The {\em geometry manager} of \squirrel is working sequentially in the order given to the widget. In this example the widget {\tt :text} will be glued first, followed by the button {\tt :b1} and then {\tt :b2}. When {\tt :b1} is glued on the frame, the text widget is already there and so the {\em geometry manager} would place the button on the left of anything already glued:\\
+
+\screen{s5.1}{ex1-5.1.eps}{After the second call to {\tt Glue}}
+
+If we wanted to have the two buttons side-by-side below the text, we should have put the buttons on a new frame and glued it on the frame with the text widget like that shown in the next example :
+
+\example{ex6}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+make "buttons Frame
+make "text Text 'How\'s the weather out there ?'
+make "b1 Button 'Good'
+make "b2 Button 'Bad'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "top [] :frame :buttons
+$win~show
+\end{listing}
+
+The new frame {\tt :buttons} is holding the two button widgets. This frame is glued in the same {\tt Glue} call than the first frame used (holding the text widget) but following it so glued below the {\tt :frame} frame.
+
+\screen{s6}{ex1-6.eps}{With two frames}
+
+Using frames is the best way to achieve what you want. {\em Divide and conquer} is the motto of the successful gluing strategy. We could have also given a 3D appearance to our button frame by using one of the Frame widget options:
+
+\example{ex7}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+make "buttons Frame "raised
+make "text Text 'How\'s the weather out there ?'
+make "b1 Button 'Good'
+make "b2 Button 'Bad'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "top [] :frame :buttons
+$win~show
+\end{listing}
+
+The frame widget will be discussed later but it supports several {\em 3D Looks} like the raised look used in this example:
+
+\screen{s7}{ex1-7.eps}{Using 3D Looking frame}
+
+When the user resizes the window (if he's allowed to), the {\em geometry manager} will change the position and the size of the widgets according to their configurations and to what is possible. If we try on the Example \ref{ex7}, we will get :
+
+\screen{s7.1}{ex1-8.eps}{After resizing of the window}
+
+The {\em geometry manager} is aware of only four positions within a parent : {\tt top bottom left right}. When both frames are glued on top of the window, their positions will not be changed when we resize the parent.\\ 
+
+It may appear than in the Figure 1.\ref{s7.1}, that the two frames are left justified within the window. This is always the default with the {\em geometry manager}. We will see later in another example how to change this alignment but first let's try to set our frames to always follow the bottom side of the window :
+
+\example{ex8}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+make "buttons Frame "raised
+make "text Text 'How\'s the weather out there ?'
+make "b1 Button 'Good'
+make "b2 Button 'Bad'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "bottom [] :frame :buttons
+$win~show
+\end{listing}
+
+The change in Example \ref{ex7} is located on line 10, within the {\tt Glue} primitive which places the two frames on the window. Instead of the top position we ask for the bottom position and the next Figure show what's happening :
+
+\screen{s8}{ex1-9.eps}{Gluing on the bottom}
+
+The ordering of the {\tt Glue} primitive in which the widgets are given as input will determine the way the {\em geometry manager} will place them. When gluing on the bottom of a parent, the first widget will always be the last widget, the closer to the bottom side of the parent. To place the buttons below the text, we need to invert the widgets order as shown in the next example :
+
+\example{ex9}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+make "buttons Frame "raised
+make "text Text 'How\'s the weather out there ?'
+make "b1 Button 'Good'
+make "b2 Button 'Bad'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "bottom [] :buttons :frame
+$win~show
+\end{listing}
+
+The window looks something like the Figure \ref{s7} :
+
+\screen{s9}{ex1-10.eps}{Gluing on the bottom after inverting the widgets order}
+
+The difference between the two examples is apparent when the user resizes the window:
+
+\screen{s9.1}{ex1-11.eps}{Bottom gluing after resizing of the window}
+
+The two frames now follow the bottom side of the parent as expected.  We would have obtained similar results if we had glued it on the right :
+
+\screen{s9.2}{ex1-12.eps}{Right gluing after resizing of the window}
+
+\section{Widget alignment within a parent}
+
+In our previous example, we were lucky. The size of the text widget was exactly the same size as that of the button's frame, which makes the window appear neat. Let's try another string for our text widget using a different button string:
+
+\example{ex10}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+make "buttons Frame "raised
+make "text Text 'Wanna skydiving now ?'
+make "b1 Button 'I rather not'
+make "b2 Button 'Let\'s go!'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "bottom [] :buttons :frame
+$win~show
+\end{listing}
+
+\screen{s10}{ex1-13.eps}{Different size of widgets}
+
+Two things don't appear right in this window; the white rectangle on the right and the button size are different.  Let's now try to fix one of the two problems.  The Button widget description, described later, will show how to make them the same size.\\
+
+Each type of widget in \squirrel disposes some configurable settings after the creation of the widget. The one currently of interest to us is the horizontal and vertical alignment. For our next example, we are going to set the horizontal alignment :
+
+\example{ex11}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+$frame~config "align.h "set "center
+make "buttons Frame "raised
+make "text Text 'Wanna skydiving now ?'
+make "b1 Button 'I rather not'
+make "b2 Button 'Let\'s go!'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "bottom [] :buttons :frame
+$win~show
+\end{listing}
+
+The only difference between this example and the previous is the new third line that calls the method {\tt config} on the object frame. This call sets the horizontal alignment to the center, which horizontally centers the frame as shown in the next figure :
+
+\screen{s11}{ex1-14.eps}{Center horizontal alignment for a frame widget}
+
+What is happening when the user resizes the window ? The {\em geometry manager} should change the position of each widget according to the gluing rules and the widget configurations. So if the window is wider, our text frame should always be centered like shown in the next figure :
+
+\newpage
+
+\screen{s11.1}{ex1-15.eps}{Window resized with a horizontal alignment}
+
+\example{ex12}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+$frame~config "align.h "set "center
+make "buttons Frame "raised
+$buttons~config "align.h "set "center
+make "text Text 'Wanna skydiving now ?'
+make "b1 Button 'I rather not'
+make "b2 Button 'Let\'s go!'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "bottom [] :buttons :frame
+$win~show
+\end{listing}
+
+The same method {\tt config} with the same input is used here.  The result becomes nicer:
+
+\screen{s12}{ex1-16.eps}{Both widgets horizontally aligned and the window is resized}
+
+What about also centering the two frames vertically also ? It should definitely be nicer ? The next example implements this solution :
+
+\example{ex13}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+$frame~config "align.h "set "center
+$frame~config "align.v "set "center
+make "buttons Frame "raised
+$buttons~config "align.h "set "center
+$buttons~config "align.v "set "center
+make "text Text 'Wanna skydiving now ?'
+make "b1 Button 'I rather not'
+make "b2 Button 'Let\'s go!'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "top [] :frame :buttons
+$win~show
+\end{listing}
+
+Two lines have been added (line 4 and 7) to set the configuration of the two frame widgets for the vertical alignment to be centered.  We have also changed the gluing position of the frames on the window so that only the top position will be accepted for vertical alignment.\\
+
+Let's now see what's happening to the widget when the user is resizing the window :
+
+\screen{s13}{ex1-17.eps}{Both frame aligned vertically and horizontally when the window is resized}
+
+It's not quite what we were expecting. Although both widgets are horizontally centered, the vertical alignment is not correct. It's actually due to a limitation of the current version of the {\em geometry manager}. This problem will be fixed in future releases. What we were expecting was to have the two frames side by side in the middle of the window.\\
+
+A working implementation would be to create a frame containing both frames, and then to align this frame in the center, vertically and then horizontally. The next example demonstrates this possibility :
+
+\example{ex14}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "container Frame
+$container~config "align.h "set "center
+$container~config "align.v "set "center
+make "frame Frame
+make "buttons Frame "raised
+make "text Text 'Wanna skydiving now ?'
+make "b1 Button 'I rather not'
+make "b2 Button 'Let\'s go!'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :container "top [] :frame :buttons
+Glue :win "top [] :container
+$win~show
+\end{listing}
+
+A new frame widget has been created and stored in the variable {\tt container}, and its configuration has been set to be always centered both vertically and horizontally. The two widget frames used previously has been glued on this new frame.
+
+\screen{s14}{ex1-18.eps}{A frame centered vertically and horizontally}
+
+The result is now what we were expecting earlier, although we could have also set the text widget to be centered within its parent. We would have then obtained this nicer window :
+
+\newpage
+
+\screen{s14.1}{ex1-19.eps}{All frames centered vertically and horizontally}
+
+\section{Expanding widgets}
+
+Recall the Example \ref{ex10} which was building the window:
+
+\screen{s10d}{ex1-13.eps}{Different size of widgets}
+
+We could have the text frame expand itself to cover the white rectangle just by using an option from the frame:
+
+\example{ex15}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+$frame~config "expand.x "set true
+make "buttons Frame "raised
+make "text Text 'Wanna skydiving now ?'
+make "b1 Button 'I rather not'
+make "b2 Button 'Let\'s go!'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "bottom [] :buttons :frame
+$win~show
+\end{listing}
+
+The difference between Example \ref{ex10} and this example is the third line that we have added which set the horizontal expanding mode of the frame to true.  This means that the frame could expand itself. We could check the next figure to see if the result is correct:
+
+\screen{s15}{ex1-20.eps}{Frame expanded horizontally}
+
+What's happening now when the user resizes the window ?
+
+\screen{s15.1}{ex1-21.eps}{Frame expanded horizontally and window resized}
+
+The frame has correctly expanded its width with respect to the new window width. We could have also configure the text frame to expand its size vertically as the widget is glued on the bottom of the window:
+
+\example{ex16}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+$frame~config "expand.x "set true
+$frame~config "expand.y "set true
+make "buttons Frame "raised
+make "text Text 'Wanna skydiving now ?'
+make "b1 Button 'I rather not'
+make "b2 Button 'Let\'s go!'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "bottom [] :buttons :frame
+$win~show
+\end{listing}
+
+We add a new line (line 4) setting to the value true to configure the frame and give it an expanding possibility in the vertical direction({\tt expand.y}) The window looks like this when the user resizes it:
+
+\screen{s16}{ex1-22.eps}{Frame expanded vertically and horizontally}
+
+We could now also expand the button frame for a better look :
+
+\example{ex17}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+$frame~config "expand.x "set true
+$frame~config "expand.y "set true
+make "buttons Frame "raised
+$buttons~config "expand.x "set true
+make "text Text 'Wanna skydiving now ?'
+make "b1 Button 'I rather not'
+make "b2 Button 'Let\'s go!'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "bottom [] :buttons :frame
+$win~show
+\end{listing}
+
+It is not necessary to set the {\tt expand.y} property of the button's frame for this frame is always between the text frame and the bottom side of the window. When resized by the user, the window will appear as:
+
+\screen{s17}{ex1-23.eps}{Both frame expanded}
+
+Notice the position of the button.  One is on the left and the other is on the right due to the gluing configuration for the buttons.\\
+
+To complete this set of simple examples of \squirrel GUI capabilities, let's simply set the text widget to be always centered within its parent frame:
+
+\example{ex18}	
+\begin{listing}{1}
+make "win Window "titled 'Squirrel' [100 100]
+make "frame Frame
+$frame~config "expand.x "set true
+$frame~config "expand.y "set true
+make "buttons Frame "raised
+$buttons~config "expand.x "set true
+make "text Text 'Wanna skydiving now ?'
+$text~config "align.v "set "center
+$text~config "align.h "set "center
+make "b1 Button 'I rather not'
+make "b2 Button 'Let\'s go!'
+Glue :frame "top [] :text
+Glue :buttons "left [] :b1 
+Glue :buttons "right [] :b2
+Glue :win "bottom [] :buttons :frame
+$win~show
+\end{listing}
+
+\screen{s18}{ex1-24.eps}{Text widget centered in an expanded frame}

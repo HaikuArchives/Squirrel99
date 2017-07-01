@@ -1,0 +1,142 @@
+/*
+ * beMegaVox
+ *
+ * file ?	Settings.sqi
+ * what	?	Build the settings window
+ * who	?	jlv
+ * when	?	09/20/00
+ * last	?	11/20/00
+ *
+ *
+ * [e-] 2000
+ */
+ 
+
+/*
+ * function    : M_Q_Settings
+ * purpose     : Create the application settings
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to M_Q_Settings :q :parent
+
+	$q~i.enable :menu_setting false
+
+	make.local "win Window "titled 'Settings' [100 100]	"not.resizable
+	
+	; we create the mane frame
+	make.local "frame Frame "flattened
+	
+	; we create a frame for the left part
+	make.local "fleft Frame "flattened	
+	
+	; font/logfile/bcc box
+	make.local "fbox Frame "flattened
+	$fbox~config "expand "set true true
+	; font box 
+	make.local "bfont Box 'Font'
+	$bfont~config "expand "set true true
+	; font family
+	make.local "dfam DropList 'Family' "set_family Font.families
+	; font size
+	make.local "dsize DropList 'Size' "set_fsize [9 10 11 12 14 16 18 20 24 36]
+	; we glue on the font box
+	Glue :bfont "top [] :dfam :dsize	
+
+	; logfile box
+	make.local "bdb Box 'Logfile parsing'
+	$bdb~config "expand "set true true
+	; separator
+	make.local "sep Entry 'Field separator :' "set_separator [0 2]
+	$sep~config "expand "set true false
+	; email field
+	make.local "email Entry 'E-Mail field :' "set_field_email [0 2]
+	$email~config "expand "set true false
+	; news field
+	make.local "letter Entry 'Newsletter field :' "set_field_letter [0 2]
+	$letter~config "expand "set true false
+	; news field
+	make.local "news Entry 'Announce field :' "set_field_news [0 2]
+	$news~config "expand "set true false
+	; wish field
+	make.local "wish Entry 'Recipient agree :' "set_wish_yes [0 5]
+	$wish~config "expand "set true false			
+	; we glue the widget on the box
+	Glue :bdb "top [] :sep :email :news :letter :wish
+	
+	; the bcc box
+	make.local "fbcc Box 'Blind Carbon Copy'
+	$fbcc~config "expand.x "set true
+	
+	; the bcc checkbox
+	make.local "bcc CheckBox 'Use it to broadcast' "set_bcc
+	make "bcc.p Entry 'Recipients Pool\'s size' "set_bcc_pool [0 3]
+
+		
+	bind "set_bcc "set {
+		if ($bcc.p~is.enable) {
+			$bcc.p~enable false	
+		} {
+			$bcc.p~enable true	
+		}			
+	}	
+	
+	if not :set_bcc {
+		$bcc.p~enable false			
+	}
+			
+	Glue :fbcc "top [] :bcc :bcc.p
+
+	; we glue the font and bcc box on the fleft frame
+	Glue :fleft "top [] :bfont :fbcc
+	
+	; we glue on the box frame the box
+	Glue :fbox "left [] :fleft :bdb
+
+	; the confirm to quit checkbox
+	make.local "qconf CheckBox 'Confirm to quit' "set_qconf
+	
+	; the add ads checkbox
+	make.local "ads CheckBox 'Add propaganda' "set_ads
+						
+	; a frame for the checkbox
+	make.local "fother Frame "flattened
+	$fother~config "expand "set true true	
+	
+	; we glue them
+	Glue :fother "left [] :qconf
+	Glue :fother "right [] :ads	
+	
+	Glue :frame "top [2 2] :fbox :fother 	
+	
+	Glue :win "top [] :frame 		
+
+	Hook :win "quit "Quit_Setting :q
+
+	$win~center "set $parent~center "get	
+	$win~show
+		
+	make "set_win :win
+	
+end
+
+/*
+ * function    : Quit_Setting
+ * purpose     : The user close the Settings window
+ * input       : 
+ *
+ * src, window to close
+ * q, menu to enable
+ *
+ * output      : boolean
+ * side effect : none
+ */
+to Quit_Setting :src :q 
+	$q~i.enable :menu_setting true
+	output true
+end
+
+
+
+

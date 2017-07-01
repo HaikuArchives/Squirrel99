@@ -1,0 +1,263 @@
+Changes of Squirrel
+
+-> After DR1
+
+* Using PCCTS 1.33 M20
+* Added the SQI_Pointer class
+* Recompiled all the Add-On due to several changes in the library
+* Added bultin "load" to Communications
+* Changed pow operator ^ to ** 
+* Added operator & |
+* Fixed a problem when in noconsole and when quitting last window
+* Fixed a problem in the exception of unknow variable
+* Fixed a bug in the precedences or the math operators
+* Fixed a segmentation fault when quitting Squirrel
+* Fixed a segmentation fault with the noconsole mode when quitting Squirrel
+* Fixed a bug in the call of a function
+* Added primitive "call" to the control addon
+* Fixed the problem of non quitting Squirrel when in noconsole
+* Addon Arithmetic has been renomed Mathematics
+* primitive avg renomed av (Mathematics)
+* added deg2rad and rad2deg  (Mathematics)
+* added dsin, dcos, dtan, dasin, dacos, datan, dsinh,dcosh,dtanh  (Mathematics)
+* added primitive "string" to "String Processing"
+
+-> After DR2
+
+* Fixed a bug with the local variable
+(Changed : Squirrel.dr2 SQILib.so, Workspace.so, Communication.so)
+* Fixed 2 bugs in the GUI.so Addon , the variable linked to a ListView wasn't updated
+when the selection was changed without any hook, and now the command "Quit" call the "quit hook when quitting
+* Fixed a bug in the Add-on : 2D Drawing Board.so
+
+-> After DR2.1
+
+* Added new object class : SQI_ThePointer
+* Added new Object-dimension to Squirrel $blah~do
+* Added new Add-on "File IO.so"
+* Added primitive split and split.as.string to "String Processing"
+* foreach primitive is for.each (error in the user manual)
+* Added primitive ljoin to "List Processing"
+* Added new object Dictionary , Vector
+* Optimizations in VarMap, BuiltInMap and UFMap and Execution speed
+* Added command make.local to WorkSpace
+* Added command is.object to "Data Processing"
+* Added new Add-on "Storage.so"
+* Fixed a bug in "make" within a function and using a variable for the first time
+* Fixed a bug in the list (operator = , + etc ...)
+* Fixed a bug in the interpreter (when using an object within a function)
+
+-> After DR3
+
+* Fixed a bug in for.each
+* Redesigned and recoded the GUI Addon
+* Variable binding
+* Fixed a bug in the GC of the interpreter
+* Fixed a bug when using a member call in a boolean statement as in "if"
+* Changed gseq to support creating a list in reverse : gseq 10 5 will give 10 9 8 7 6 5
+* Added Precision to the addon Comunication
+* Fixed some problem of floating display with precision
+* Fixed a bug in is.float is.object is.number
+
+-> After DR4
+
+* Added add-on exec with primitives :  exec.wait exec.bg
+* Changed the way Squirrel is launched (2 executables)
+* Added primitives dir.current , dir.list , dir.find, dir.exist .... to the storage add-on
+* New Add-on Threading that support multi-threading in Squirrel
+* Fixed a bug when using output inside a loop
+
+-> After DR4.5
+
+* Added method i.enable to the object menu to enable or disable item
+* Fixed a bug of default size of the Box
+* Fixed a bug when updating the linked variable of a CheckBox
+* changed list and sentence to avoid cloning the objects
+* Fixed a bug when updating the config of any widget (looper must be locked)
+* Added method i.mark to the Menu to mark an item
+
+-> After DR4.6
+
+* Added directive #include to include a squirrel file
+* A bit more detail when a syntax error occurs
+* Total rewrite of Skippy (aka the turtle)
+* using the invoke method of a widget in a hook now work properly
+	(widgets : Button , CheckBox, Entry , RadioButton )
+* fixed a bug in RadioButton when the linked variable doesn't exist (crash)
+* Added severals primitives to the String Processing add-on
+	-> substr , sinsert, sreplace , serase , sleft , sright, sfind , sfind.all, sfind.last
+	-> sfirst.of , slast.of , sfirst.not.of , slast.not.of
+* Added new primitives to the storage add-on
+	-> entry.delete entry.rename entry.move
+* new Picture object in the GUI
+	-> new primitive is.picture
+* Fixed a bug in the interpreter (output of a primitives/methods as input of an primitive/methods)
+* primitive Wait for the Threading add-on that wait for a variable to be modified
+
+-> After DR4.7
+
+* changed catch to accept a block to execute when an error occurs
+* added control structure switch
+* support of the number hexadecimal
+* fixed a little bug in the display of the float with precision
+* added Message object
+
+-> After DR4.8
+
+* Compiled for BeOS 5.0 [X]
+* Fixed a bug in the widget hook [X]
+* Added FilePanel in the Storage Add-On [X]
+* Added Memo, StatusBar widgets to the GUI Add-On [X]
+* Added global variable _file [X]
+* Added primitives lsub to the List Processing Add-On [X]
+* Added method resize.to , resize.by and center to the Window [X]
+* Fixed a bug in DropList when the value of the variable wasn't found in the list [X]
+* Fixed a bug in the interpretor that was forbiding to use string or word in a test
+expression (if) [X]
+* Added empty method to the Dictionary (Data Structure Add-on) [X]
+* Changed the widget Entry to make diferrence between number and string [X]
+* Fixed a bug in attr.set with a word [X]
+* Fixed a bug that was when creating window quitting Squirrel before any window appears
+(console mode only bug) [X]
+
+-> After DR4.9
+
+* Fixed a bug in substr (String Processing Add-On)
+* Added "timing" to the Time Add-on
+* added "with"  that load addon on request only
+* true and false are no longer primitive but literal value
+* a list can be spread on several lines 
+
+-> After DR5.0
+
+* Fixed a bug when adding object created in a function to a list (crash) [X]
+* Fixed a bug when not using the output of a primitive/function in the last call of
+a function (object removed) (special case) [X]
+* changed the name of the executable (no more .dr.) [X]
+* Changed the primitive "with" to "use" [X]
+* Added mime.desc mime.install mime.delete mime.exist [X]
+* Fixed some memory problems [X]
+* a list can contain variable and block now, when the list is used as input, it contents is
+derefed [X]
+* added cc and bcc to the Mail object [X]
+* added primitives strim, strim.l, strim.r, smatch, to String Processing [X]
+* added method "exist" to the Dictionary [X]
+* added barberpole widget to the GUI addon [X]
+* added new primitive launch to the Exec add-on [X]
+* added global variable _path _install and _version [X]
+* added modifers to the menu item : "alt "shift "control "option [X]
+* added the modifier to the keyup/keydown/mouseup/mousedown event to the widgets [X]
+
+-> After 5.1
+
+* Fixed a crash caused by FilePanel with filter (Storage Add-on)
+* Fixed a crash when killing an non existent thread (Thread Add-on)
+* Removed a debug trace when using keydown in BarberPole widget (GUI Add-on)
+* Fixed a problem on quitting window (using the variable)
+
+-> After 5.1b
+
+* Fixed a bug when using list in expression such as :a <> [3 4 5]
+* Fixed a bug when a SimpleList was destroyed
+* Fixed a crash when the extra input of a hook function was created within a function
+* Added new primitive lfind to the List Processing Add-on
+
+-> After 5.1c
+
+* Added method w.string to Skippy [X]
+
+* added global variable _from that inidcates from where the script has been started :
+"terminal "tracker or "console [X]
+* removed Squirrel banner when starting script from a terminal
+* script can return an error code (using "output") [x]
+* Question and Info moved from the GUI Add-on in the Communication Add-On (loaded
+automaticaly)  [X]
+* added primitives in WorkSpace to access to ENV (env.list, env.exist, env.get,env.set) [X]
+* added hook "drop" for when something is drag&droped over a widget (GUI Add-on)
+* added primitive entry.stats to the Storage Add-on [X]
+* difference return a positive number (maths add-on) [X]
+
+-> After 5.2
+
+* Added global variable _error that contain the error message when an exception is
+raised
+* Speed improvement over function calling (up to 3 times faster)
+
+-> After 5.2b
+
+* rewrote VarMap , a bit faster in recursive mostly (ho yeah ??)
+* rewrote Builtin and function map (should be a bit faster and less memory consuming)
+* fixed a bug caused by output (in some case)
+* addon.func return NOW a list of keyword (before it was a single string)
+* fixed a bug when destroying widget (seg fault)
+* fixed a crash when a script started from the tracker (without the console) was printing
+to the stdout
+
+-> After 5.2c
+
+[*] Added Image object type
+[*] Added method draw and c.draw to Skippy object
+[*] Added primitive mime.icon to get/set mime type icon
+[*] Partial rewrote of the GUI Add-On 
+	-> Less memory consumtion
+	-> Smaller Add-On (under 1Mb)
+[*] Added widget Viewer to display Image	
+[*] Added widget Odometer to Widgets add-on
+[*] Fixed a bug in banner (linked variable is created if not existing)	
+[*] Added method "invalidate" to all the widget		
+[*] Added config "origin" to the Sheet widget	
+[*] Menu can display an image instead of text	
+[*] Added Busy primitive that set the cursor of the application to a spinning wheel
+[*] Fixed few issue in the way the end of a script was handled (possible crash occuring)
+[*] Added cursor config to widgets (severals type of cursors available)
+[*] Added primitive entry.icon that get/set the icon of an entry
+[*] Fixed a bug : Menu inherit font of the MenuBar
+[*] Added method i.font to Menu
+[*] Added primitives safter and sbefore to the String Processing Add-On
+[*] Menu now spawn a thread to execute the hook
+[*] Widget hooks : entered, exited, focused, invoked, selected and changed spawn a thread
+   to be executed
+[*] Fixed a bug with FilePanel (lost message)
+[*] COMMAND-Q ask the window to be close (and may end the application) without executing
+   a menu hook (if ALT-Q is used as shortcut)
+[*] added primitive lremove to the List Processing Add-On
+[*] Question/Info accept an image as well  as a word
+[*] Fixed a bug in SQILib.a (crash)
+[*] Fixed a bug with widget Memo, when changing it contents
+[*] String can be spraid over several line , tabulation in a string are no longer taking in count
+[*] Use \\ followed by a \n to spread a function/primitive call onto several lines
+[*] added primitive entry.exists to the Storage Add-On
+[*] renamed mime.exist in mime.exists, dir.exist in dir.exists , attr.exist in attr.exists
+[*] remaned font.exist in font.exists
+[*] renamed method exist of the dictionary in exists
+[*] Memo widget changed, scrollbar always visible (both)
+[*] Demo "EzCalc" improved
+[*] added config "constraint" and "limit" to the window
+
+->After 5.3
+
+* Fixed a crash when using primitive show on a block 
+
+	make "blk {print "hello}
+	show :blk
+
+	->Thanks to Vincent Zee <zenzee@bart.nl>
+
+* Fixed a bug in the GUI Add-on with the minimum width of a window in constraint = auto
+* Fixed a small problem in gluing widget bottom and right
+* Fixed minor issue in the GUI Add-on (widget gluing)
+* Fixed error in Memo widget when jumping to a line number
+
+-> After 5.3b
+
+* Fixed severals issues in the Memo widget
+
+-> After 5.3c
+
+* A little bit less memory consumption 
+* Info and Question minor glitch fixed (window much wider than needed)
+* Changes in the Mail Add-On
+	- Mail renamed mail.new
+	- Send renamed mail.send
+
+

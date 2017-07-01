@@ -1,0 +1,435 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+ 
+<head>
+<title>beSpotLight</title>
+<style>
+      A {
+      text-decoration : none; 
+      font-weight: bold
+      }
+</style>
+</head>
+<body bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+
+<table align=center>
+
+<tr>
+<td align=center>
+<big>Using <i>beSpotLight</i></big>
+<p>
+<image src="./Images/bespotlight.gif">
+<p>
+<i>Version 0.8 (02/28/00)</i>
+</td>
+</tr>
+<tr>
+<td> 
+<table width=100%>
+<tr>
+<td>
+<small><a href="mailto:jlv@kirilla.com"><i>Jean-Louis Villecroze</i></a></small>
+</td>
+<td align=right>
+<small><i><a href="http://www.kirilla.com">Kirilla</a></i></small>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>What is beSpotLight ?</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+<i>beSpotLight</i> is a little application that can be use to create and display a simple set of slides to support an oral presentation for event such as a meeting or symposium. You can also take export the slides to a GIF file for publishing it on the web (for example).
+<p>
+The application exploit the <i>Skippy</i> Add-On of <i>Squirrel</i> for the rendering of the slides, so don't expect anything as powerfull and fancy than PowerPoint.
+<p>
+The current capability of <i>beSpotLight</i> are shown in this demonstration (you will find it in the <tt>Demos</tt> subdirectory) :
+<p>
+<center>
+<image src="./Images/demo.png">
+</center>
+<p>
+The presentation is written in Squirrel and this make possible <i>interactive</i> and/or <i>scripted</i> presentation. You will find a complete (and real) presentation in the file <tt>Squirrel Presentation</i>. It is the presentation I used during BeGeistert 5 back in October '00 in Germany.
+<p>
+This application is written in <i>Squirrel</i> (5.3 or higher) (you may download it on <a href="http://www.bebits.com/app/344">BeBits</a> if you don't have it allready). 
+<p>
+
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>Contents of this document</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<ul>
+<li><a href=#1>A presentation</a>
+<li><a href=#2>Navigation and Key shortcuts</a>
+<li><a href=#3>Rendering functions</a>
+<li><a href=#4>Hacking <i>beSpotLight</i></a>
+<li><a href=#5>Support & Feedback</a>
+<li><a href=#6>Version History</a>
+</ul>
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="1">A presentation</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+A presentation is a set of slides that are rendered one by one. Navigation within the slides is done by the keyboard.
+<p> 
+It is a <special kind of i>Squirrel</i> script loaded in the application. The MIME Type of any presentation script <b>must</b> be <tt>text/x-script.bespotlight</tt>.
+<p>
+A correct presentation must contains several things to work:
+<p>
+<ul>
+<li> A function for each slide of the presentation
+<li> Severals variables thats set the presentation properties, such as font size or title.
+</ul>
+<p>
+When <i>beSpotLight</i> is started you will get:
+<p>
+<center>
+<img src="./Images/void.gif">
+</center>
+</p>
+Use <tt>CTRL-l</tt> to select a presentation to load, or drag&drop one in the window. Then, once loaded, a simple presentation like the <tt>Empty</tt> one from the <i>Demo</i> folder will look like:
+<p>
+<center>
+<img src="./Images/empty.gif">
+</center> 
+<P>
+Note that the clock on the top/right corner is updated every seconds.
+<p>
+Let's have a look to the code of this presentation :
+<table>
+<tr>
+<td>
+<sup>
+<pre>
+; Definition of a slide
+to Slide1 :s
+	RenderFrame :s 1 (llength :slides)
+end
+</pre>
+</sup>
+<td>
+<td bgcolor="#CCCCFF" align=left>
+This function is mean to be run <b>everytime</b> the first slide of the presentation has to be rendered. For this page, we just display a frame around the slide. Go on <a href=#3>Part 3</a> of this article for more details on the function <tt>RenderFrame</tt>.
+<p>
+Each functions describes the content of one slide. This is done by a set of calls to the Rendering functions.
+</td>
+</tr>
+<tr>
+<td>
+<sup>
+<pre>
+; list of all the slides of the presentation
+make "slides [
+	"Slide1
+]
+</pre>
+</sup>
+<td>
+<td bgcolor="#CCCCFF" align=left>
+The variable <tt>slides</tt> contains the list of all the presentation's slides functions.
+</td>
+</tr>
+<tr>
+<td>
+<sup>
+<pre>
+; width and height of the presentation slides
+make "width  300
+make "height 200 
+</pre>
+</sup>
+<td>
+<td bgcolor="#CCCCFF" align=left>
+Once set, the size of the slides can't be changed and will be the same for whole presentation. The width and height are given in pixels.
+</td>
+</tr>
+<tr>
+<td>
+<sup>
+<pre>
+; various sizes
+make "top.col 30
+make "top.line 100
+make "std.size 16
+make "title.size 26
+make "bigtitle.size 36
+make "std.tab 50
+</pre>
+</sup>
+<p>
+<td>
+<td bgcolor="#CCCCFF" align=left>
+This set of variables definies the default size used for the presentation. Change are possible anywhere in the presentation.<P>
+<tt>top.col</tt> is the left spacing before the start of a line<br>
+<tt>top.line</tt> is the top spacing before the first line of a slide<br>
+<tt>std.size</tt> is the font size for the common text<br>
+<tt>title.size</tt> is the font size for the slides title<br>
+<tt>bigtitle.size</tt> is the font size for the presentation title<br>
+<tt>std.tab</tt> is the default tabulation width
+</td>
+</tr>
+<tr>
+<td>
+<sup>
+<pre>
+; font name
+make "font.name 'Swis721 BT'
+</pre>
+</sup>
+<td>
+<td bgcolor="#CCCCFF" align=left>
+Family name of the font to use (by default) for the <b>whole</b> presentation.
+</td>
+</tr>
+<tr>
+<td>
+<sup>
+<pre>
+; Shall will display a clock ?
+make "show.clock true
+</pre>
+</sup>
+<td>
+<td bgcolor="#CCCCFF" align=left>
+This variable indicates if we want to display a clock that will be updated <b>every</b> second (Displayed even without the frame around the slide).
+</td>
+</tr>
+<tr>
+<td>
+<sup>
+<pre>
+; Default Background color of the slides
+make "L.color :White
+; Default Forground color of the slides
+make "H.color :Black
+</pre>
+</sup>
+<td>
+<td bgcolor="#CCCCFF" align=left>
+Altought the color used in a slide can be changed anytimes, the default colors to be use
+for the <b>whole</b> presentation are definied in the variables : <tt>L.color</tt> and <tt>H.color</tt>
+</td>
+</tr>
+<tr>
+<td>
+<sup>
+<pre>
+; informations on the presentation
+make "app.title 'Application Title'
+make "pres.title ' Presentation Title '
+make "pres.event ' Presentation event ' 
+make "pres.author 'Author'
+</pre>
+</sup>
+<td>
+<td bgcolor="#CCCCFF" align=left>
+All thoses variables but <tt>app.title</tt>, will be displayed on each slide's frame (if the frame is rendered). <tt>app.title</tt> will be set on the window yellow tab.
+</td>
+</tr>
+</table>
+<p>
+In the <tt>Demos</tt> subdirectory, you will find the <tt>Empty</tt> script that is a skeleton of a presentation. You can use it as the starting point to you own presentation.
+<p>
+Some colors are allready definied in the <i>Squirrel</i> script file <tt>Colors.sqi</tt>. This file is loaded by <i>beSpotLight</i> so you will have all the colors it defines known from your presentation. This file is in the <tt>Libraries</tt> directory of the <i>Squirrel</i> distribution you have installed on your computer.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="2">Navigation and Key shortcuts</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+To navigate trought your presentation, you can use the following keyboard shortcuts :
+<p>
+<table border=1>
+<tr><th>Page-Up</th><td>Previous slide</td></tr>
+<tr><th>Page-Down</th><td>Next slide</td></tr>
+<tr><th>1,2,3 ... 8,9</th><td>Jump by nth slide(s)</td></tr>
+<tr><th>f</th><td>Go to the first slide</td></tr>
+<tr><th>l</th><td>Go to the last slide</td></tr>
+</table>
+<p>
+Other shortcuts are available :
+<P>
+<table border=1>
+<tr><th>CTRL-l</th><td>Load a presentation</td></tr>
+<tr><th>CTRL-s</th><td>Save the current slide as a GIF file. The file will be named : <i>Presentation Title</i>-<i>slide index</i>.gif</td></tr>
+<tr><th>CTRL-q</th><td>Quit</td></tr>
+<tr><th>h</th><td>Display the list of shortcuts</td></tr>
+</table>
+<p>
+You can have them display in <i>beSpotLight</i> at anytime by hitting the <tt>h</tt> key.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="3">Rendering functions</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+To render your presentation, you will use a set of functions presented <a href="./funcs.html">here</a>.<p>
+
+<ul>
+<li> <a href="./funcs.html#1">Bold</a>
+<li> <a href="./funcs.html#2">GotoTop</a>
+<li> <a href="./funcs.html#1">Italic</a>
+<li> <a href="./funcs.html#3">NewLine</a>
+<li> <a href="./funcs.html#1">Regular</a>
+<li> <a href="./funcs.html#4">RenderBigTitle</a>
+<li> <a href="./funcs.html#5">RenderCode</a>
+<li> <a href="./funcs.html#6">RenderFrame</a>
+<li> <a href="./funcs.html#7">RenderImage</a>
+<li> <a href="./funcs.html#8">RenderItemize</a>
+<li> <a href="./funcs.html#9">RenderItemize.link</a>
+<li> <a href="./funcs.html#10">RenderList</a>
+<li> <a href="./funcs.html#11">RenderNumbered</a>
+<li> <a href="./funcs.html#12">RenderTable</a>
+<li> <a href="./funcs.html#13">RenderText</a>
+<li> <a href="./funcs.html#14">RenderTitle</a>
+<li> <a href="./funcs.html#1">Roman</a>
+<li> <a href="./funcs.html#15">Tab</a>
+<li> <a href="./funcs.html#15">UnTab</a>
+<li> <a href="./funcs.html#16">Space</a>
+</ul>
+
+
+
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="4">Hacking <i>beSpotLight</i></a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+One of the advantages of using a scripting language such as <i>Squirrel</i> is the way you can modify (hack) easily the script to better fit your needs or to extend it by adding new features.<P>
+
+All the source code of the application is fully readable and it can be found in the <i>Scripts</i> directory. The main script is called <i>beSpotLight</i> and that's the file that <i>Squirrel</i> executes first.<p>
+
+The application use the following scripts that contains various function and global variables:
+<ul>
+<li><tt>Hooks.sqi</tt><p>Contains all the callback functions<p>
+<li><tt>Funcs.sqi</tt><p>Various functions to load script, show the help ...<p>
+<li><tt>Render.sqi</tt><p>All the rendering functions<p>
+<li><tt>Settings.sqi</tt><p>Save and Load the application settings<p>
+</ul>
+
+The main script performs the following actions :
+<ul>
+<li>load all thoses scripts and the needed Add-Ons
+<li>load the settings and currents 
+<li>creates the application window
+<li>display the default content of the Window, or load a script if an argument as been given when the application is started from a Terminal.
+</ul>
+If you want to contribute to <i>beSpotLight</i>, please send me the changes you made to the various scripts files, and I will update and redistribute the new version (of course you will be credited for your help).
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="5">Support & Feedback</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+If you encounter troubles with this application, or if you have ideas on how to improve it, feel free to contact <a href="mailto:jlv@kirilla.com">me</a>.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="6">Version History</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+<center>
+<table border=1>
+<tr>
+<th align=center>Release date</th>
+<th align=center>Version</th>
+<th align=center>Comments</th>
+</tr>
+<tr>
+<td align=center>02/28/00</td>
+<td align=center>0.8</td>
+<td align=left>
+<ul>
+<li>Minor changes for <i>Squirrel</i> 5.3
+<li>Added Rendering function <tt>RenderImage</tt>
+</ul>
+</td>
+</tr>
+<tr>
+<td align=center>12/18/00</td>
+<td align=center>0.7</td>
+<td align=left>
+Initial public release
+</td>
+</tr>
+</table>
+</center>
+<p>
+</td>
+</tr>
+
+
+</table>
+
+</center>
+
+</body>
+</html>

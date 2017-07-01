@@ -1,0 +1,11 @@
+
+Examples of exceptions in C mode - 30-Jun-97
+
+Expecting "n/alt1/rule"
+	Exception [n] in t1: MismatchedToken
+	Exception alt 1 of t1: MismatchedToken
+	Exception for rule t1: MismatchedToken
+	Exception [ex1] (MismatchedToken) in rule t0
+
+
+End of program

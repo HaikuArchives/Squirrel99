@@ -1,0 +1,25 @@
+FOR IMMEDIATE RELEASE
+
+February 2, 2000
+
+electron Technology would like to ANNOUNCE the release of Squirrel,
+Developer Release 4.
+
+This release features a totaly re-writted GUI Add-On allowing to build
+easily in Squirrel Graphical User Interfaces.
+
+This Add-On includes :
+
+*	Several widgets which cover most of the Interface Kit elements 
+*	a Gluing (placing) tool 
+* 	Font support and widget font sensitivity 
+
+This version support the two tutorials published by BeGroovy in 
+December and January. (www.begroovy.com)
+
+Development of this new scripting language for BeOS continue and
+every feedbacks (good or bad) is welcome.
+
+Squirrel is running on BeOS 4.5.x for Intel.
+
+You may download it on the web site http://www.electechno.com

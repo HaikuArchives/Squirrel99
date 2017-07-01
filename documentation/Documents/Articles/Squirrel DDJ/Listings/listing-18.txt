@@ -1,0 +1,19 @@
+-- Listing 18 (number on the far left are line number and not in the script) --------
+ 1 to M_R_Load :b :s :w
+ 2
+ 3	make "current_rec FilePanel "open "current_dir_rec ["file] "single "allow ['text/plain']
+ 4
+ 5	if (is.string :current_rec) {
+ 6		
+ 7		$b~i.enable :menu_load false
+ 8		$b~i.enable :menu_unload true
+ 9		$b~i.enable :menu_from true
+10		$s~i.enable :menu_now true
+11		$s~i.enable :menu_later true
+12	
+13		make.local "th Thread "normal "th.LoadRec :w :b :s	
+14		Thread.hop :th	
+15	}
+16		
+17 end
+-- end of Listing 18 -----------------------------------------------------------------

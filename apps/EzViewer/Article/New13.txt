@@ -1,0 +1,20 @@
+to EditComment
+	if (is.bool :cwin) {
+		make "cwin Window "titled 'Image\'s comment' [100 100] "not.resizable
+		make.local "f Frame	
+		make "comment Entry 'Comment' "thecomment [0 40]
+		make.local "b Button 'Ok' "navigable.jump
+		$b~config "align.h "set "center	
+		Hook :b "invoked {
+			$comment~invoke
+			make "cwin false
+			SetComment :thefile :thecomment
+			make "Status :thecomment		
+		}	
+		Glue :f "top [2 2] :comment	:b
+		Glue :cwin "top [] :f
+		$cwin~center "set $win~center "get
+		$cwin~show	
+		Focus :comment
+	}
+end

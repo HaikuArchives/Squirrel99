@@ -1,0 +1,54 @@
+#!/boot/apps/Squirrel/Squirrel.5.3
+/*
+ * MakeBanner
+ *
+ * file ?	MakeBanner.sqi
+ * what	?	Create an Install banner for EasyInstaller
+ * who	?	jlv
+ * when	?	02/01/01
+ * last	?	03/11/01
+ *
+ *
+ * (c) Kirilla 2001
+ */
+ 
+load :_install + '/Libraries/Colors.sqi'
+ 
+use 'GUI' 'Skippy' 'Image Processing' 'Storage'
+
+Font.init
+
+make "width 150
+make "height 200
+make "fsize 25
+
+make "font Font 'Monospace BT101' 
+$font~aliasing "set "on
+$font~style "set "Regular
+$font~size "set :fsize
+
+make "img Image '/boot/home/e-/Images/redfoot.jpg'
+if ($img~valid?) {
+	make "img img.scale :img "factor 0.4 0.4
+	;make "img img.crop :img 160 160	
+	
+	make "out Image :width :height
+	
+	make "sk Skippy	:out
+	$sk~config "font "set :font
+	$sk~heading 90
+	$sk~config "high.color "set :Black
+	$sk~config "low.color "set :White
+	
+	$sk~goto :width//2 15
+	$sk~c.string 'Squirrel'
+	$sk~goto :width//2 (:height-:fsize)
+	$sk~c.string '5.3'
+	$sk~goto :width//2 :height//2
+	
+	$sk~c.draw :img
+	
+	$out~save 'test.tga' "TGA
+} {
+	print 'image not found'	
+}

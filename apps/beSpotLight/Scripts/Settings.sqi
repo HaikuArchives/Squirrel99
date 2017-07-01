@@ -1,0 +1,47 @@
+ /*
+ * beSpotLight
+ *
+ * file ?	Settings.sqi
+ * what	?	Settings Functions
+ * who	?	jlv
+ * when	?	10/03/00
+ * last	?	02/28/01
+ *
+ *
+ * (c) Kirilla 2000-2001
+ */
+
+/*
+ * function    : SaveSettings
+ * purpose     : Save the settings of the application (as file attributes)
+ * input       : none
+ * output      : none
+ * side effect : none
+ */ 
+to SaveSettings
+	; we save the geometry of the window
+	attr.set :_file 'geometry' $AppWin~frame
+	; last directory used
+	attr.set :_file 'lastdir' :last.dir
+end
+
+/*
+ * function    : LoadSettings
+ * purpose     : Load the settings of the application (as file attributes)
+ * input       : none
+ * output      : none
+ * side effect : none
+ */ 
+to LoadSettings
+	; we load the geometry
+	if (attr.exists :_file 'geometry') {	
+		make "geom attr.get :_file 'geometry'
+		make "position lsub :geom 1 2
+	} {
+		make "position [100 100]	
+	}
+	; we load the last directory used
+	if (attr.exists :_file 'lastdir') {
+		make "last.dir attr.get :_file 'lastdir'		
+	}
+end

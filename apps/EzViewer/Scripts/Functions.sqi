@@ -1,0 +1,188 @@
+ /*
+ * EzViewer
+ *
+ * file ?	Functions.sqi
+ * what	?	Various Functions
+ * who	?	jlv
+ * when	?	02/13/01
+ * last	?	03/07/01
+ *
+ *
+ * (c) Kirilla 2001
+ */
+
+/*
+ * function    : MenuItems
+ * purpose     : Enable or Disable the Favorites menu items
+ * input       :
+ *
+ * enable,	true or false
+ *
+ * output      : none
+ * side effect : none
+ */
+to MenuItems :enable
+	$m5~i.enable :s5 :enable
+	$m5~i.enable :s6 :enable	
+end
+
+/*
+ * function    : Load
+ * purpose     : Load and display an image
+ * input       :
+ *
+ * file,	the image to load
+ *
+ * output      : none
+ * side effect : none
+ */
+to Load :f
+	;;; Application cursor show app is busy (animated)
+	Busy true
+	make "Status 'Loading ...'
+	catch "error {	
+		make.local "i Image :f
+		;;; make sure the image has been loaded
+		if ($i~valid?) {
+			;;; modify the main window title
+			$win~config "title "set ('EzViewer' + ' : ' + :f)
+			;;; display the image in the Viewer widget with the current style	
+			$view~display :i :style
+			;;; enable menu "Comment" and submenu "Export"
+			$m3~enable true
+			$m4~enable true
+			MenuItems true
+			make "img :i
+			;;; Get the comment
+			make "Status GetComment :f
+			;;; desable the "load from" menu item
+			$m1~i.enable :s0 false
+			make "thefile :f
+		} {
+			throw "error	
+		}
+	} {
+		;;; if an error is raised, we inform the user
+		make "Status 'Loading ... failed!'
+		;;; and disable some menus
+		$m3~enable false
+		$m4~enable false		
+	}
+	;;; Application cursor no more busy
+	Busy false
+end
+
+/*
+ * function    : Export
+ * purpose     : Export the displayed image 
+ * input       :
+ *
+ * format,	export data format
+ *
+ * output      : none
+ * side effect : none
+ */
+to Export :mime :ext
+	;;; user select a file or enter a name
+	make.local "f FilePanel "save "last.dir ["file] "single "allow [:mime] []
+	;;; if the file is valid, we process
+	if (is.string :f) {
+		make "Status 'Exporting ...'
+		;;; Application cursor busy	
+		Busy true
+		;;; Save the image to the given file with the selected format
+		$img~save :f :ext
+		;;; Application cursor no more busy
+		Busy false
+		;;; Update status message and display comment (if any)
+		make "Status 'Exporting ... done'
+		if :thecomment <> '' {
+			;;; snooze a bit in order for the user to see the previous message
+			snooze 500000
+			;;; before writing the file's comment
+			make "Status :thecomment
+		}
+	}	
+end 
+
+/*
+ * function    : DragDrop
+ * purpose     : User drag&drop something over the viewer widget
+ * input       :
+ *
+ * src,		widget
+ * type,	data type
+ * msg,		message object
+ *
+ * output      : none
+ * side effect : none
+ */
+to DragDrop :src :type :msg
+	if :type = "simple {
+		make.local "file $msg~find "refs
+		make.local "m mime.get :file 
+		;;; load the file only if it mime type said it is an "image"	
+		if (sfind :m 'image/') {
+			Load :file
+		} {
+			Info "stop ["oooops] 'uh-oh ...' 'Hmmm ..... doesn\'t look like an image to me :-p'		
+		}
+	}
+end
+
+/*
+ * function    : About
+ * purpose     : Display the about box
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to About
+	make.local "icon entry.icon :_file "get "large
+	Info :icon "Ok ('EzViewer b' + :Version) '\nA simple image viewer written
+	 in Squirrel' :_version '\n\nFeedback : jlv@kirilla.com\n\n(c) Kirilla 2001'
+end
+
+/*
+ * function    : Help
+ * purpose     : Display the help
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to Help
+	launch :_path + '/Manual/index.html'
+end
+
+/*
+ * function    : Quit
+ * purpose     : User request the application to quit
+ * input       :
+ *
+ * src,	the window object
+ *
+ * output      : bool
+ * side effect : none
+ */
+to Quit :src
+	PutFavorites
+	SavePreferences
+	output true
+end
+
+/*
+ * function    : ScaleTo
+ * purpose     : Callback function for the scale submenu
+ * input       :
+ *
+ * lst, size of the Viewer widget
+ *
+ * output      : bool
+ * side effect : none
+ */
+to ScaleTo :lst
+	$m2~i.mark :s3 true
+	make "style "scale
+	$view~resize.to :lst
+	$view~display :style
+end

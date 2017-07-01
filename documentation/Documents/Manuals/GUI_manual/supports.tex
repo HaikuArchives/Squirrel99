@@ -1,0 +1,354 @@
+\chapter{Supports}
+
+This Add-on give access to several other primitives as well as some new objects used by the widgets.
+
+\section{Fonts}
+
+Fonts management under \squirrel is done by using a set of primitive and a new object: Font.
+
+\subsection{Primitives}
+
+{\bf Font.init\index{Fonts@\textbf{Fonts}!Font.init}} 
+\begin{verbatimtab}
+Font.init
+\end{verbatimtab}
+This primitive in mandatory in \squirrel to use with fonts.  When fonts are used, the primitive should always be one of the first things a script performs.\\
+
+{\bf Font.families\index{Fonts@\textbf{Fonts}!Font.families}} 
+\begin{verbatimtab}
+Font.families
+\end{verbatimtab}
+Output a list of all the font families installed on the computer.\\
+
+\cbstart
+{\bf Font.exists\index{Fonts@\textbf{Fonts}!Font.exists}} 
+\begin{verbatimtab}
+Font.exists string
+\end{verbatimtab}
+Output {\tt true} if a font family given as input to the primitive is installed on the system.\\
+\cbend
+
+{\bf Font.styles\index{Fonts@\textbf{Fonts}!Font.styles}} 
+\begin{verbatimtab}
+Font.styles string
+\end{verbatimtab}
+Output a list of all the styles available to a font family given as input to the primitive.\\
+
+\subsection{Font object}
+
+The primitive {\tt Font} creates a new font object for a specified font family. During its lifetime, a font object can change family. The syntax of this primitive is : \\
+
+{\tt Font} {\it string} \\
+
+A Font object has several methods:\\
+
+{\bf aliasing\index{Font@\textbf{Font}!Methods!aliasing}} 
+\begin{verbatimtab}
+$font~aliasing word (word)
+\end{verbatimtab}
+Get or set whether the font is using anti-aliasing or not. The first input must be the word {\tt "get} or {\tt "set}.  The second input must be the word {\tt "on} or {\tt "off}.\\
+
+{\bf direction\index{Font@\textbf{Font}!Methods!direction}} 
+\begin{verbatimtab}
+$font~direction word (word)
+\end{verbatimtab}
+Get or set if the font has direction. The first input must be the word {\tt "get} or {\tt "set}.  The second input must be the word {\tt "left2right} or {\tt "right2left}.\\
+ 
+{\bf encoding\index{Font@\textbf{Font}!Methods!encoding}} 
+\begin{verbatimtab}
+$font~encoding word (number)
+\end{verbatimtab}
+Get or set if the font is encoding. The first input must be the word {\tt "get} or {\tt "set}.  The second input must be a number from the following table :
+
+\newpage
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+UNICODE\_UTF8 & 0\\
+\hline
+ISO\_8859\_1 & 1\\
+\hline
+ISO\_8859\_2 & 2\\
+\hline
+ISO\_8859\_3 & 3\\
+\hline
+ISO\_8859\_4 & 4\\
+\hline
+ISO\_8859\_5 & 5\\
+\hline
+ISO\_8859\_6 & 6\\
+\hline
+ISO\_8859\_7 & 7\\
+\hline
+ISO\_8859\_8 & 8\\
+\hline
+ISO\_8859\_9 & 9\\
+\hline
+ISO\_8859\_10 & 10\\
+\hline
+MACINTOSH\_ROMAN & 11\\
+\hline
+\end{tabular}
+\caption{Font encoding}
+\end{table} 
+ 
+{\bf family\index{Font@\textbf{Font}!Methods!family}} 
+\begin{verbatimtab}
+$font~family word (string)
+\end{verbatimtab}
+Get or set if it's the family of the font object. The first input must be the word {\tt "get} or {\tt "set}. The second input (if any) is the name of the family.\\
+
+{\bf rotation\index{Font@\textbf{Font}!Methods!rotation}} 
+\begin{verbatimtab}
+$font~rotation word (number)
+\end{verbatimtab}
+Get or set if there's rotation to the font object. The first input must be the word {\tt "get} or {\tt "set}. The second input (if any) is a number between 0 and 360.\\
+
+{\bf shear\index{Font@\textbf{Font}!Methods!shear}} 
+\begin{verbatimtab}
+$font~shear word (number)
+\end{verbatimtab}
+Get or set if there's shear to the font object. The first input must be the word {\tt "get} or {\tt "set}. The second input (if any) is a number between 45 and 135.\\
+
+{\bf size\index{Font@\textbf{Font}!Methods!size}} 
+\begin{verbatimtab}
+$font~size word (number)
+\end{verbatimtab}
+Get or set if there's size to the font object. The first input must be the word {\tt "get} or {\tt "set}. The second input (if any) is a number.\\
+
+{\bf spacing\index{Font@\textbf{Font}!Methods!spacing}} 
+\begin{verbatimtab}
+$font~spacing word (word)
+\end{verbatimtab}
+Get or set if there's spacing to the font object. The first input must be the word {\tt "get} or {\tt "set}. The second input (if any) must be one of the valid word : {\tt "char "string "bitmap "fixed}.\\ 
+
+{\bf style\index{Font@\textbf{Font}!Methods!style}} 
+\begin{verbatimtab}
+$font~style word (word)
+\end{verbatimtab}
+Get or set if there's style to the font object. The first input must be the word {\tt "get} or {\tt "set}. Style varies from font but it's usually the words or strings : {\tt "Regular "Roman "Bold 'Bold Italic'} or {\tt "Italic}. \\
+
+\subsection{A Little example}
+
+The next example shows how simple it is to build a Font browser. The window is composed of two SimpleLists, one for the families and one for the style. A Text widget, whose font is changed each time the user selects a font or a style, displays a string :
+
+\example{ex46}	
+\begin{listing}{1}
+Font.init
+
+make "win Window "titled 'Fonts' [100 100]
+make "frame Frame
+make "Families Font.families
+make "Family lindex :Families 1 
+
+make "theFont Font :Family
+$theFont~style "set lindex (Font.styles :Family) 1
+$theFont~size "set 15
+
+make "fbox Box 'Family'
+make "families SimpleList "single "right "Family :Families [0 6]
+Hook :families "selected {
+	$styles~items "set (Font.styles :Family)
+	make "Style lindex (Font.styles :Family) 1
+}
+Glue :fbox "top [] :families
+make "sbox Box 'Styles'
+make "Style "Roman
+make "styles SimpleList "single "right "Style (Font.styles :Family) [0 4]
+Hook :styles "selected {
+	$theFont~family "set :Family
+	$theFont~style "set :Style		
+	$label~config "font "set :theFont
+}
+make "label Text 'Select a family and a style!'
+$label~config "font "set :theFont
+$label~config "bgcolor "set ($frame~config "bgcolor "get)
+$label~config "expand.x "set true
+$label~justify "set "center
+Glue :sbox "top [] :styles
+Glue :frame "left [] :fbox :sbox
+Glue :win "top [] :frame :label
+$win~show
+\end{listing}
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-28.eps}
+\label{s46}
+\caption{Browsing the installed font}
+\end{figure}
+
+\section{Color List}
+
+The file {\tt /boot/apps/Squirrel/Libraries/Colors.sqi} list several useful colors. You may load this file at the beginning of your script in order to use them. You will find
+several standard colors like red, black etc ... as well as the standard colors of the
+\beos interface.\\
+
+You will notice by looking at this file, that each color is stored in a variable :\\
+
+{\tt make "LightBlue [64 162 255 255]}\\
+
+A color is a well known mix of the three colors : red , blue and green. In the list, these are always the first three elements. A fourth element is not mandatory.  If specified, however, it's the
+value of the Alpha channel. 
+
+\section{Primitives}
+
+Several primitives are added to \squirrel by the GUI Add-on to test objects for membership to certain types or set the focus :\\
+
+\cbstart
+{\bf Busy\index{Add-On@\textbf{Add-On}!Primitives!Busy}} 
+\begin{verbatimtab}
+Busy boolean (word)
+\end{verbatimtab}
+Set or unset the application cursor to an animated {\it busy} cursor. The first input indicate by {\tt true} or {\tt false} if the cursor shall be animated or not. If a second input is given, it must be {\tt "spinwheel} or {\tt "watch}, it indicates the type if cursor to use. By default, {\tt "spinwheel} is used.\\
+\cbend
+
+{\bf Focus\index{Add-On@\textbf{Add-On}!Primitives!Focus}} 
+\begin{verbatimtab}
+Focus widget
+\end{verbatimtab}
+Set the keyboard focus on a widget.\\
+
+{\bf is.banner\index{Add-On@\textbf{Add-On}!Primitives!is.banner}} 
+\begin{verbatimtab}
+is.banner thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Banner widget, otherwise output {\tt false}.\\
+
+{\bf is.barberpole\index{Add-On@\textbf{Add-On}!Primitives!is.barberpole}} 
+\begin{verbatimtab}
+is.barberpole thing
+\end{verbatimtab}
+Output {\tt true} if the input is a BarberPole widget, otherwise output {\tt false}.\\
+
+{\bf is.box\index{Add-On@\textbf{Add-On}!Primitives!is.box}} 
+\begin{verbatimtab}
+is.box thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Box widget, otherwise output {\tt false}.\\
+
+{\bf is.button\index{Add-On@\textbf{Add-On}!Primitives!is.button}} 
+\begin{verbatimtab}
+is.button thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Button widget, otherwise output {\tt false}.\\
+
+{\bf is.checkbox\index{Add-On@\textbf{Add-On}!Primitives!is.checkbox}} 
+\begin{verbatimtab}
+is.checkbox thing
+\end{verbatimtab}
+Output {\tt true} if the input is a CheckBox widget, otherwise output {\tt false}.\\
+
+{\bf is.colorcontrol\index{Add-On@\textbf{Add-On}!Primitives!is.colorcontrol}} 
+\begin{verbatimtab}
+is.colorcontrol thing
+\end{verbatimtab}
+Output {\tt true} if the input is a ColorControl widget, otherwise output {\tt false}.\\
+
+{\bf is.container\index{Add-On@\textbf{Add-On}!Primitives!is.container}} 
+\begin{verbatimtab}
+is.container thing
+\end{verbatimtab}
+Output {\tt true} if the input is a container widget, otherwise output {\tt false}.\\
+
+{\bf is.droplist\index{Add-On@\textbf{Add-On}!Primitives!is.droplist}} 
+\begin{verbatimtab}
+is.droplist thing
+\end{verbatimtab}
+Output {\tt true} if the input is a DropList widget, otherwise output {\tt false}.\\
+
+{\bf is.entry\index{Add-On@\textbf{Add-On}!Primitives!is.entry}} 
+\begin{verbatimtab}
+is.entry thing
+\end{verbatimtab}
+Output {\tt true} if the input is an Entry widget, otherwise output {\tt false}.\\
+
+{\bf is.font\index{Add-On@\textbf{Add-On}!Primitives!is.font}} 
+\begin{verbatimtab}
+is.font thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Font object, otherwise output {\tt false}.\\
+
+{\bf is.frame\index{Add-On@\textbf{Add-On}!Primitives!is.frame}} 
+\begin{verbatimtab}
+is.frame thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Frame widget, otherwise output {\tt false}.\\
+
+{\bf is.font\index{Add-On@\textbf{Add-On}!Primitives!is.font}} 
+\begin{verbatimtab}
+is.font thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Font object, otherwise output {\tt false}.\\
+
+{\bf is.memo\index{Add-On@\textbf{Add-On}!Primitives!is.memo}} 
+\begin{verbatimtab}
+is.memo thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Memo widget, otherwise output {\tt false}.\\
+
+{\bf is.menu\index{Add-On@\textbf{Add-On}!Primitives!is.menu}} 
+\begin{verbatimtab}
+is.menubar thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Menu widget, otherwise output {\tt false}.\\
+
+{\bf is.menubar\index{Add-On@\textbf{Add-On}!Primitives!is.menubar}} 
+\begin{verbatimtab}
+is.menubar thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Menubar widget, otherwise output {\tt false}.\\
+
+{\bf is.menubar\index{Add-On@\textbf{Add-On}!Primitives!is.menubar}} 
+\begin{verbatimtab}
+is.menubar thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Menubar widget, otherwise output {\tt false}.\\
+
+\cbstart
+{\bf is.odometer\index{Odometer@\textbf{Odometer}!Primitives!is.odometer}} 
+\begin{verbatimtab}
+is.odometer thing
+\end{verbatimtab}
+Output {\tt true} if the input is an Odometer widget, otherwise output {\tt false}.\\
+\cbend
+
+{\bf is.radiobutton\index{Add-On@\textbf{Add-On}!Primitives!is.radiobutton}} 
+\begin{verbatimtab}
+is.radiobutton thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Radiobutton widget, otherwise output {\tt false}.\\
+
+{\bf is.statusbar\index{Add-On@\textbf{Add-On}!Primitives!is.statusbar}} 
+\begin{verbatimtab}
+is.statusbar thing
+\end{verbatimtab}
+Output {\tt true} if the input is a StatusBar widget, otherwise output {\tt false}.\\
+
+{\bf is.text\index{Add-On@\textbf{Add-On}!Primitives!is.text}} 
+\begin{verbatimtab}
+is.text thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Text widget, otherwise output {\tt false}.\\
+
+\cbstart
+{\bf is.viewer\index{Viewer@\textbf{Viewer}!Primitives!is.viewer}} 
+\begin{verbatimtab}
+is.viewer thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Viewer widget, otherwise output {\tt false}.\\
+\cbend
+
+{\bf is.widget\index{Add-On@\textbf{Add-On}!Primitives!is.widget}} 
+\begin{verbatimtab}
+is.widget thing
+\end{verbatimtab}
+Output {\tt true} if the input is a widget, otherwise output {\tt false}.\\
+
+{\bf is.window\index{Add-On@\textbf{Add-On}!Primitives!is.window}} 
+\begin{verbatimtab}
+is.window thing
+\end{verbatimtab}
+Output {\tt true} if the input is a Menubar widget, otherwise output {\tt false}.

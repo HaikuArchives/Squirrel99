@@ -1,0 +1,5 @@
+dict.o : dict.c dict.h
+except.o : except.c except.h
+hash.o : hash.c hash.h
+list.o : list.c list.h
+sfx.o : sfx.c except.h sfx.h hash.h

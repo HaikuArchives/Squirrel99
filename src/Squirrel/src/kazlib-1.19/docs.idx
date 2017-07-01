@@ -1,0 +1,288 @@
+\indexentry{production mode}{2}
+\indexentry{NDEBUG@{\tt  NDEBUG} macro}{2}
+\indexentry{verification mode}{2}
+\indexentry{undefined behavior}{2}
+\indexentry{implementation-defined}{3}
+\indexentry{constraint}{3}
+\indexentry{comparison function}{3}
+\indexentry{user}{4}
+\indexentry{user data}{4}
+\indexentry{List}{6}
+\indexentry{successor!of a list element}{6}
+\indexentry{List!successor of an element}{6}
+\indexentry{predecessor!of a list element}{6}
+\indexentry{List!predecessor of an element}{6}
+\indexentry{size!of a list}{6}
+\indexentry{List!count}{6}
+\indexentry{List!typedef names}{6}
+\indexentry{typedefs!defined by List}{6}
+\indexentry{List!tag names}{6}
+\indexentry{tags!defined by List}{6}
+\indexentry{List!function names}{6}
+\indexentry{functions!defined by List}{6}
+\indexentry{List!macro names}{7}
+\indexentry{macros!defined by List}{7}
+\indexentry{LISTCOUNT_T_MAX@{\tt  LISTCOUNT_T_MAX} macro}{7}
+\indexentry{LIST_H@{\tt  LIST_H} macro}{7}
+\indexentry{symbols!reserved by List}{7}
+\indexentry{List!reserved symbols}{7}
+\indexentry{list_t@{\tt  list_t} type}{7}
+\indexentry{listcount_t@{\tt  listcount_t} type}{7}
+\indexentry{LISTCOUNT_T_MAX@{\tt  LISTCOUNT_T_MAX} macro}{7}
+\indexentry{lnode_t@{\tt  lnode_t} type}{7}
+\indexentry{lnodepool_t@{\tt  lnodepool_t} type}{7}
+\indexentry{list_append@{\tt  list_append} function}{7}
+\indexentry{List!appending a node}{7}
+\indexentry{append node to list}{7}
+\indexentry{macros!and side effects}{8}
+\indexentry{list_contains@{\tt  list_contains} function}{8}
+\indexentry{List!testing for presence of node}{8}
+\indexentry{list_count@{\tt  list_count} function}{8}
+\indexentry{List!count}{8}
+\indexentry{List!size}{8}
+\indexentry{list_create@{\tt  list_create} function}{8}
+\indexentry{List!creation of}{8}
+\indexentry{create!list object}{8}
+\indexentry{List!first node}{8}
+\indexentry{list_del_first@{\tt  list_del_first} function}{8}
+\indexentry{List!deletion}{8}
+\indexentry{delete!first node of a list}{8}
+\indexentry{macros!and side effects}{9}
+\indexentry{List!last node}{9}
+\indexentry{list_del_last@{\tt  list_del_last} function}{9}
+\indexentry{List!deletion}{9}
+\indexentry{delete!last node of a list}{9}
+\indexentry{macros!and side effects}{9}
+\indexentry{list_delete@{\tt  list_delete} function}{9}
+\indexentry{List!deletion}{9}
+\indexentry{delete!arbitrary node of a list}{9}
+\indexentry{list_destroy@{\tt  list_destroy} function}{9}
+\indexentry{List!destruction of}{9}
+\indexentry{list_destroy_nodes@{\tt  list_destroy_nodes} function}{9}
+\indexentry{List!node range extraction}{10}
+\indexentry{list_extract@{\tt  list_extract} function}{10}
+\indexentry{List!first node}{10}
+\indexentry{list_first@{\tt  list_first} function}{10}
+\indexentry{macros!and side effects}{10}
+\indexentry{list_init@{\tt  list_init} function}{10}
+\indexentry{list_ins_after@{\tt  list_ins_after} function}{11}
+\indexentry{insert!node into list}{11}
+\indexentry{List!insertion}{11}
+\indexentry{list_ins_before@{\tt  list_ins_before} function}{11}
+\indexentry{insert!node into list}{11}
+\indexentry{List!insertion}{11}
+\indexentry{list_is_sorted@{\tt  list_is_sorted} function}{11}
+\indexentry{list_isempty@{\tt  list_isempty} function}{12}
+\indexentry{list_isfull@{\tt  list_isfull} function}{12}
+\indexentry{macros!and side effects}{12}
+\indexentry{List!last node}{12}
+\indexentry{list_last@{\tt  list_last} function}{12}
+\indexentry{macros!and side effects}{12}
+\indexentry{List!merge operation}{12}
+\indexentry{list_merge@{\tt  list_merge} function}{12}
+\indexentry{list_next@{\tt  list_next} function}{13}
+\indexentry{macros!and side effects}{13}
+\indexentry{list_prepend@{\tt  list_prepend} function}{13}
+\indexentry{List!prepending a node}{13}
+\indexentry{prepend node to list}{13}
+\indexentry{macros!and side effects}{13}
+\indexentry{list_prev@{\tt  list_prev} function}{13}
+\indexentry{macros!and side effects}{13}
+\indexentry{list_process@{\tt  list_process} function}{14}
+\indexentry{list_return_nodes@{\tt  list_return_nodes} function}{14}
+\indexentry{List!sort operation}{14}
+\indexentry{list_sort@{\tt  list_sort} function}{14}
+\indexentry{List!find operation}{15}
+\indexentry{list_find@{\tt  list_find} function}{15}
+\indexentry{List!node transfer}{15}
+\indexentry{list_transfer@{\tt  list_transfer} function}{15}
+\indexentry{list_verify@{\tt  list_verify} function}{15}
+\indexentry{lnode_borrow@{\tt  lnode_borrow} function}{16}
+\indexentry{lnode_create@{\tt  lnode_create} function}{16}
+\indexentry{lnode_destroy@{\tt  lnode_destroy} function}{16}
+\indexentry{lnode_get@{\tt  lnode_get} function}{16}
+\indexentry{lnode_init@{\tt  lnode_init} function}{16}
+\indexentry{lnode_is_in_a_list@{\tt  lnode_is_in_a_list} function}{17}
+\indexentry{lnode_pool_create@{\tt  lnode_pool_create} function}{17}
+\indexentry{lnode_pool_destroy@{\tt  lnode_pool_destroy} function}{17}
+\indexentry{lnode_pool_init@{\tt  lnode_pool_init} function}{17}
+\indexentry{lnode_pool_isempty@{\tt  lnode_pool_isempty} function}{18}
+\indexentry{lnode_pool_isfrom@{\tt  lnode_pool_isfrom} function}{18}
+\indexentry{lnode_put@{\tt  lnode_put} function}{18}
+\indexentry{lnode_return@{\tt  lnode_return} function}{18}
+\indexentry{List!reference implementation}{19}
+\indexentry{implementation!List types}{19}
+\indexentry{typedefs!implementation of List}{19}
+\indexentry{sentinel node!of linked list}{19}
+\indexentry{implementation!List operations}{19}
+\indexentry{List!first node}{19}
+\indexentry{List!deletion}{20}
+\indexentry{List!insertion}{21}
+\indexentry{Hash!typedef names}{21}
+\indexentry{typedefs!defined by Hash}{21}
+\indexentry{Hash!tag names}{21}
+\indexentry{tags!defined by Hash}{21}
+\indexentry{Hash!function names}{21}
+\indexentry{functions!defined by Hash}{21}
+\indexentry{Hash!external objects}{22}
+\indexentry{Hash!macro names}{22}
+\indexentry{macros!defined by Hash}{22}
+\indexentry{HASHCOUNT_T_MAX@{\tt  HASHCOUNT_T_MAX} macro}{22}
+\indexentry{HASH_VAL_T_BIT@{\tt  HASH_VAL_T_BIT} macro}{22}
+\indexentry{HASH_VAL_T_MAX@{\tt  HASH_VAL_T_MAX} macro}{22}
+\indexentry{HASH_H@{\tt  HASH_H} macro}{22}
+\indexentry{symbols!reserved by Hash}{22}
+\indexentry{Hash!reserved symbols}{22}
+\indexentry{hash_t@{\tt  hash_t} type}{22}
+\indexentry{hnode_t@{\tt  hnode_t} type}{22}
+\indexentry{hash_comp_t@{\tt  hash_comp_t} type}{22}
+\indexentry{hscan_t@{\tt  hscan_t} type}{22}
+\indexentry{hashcount_t@{\tt  hashcount_t} type}{23}
+\indexentry{HASHCOUNT_T_MAX@{\tt  HASHCOUNT_T_MAX} macro}{23}
+\indexentry{hash_val_t@{\tt  hash_val_t} type}{23}
+\indexentry{HASH_VAL_T_MAX@{\tt  HASH_VAL_T_MAX} macro}{23}
+\indexentry{Hash!allocator function}{23}
+\indexentry{Hash!deallocator function}{23}
+\indexentry{hashing function}{23}
+\indexentry{hash_val_t_bit@{\tt  hash_val_t_bit} object}{23}
+\indexentry{hash_create@{\tt  hash_create} function}{24}
+\indexentry{Hash!creation of}{24}
+\indexentry{create!hash object}{24}
+\indexentry{hashing function}{24}
+\indexentry{hash_set_allocator@{\tt  hash_set_allocator} function}{24}
+\indexentry{hash_destroy@{\tt  hash_destroy} function}{24}
+\indexentry{hash_free_nodes@{\tt  hash_free_nodes} function}{25}
+\indexentry{hash_free@{\tt  hash_free} function}{25}
+\indexentry{hash_init@{\tt  hash_init} function}{25}
+\indexentry{hash_insert@{\tt  hash_insert} function}{26}
+\indexentry{hash_lookup@{\tt  hash_lookup} function}{26}
+\indexentry{hash_delete@{\tt  hash_delete} function}{26}
+\indexentry{hash_alloc_insert@{\tt  hash_alloc_insert} function}{27}
+\indexentry{hash_delete_free@{\tt  hash_delete_free} function}{27}
+\indexentry{hnode_put@{\tt  hnode_put} function}{27}
+\indexentry{hnode_get@{\tt  hnode_get} function}{27}
+\indexentry{hnode_getkey@{\tt  hnode_getkey} function}{27}
+\indexentry{hash_count@{\tt  hash_count} function}{28}
+\indexentry{hash_size@{\tt  hash_size} function}{28}
+\indexentry{hash_isfull@{\tt  hash_isfull} function}{28}
+\indexentry{macros!and side effects}{28}
+\indexentry{hash_isempty@{\tt  hash_isempty} function}{28}
+\indexentry{hash_scan_begin@{\tt  hash_scan_begin} function}{28}
+\indexentry{hash_scan_next@{\tt  hash_scan_next} function}{29}
+\indexentry{hash_scan_delete@{\tt  hash_scan_delete} function}{29}
+\indexentry{hash_scan_delfree@{\tt  hash_scan_delfree} function}{29}
+\indexentry{hash_verify@{\tt  hash_verify} function}{29}
+\indexentry{hnode_create@{\tt  hnode_create} function}{30}
+\indexentry{hnode_init@{\tt  hnode_init} function}{30}
+\indexentry{hnode_destroy@{\tt  hnode_destroy} function}{30}
+\indexentry{Dictionary}{30}
+\indexentry{successor!of a dictionary element}{30}
+\indexentry{Dictionary!successor of an element}{30}
+\indexentry{predecessor!of a dictionary element}{30}
+\indexentry{Dictionary!predecessor of an element}{30}
+\indexentry{Dict!typedef names}{31}
+\indexentry{typedefs!defined by Dict}{31}
+\indexentry{Dict!tag names}{31}
+\indexentry{tags!defined by Dict}{31}
+\indexentry{Dict!function names}{31}
+\indexentry{functions!defined by Dict}{31}
+\indexentry{Dict!macro names}{31}
+\indexentry{macros!defined by Dict}{31}
+\indexentry{DICTCOUNT_T_MAX@{\tt  DICTCOUNT_T_MAX} macro}{31}
+\indexentry{DICT_H@{\tt  DICT_H} macro}{31}
+\indexentry{symbols!reserved by Dict}{32}
+\indexentry{Dict!reserved symbols}{32}
+\indexentry{dict_t@{\tt  dict_t} type}{32}
+\indexentry{dnode_t@{\tt  dnode_t} type}{32}
+\indexentry{dictcount_t@{\tt  dictcount_t} type}{32}
+\indexentry{DICTCOUNT_T_MAX@{\tt  DICTCOUNT_T_MAX} macro}{32}
+\indexentry{dict_comp_t@{\tt  dict_comp_t} type}{32}
+\indexentry{dnode_process_t@{\tt  dnode_process_t} type}{32}
+\indexentry{dnode_alloc_t@{\tt  dnode_alloc_t} type}{32}
+\indexentry{dnode_free_t@{\tt  dnode_free_t} type}{32}
+\indexentry{dict_load_t@{\tt  dict_load_t} type}{33}
+\indexentry{dict_create@{\tt  dict_create} function}{33}
+\indexentry{Dictionary!creation of}{33}
+\indexentry{create!dictionary object}{33}
+\indexentry{dict_set_allocator@{\tt  dict_set_allocator} function}{33}
+\indexentry{dict_destroy@{\tt  dict_destroy} function}{33}
+\indexentry{dict_free_nodes@{\tt  dict_free_nodes} function}{34}
+\indexentry{dict_free@{\tt  dict_free} function}{34}
+\indexentry{dict_init@{\tt  dict_init} function}{34}
+\indexentry{dict_verify@{\tt  dict_verify} function}{34}
+\indexentry{dict_lookup@{\tt  dict_lookup} function}{34}
+\indexentry{dict_lower_bound@{\tt  dict_lower_bound} function}{35}
+\indexentry{dict_upper_bound@{\tt  dict_upper_bound} function}{35}
+\indexentry{dict_insert@{\tt  dict_insert} function}{36}
+\indexentry{dict_delete@{\tt  dict_delete} function}{37}
+\indexentry{dict_alloc_insert@{\tt  dict_alloc_insert} function}{37}
+\indexentry{dict_delete_free@{\tt  dict_delete_free} function}{37}
+\indexentry{dict_first@{\tt  dict_first} function}{38}
+\indexentry{dict_last@{\tt  dict_last} function}{38}
+\indexentry{dict_next@{\tt  dict_next} function}{38}
+\indexentry{dict_prev@{\tt  dict_prev} function}{38}
+\indexentry{dict_count@{\tt  dict_count} function}{39}
+\indexentry{dict_isempty@{\tt  dict_isempty} function}{39}
+\indexentry{dict_isfull@{\tt  dict_isfull} function}{39}
+\indexentry{macros!and side effects}{39}
+\indexentry{dict_contains@{\tt  dict_contains} function}{39}
+\indexentry{dict_allow_dupes@{\tt  dict_allow_dupes} function}{39}
+\indexentry{dnode_is_in_a_dict@{\tt  dnode_is_in_a_dict} function}{40}
+\indexentry{dnode_create@{\tt  dnode_create} function}{40}
+\indexentry{dnode_init@{\tt  dnode_init} function}{40}
+\indexentry{dnode_destroy@{\tt  dnode_destroy} function}{40}
+\indexentry{dnode_get@{\tt  dnode_get} function}{41}
+\indexentry{dnode_getkey@{\tt  dnode_getkey} function}{41}
+\indexentry{dnode_put@{\tt  dnode_put} function}{41}
+\indexentry{dict_process@{\tt  dict_process} function}{41}
+\indexentry{dict_load_begin@{\tt  dict_load_begin} function}{42}
+\indexentry{dict_load_next@{\tt  dict_load_next} function}{42}
+\indexentry{dict_load_end@{\tt  dict_load_end} function}{42}
+\indexentry{Exception}{43}
+\indexentry{Exception!typedef names}{43}
+\indexentry{Exception!function names}{43}
+\indexentry{functions!defined by Exception}{43}
+\indexentry{Exception!macro names}{43}
+\indexentry{macros!defined by Exception}{43}
+\indexentry{XCEPT_H@{\tt  XCEPT_H} macro}{43}
+\indexentry{symbols!reserved by Exception}{44}
+\indexentry{Exception!reserved symbols}{44}
+\indexentry{except_id_t@{\tt  except_id_t} type}{44}
+\indexentry{XCEPT_GROUP_ANY@{\tt  XCEPT_GROUP_ANY} macro}{44}
+\indexentry{XCEPT_CODE_ANY@{\tt  XCEPT_CODE_ANY} macro}{44}
+\indexentry{except_t@{\tt  except_t} type}{44}
+\indexentry{except_init@{\tt  except_init} function}{44}
+\indexentry{except_deinit@{\tt  except_deinit} function}{45}
+\indexentry{except_rethrow@{\tt  except_rethrow} function}{45}
+\indexentry{except_throw@{\tt  except_throw} function}{45}
+\indexentry{unwinding}{46}
+\indexentry{except_throwd@{\tt  except_throwd} function}{46}
+\indexentry{except_throwf@{\tt  except_throwf} function}{46}
+\indexentry{except_unhandled_catcher@{\tt  except_unhandled_catcher} function}{46}
+\indexentry{except_code@{\tt  except_code} function}{47}
+\indexentry{except_group@{\tt  except_group} function}{47}
+\indexentry{except_message@{\tt  except_message} function}{47}
+\indexentry{except_data@{\tt  except_data} function}{47}
+\indexentry{except_take_data@{\tt  except_take_data} function}{47}
+\indexentry{except_cleanup_push@{\tt  except_cleanup_push} macro}{48}
+\indexentry{except_cleanup_pop@{\tt  except_cleanup_pop} macro}{48}
+\indexentry{except_no_call@{\tt  except_no_call} enum constant}{48}
+\indexentry{except_call@{\tt  except_call} enum constant}{48}
+\indexentry{except_checked_cleanup_pop@{\tt  except_checked_cleanup_pop} macro}{48}
+\indexentry{except_try_push@{\tt  except_try_push} macro}{49}
+\indexentry{except_try_pop@{\tt  except_try_pop} macro}{51}
+\indexentry{except_set_allocator@{\tt  except_set_allocator} function}{51}
+\indexentry{except_alloc@{\tt  except_alloc} function}{52}
+\indexentry{except_free@{\tt  except_free} function}{52}
+\indexentry{Exception component!reference implementation}{52}
+\indexentry{external names|see {functions}}{54}
+\indexentry{reference implementation|see {implementation}}{54}
+\indexentry{names|see {symbols}}{54}
+\indexentry{identifiers|see {symbols}}{54}
+\indexentry{structure names|see{tags}}{54}
+\indexentry{preprocessor symbols|see{macros}}{54}
+\indexentry{defines|see{macros}}{54}
+\indexentry{reserved symbols|see{symbols}}{54}
+\indexentry{symbols!preprocessor|see{macros}}{54}
+\indexentry{symbols!type names|see{typedefs}}{54}
+\indexentry{symbols!function names|see{functions}}{54}

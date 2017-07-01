@@ -1,0 +1,62 @@
+/*
+ * beMegaVox
+ *
+ * file ?	Empty
+ * what	?	Skeleton of a presentation
+ * who	?	jlv
+ * when	?	11/19/00
+ * last	?	12/16/00
+ *
+ *
+ * (c) Kirilla 2000
+ */
+ 
+/*********** Slide functions ***********/
+
+/*
+ * function	   : Slide1
+ * purpose     : Render the slide 1
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide1 :s
+	RenderFrame :s 1 (llength :slides)
+end
+
+/*********** global variable ***********/
+
+; list of all the slides of the presentation
+make "slides		[
+	"Slide1
+]
+
+; width and height of the presentation slides
+make "width		300
+make "height 	200 
+
+; various sizes
+make "top.col 5
+make "top.line 15
+make "std.size 12
+make "bigtitle.size 36
+make "title.size 18
+make "std.tab 50
+
+; Shall will display a clock ?
+make "show.clock false
+
+; Background color of the slides
+make "L.color :White
+; Forground color of the slides
+make "H.color :Black
+
+; informations on the presentation
+make "app.title 'Example'
+make "pres.title ' Presentation Title '
+make "pres.event ' Presentation event ' 
+make "pres.author 'Author'
+

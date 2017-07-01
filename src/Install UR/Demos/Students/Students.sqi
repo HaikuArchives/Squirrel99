@@ -1,0 +1,68 @@
+#!/boot/apps/Squirrel/Squirrel.5.4
+/*
+ * Squirrel project
+ *
+ * file ?	Students.sqi
+ * what	?	Simple use of the Dictionary and the Text File I/O
+ * who	?	jlv
+ * when	?	11/14/99
+ * last	?	10/18/00
+ *
+ *
+ * Kirilla 1999-2000
+ */
+
+; first we load some code used by this demos
+
+#include '/boot/apps/Squirrel/Demos/Students/Utils.sqi'
+
+; we define the Add-On we need
+
+use 'File IO' 'Data Structures' 'String Processing' 'List Processing' 'Mathematics'
+
+; we define the 2 data files which will be used
+
+make "data :_path + '/Students.data'
+
+; we load the data now of the students
+
+make "Students LoadData :data
+
+; and the grades for each of the course
+
+make "History LoadGrade '/boot/apps/Squirrel/Demos/Students/History & Geography.data'
+make "Mathematic LoadGrade '/boot/apps/Squirrel/Demos/Students/Mathematic.data'
+make "English LoadGrade '/boot/apps/Squirrel/Demos/Students/English.data'
+make "Chemistry LoadGrade '/boot/apps/Squirrel/Demos/Students/Chemistry.data'
+make "Physic LoadGrade '/boot/apps/Squirrel/Demos/Students/Physic.data'
+
+; now we loop on each of the course to display some informations on each
+
+for.each "course ["History "Mathematic "English "Chemistry "Physic] {
+
+	print :course 'class stats :'
+
+	make "student $Students~get BestIn (thing :course)
+
+	print '\tBest student : ' $student~get "name 
+	
+	make "student $Students~get WorstIn (thing :course)
+
+	print '\tWorst student :' $student~get "name
+	
+	print '\tBest average grade :' BestAverageGrade (thing :course)	 
+	print '\tWorst average grade :' WorstAverageGrade (thing :course)
+	print '\tClass average grade :' AverageGrade (thing :course)
+	
+	make "failing WhoFail (thing :course) 40
+		
+	print '\tFailing Student : '
+
+	for.each "id :failing {
+		make "student $Students~get :id
+		type '\t\t\t ' ($student~get "name) '\n'	
+	}		 
+	
+	print '\n'	
+			
+}

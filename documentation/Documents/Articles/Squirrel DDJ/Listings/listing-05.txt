@@ -1,0 +1,39 @@
+-- Listing 5 (number on the far left are line number and not in the script) --------
+ 1 to Process :email :lst :what :s :mail :when
+ 2
+ 3	if :send_from <> '' {
+ 4
+ 5		if :mail > :send_from {
+ 6		
+ 7			if (lindex :lst :what) {
+ 8				; we set the recipient of the email
+ 9				$mail~to "chg :email 	
+10				; we send it
+11				Send :mail :when
+12				; we update the status
+13				$s~update 1 :email
+14			} {
+15				$s~update 1	
+16			}		
+17		
+18		} {
+19			$s~update 1			
+20		}
+21
+22	} {
+23
+24		if (lindex :lst :what) {
+25			; we set the recipient of the email
+26			$mail~to "chg :email 	
+27			; we send it
+28			Send :mail :when
+29			; we update the status
+30			$s~update 1 :email
+31		} {
+32			$s~update 1	
+33		}	
+34	
+35	}
+36
+37 end
+-- end of Listing 5 -----------------------------------------------------------------

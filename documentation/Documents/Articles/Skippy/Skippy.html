@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Skippy the Squirrel's Turtle</title>
+<style>
+      A {
+      text-decoration : none; 
+      font-weight: bold
+      }
+</style>
+</head>
+<body bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+
+<center>
+<table align=center width=600>
+
+<tr>
+<td align=center>
+<big><i>Skippy</i> the <i>Squirrel</i>'s Turtle</big>
+<p>
+<img src="./images/redfoot.jpg" alt="redfoot.jpg">
+<p>
+<i>When Squirrel loves tree ... :)</i>
+</td>
+</tr>
+<tr>
+<td> 
+<table width=600>
+<tr>
+<td>
+<small><a href="mailto:jlv@kirilla.com"><i>Jean-Louis Villecroze</i></a></small>
+</td>
+<td align=right>
+<small><i><a href="http://www.kirilla.com">Kirilla</a></i></small>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=center>
+<b>Abstract</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+Designed as a educationnal tool, the Turtle of Logo helps kids discover mathematics and computers in a way that is more entertaining thatwhat is offered in your typical classroom setting. In this short article, we will provide a better overview of recursion and multi-threading by using <i>Squirrel</i>'s version of the famous Turtle. 
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>1. <i>Skippy</i> a.k.a the Turtle</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+The coming release of <i>Squirrel</i> DR4.7 will include with a new version of the Squirrel own Turtle : <i>Skippy</i>. Like the Logo's Turtle is more of a tool which teaches to children rather than a powerfull graphics
+tools. This new version is a complete rewrite of the previous version shipped since the first release in Septembre 99. I apologize to all those who have already started to use the older versions. There is a lot more usefulness and power in this new version.
+<P>
+For example, the area in which <i>Skippy</i> draws has been replaced by a specific GUI widget instead of using a specialy designed window. This allow one 
+to use <i>Skippy</i> in a wider range of applications.
+<p>
+To play with <i>Skippy</i> we need to create a <tt>Sheet</tt> widget and a <tt>Skippy</tt> object. The <tt>Sheet</tt> is an area where <i>Skippy</i> will draw. Like any other widgets the <tt>Sheet</tt> must be placed in a window:
+<pre>
+make "win Window "titled 'Skippy Demo' [100 100] "not.zoomable
+
+make "sheet Sheet [200 200]
+
+Glue :win "top [] :sheet
+
+$win~show
+</pre>
+<p>
+<center>
+<img src="./images/sheet1.gif" width=211 height=230 alt="sheet1">
+</center>
+<p>
+A <tt>Sheet</tt> widget always has a specified size. Imn our example we set its width and height to 200 pixels.
+<p>
+To draw inside the <tt>Sheet</tt> we need to create one <tt>Skippy</tt> object :
+<pre>
+make "sk Skippy :sheet
+$sk~hop 50
+</pre>
+<p>
+<center>
+<img src="./images/sheet2.gif" width=211 height=230 alt="sheet2">
+</center>
+<p>
+A <tt>Skippy</tt> object is used like any other object in <i>Squirrel</i>. In our example above, we used the method <tt>hop</tt> to ask <i>Skippy</i> to go forward of 50 pixels. <i>Skippy</i> draw a line when it move. It will have been possible to not draw the line. There are other methods which permit us to direct <i>Skippy</i> backwards, to right or to the left left.
+<p>
+Drawing a square is easily done by the following lines:
+<pre>
+$sk~hop 50
+$sk~right 90 50
+$sk~right 90 50
+$sk~right 90 50
+</pre>
+<center>
+<img src="./images/square.gif" width=211 height=230 alt="square"><br>
+<small>(Speed of this animated gif is NOT the speed of execution)</small>
+</center>
+<p>
+The method <tt>right</tt> accepts for its first input the angle <i>Skippy</i> must rotate right of. The second input (if any) will ask it to go forward of the distance. The second input is optional, it's just a shortcut that avoid to write:
+<pre>
+$sk~hop 50
+$sk~right 90
+$sk~hop 50
+$sk~right 90
+$sk~hop 50
+$sk~right 90
+$sk~hop 50
+</pre>
+<p>
+</t>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>2. Drawing a tree</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+Drawing a tree is a classic example of recursion. A tree is composed of nodes. Each nodes is the starting point of two segments terminated by a new node. This node is then the starting point of two segments ... and so on.
+<p>
+The function that draw a tree will perform the following:
+<ul>
+<li> Go left of 15 degrees
+<li> Go forward
+<li> Call the function recursively
+<li> Go backwards
+<li> Go right of 30 degrees
+<li> Go forward
+<li> Call the function recursively
+<li> Go left of 15 degrees
+<li> Go backward
+</ul>
+One of the citical points of a recursive function is the stop condition. The function must stop when the stop condition is met, otherwise it will go on forever ... well it can't really go on forever since the computer has limited resource.
+<p>
+In our example, we will continuously reduce the size of the segment for each node until the size reachs 0. When the size is 0, the function will stop.
+<p>
+To simulate a <i>real</i> tree, we will add random size segments:
+<pre>
+to tree :sk :distance 
+  if :distance &lt;= 0 {stop}
+  make "distance :distance + (random :distance//2)
+  $sk~left 15 :distance 
+  thtree :sk :distance//2
+  $sk~hback :distance 
+  make "distance :distance + (random :distance//2)
+  $sk~right 30 :distance 
+  thtree :sk :distance//2
+  $sk~hback :distance 
+  $sk~left 15  
+end 
+</pre>
+We draw our tree by calling the function with the <tt>Skippy</tt> object created ealier:
+<pre>
+tree :sk 30
+</pre>
+<center>
+<img src="./images/tree.gif" width=211 height=230 alt="tree">
+</center>
+<p>
+</t>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>3. Going multi-threading</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+Let's now combine the multi-threading and the recursion to demonstrate how <i>Squirrel</i> handles them. This example illustrates for us an educational purpose.
+<p>
+A <tt>Sheet</tt> widget accepts more than one <i>Skippy</i>, we so are going to create four <i>Skippies</i>. Each of them will draw a tree, and for a nicer effect, tree will be drawn in different directions. All of the <i>Skippies</i> should draw simultaneously, so we will create 4 threads to execute the <tt>tree</tt> functions.
+<p>
+To create the four <i>Skippies</i> we begin by using the primitive <tt>clone</tt> to create a copy of an object (Not all <i>Squirrel</i>'s objects can be cloned). When a <i>Skippy</i> is cloned, the clone will be attached to the same <tt>Sheet</tt> and will inherit the exact configuration:
+<pre>
+make "sk1 Skippy :sheet
+make "sk2 clone :sk1
+make "sk3 clone :sk1
+make "sk4 clone :sk1
+
+$sk1~config "color "set :Red
+$sk2~config "color "set :Blue
+$sk3~config "color "set :Green
+$sk4~config "color "set :Yellow
+</pre>
+By using the method <tt>config</tt>, we set the drawing color of all the <i>Skippies</i>. By using the method <tt>heading</tt> we change the heading of the <i>Skippy</i> to draw some of the tree in other direction:
+<pre>
+$sk2~heading 180
+$sk3~heading 90
+$sk4~heading 270
+</pre> 
+Now we have to create the four threads using the primitive <tt>Thread</tt>:
+<pre>
+make "th1 Thread "normal "tree :sk1 30
+make "th2 Thread "normal "tree :sk2 30
+make "th3 Thread "normal "tree :sk3 30
+make "th4 Thread "normal "tree :sk4 30
+</pre>
+The second input of the primitive is the name of the function to execute. All the other inputs are inputs to this function. Here we specify which <i>Skippy</i> the thread must use and the starting segment size. The primitive <tt>Thread</tt> outputs a <i>thread id</i> that is used to start the
+thread:
+<pre>
+Thread.hop :th1 :th2 :th3 :th4
+</pre> 
+And we get (the speed of the animation is NOT the execution speed):
+<p>
+<center>
+<img src="./images/thtree3.gif" width=401 height=401 alt="thtree3">
+</center>
+<P>
+This animated GIF show very well how the 4 threads are running concurently and
+how a tree is draw.
+<p>
+To create this animation, we use the ability of the <tt>Sheet</tt> widget to generate an image file (in different format) of it contents, to periodically create an image of the <tt>Sheet</tt>. By using a tool, we then create an animated GIF from the various files.
+<p>
+To create the files, we use a fifth thread that periodically take a <i>snapshot</i> of the widget :
+<pre>
+to snap
+	make.local "i 1
+	while (true) { 
+		$sheet~export "Targa string 'tree' :i '.tga'
+		incr "i	
+		Snooze 50000		
+	}
+end
+</pre>
+We then modify our script:
+<pre>
+make "th5 Thread "normal "snap
+
+Thread.hop :th1 :th2 :th3 :th4
+Thread.waitfor "all :th1 :th2 :th3 :th4
+Thread.kill :th5
+</pre>
+Using the primitive <tt>Thread.waitfor</tt> will allow us to stop taking snapshots of the <tt>Sheet</tt> widget when all the drawing threads are done.
+</t>
+</tr>
+</table>
+
+</center>
+
+</body>
+</html>

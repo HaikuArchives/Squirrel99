@@ -1,0 +1,5 @@
+-- Listing 23 (number on the far left are line number and not in the script) --------
+1 to M_Q_Help
+2 	launch :_path + '/Manual/index.html'
+3 end
+-- end of Listing 23 -----------------------------------------------------------------

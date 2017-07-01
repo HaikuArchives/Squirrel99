@@ -1,0 +1,99 @@
+/*
+ * beMegaphone
+ *
+ * file ?	Currents.sqi
+ * what	?	Currents load/save
+ * who	?	jlv
+ * when	?	09/20/00
+ * last	?	02/28/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+ 
+/* currents variables */
+make "current_file false
+make "current_rec false
+make "current_dir :_path
+make "current_dir_rec :_path
+make "current_subject ''
+make "current_db false
+make "current_what 1
+
+
+/*
+ * function    : Load_Currents
+ * purpose     : load the currents (from the file attributes)
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to Load_Currents
+	
+	local "geom	
+
+	/* the geometry */
+		
+	if (attr.exists :_file 'geometry') {	
+		make "geom attr.get :_file 'geometry'
+		make "set_position lsub :geom 1 2
+		make "set_size list ((lindex :geom 3)-(lindex :geom 1)) ((lindex :geom 4)-(lindex :geom 2))
+	} {
+		make "set_position [100 100]
+		make "set_size []	
+	} 		
+		
+	/* the current directory of the contents*/
+
+	if (attr.exists :_file 'dir') {
+		make "current_dir attr.get :_file 'dir'	
+	} 
+	
+	/* the current directory of the recipients*/
+
+	if (attr.exists :_file 'rdir') {
+		make "current_dir_rec attr.get :_file 'rdir'	
+	} 		
+	
+	/* what is the text */
+	
+	if (attr.exists :_file 'what') {
+		make "current_what attr.get :_file 'what'	
+	}	
+	
+	/* the last subject used */
+	
+	if (attr.exists :_file 'subject') {
+		make "current_subject attr.get :_file 'subject'	
+	}						
+									
+end
+
+/*
+ * function    : Save_Currents
+ * purpose     : Save the currents (as file attributes)
+ * input       :
+ *
+ * win, the window
+ *
+ * output      : none
+ * side effect : none
+ */
+to Save_Currents :win
+
+	; we save the geometry of the window
+	attr.set :_file 'geometry' $win~frame		
+	; we save the current directory for the contents
+	attr.set :_file 'dir' :current_dir
+	; we save the current directory for the recipients
+	attr.set :_file 'rdir' :current_dir_rec	
+	; we save the current subject
+	attr.set :_file 'subject' :current_subject
+	; what is the text (letter or news)
+	attr.set :_file 'what' :current_what	
+
+end
+
+
+
+

@@ -1,0 +1,83 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:529: checking for uname
+configure:566: checking for gcc
+configure:643: checking whether the C compiler (gcc  ) works
+configure:657: gcc -o conftest    conftest.c  1>&5
+configure:677: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:682: checking whether we are using GNU C
+configure:691: gcc -E conftest.c
+configure:706: checking whether gcc accepts -g
+configure:737: checking for ranlib
+configure:765: checking how to run the C preprocessor
+configure:786: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:829: checking for stdlib.h
+configure:839: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:829: checking for string.h
+configure:839: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:829: checking for math.h
+configure:839: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:829: checking for limits.h
+configure:839: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:874: gcc -c -g -O2  conftest.c 1>&5
+configure:976: checking whether ftruncate works
+configure:988: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1018: checking whether system V style IPC services are supported
+configure:1035: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1021: sys/ipc.h: No such file or directory
+configure:1022: sys/shm.h: No such file or directory
+configure:1023: sys/sem.h: No such file or directory
+configure: failed program was:
+#line 1020 "configure"
+#include "confdefs.h"
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <sys/sem.h>
+
+int main() {
+
+shmat(0, 0, 0);
+shmdt(0);
+shmget(0, 0, 0);
+semget(0, 0, 0);
+
+; return 0; }
+configure:1060: checking do we have flock_t defined
+configure:1072: gcc -c -g -O2  conftest.c 1>&5
+configure: In function `main':
+configure:1067: `flock_t' undeclared (first use in this function)
+configure:1067: (Each undeclared identifier is reported only once
+configure:1067: for each function it appears in.)
+configure:1067: parse error before `filler'
+configure: failed program was:
+#line 1062 "configure"
+#include "confdefs.h"
+#include <sys/fcntl.h>
+
+int main() {
+
+flock_t filler;
+
+; return 0; }
+configure:1096: checking do we have union semun defined
+configure:1110: gcc -c -g -O2  conftest.c 1>&5
+configure:1099: sys/ipc.h: No such file or directory
+configure:1100: sys/shm.h: No such file or directory
+configure:1101: sys/sem.h: No such file or directory
+configure: failed program was:
+#line 1098 "configure"
+#include "confdefs.h"
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#include <sys/sem.h>
+
+int main() {
+
+union semun filler;
+
+; return 0; }
+configure:1149: checking for connect
+configure:1177: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1290: checking for gethostbyname
+configure:1318: gcc -o conftest -g -O2   conftest.c  1>&5

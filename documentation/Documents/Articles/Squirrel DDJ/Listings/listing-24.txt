@@ -1,0 +1,47 @@
+-- Listing 24 (number on the far left are line number and not in the script) ---------
+ 1 to th.LoadRec :parent :b :s
+ 2	local "wrong
+ 3	
+ 4	$parent~enable false	
+ 5	
+ 6	make.local "MyWin Window "titled 'Loading' [100 100] "not.closable
+ 7
+ 8	make.local "frame Frame "raised
+ 9	make.local "msg Text 'Processing log file  ...'
+10	make.local "status BarberPole [20 10] 
+11	$status~config "high.color "set :Blue
+12	$status~config "expand.x "set true
+13
+14	Glue :frame "top [2 2] :msg :status
+15	Glue :MyWin "top [] :frame
+16
+17	$MyWin~center "set $win~center "get
+18	$MyWin~show
+19
+20	$status~start	
+21	
+22	make "Status 'Loading recipients ...'
+23	make.local "lst ParseLog :current_rec
+24	if (llength :lst) = 2 {
+25		lscan :lst "current_db "wrong
+26		make "Status string 'Loading recipients ... done (' ($current_db~size) ' valid(s) ,' :wrong ' non valid(s))'
+27	} {
+28		make "current_db false
+29		$b~i.enable :menu_load true
+30		$b~i.enable :menu_unload false
+31		$b~i.enable :menu_from false
+32		$s~i.enable :menu_now false
+33		$s~i.enable :menu_later false
+34		make.local "l lindex :lst 1
+35		
+36		if :l>0 {
+37			make "Status string 'Loading recipients ... failed ! (Error on line ' :l ')'
+38		} {
+39			make "Status string 'Loading recipients ... failed ! (couldn\'t access file)'			
+40		}	
+41	}	
+42	
+43	$parent~enable true
+44	
+45 end
+-- end of Listing 24 -----------------------------------------------------------------

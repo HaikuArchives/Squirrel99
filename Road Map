@@ -1,0 +1,12 @@
+nov		DR3 	: Map, Vector, Attribute & Mime Type, FileIO, objects	
++2 weeks	DR3.1 	: Multi-Threading, String & List Add-on completed , Exec, New 2D Skippy design
++2 weeks	DR3.2	: New GUI Design
++4 weeks	DR3.3	: Completition of Be related feature (Query, NodeWatch)
+
++4 weeks 	DR4	: 3D Skippy
++2 weeks	DR4.1	: 2D Skippy completed
+
++4 weeks	DR5	: Completed GUI
++2 weeks	DR5.1	: TCPIP, e-mail addons
+	
++2 weeks	DR6	: Add-on API in C++ available

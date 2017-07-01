@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Getting started in <i>Squirrel</i></title>
+<style>
+      A {
+      text-decoration : none; 
+      font-weight: bold
+      }
+</style>
+</head>
+<body bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+
+<center>
+<table align=center width=500>
+
+<tr>
+<td align=center>
+<big>Getting started in <i>Squirrel</i></big>
+<p>
+<img src="./images/redfoot.jpg" alt="redfoot.jpg">
+<p>
+<i>How to run the demos and create your first script</i>
+</td>
+</tr>
+<tr>
+<td> 
+<table width=500>
+<tr>
+<td>
+<small><a href="mailto:jlv@bemail.org"><i>Jean-Louis Villecroze</i></a></small>
+</td>
+<td align=right>
+<small><i><a href="http://www.electechno.com">electron Technology</a></i></small>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=center>
+<b>Abstract</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+Lost in my code, I didn't realize until after the last release than <i>Squirrel</i> was not all that easy to get started with, The <i>Developer's Guide</i> was not entirely clear. After receiving some feedback from brave and confused users, I decided to write a short document, in the opes to clarify key points and help people get started in the language <i>Squirrel</i>.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>1. The <i>Squirrel</i> distribution</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+You have just installed <i>Squirrel</i> in your <font color=blue>B</font><font color=red>e</font>OS computer and you anxious to try it, but you don't know how to start...<p>
+The best things to do, is to try out the various demos available with the <i>Squirrel</i> distribution. <i>Squirrel</i> is installed in <tt>/boot/apps/Squirrel</tt>. You will find all the files in this directory, but the Add-Ons are located in <tt>/boot/home/config/add-ons/Squirrel</tt>. You will not be interacting with those files directly, so you may ignore them for the moment.
+<p>
+The distribution directory look like :<p>
+
+<center>
+<img src="./images/distri.gif" width=326 height=391 alt="distri">
+</center>
+<p>
+
+You're encouraged to read the <i>ReadMe</i> file which contains useful informations about the release. As well, reading the <i>Developer's Guide</i> is a mandatory step for a serious start in <i>Squirrel</i>. You will find an HTML version in the <i>Developer's Guide</i> directory as well as a PDF version: <i> Developer's Guide.pdf</i>. If you going to play with <i>Skippy</i> you may read the <i>Skippy's User Manual.pdf</i>.<p>
+
+The folder <i>GUI Tutorial</i> contains two articles published in December '99 and January '00 in <a href="http://www.begroovy.com">BeGroovy</a>. They both deal with <i>Graphical User Interface</i> building using <i>Squirrel</i>. If you're interested in GUI, you will need to read the <i>GUI Manual.pdf</i> PDF file (there's no HTML version available for now).
+<p>
+<i>Squirrel</i> is shipped with two executables that you will be using to run your programs as well as the demos privided with the release:
+<p>
+<center>
+<table>
+<tr>
+<th>
+<img src="./images/noconsole.gif" width=100 height=44 alt="noconsole">
+</th>
+<td>
+is the <i>Squirrel</i> interpreter without a console
+</td>
+</tr>
+<tr>
+<th>
+<img src="./images/console.gif" width=100 height=44 alt="console">
+</th>
+<td>
+is also the <i>Squirrel</i> interpreter but with a console
+</td>
+</tr>
+</table>
+</center>
+<p>
+
+In case you don't want to keep <i>Squirrel</i>, executing the following program will remove it from your computer:
+<P>
+<center>
+<img src="./images/deinstaller.gif" width=110 height=47 alt="deinstaller">
+</center>
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>2. Running the Demos</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+The folder <i>Demos</i> contains severals demonstration scripts. Each of these is reconized as a <i>Squirrel</i> script file by it MIME type: <tt>text/x-script.squirrel</tt>. Now, to run a file we could :
+
+<ul>
+<li>use a Terminal to execute it like any other executable
+<li>load it from the <i>Squirrel</i> console
+<li>set the preferred application to <i>Squirrel</i>
+</ul>
+
+Setting <i>Squirrel</i> as the <i>Preferred Application</i> is the simplest and faster way to run a script file. This may, of course, vary from each script.
+<p>
+For example, if we consider the file <i>GUI Demo.sqi</i>, once the <i>Preferred Application</i> has been set to  <i>Squirrel.dr4.7</i>, a double click on the script's icon will launch it like any other application:
+<P>
+<center>
+<img src="./images/filetype.gif" width=291 height=349 alt="filetype">
+</center>
+<P>
+Now when we double click on the icon, <i>Squirrel</i> starts to execute the script:
+<p>
+<center>
+<img src="./images/guidemo.gif" width=237 height=294 alt="guidemo">
+</center>
+</p>
+Using <i>Squirrel.dr4.7</i> is fine when the script to execute has a <i>Graphical User Interface</i>. When the script don't have one, nothing will appear, and that's where the second executable <i>Squirrel's Console.dr4.7</i> came into play.<p>
+
+For example, the demo file : <i>Fibonacci threading.sqi</i> which is a very simple demo of multi-threading in <i>Squirrel</i>, need to be used with <i>Squirrel's Console.dr4.7</i> as the <i>Preferred Application</i>. And then double clicking on it icon will give:
+<p>
+<center>
+<img src="./images/fibodemo.gif" width=486 height=279 alt="fibodemo"> 
+</center>
+<p>
+Of course it's possible to run <i>GUI Demo.sqi</i> from within the <i>Squirrel's Console.dr4.7</i> as well.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>3. The console</b>
+</td>
+</tr>
+<tr>
+<td>
+As we have seen earlier, launching <i>Squirrel's Console.dr4.7</i> start <i>Squirrel</i> with a console, but what is a console ? What is it good for ?<p>
+
+The console act the same way as the <font color=blue>B</font><font color=red>e</font>OS Terminal, or any other Unix-like (or Dos-like) terminal. It display a prompt, waits for the user's inputs and then processes the command. It's useful for those who want to discover <i>Squirrel</i> interactively, by submitting orders and then observing the results.
+<P>
+The <i>Squirrel</i>'s console also allow you also to load and execute scripts like the demos by the menu <i>Script</i>. Some settings can also be changed.
+<P>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>4. Writing and running your own script</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+Want to create your first <i>Squirrel</i> script ? Easy! What do you need ?
+
+<ul>
+<li>an idea :)
+<li>a text file editor
+<li>a <i>Squirrel</i> interpreter of course :)
+</ul>
+
+The choice of the text editor is up to you. By default, <font color=blue>B</font><font color=red>e</font>OS is shipped with <tt>StyledEdit</tt> and of course the famous (and infamous) <tt>vi</tt>. Personnaly, I use (and prefer) <tt>Pe</tt>, but that's a matter of personal tast (even if Pe is great :).
+<p>
+Obviously, you need to have an idea.  Even a rough idea would help before having to face the blank text editor window :) 
+<p>
+So, let's suppose that your first script will ask the user name and then displays a welcome message. We will use <tt>StyledEdit</tt> to create a new file to insert the code as if it was a common text file:
+<p>
+<center>
+<img src="./images/stylededit.gif" width=365 height=140 alt="stylededit">
+</center>
+</p>
+After saving the new text file under the name <i>welcome.sqi</i>, we have to set is <i>MIME type</i> and <i>Preferred Application</i> using the <tt>File Type</tt> application. You will need to run it twice (due to what looks like a <font color=blue>B</font><font color=red>e</font>OS bug). The first time to set the MIME type and the second time to select from the <i>Preferred Application</i> list <i>Squirrel's Console.dr4.7</i>. The icon of the file will then looks like :
+<p>
+<center>
+<img src="./images/welcome.gif" width=60 height=50 alt="welcome">
+</center>
+<p>
+Double clicking on it will execute the script file we just created:
+<p>
+<center>
+<img src="./images/wel2.gif" width=486 height=279 alt="wel2">
+</center>
+<P>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>5. <i>Squirrel</i> scripts like shell scripts</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+You may want to execute a <i>Squirrel</i> script like any shell script or any other executable from the <font color=blue>B</font><font color=red>e</font>OS Terminal.
+<p>
+It's easy to execute it like that. You just have to add to the first line of your script :
+<p>
+<tt>#!/boot/apps/Squirrel/Squirrel.dr4.7</tt>
+<P>
+Of course, you could have also used <i>Squirrel's Console.dr4.7</i> to execute your script file in the <i>Squirrel</i>'s console rather than the terminal.
+<p>
+Inputs and outputs occur then through the <font color=blue>B</font><font color=red>e</font>OS Terminal.
+<p>
+<center>
+<img src="./images/terminal.gif" width=350 height=236 alt="terminal">
+</center>
+<p>
+<td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>6. Getting support</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>Squirrel</i> is a recent scripting language, and as the result of the present lack of users, <i>Squirrel</i> does not have web sites where to get help or tutorials. Until <i>Squirrel</i> becomes more popular, feel free to drop me an email concerning any questions or comments you may have. I will be more than happy to get you started with <i>Squirrel</i>.
+</td>
+</tr>
+
+</table>
+
+</center>
+
+</body>
+</html>

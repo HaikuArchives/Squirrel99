@@ -1,0 +1,324 @@
+\begin{theindex}
+
+  \item \textbf{Add-On}
+    \subitem Primitives
+      \subsubitem Busy, 95
+      \subsubitem Focus, 96
+      \subsubitem is.banner, 96
+      \subsubitem is.barberpole, 96
+      \subsubitem is.box, 96
+      \subsubitem is.button, 96
+      \subsubitem is.checkbox, 96
+      \subsubitem is.colorcontrol, 96
+      \subsubitem is.container, 96
+      \subsubitem is.droplist, 97
+      \subsubitem is.entry, 97
+      \subsubitem is.font, 97
+      \subsubitem is.frame, 97
+      \subsubitem is.memo, 97
+      \subsubitem is.menu, 97
+      \subsubitem is.menubar, 97, 98
+      \subsubitem is.radiobutton, 98
+      \subsubitem is.statusbar, 98
+      \subsubitem is.text, 98
+      \subsubitem is.widget, 98
+      \subsubitem is.window, 98
+
+  \indexspace
+
+  \item \textbf{Banner}
+    \subitem Configuration
+      \subsubitem variable, 41
+    \subitem Methods
+      \subsubitem justify, 40
+      \subsubitem Text, 40
+  \item \textbf{BarberPole}
+    \subitem Methods
+      \subsubitem start, 42
+      \subsubitem stop, 42
+  \item \textbf{Box}
+    \subitem Configuration
+      \subsubitem label, 45
+    \subitem Methods
+      \subsubitem reglue, 44
+      \subsubitem style, 44
+      \subsubitem widgets, 44
+  \item \textbf{Button}
+    \subitem Configuration
+      \subsubitem label, 47
+    \subitem Hooks
+      \subsubitem invoked, 48
+    \subitem Methods
+      \subsubitem default, 47
+      \subsubitem invoke, 47
+      \subsubitem is.default, 47
+
+  \indexspace
+
+  \item \textbf{CheckBox}
+    \subitem Configuration
+      \subsubitem label, 51
+      \subsubitem value, 51
+      \subsubitem variable, 51
+    \subitem Hooks
+      \subsubitem invoked, 52
+    \subitem Methods
+      \subsubitem invoke, 51
+  \item \textbf{ColorControl}
+    \subitem Configuration
+      \subsubitem cellside, 56
+      \subsubitem layout, 56
+      \subsubitem value, 56
+      \subsubitem variable, 56
+    \subitem Hooks
+      \subsubitem invoked, 57
+    \subitem Methods
+      \subsubitem invoke, 56
+
+  \indexspace
+
+  \item \textbf{DropList}
+    \subitem Configuration
+      \subsubitem label, 59
+      \subsubitem value, 59
+      \subsubitem variable, 59
+    \subitem Hooks
+      \subsubitem selected, 59
+
+  \indexspace
+
+  \item \textbf{Entry}
+    \subitem Configuration
+      \subsubitem value, 62
+      \subsubitem variable, 62
+    \subitem Hooks
+      \subsubitem changed, 63
+    \subitem Methods
+      \subsubitem entry, 61
+      \subsubitem invoke, 61
+      \subsubitem label, 61
+
+  \indexspace
+
+  \item \textbf{Font}
+    \subitem Methods
+      \subsubitem aliasing, 92
+      \subsubitem direction, 92
+      \subsubitem encoding, 92
+      \subsubitem family, 93
+      \subsubitem rotation, 93
+      \subsubitem shear, 93
+      \subsubitem size, 93
+      \subsubitem spacing, 93
+      \subsubitem style, 93
+  \item \textbf{Fonts}
+    \subitem Font.exists, 91
+    \subitem Font.families, 91
+    \subitem Font.init, 91
+    \subitem Font.styles, 91
+  \item \textbf{Frame}
+    \subitem Configuration
+      \subsubitem level, 66
+    \subitem Methods
+      \subsubitem reglue, 65
+      \subsubitem relief, 65
+      \subsubitem widgets, 65
+
+  \indexspace
+
+  \item \textbf{Memo}
+    \subitem Configuration
+      \subsubitem alignment, 75
+      \subsubitem bgcolor, 75
+      \subsubitem color, 75
+      \subsubitem indent, 75
+      \subsubitem warp, 75
+    \subitem Methods
+      \subsubitem allow, 73
+      \subsubitem allow.all, 73
+      \subsubitem delete, 73
+      \subsubitem disallow, 73
+      \subsubitem disallow.all, 73
+      \subsubitem insert, 73
+      \subsubitem line, 74
+      \subsubitem load, 74
+      \subsubitem save, 74
+      \subsubitem selection, 74
+      \subsubitem text, 74
+  \item \textbf{Menu}
+    \subitem Configuration
+      \subsubitem radio, 70
+    \subitem Methods
+      \subsubitem add, 69
+      \subsubitem find, 69
+      \subsubitem i.enable, 69
+      \subsubitem i.font, 69
+      \subsubitem i.mark, 69
+      \subsubitem remove, 69
+  \item \textbf{MenuBar}
+    \subitem Methods
+      \subsubitem add, 68
+      \subsubitem find, 68
+      \subsubitem remove, 68
+
+  \indexspace
+
+  \item \textbf{Odometer}
+    \subitem Methods
+      \subsubitem display, 77
+      \subsubitem precision, 77
+    \subitem Primitives
+      \subsubitem is.odometer, 98
+
+  \indexspace
+
+  \item \textbf{RadioButton}
+    \subitem Configuration
+      \subsubitem label, 79
+      \subsubitem value, 79
+      \subsubitem variable, 79
+    \subitem Hooks
+      \subsubitem invoked, 80
+    \subitem Methods
+      \subsubitem invoke, 79
+
+  \indexspace
+
+  \item \textbf{SimpleList}
+    \subitem Hooks
+      \subsubitem invoked, 83
+    \subitem Methods
+      \subsubitem add, 82
+      \subsubitem add.at, 82
+      \subsubitem items, 82
+  \item \textbf{StatusBar}
+    \subitem Configuration
+      \subsubitem bar.color, 86
+      \subsubitem max, 86
+      \subsubitem text, 86
+      \subsubitem trailing, 86
+      \subsubitem value, 86
+    \subitem Methods
+      \subsubitem reset, 85
+      \subsubitem update, 85
+
+  \indexspace
+
+  \item \textbf{Text}
+    \subitem Methods
+      \subsubitem justify, 87
+      \subsubitem Text, 87
+
+  \indexspace
+
+  \item \textbf{Viewer}
+    \subitem Methods
+      \subsubitem display, 89
+      \subsubitem resize.to, 89
+    \subitem Primitives
+      \subsubitem is.viewer, 98
+    \subitem Style
+      \subsubitem adapt, 89
+      \subsubitem center, 89
+      \subsubitem scale, 89
+      \subsubitem scroll, 89
+
+  \indexspace
+
+  \item \textbf{Widget}, 33
+    \subitem Configuration
+      \subsubitem align, 34
+      \subsubitem align.h, 34
+      \subsubitem align.v, 34
+      \subsubitem bgcolor, 34
+      \subsubitem cursor, 34
+      \subsubitem expand, 34
+      \subsubitem expand.x, 34
+      \subsubitem expand.y, 34
+      \subsubitem font, 35
+      \subsubitem high.color, 35
+      \subsubitem low.color, 35
+      \subsubitem pad, 35
+      \subsubitem pad.x, 35
+      \subsubitem pad.y, 35
+    \subitem Cursor
+      \subsubitem arrow, 35
+      \subsubitem cross, 35
+      \subsubitem cut, 35
+      \subsubitem downarrow, 35
+      \subsubitem hand, 35
+      \subsubitem hcross, 35
+      \subsubitem hourglass, 35
+      \subsubitem ibeam, 35
+      \subsubitem leftarrow, 35
+      \subsubitem linkhand, 35
+      \subsubitem macwatch, 35
+      \subsubitem pencil, 35
+      \subsubitem rightarrow, 35
+      \subsubitem timer, 35
+      \subsubitem uparrow, 35
+      \subsubitem zoom, 35
+    \subitem Flags
+      \subsubitem navigable, 39
+      \subsubitem navigable.jump, 39
+      \subsubitem pulsed, 39
+    \subitem Hooks
+      \subsubitem activated, 35
+      \subsubitem attached, 36
+      \subsubitem detached, 36
+      \subsubitem draw, 36
+      \subsubitem drop, 36
+      \subsubitem entered, 36
+      \subsubitem exited, 36
+      \subsubitem focused, 36
+      \subsubitem keydown, 37
+      \subsubitem keyup, 37
+      \subsubitem mousedown, 37
+      \subsubitem mouseup, 37
+      \subsubitem moved, 37
+      \subsubitem pulse, 37
+      \subsubitem resized, 38
+    \subitem Methods, 33
+      \subsubitem config, 33
+      \subsubitem enable, 33
+      \subsubitem invalidate, 33
+      \subsubitem is.enable, 34
+      \subsubitem is.focus, 34
+  \item \textbf{Window}, 21
+    \subitem Hooks, 31
+      \subsubitem enter, 31
+      \subsubitem leave, 31
+      \subsubitem maximize, 31
+      \subsubitem minimize, 31
+      \subsubitem move, 32
+      \subsubitem quit, 32
+      \subsubitem resize, 32
+      \subsubitem workspaceactivate, 32
+      \subsubitem workspacechange, 32
+      \subsubitem zoom, 32
+    \subitem Methods, 26
+      \subsubitem activate, 26
+      \subsubitem add.to.subset, 27
+      \subsubitem bounds, 27
+      \subsubitem center, 27
+      \subsubitem close, 27
+      \subsubitem deactivate, 27
+      \subsubitem enable, 28
+      \subsubitem frame, 28
+      \subsubitem hide, 28
+      \subsubitem is.active, 28
+      \subsubitem is.front, 28
+      \subsubitem is.hidden, 28
+      \subsubitem minimize, 28
+      \subsubitem move.by, 28
+      \subsubitem move.to, 29
+      \subsubitem quit, 29
+      \subsubitem reglue, 29
+      \subsubitem rem.from.subset, 29
+      \subsubitem resize.by, 29
+      \subsubitem resize.to, 29
+      \subsubitem show, 29
+      \subsubitem unminimize, 30
+      \subsubitem widgets, 30
+
+\end{theindex}

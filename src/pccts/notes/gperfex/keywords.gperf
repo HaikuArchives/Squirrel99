@@ -1,0 +1,21 @@
+%{
+/*
+  gperf -ptT keywords.gperf >keywords.c
+
+	p - return pointer to struct or 0
+	t - use structure type declaration
+	T - don't copy struct definition to output
+*/
+
+#include <string.h>
+#include "tokens_only.h"
+#include "keywords.h"
+%}
+Keywords;
+%%
+open,	Open
+close,	Close
+window,	Window
+door,	Door
+left,	Left
+right,	Right

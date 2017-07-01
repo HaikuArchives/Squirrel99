@@ -1,0 +1,15 @@
+-- Listing 19 (number on the far left are line number and not in the script) --------
+ 1 to M_R_UnLoad :b :s
+ 2
+ 3		make "Status 'Unloading recipients ...'
+ 4		$b~i.enable :menu_load true
+ 5		$b~i.enable :menu_unload false
+ 6		$b~i.enable :menu_from false
+ 7		$s~i.enable :menu_now false
+ 8		$s~i.enable :menu_later false
+ 9 		erase "current_db
+10		make "current_db false
+11		make "Status 'Unloading recipients ... done' 	
+12
+13 end
+-- end of Listing 19 -----------------------------------------------------------------

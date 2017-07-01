@@ -1,0 +1,106 @@
+Garbage collection of ANTLRTokens disabled
+
+ ( = <#2> a <#1> b <#3> ) ( = <#5> c <#4> ( * <#7> d <#6> ) ) ( = <#10> e <#9> ( * <#12> f <#11> ) ) ( = <#15> h <#14> ( * <#17> i <#16> ) ) ( = <#20> k <#19> l <#21> ) ( = <#23> kk <#22> l <#24> ) ( = <#26> kkkkkkk <#25> l <#27> ) ( = <#29> kkkkkkkk <#28> l <#30> ) ( = <#32> kkkkkkkkk <#31> l <#33> ) ( = <#35> m <#34> n <#36> ) ( = <#38> mm <#37> n <#39> ) ( = <#41> mmmmmmm <#40> n <#42> ) ( = <#44> mmmmmmmm <#43> n <#45> ) ( = <#47> mmmmmmmmm <#46> n <#48> ) ( = <#50> o <#49> p <#51> ) ( = <#53> o <#52> p <#54> ) ( = <#56> o <#55> p <#57> ) ( = <#59> o <#58> p <#60> ) ( = <#62> o <#61> p <#63> ) ( = <#65> o <#64> p <#66> ) ( = <#68> o <#67> p <#69> ) ( = <#71> o <#70> p <#72> ) ( = <#74> o <#73> p <#75> )
+TokenType (\=) Text (=) AST # 2  Line=1  Col=2
+  TokenType (ID) Text (a) AST # 1  Line=1  Col=1
+  TokenType (ID) Text (b) AST # 3  Line=1  Col=3
+
+*** Dump of ASTs on list ***
+
+DumpList TokenType (Eof) AST # 76
+DumpList TokenType (ID) Text (p) AST # 75  Line=24  Col=27
+DumpList TokenType (\=) Text (=) AST # 74  Line=24  Col=25
+DumpList TokenType (ID) Text (o) AST # 73  Line=24  Col=17
+DumpList TokenType (ID) Text (p) AST # 72  Line=23  Col=27
+DumpList TokenType (\=) Text (=) AST # 71  Line=23  Col=25
+DumpList TokenType (ID) Text (o) AST # 70  Line=23  Col=16
+DumpList TokenType (ID) Text (p) AST # 69  Line=22  Col=27
+DumpList TokenType (\=) Text (=) AST # 68  Line=22  Col=25
+DumpList TokenType (ID) Text (o) AST # 67  Line=22  Col=15
+DumpList TokenType (ID) Text (p) AST # 66  Line=21  Col=27
+DumpList TokenType (\=) Text (=) AST # 65  Line=21  Col=25
+DumpList TokenType (ID) Text (o) AST # 64  Line=21  Col=14
+DumpList TokenType (ID) Text (p) AST # 63  Line=20  Col=27
+DumpList TokenType (\=) Text (=) AST # 62  Line=20  Col=25
+DumpList TokenType (ID) Text (o) AST # 61  Line=20  Col=13
+DumpList TokenType (ID) Text (p) AST # 60  Line=19  Col=27
+DumpList TokenType (\=) Text (=) AST # 59  Line=19  Col=25
+DumpList TokenType (ID) Text (o) AST # 58  Line=19  Col=12
+DumpList TokenType (ID) Text (p) AST # 57  Line=18  Col=27
+DumpList TokenType (\=) Text (=) AST # 56  Line=18  Col=25
+DumpList TokenType (ID) Text (o) AST # 55  Line=18  Col=11
+DumpList TokenType (ID) Text (p) AST # 54  Line=17  Col=27
+DumpList TokenType (\=) Text (=) AST # 53  Line=17  Col=25
+DumpList TokenType (ID) Text (o) AST # 52  Line=17  Col=10
+DumpList TokenType (ID) Text (p) AST # 51  Line=16  Col=27
+DumpList TokenType (\=) Text (=) AST # 50  Line=16  Col=25
+DumpList TokenType (ID) Text (o) AST # 49  Line=16  Col=9
+DumpList TokenType (ID) Text (n) AST # 48  Line=15  Col=33
+DumpList TokenType (\=) Text (=) AST # 47  Line=15  Col=25
+DumpList TokenType (ID) Text (mmmmmmmmm) AST # 46  Line=15  Col=9
+DumpList TokenType (ID) Text (n) AST # 45  Line=14  Col=33
+DumpList TokenType (\=) Text (=) AST # 44  Line=14  Col=25
+DumpList TokenType (ID) Text (mmmmmmmm) AST # 43  Line=14  Col=9
+DumpList TokenType (ID) Text (n) AST # 42  Line=13  Col=33
+DumpList TokenType (\=) Text (=) AST # 41  Line=13  Col=25
+DumpList TokenType (ID) Text (mmmmmmm) AST # 40  Line=13  Col=9
+DumpList TokenType (ID) Text (n) AST # 39  Line=12  Col=33
+DumpList TokenType (\=) Text (=) AST # 38  Line=12  Col=25
+DumpList TokenType (ID) Text (mm) AST # 37  Line=12  Col=9
+DumpList TokenType (ID) Text (n) AST # 36  Line=11  Col=33
+DumpList TokenType (\=) Text (=) AST # 35  Line=11  Col=25
+DumpList TokenType (ID) Text (m) AST # 34  Line=11  Col=9
+DumpList TokenType (ID) Text (l) AST # 33  Line=9  Col=25
+DumpList TokenType (\=) Text (=) AST # 32  Line=9  Col=17
+DumpList TokenType (ID) Text (kkkkkkkkk) AST # 31  Line=9  Col=1
+DumpList TokenType (ID) Text (l) AST # 30  Line=8  Col=25
+DumpList TokenType (\=) Text (=) AST # 29  Line=8  Col=17
+DumpList TokenType (ID) Text (kkkkkkkk) AST # 28  Line=8  Col=1
+DumpList TokenType (ID) Text (l) AST # 27  Line=7  Col=25
+DumpList TokenType (\=) Text (=) AST # 26  Line=7  Col=17
+DumpList TokenType (ID) Text (kkkkkkk) AST # 25  Line=7  Col=1
+DumpList TokenType (ID) Text (l) AST # 24  Line=6  Col=25
+DumpList TokenType (\=) Text (=) AST # 23  Line=6  Col=17
+DumpList TokenType (ID) Text (kk) AST # 22  Line=6  Col=1
+DumpList TokenType (ID) Text (l) AST # 21  Line=5  Col=25
+DumpList TokenType (\=) Text (=) AST # 20  Line=5  Col=17
+DumpList TokenType (ID) Text (k) AST # 19  Line=5  Col=1
+DumpList TokenType (ID) Text (j) AST # 18  Line=4  Col=50
+DumpList TokenType (\*) Text (*) AST # 17  Line=4  Col=42
+DumpList TokenType (ID) Text (i) AST # 16  Line=4  Col=34
+DumpList TokenType (\=) Text (=) AST # 15  Line=4  Col=26
+DumpList TokenType (ID) Text (h) AST # 14  Line=4  Col=18
+DumpList TokenType (ID) Text (g) AST # 13  Line=3  Col=49
+DumpList TokenType (\*) Text (*) AST # 12  Line=3  Col=41
+DumpList TokenType (ID) Text (f) AST # 11  Line=3  Col=33
+DumpList TokenType (\=) Text (=) AST # 10  Line=3  Col=25
+DumpList TokenType (ID) Text (e) AST # 9  Line=3  Col=17
+DumpList TokenType (ID) Text (e) AST # 8  Line=2  Col=13
+DumpList TokenType (\*) Text (*) AST # 7  Line=2  Col=12
+DumpList TokenType (ID) Text (d) AST # 6  Line=2  Col=11
+DumpList TokenType (\=) Text (=) AST # 5  Line=2  Col=10
+DumpList TokenType (ID) Text (c) AST # 4  Line=2  Col=9
+DumpList TokenType (ID) Text (b) AST # 3  Line=1  Col=3
+DumpList TokenType (\=) Text (=) AST # 2  Line=1  Col=2
+DumpList TokenType (ID) Text (a) AST # 1  Line=1  Col=1
+
+*** End of Dump ***
+
+AST elements on NoLeak List
+
+*** Dump of ASTs on list ***
+
+DumpList TokenType (ID) Text (j) AST # 18  Line=4  Col=50
+DumpList TokenType (ID) Text (g) AST # 13  Line=3  Col=49
+DumpList TokenType (ID) Text (e) AST # 8  Line=2  Col=13
+
+*** End of Dump ***
+
+Tokens remaining on NoLeak List after AST::destroyList
+
+*** Dump of Tokens on list ***
+
+DumpList TokenType "EOF" Token # 77
+
+*** End of Dump ***
+

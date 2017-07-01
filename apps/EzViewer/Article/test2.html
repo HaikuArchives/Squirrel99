@@ -1,0 +1,320 @@
+<HTML>
+<BODY bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+<!Listing num 2>
+<P>blahblah<p><br>
+<center>
+<TABLE border=0  bgcolor="#CCCCFF" cellspacing=0>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.1"><VERBATIM>   1</VERBATIM></a></TD>
+<TD><A NAME="l.2.1"><PRE>use 'GUI' 'Imaging' 'List Processing' 'Storage' 'String Processing'</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.2"><VERBATIM>   2</VERBATIM></a></TD>
+<TD><A NAME="l.2.2"><PRE>to DragDrop :src :type :msg</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.3"><VERBATIM>   3</VERBATIM></a></TD>
+<TD><A NAME="l.2.3"><PRE>	if :type = "simple {</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.4"><VERBATIM>   4</VERBATIM></a></TD>
+<TD><A NAME="l.2.4"><PRE>		make.local "file $msg~find "refs</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.5"><VERBATIM>   5</VERBATIM></a></TD>
+<TD><A NAME="l.2.5"><PRE>		make.local "m mime.get :file 	</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.6"><VERBATIM>   6</VERBATIM></a></TD>
+<TD><A NAME="l.2.6"><PRE>		if (sfind :m 'image/') {</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.7"><VERBATIM>   7</VERBATIM></a></TD>
+<TD><A NAME="l.2.7"><PRE>			make.local "img Image :file</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.8"><VERBATIM>   8</VERBATIM></a></TD>
+<TD><A NAME="l.2.8"><PRE>			$the.viewer~display :img "adapt</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.9"><VERBATIM>   9</VERBATIM></a></TD>
+<TD><A NAME="l.2.9"><PRE>			$win~config "title "set :file</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.10"><VERBATIM>  10</VERBATIM></a></TD>
+<TD><A NAME="l.2.10"><PRE>		} {</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.11"><VERBATIM>  11</VERBATIM></a></TD>
+<TD><A NAME="l.2.11"><PRE>			Info "stop ["ok] 'error' 'Hmmm ... doesn\'t look like an image to me :-p'	</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.12"><VERBATIM>  12</VERBATIM></a></TD>
+<TD><A NAME="l.2.12"><PRE>		}</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.13"><VERBATIM>  13</VERBATIM></a></TD>
+<TD><A NAME="l.2.13"><PRE>	}</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.14"><VERBATIM>  14</VERBATIM></a></TD>
+<TD><A NAME="l.2.14"><PRE>end</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.15"><VERBATIM>  15</VERBATIM></a></TD>
+<TD><A NAME="l.2.15"><PRE>make "my.image false</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.16"><VERBATIM>  16</VERBATIM></a></TD>
+<TD><A NAME="l.2.16"><PRE>if (llength :Args) = 2 { </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.17"><VERBATIM>  17</VERBATIM></a></TD>
+<TD><A NAME="l.2.17"><PRE>	make "m mime.get lindex :Args 2 </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.18"><VERBATIM>  18</VERBATIM></a></TD>
+<TD><A NAME="l.2.18"><PRE>	if (sfind :m 'image/') {</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.19"><VERBATIM>  19</VERBATIM></a></TD>
+<TD><A NAME="l.2.19"><PRE>		make "my.image Image lindex :Args 2 </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.20"><VERBATIM>  20</VERBATIM></a></TD>
+<TD><A NAME="l.2.20"><PRE>		if (is.image :my.image) { </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.21"><VERBATIM>  21</VERBATIM></a></TD>
+<TD><A NAME="l.2.21"><PRE>			make "win Window "titled (lindex :Args 2) [100 100] "not.resizable</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.22"><VERBATIM>  22</VERBATIM></a></TD>
+<TD><A NAME="l.2.22"><PRE>			make "the.viewer Viewer :my.image </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.23"><VERBATIM>  23</VERBATIM></a></TD>
+<TD><A NAME="l.2.23"><PRE>		} { </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.24"><VERBATIM>  24</VERBATIM></a></TD>
+<TD><A NAME="l.2.24"><PRE>			print 'Image file not reconized ... maybe not an image'       </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.25"><VERBATIM>  25</VERBATIM></a></TD>
+<TD><A NAME="l.2.25"><PRE>	    	} </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.26"><VERBATIM>  26</VERBATIM></a></TD>
+<TD><A NAME="l.2.26"><PRE>	}</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.27"><VERBATIM>  27</VERBATIM></a></TD>
+<TD><A NAME="l.2.27"><PRE>} </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.28"><VERBATIM>  28</VERBATIM></a></TD>
+<TD><A NAME="l.2.28"><PRE>if not (is.image :my.image) {</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.29"><VERBATIM>  29</VERBATIM></a></TD>
+<TD><A NAME="l.2.29"><PRE>	make "win Window "titled 'EzViewer' [100 100] "not.resizable</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.30"><VERBATIM>  30</VERBATIM></a></TD>
+<TD><A NAME="l.2.30"><PRE>	make "the.viewer Viewer [200 200]	</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.31"><VERBATIM>  31</VERBATIM></a></TD>
+<TD><A NAME="l.2.31"><PRE>}</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.32"><VERBATIM>  32</VERBATIM></a></TD>
+<TD><A NAME="l.2.32"><PRE>Hook :the.viewer "drop "DragDrop</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.33"><VERBATIM>  33</VERBATIM></a></TD>
+<TD><A NAME="l.2.33"><PRE>Glue :win "top [] :the.viewer </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.2.34"><VERBATIM>  34</VERBATIM></a></TD>
+<TD><A NAME="l.2.34"><PRE>$win~show</PRE></A></TD>
+</TR>
+</TABLE>
+</center>
+<P><br>
+<P>
+<P>
+<!Line comments num 2>
+<P>
+<B><A HREF="#l.2.1"><TT>Line 1.</TT></A></B><A NAME="c.2.1">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.2"><TT>Line 2.</TT></A></B><A NAME="c.2.2">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.3"><TT>Line 3.</TT></A></B><A NAME="c.2.3">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.4"><TT>Line 4.</TT></A></B><A NAME="c.2.4">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.5"><TT>Line 5.</TT></A></B><A NAME="c.2.5">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.6"><TT>Line 6.</TT></A></B><A NAME="c.2.6">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.7"><TT>Line 7.</TT></A></B><A NAME="c.2.7">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.8"><TT>Line 8.</TT></A></B><A NAME="c.2.8">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.9"><TT>Line 9.</TT></A></B><A NAME="c.2.9">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.10"><TT>Line 10.</TT></A></B><A NAME="c.2.10">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.11"><TT>Line 11.</TT></A></B><A NAME="c.2.11">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.12"><TT>Line 12.</TT></A></B><A NAME="c.2.12">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.13"><TT>Line 13.</TT></A></B><A NAME="c.2.13">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.14"><TT>Line 14.</TT></A></B><A NAME="c.2.14">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.15"><TT>Line 15.</TT></A></B><A NAME="c.2.15">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.16"><TT>Line 16.</TT></A></B><A NAME="c.2.16">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.17"><TT>Line 17.</TT></A></B><A NAME="c.2.17">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.18"><TT>Line 18.</TT></A></B><A NAME="c.2.18">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.19"><TT>Line 19.</TT></A></B><A NAME="c.2.19">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.20"><TT>Line 20.</TT></A></B><A NAME="c.2.20">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.21"><TT>Line 21.</TT></A></B><A NAME="c.2.21">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.22"><TT>Line 22.</TT></A></B><A NAME="c.2.22">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.23"><TT>Line 23.</TT></A></B><A NAME="c.2.23">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.24"><TT>Line 24.</TT></A></B><A NAME="c.2.24">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.25"><TT>Line 25.</TT></A></B><A NAME="c.2.25">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.26"><TT>Line 26.</TT></A></B><A NAME="c.2.26">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.27"><TT>Line 27.</TT></A></B><A NAME="c.2.27">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.28"><TT>Line 28.</TT></A></B><A NAME="c.2.28">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.29"><TT>Line 29.</TT></A></B><A NAME="c.2.29">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.30"><TT>Line 30.</TT></A></B><A NAME="c.2.30">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.31"><TT>Line 31.</TT></A></B><A NAME="c.2.31">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.32"><TT>Line 32.</TT></A></B><A NAME="c.2.32">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.33"><TT>Line 33.</TT></A></B><A NAME="c.2.33">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.2.34"><TT>Line 34.</TT></A></B><A NAME="c.2.34">
+your comment here
+</A>
+</P>
+</BODY>
+</HTML>

@@ -1,0 +1,11 @@
+to GetComment :file
+    if (attr.exists :file :label) {
+        output attr.get :file :label
+    } {
+        output ''
+    }
+end
+
+to SetComment :file :comment
+    attr.set :file :label :comment
+end

@@ -1,0 +1,161 @@
+#
+# PCCTS makefile for: logo.g
+#
+# Created from: genmk -CC -class LogoParser -project Logo logo.g
+#
+# PCCTS release 1.33MR10
+# Project: Logo
+# C++ output
+# DLG scanner
+# ANTLR-defined token types
+#
+TOKENS = tokens.h
+#
+# The following filenames must be consistent with ANTLR/DLG flags
+DLG_FILE = parser.dlg
+ERR = err
+HDR_FILE =
+SCAN = DLGLexer
+PCCTS = ../../pccts
+ANTLR_H = $(PCCTS)/h
+BIN = $(PCCTS)/bin
+ANTLR = $(BIN)/antlr
+DLG = $(BIN)/dlg
+CFLAGS = -I. -I$(ANTLR_H) $(COTHER)
+AFLAGS = -CC -mrhoist off $(AOTHER)
+DFLAGS = -C2 -i -CC $(DOTHER)
+GRM = logo.g
+SRC = logo.cpp Squirrel.cpp\
+      LogoParser.cpp \
+      $(ANTLR_H)/AParser.cpp $(ANTLR_H)/DLexerBase.cpp $(ANTLR_H)/ATokenBuffer.cpp $(SCAN).cpp
+OBJ = $(OBJDIR)/logo.o $(OBJDIR)/Squirrel.o \
+      $(OBJDIR)/LogoParser.o \
+       $(OBJDIR)/AParser.o $(OBJDIR)/DLexerBase.o $(OBJDIR)/ATokenBuffer.o $(OBJDIR)/$(SCAN).o
+ANTLR_SPAWN = logo.cpp LogoParser.cpp \
+              LogoParser.h $(DLG_FILE) $(TOKENS)
+DLG_SPAWN = $(SCAN).cpp $(SCAN).h
+CCC=g++
+
+OPT = -g 
+
+OBJDIR = ./objects
+BILDIR = ./builtin
+
+BLGOBJ = $(OBJDIR)/SQI-heap.o $(OBJDIR)/SQI-object.o $(OBJDIR)/SQI-string.o $(OBJDIR)/SQI-keyword.o $(OBJDIR)/SQI-number.o \
+	 $(OBJDIR)/SQI-list.o $(OBJDIR)/SQI-exception.o $(OBJDIR)/SQI-varmap.o $(OBJDIR)/SQI-node.o $(OBJDIR)/SQI-nbuiltin.o \
+	 $(OBJDIR)/SQI-nufunc.o $(OBJDIR)/SQI-ncontrol.o $(OBJDIR)/SQI-nvarref.o $(OBJDIR)/SQI-nblock.o $(OBJDIR)/SQI-nexpr.o \
+	 $(OBJDIR)/SQI-builtin.o $(OBJDIR)/SQI-interp.o $(OBJDIR)/SQI-squirrel.o $(OBJDIR)/SQI-defunc.o $(OBJDIR)/SQI-ufunc.o \
+	 $(OBJDIR)/SQI-ntag.o $(OBJDIR)/SQI-ngoto.o
+
+$(OBJDIR)/BLGlib.a : $(BLGOBJ)
+	ar -r $(OBJDIR)/BLGlib.a $(BLGOBJ)
+
+#$(BILDIR)/objects/BLGBuiltin.a : 
+#	cd builtin
+#	make -f $(BILDIR)/makefile
+#	cd ..
+
+
+
+$(OBJDIR)/SQI-heap.o : SQI-heap.cpp ./include/SQI-heap.h ./include/SQI-object.h ./include/SQI-exception.h
+	$(CCC) $(OPT) -c SQI-heap.cpp -o $(OBJDIR)/SQI-heap.o
+
+$(OBJDIR)/SQI-varmap.o : SQI-varmap.cpp ./include/SQI-varmap.h ./include/SQI-object.h ./include/SQI-exception.h
+	$(CCC) $(OPT) -c SQI-varmap.cpp -o $(OBJDIR)/SQI-varmap.o
+
+$(OBJDIR)/SQI-node.o : SQI-node.cpp ./include/SQI-node.h ./include/SQI-object.h
+	$(CCC) $(OPT) -c SQI-node.cpp -o $(OBJDIR)/SQI-node.o
+
+$(OBJDIR)/SQI-nbuiltin.o : SQI-nbuiltin.cpp ./include/SQI-node.h ./include/SQI-object.h ./include/SQI-nbuiltin.h
+	$(CCC) $(OPT) -c SQI-nbuiltin.cpp -o $(OBJDIR)/SQI-nbuiltin.o
+
+$(OBJDIR)/SQI-nufunc.o : SQI-nufunc.cpp ./include/SQI-node.h ./include/SQI-object.h ./include/SQI-nufunc.h
+	$(CCC) $(OPT) -c SQI-nufunc.cpp -o $(OBJDIR)/SQI-nufunc.o
+
+$(OBJDIR)/SQI-nblock.o : SQI-nblock.cpp ./include/SQI-node.h ./include/SQI-object.h ./include/SQI-nblock.h
+	$(CCC) $(OPT) -c SQI-nblock.cpp -o $(OBJDIR)/SQI-nblock.o
+
+$(OBJDIR)/SQI-ncontrol.o : SQI-ncontrol.cpp ./include/SQI-node.h ./include/SQI-object.h ./include/SQI-ncontrol.h
+	$(CCC) $(OPT) -c SQI-ncontrol.cpp -o $(OBJDIR)/SQI-ncontrol.o
+
+$(OBJDIR)/SQI-nvarref.o : SQI-nvarref.cpp ./include/SQI-node.h ./include/SQI-object.h ./include/SQI-nvarref.h
+	$(CCC) $(OPT) -c SQI-nvarref.cpp -o $(OBJDIR)/SQI-nvarref.o
+
+$(OBJDIR)/SQI-nexpr.o : SQI-nexpr.cpp ./include/SQI-node.h ./include/SQI-object.h ./include/SQI-nexpr.h
+	$(CCC) $(OPT) -c SQI-nexpr.cpp -o $(OBJDIR)/SQI-nexpr.o
+
+$(OBJDIR)/SQI-ntag.o : SQI-ntag.cpp ./include/SQI-node.h ./include/SQI-object.h ./include/SQI-ntag.h
+	$(CCC) $(OPT) -c SQI-ntag.cpp -o $(OBJDIR)/SQI-ntag.o
+
+$(OBJDIR)/SQI-ngoto.o : SQI-ngoto.cpp ./include/SQI-node.h ./include/SQI-object.h ./include/SQI-ngoto.h
+	$(CCC) $(OPT) -c SQI-ngoto.cpp -o $(OBJDIR)/SQI-ngoto.o
+
+$(OBJDIR)/SQI-object.o : SQI-object.cpp ./include/SQI-heap.h ./include/SQI-object.h ./include/SQI-exception.h
+	$(CCC) $(OPT) -c SQI-object.cpp -o $(OBJDIR)/SQI-object.o
+
+$(OBJDIR)/SQI-number.o : SQI-number.cpp ./include/SQI-heap.h ./include/SQI-object.h ./include/SQI-number.h ./include/SQI-exception.h
+	$(CCC) $(OPT) -c SQI-number.cpp -o $(OBJDIR)/SQI-number.o
+
+$(OBJDIR)/SQI-string.o : SQI-string.cpp ./include/SQI-heap.h ./include/SQI-object.h ./include/SQI-string.h ./include/SQI-exception.h
+	$(CCC) $(OPT) -c SQI-string.cpp -o $(OBJDIR)/SQI-string.o
+
+$(OBJDIR)/SQI-keyword.o : SQI-keyword.cpp ./include/SQI-heap.h ./include/SQI-object.h ./include/SQI-string.h ./include/SQI-keyword.h ./include/SQI-exception.h
+	$(CCC) $(OPT) -c SQI-keyword.cpp -o $(OBJDIR)/SQI-keyword.o
+
+$(OBJDIR)/SQI-list.o : SQI-list.cpp ./include/SQI-heap.h ./include/SQI-object.h ./include/SQI-list.h ./include/SQI-exception.h
+	$(CCC) $(OPT) -c SQI-list.cpp -o $(OBJDIR)/SQI-list.o
+
+$(OBJDIR)/SQI-builtin.o : SQI-builtin.cpp ./include/SQI-heap.h ./include/SQI-object.h ./include/SQI-exception.h ./include/SQI-builtin.h
+	$(CCC) $(OPT) -c SQI-builtin.cpp -o $(OBJDIR)/SQI-builtin.o
+
+$(OBJDIR)/SQI-interp.o : SQI-interp.cpp ./include/SQI-heap.h ./include/SQI-varmap.h ./include/SQI-builtin.h ./include/SQI-interp.h
+	$(CCC) $(OPT) -c SQI-interp.cpp -o $(OBJDIR)/SQI-interp.o
+
+$(OBJDIR)/SQI-squirrel.o : SQI-squirrel.cpp ./include/SQI-heap.h ./include/SQI-varmap.h ./include/SQI-object.h ./include/SQI-squirrel.h
+	$(CCC) $(OPT) -c SQI-squirrel.cpp -o $(OBJDIR)/SQI-squirrel.o
+
+$(OBJDIR)/SQI-defunc.o : SQI-defunc.cpp ./include/SQI-heap.h ./include/SQI-varmap.h ./include/SQI-object.h ./include/SQI-defunc.h
+	$(CCC) $(OPT) -c SQI-defunc.cpp -o $(OBJDIR)/SQI-defunc.o
+
+$(OBJDIR)/SQI-ufunc.o : SQI-ufunc.cpp ./include/SQI-heap.h ./include/SQI-varmap.h ./include/SQI-object.h ./include/SQI-ufunc.h
+	$(CCC) $(OPT) -c SQI-ufunc.cpp -o $(OBJDIR)/SQI-ufunc.o
+
+$(OBJDIR)/SQI-exception.o : SQI-exception.cpp ./include/SQI-exception.h
+	$(CCC) $(OPT) -c SQI-exception.cpp -o $(OBJDIR)/SQI-exception.o
+
+Squirrel : $(OBJ) $(SRC)
+	$(CCC) -o Squirrel $(CFLAGS) $(OBJ) $(BILDIR)/objects/BLGBuiltin.a $(OBJDIR)/BLGlib.a
+
+$(OBJDIR)/Squirrel.o : Squirrel.cpp
+	$(CCC) -c $(CFLAGS) -o $(OBJDIR)/Squirrel.o Squirrel.cpp
+
+$(OBJDIR)/logo.o : $(TOKENS) $(SCAN).h logo.cpp $(OBJDIR)/BLGlib.a $(BILDIR)/objects/BLGBuiltin.a
+	$(CCC) -c $(CFLAGS) -o $(OBJDIR)/logo.o logo.cpp
+
+$(OBJDIR)/LogoParser.o : $(TOKENS) $(SCAN).h LogoParser.cpp LogoParser.h
+	$(CCC) -c $(CFLAGS) -o $(OBJDIR)/LogoParser.o LogoParser.cpp
+
+$(OBJDIR)/$(SCAN).o : $(SCAN).cpp $(TOKENS)
+	$(CCC) -c $(CFLAGS) -o $(OBJDIR)/$(SCAN).o $(SCAN).cpp
+
+$(ANTLR_SPAWN) : $(GRM)
+	$(ANTLR) $(AFLAGS) $(GRM)
+
+$(DLG_SPAWN) : $(DLG_FILE)
+	$(DLG) $(DFLAGS) $(DLG_FILE)
+
+$(OBJDIR)/AParser.o : $(ANTLR_H)/AParser.cpp
+	$(CCC) -c $(CFLAGS) -o $(OBJDIR)/AParser.o $(ANTLR_H)/AParser.cpp
+
+$(OBJDIR)/ATokenBuffer.o : $(ANTLR_H)/ATokenBuffer.cpp
+	$(CCC) -c $(CFLAGS) -o $(OBJDIR)/ATokenBuffer.o $(ANTLR_H)/ATokenBuffer.cpp
+
+$(OBJDIR)/DLexerBase.o : $(ANTLR_H)/DLexerBase.cpp
+	$(CCC) -c $(CFLAGS) -o $(OBJDIR)/DLexerBase.o $(ANTLR_H)/DLexerBase.cpp
+
+clean:
+	rm -f $(OBJDIR)/*.o $(OBJDIR)/*.a core Squirrel
+
+scrub:
+	rm -f $(OBJDIR)/*.o core Logo $(ANTLR_SPAWN) $(DLG_SPAWN)
+

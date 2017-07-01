@@ -1,0 +1,215 @@
+ /*
+ * beSpotLight
+ *
+ * file ?	Hooks.sqi
+ * what	?	Callback function of the GUI
+ * who	?	jlv
+ * when	?	10/03/00
+ * last	?	02/28/01
+ *
+ *
+ * (c) Kirilla 2000-2001
+ */
+
+; indicates if the help screen is displayed 
+make "help.on false 
+ 
+/*
+ * function    : KeyDown
+ * purpose     : The user have hit a key over the widget
+ * input       :
+ *
+ * src, 	widget
+ * m,		key modifier used
+ * key, 	key char value
+ * code, 	key code
+ *
+ * output      : none
+ * side effect : none
+ */ 
+to KeyDown :src :m :key :code
+
+	if :m = "left_control {
+			
+		switch :code {
+						
+			case 12 { ; L	
+				make "file FilePanel "open "last.dir ["file] "single "allow ['text/x-script.bespotlight'] []
+				if (is.string :file) {	
+					LoadScript :file
+				}	
+			}
+			
+			case 17 { ; Q
+				$AppWin~quit
+			}
+			
+			case 19 { ; S
+				$AppSheet~export "GIF string :pres.dir '/' :app.title '-' :loc '.gif'
+			}
+		}	
+	} {
+		switch :code {
+			
+			case 27 { ; ESC
+				if :help.on {
+					if :loc > 0 {
+						GotoPage :loc :sk
+					} {
+						$AppSheet~clear
+						Void		
+					}
+					make "help.on false	
+				}
+			}	
+			
+			case 11 { ; page up 
+				if not :help.on {
+					make "loc :loc-1
+					if :loc > 0 {
+						GotoPage :loc :sk
+					} {
+						make "loc 1			
+					}			
+				}		
+			}
+			case 12 { ; page down
+				if not :help.on {
+					make "loc :loc+1
+					if :loc <= (llength :slides) {
+						GotoPage :loc :sk
+					} {
+						make "loc :loc-1			
+					}		
+				}
+			}
+			range 49 57 { ; pass n pages
+				if not :help.on {
+					make "loc :loc+(:code-48)
+					if :loc <= (llength :slides) {
+						GotoPage :loc :sk
+					} {
+						make "loc :loc-(:code-48)			
+					}				
+				}
+			}
+			case 102 { ; first page
+				if not :help.on {
+					if (llength :slides) {
+						GotoPage 1 :sk
+					}
+				}	
+			}
+			case 104 { ; H
+				make "help.on true
+				ShowHelp :sk	
+			}
+			case 108 { ; last page
+				if not :help.on {
+					if (llength :slides) {
+						GotoPage (llength :slides) :sk
+					}			
+				}
+			}
+		}	
+	}
+ 
+end 
+
+/*
+ * function    : MouseDown
+ * purpose     : The user have cliked within a slide
+ * input       :
+ *
+ * src, 	widget
+ * m, 		key modifier used
+ * x,		x position where a button was hit
+ * y,		y position where a button was hit
+ * b,		button hit	
+ *
+ * output      : none
+ * side effect : none
+ */
+to MouseDown :src :m :x :y :b	
+
+	if (llength :link) {
+		local "max.x "min.x "max.y "min.y "found "func "l
+		make "found false
+		for.each "l :link {
+			lscan :l "min.x "max.x "min.y "max.y "func
+			if (:min.x <= :x) and (:x <= :max.x) {
+				if (:min.y <= :y) and (:y <= :max.y) {
+					make "found true
+					break		
+				}
+			}	
+		}				
+		
+		if :found {
+			call :func :b
+		}
+	}
+	
+end
+
+/*
+ * function    : Pulse
+ * purpose     : Render the clock every seconds (only if the clock have to be displayed)
+ * input       :
+ *
+ * src, widget
+ *
+ * output      : none
+ * side effect : none
+ */
+to Pulse :src
+	make.local "l split.as.string (ctime time) ' '
+	make.local "str string (lindex :l 4)
+			
+	; we need to clear an area
+	$AppSheet~clear (list :width-15-:time.w 2) (list :width-10 13)
+	$stime~goto :width-15-:time.w 5
+	$stime~heading 90
+	
+	InlinedText :stime :str
+end
+
+/*
+ * function    : DragDrop
+ * purpose     : The widget is the target of a drag&drop action
+ * input       :
+ *
+ * src, 	widget
+ * type,	type of the data dropped
+ * msg,		message dropped
+ *
+ * output      : none
+ * side effect : Will load a presentation if possible
+ */
+to DragDrop :src :type :msg
+	if :type = "simple {
+		make.local "script $msg~find "refs
+		LoadScript :script
+	}
+end
+
+
+/*
+ * function    : FontChanged
+ * purpose     : The font to be use has been reset by a presentation
+ * input       :
+ *
+ * old,		previous font name
+ * new,		new font name
+ *
+ * output      : boolean
+ * side effect : none
+ */
+to FontChanged :old :new
+	if (Font.exists :new) {
+		$AppFont~family "set :new
+		output true	
+	} {
+		output false	
+	}	
+end

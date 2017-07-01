@@ -1,0 +1,332 @@
+This is TeX, Version 3.14159 (Web2C 7.2) (format=latex 2000.11.9)  10 MAR 2001 15:30
+**skippy.tex
+(skippy.tex
+LaTeX2e <1998/12/01> patch level 1
+Babel <v3.6x> and hyphenation patterns for american, french, german, ngerman, i
+talian, nohyphenation, loaded.
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/base/report.cls
+Document Class: report 1997/10/10 v1.3x Standard LaTeX document class
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 1997/10/10 v1.3x Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/psnfss/times.sty
+Package: times 1999/03/29 PSNFSS v.7.2 Times font as default roman : S Rahtz
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/color.sty
+Package: color 1997/09/09 v1.0f Standard LaTeX Color (DPC)
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/local/color.cfg)
+Package color Info: Driver file: dvips.def on input line 129.
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1997/09/09 v3.0e Driver-dependant file (DPC,SPQR)
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1997/09/09 v3.0e Driver-dependant file (DPC,SPQR)
+))
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/epsfig.sty
+Package: epsfig 1996/10/04 v1.7 (e)psfig emulation (SPQR)
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1997/06/09 v1.0d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1997/11/10 v1.10 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 1997/09/09 v1.0f Standard LaTeX Graphics (DPC,SPQR)
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1994/10/16 v1.08 sin cos tan (DPC)
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/local/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 84.
+)
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/base/makeidx.sty
+Package: makeidx 1995/04/19 v1.0j Standard LaTeX package
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/misc/moreverb.sty
+Package: moreverb 1997/12/07 v2.2d.2 `more' verbatim facilities
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/tools/verbatim.sty
+Package: verbatim 1997/04/30 v1.5k LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks15
+\verbatim@line=\toks16
+\verbatim@in@stream=\read1
+)
+\verbatim@out=\write3
+\tab@position=\count88
+\tab@size=\count89
+\listing@line=\count90
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/tools/longtable.sty
+Package: longtable 1997/10/16 v4.07 Multi-page Table package (DPC)
+\LTleft=\skip43
+\LTright=\skip44
+\LTpre=\skip45
+\LTpost=\skip46
+\LTchunksize=\count91
+\LTcapwidth=\dimen107
+\LT@head=\box26
+\LT@firsthead=\box27
+\LT@foot=\box28
+\LT@lastfoot=\box29
+\LT@cols=\count92
+\LT@rows=\count93
+\c@LT@tables=\count94
+\c@LT@chunks=\count95
+\LT@p@ftn=\toks17
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/misc/changebar.sty
+Package: changebar 1998/03/17 v3.3f Indicate changes with marginal bars
+\cb@nextpoint=\count96
+\cb@topleft=\count97
+\cb@topright=\count98
+\cb@botleft=\count99
+\cb@botright=\count100
+\cb@curbarwd=\dimen108
+\cb@page=\count101
+\cb@pagecount=\count102
+\cb@odd@left=\dimen109
+\cb@odd@right=\dimen110
+\cb@even@left=\dimen111
+\cb@even@right=\dimen112
+\changebarwidth=\skip47
+\deletebarwidth=\skip48
+\changebarsep=\skip49
+\c@changebargrey=\count103
+\cb@write=\write4
+\cb@read=\read2
+\openout4 = `skippy.cb'.
+
+)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/fancyhdr/fancyhdr.sty
+\headwidth=\dimen113
+)
+\c@ex=\count104
+\c@sc=\count105
+\@indexfile=\write5
+\openout5 = `skippy.idx'.
+
+
+Writing index file skippy.idx
+(skippy.aux)
+\openout1 = `skippy.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 65.
+ (/boot/apps/GeekGadgets/share/texmf/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2000/01/12 PSNFSS-v8.1 font definitions for OT1/ptm.
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 72.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 72.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 75.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 85.
+File: images/eps/thtree.eps Graphic file (type eps)
+
+<images/eps/thtree.eps>
+Overfull \hbox (14.21915pt too wide) in paragraph at lines 98--102
+ [] 
+ []
+
+[1
+
+]
+File: images/squirrel32x32.eps Graphic file (type eps)
+ <images/squirrel32x32.eps>
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 117.
+
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <9> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 117.
+
+Underfull \hbox (badness 10000) in paragraph at lines 116--118
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--120
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--124
+
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 131.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 131.
+[0]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
+ (skippy.toc
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
+ [1
+
+])
+\tf@toc=\write6
+\openout6 = `skippy.toc'.
+
+ [2] (skippy.lof)
+\tf@lof=\write7
+\openout7 = `skippy.lof'.
+
+ [3
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 163--164
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 165--166
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--179
+
+ []
+
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 181.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 181.
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2000/01/12 PSNFSS-v8.1 font definitions for OT1/pcr.
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 192.
+
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 194--195
+
+ []
+
+[1
+
+]
+Chapter 1.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20.74> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 200.
+
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+
+ []
+
+[2
+
+]
+Chapter 2.
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--234
+
+ []
+
+File: images/eps/sk1.eps Graphic file (type eps)
+<images/eps/sk1.eps> [3
+
+]
+File: images/eps/sk2.eps Graphic file (type eps)
+ <images/eps/sk2.eps>
+File: images/eps/sk10.eps Graphic file (type eps)
+ <images/eps/sk10.eps> [4]
+[5]
+File: images/eps/sk11.eps Graphic file (type eps)
+ <images/eps/sk11.eps>
+File: images/eps/sk9.eps Graphic file (type eps)
+ <images/eps/sk9.eps> [6]
+Chapter 3.
+[7
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 330--331
+
+ []
+
+File: images/eps/sk3.eps Graphic file (type eps)
+<images/eps/sk3.eps> [8]
+File: images/eps/sk4.eps Graphic file (type eps)
+ <images/eps/sk4.eps> [9] [10]
+File: images/eps/sk5.eps Graphic file (type eps)
+ <images/eps/sk5.eps>
+[11]
+File: images/eps/sk6.eps Graphic file (type eps)
+ <images/eps/sk6.eps> [12]
+File: images/eps/sk7.eps Graphic file (type eps)
+ <images/eps/sk7.eps> [13] [14]
+File: images/eps/sk8.eps Graphic file (type eps)
+
+<images/eps/sk8.eps> [15]
+Chapter 4.
+[16
+
+] (skippy.ind [17] [18
+
+
+]) (skippy.aux) ) 
+Here is how much of TeX's memory you used:
+ 1288 strings out of 10901
+ 15722 string characters out of 71984
+ 62783 words of memory out of 263001
+ 4212 multiletter control sequences out of 10000+0
+ 18174 words of font info for 46 fonts, out of 200000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 32i,11n,40p,514b,613s stack positions out of 300i,100n,500p,30000b,4000s
+
+Output written on skippy.dvi (23 pages, 48728 bytes).

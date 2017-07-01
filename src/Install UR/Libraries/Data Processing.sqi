@@ -1,0 +1,11 @@
+/*
+	Data Processing Library
+
+	Squirrel project
+
+	Kirilla 1999
+*/
+
+to combine :a :b
+	ifelse (is.word :b) {output word :a :b} {output fput :a :b}
+end

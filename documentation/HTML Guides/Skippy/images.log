@@ -1,0 +1,364 @@
+This is TeX, Version 3.14159 (Web2C 7.2) (format=latex 2000.11.9)  19 NOV 2000 12:58
+**./images.tex
+(./images.tex
+LaTeX2e <1998/12/01> patch level 1
+Babel <v3.6x> and hyphenation patterns for american, french, german, ngerman, i
+talian, nohyphenation, loaded.
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/base/report.cls
+Document Class: report 1997/10/10 v1.3x Standard LaTeX document class
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/base/size10.clo
+File: size10.clo 1997/10/10 v1.3x Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/base/ifthen.sty
+Package: ifthen 1997/11/02 v1.0n Standard LaTeX ifthen package (DPC)
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/psnfss/times.sty
+Package: times 1999/03/29 PSNFSS v.7.2 Times font as default roman : S Rahtz
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/color.sty
+Package: color 1997/09/09 v1.0f Standard LaTeX Color (DPC)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/local/color.cfg)
+Package color Info: Driver file: dvips.def on input line 129.
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1997/09/09 v3.0e Driver-dependant file (DPC,SPQR)
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1997/09/09 v3.0e Driver-dependant file (DPC,SPQR)
+)) (/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/epsfig.sty
+Package: epsfig 1996/10/04 v1.7 (e)psfig emulation (SPQR)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1997/06/09 v1.0d Enhanced LaTeX Graphics (DPC,SPQR)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1997/11/10 v1.10 key=value parser (DPC)
+\KV@toks@=\toks14
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 1997/09/09 v1.0f Standard LaTeX Graphics (DPC,SPQR)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1994/10/16 v1.08 sin cos tan (DPC)
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/local/graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 84.
+)
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/base/makeidx.sty
+Package: makeidx 1995/04/19 v1.0j Standard LaTeX package
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/misc/moreverb.sty
+Package: moreverb 1997/12/07 v2.2d.2 `more' verbatim facilities
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/tools/verbatim.sty
+Package: verbatim 1997/04/30 v1.5k LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks15
+\verbatim@line=\toks16
+\verbatim@in@stream=\read1
+)
+\verbatim@out=\write3
+\tab@position=\count88
+\tab@size=\count89
+\listing@line=\count90
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/tools/longtable.sty
+Package: longtable 1997/10/16 v4.07 Multi-page Table package (DPC)
+\LTleft=\skip43
+\LTright=\skip44
+\LTpre=\skip45
+\LTpost=\skip46
+\LTchunksize=\count91
+\LTcapwidth=\dimen107
+\LT@head=\box26
+\LT@firsthead=\box27
+\LT@foot=\box28
+\LT@lastfoot=\box29
+\LT@cols=\count92
+\LT@rows=\count93
+\c@LT@tables=\count94
+\c@LT@chunks=\count95
+\LT@p@ftn=\toks17
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/misc/changebar.sty
+Package: changebar 1998/03/17 v3.3f Indicate changes with marginal bars
+\cb@nextpoint=\count96
+\cb@topleft=\count97
+\cb@topright=\count98
+\cb@botleft=\count99
+\cb@botright=\count100
+\cb@curbarwd=\dimen108
+\cb@page=\count101
+\cb@pagecount=\count102
+\cb@odd@left=\dimen109
+\cb@odd@right=\dimen110
+\cb@even@left=\dimen111
+\cb@even@right=\dimen112
+\changebarwidth=\skip47
+\deletebarwidth=\skip48
+\changebarsep=\skip49
+\c@changebargrey=\count103
+\cb@write=\write4
+\cb@read=\read2
+\openout4 = `images.cb'.
+
+) (/boot/apps/GeekGadgets/share/texmf/tex/latex/fancyhdr/fancyhdr.sty
+\headwidth=\dimen113
+)
+\c@ex=\count104
+\c@sc=\count105
+\@indexfile=\write5
+\openout5 = `images.idx'.
+
+Writing index file images.idx
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/base/inputenc.sty beta test versi
+on
+Package: inputenc 1998/03/05 v0.97 Input encoding file (test version: still lia
+ble to change)
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 1998/03/05 v0.97 Input encoding file (test version: still liab
+le to change)
+))
+\sizebox=\box30
+\lthtmlwrite=\write6
+(images.aux)
+\openout1 = `images.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 158.
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2000/01/12 PSNFSS-v8.1 font definitions for OT1/ptm.
+) (/boot/home/e-/Documents/Manuals/Skippy/skippy.aux
+
+LaTeX Warning: Label `ex1' multiply defined.
+
+
+LaTeX Warning: Label `ex2' multiply defined.
+
+
+LaTeX Warning: Label `s1' multiply defined.
+
+
+LaTeX Warning: Label `s2' multiply defined.
+
+
+LaTeX Warning: Label `ex3' multiply defined.
+
+
+LaTeX Warning: Label `ex4' multiply defined.
+
+
+LaTeX Warning: Label `s10' multiply defined.
+
+
+LaTeX Warning: Label `s11' multiply defined.
+
+
+LaTeX Warning: Label `s0' multiply defined.
+
+
+LaTeX Warning: Label `s3' multiply defined.
+
+
+LaTeX Warning: Label `s4' multiply defined.
+
+
+LaTeX Warning: Label `s5' multiply defined.
+
+
+LaTeX Warning: Label `s6' multiply defined.
+
+
+LaTeX Warning: Label `s7' multiply defined.
+
+
+LaTeX Warning: Label `s8' multiply defined.
+
+)
+
+latex2htmlLength hsize=349.0pt
+
+latex2htmlLength vsize=691.41336pt
+
+latex2htmlLength hoffset=0.0pt
+
+latex2htmlLength voffset=0.0pt
+
+latex2htmlLength topmargin=0.0pt
+
+latex2htmlLength topskip=0.00003pt
+
+latex2htmlLength headheight=0.0pt
+
+latex2htmlLength headsep=0.0pt
+
+latex2htmlLength parskip=0.0pt plus 1.0pt
+
+latex2htmlLength oddsidemargin=0.0pt
+
+latex2htmlLength evensidemargin=0.0pt
+
+File: images/eps/thtree.eps Graphic file (type eps)
+<images/eps/thtree.eps>
+l2hSize :figure79:238.89249pt::0.0pt::349.0pt.
+[1
+
+
+
+]
+File: images/squirrel32x32.eps Graphic file (type eps)
+<images/squirrel32x32.eps>
+l2hSize :figure90:33.12375pt::0.0pt::349.0pt.
+[2
+
+
+]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 201.
+
+(/boot/apps/GeekGadgets/share/texmf/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2000/01/12 PSNFSS-v8.1 font definitions for OT1/pcr.
+)
+Overfull \hbox (8.0pt too wide) in paragraph at lines 202--202
+[][] \OT1/pcr/m/n/10 make "win Win-dow "ti-tled 'Skippy' [100 100] "not.zoomabl
+e[] 
+ []
+
+
+LaTeX Warning: Characters dropped after `\end{listing}' on input line 208.
+
+l2hSize :listing133:87.88489pt::0.0pt::349.0pt.
+[3
+
+
+]
+File: images/eps/sk1.eps Graphic file (type eps)
+<images/eps/sk1.eps>
+l2hSize :figure484:230.86249pt::0.0pt::349.0pt.
+[4
+
+
+]
+
+LaTeX Warning: Characters dropped after `\end{listing}' on input line 223.
+
+l2hSize :listing153:28.16986pt::0.0pt::349.0pt.
+[5
+
+
+]
+File: images/eps/sk2.eps Graphic file (type eps)
+<images/eps/sk2.eps>
+l2hSize :figure493:230.86249pt::0.0pt::349.0pt.
+[6
+
+
+]
+
+LaTeX Warning: Characters dropped after `\end{listing}' on input line 238.
+
+l2hSize :listing163:28.16986pt::0.0pt::349.0pt.
+[7
+
+
+]
+File: images/eps/sk10.eps Graphic file (type eps)
+<images/eps/sk10.eps>
+l2hSize :figure502:230.86249pt::0.0pt::349.0pt.
+[8
+
+
+]
+
+LaTeX Warning: Characters dropped after `\end{listing}' on input line 256.
+
+l2hSize :listing171:64.16986pt::0.0pt::349.0pt.
+[9
+
+
+]
+File: images/eps/sk11.eps Graphic file (type eps)
+<images/eps/sk11.eps>
+l2hSize :figure511:230.86249pt::0.0pt::349.0pt.
+[10
+
+
+]
+File: images/eps/sk9.eps Graphic file (type eps)
+<images/eps/sk9.eps>
+l2hSize :figure516:230.86249pt::0.0pt::349.0pt.
+[11
+
+
+]
+File: images/eps/sk3.eps Graphic file (type eps)
+<images/eps/sk3.eps>
+l2hSize :figure522:230.86249pt::0.0pt::349.0pt.
+[12
+
+
+]
+File: images/eps/sk4.eps Graphic file (type eps)
+<images/eps/sk4.eps>
+l2hSize :figure527:230.86249pt::0.0pt::349.0pt.
+[13
+
+
+]
+File: images/eps/sk5.eps Graphic file (type eps)
+<images/eps/sk5.eps>
+l2hSize :figure532:230.86249pt::0.0pt::349.0pt.
+[14
+
+
+]
+File: images/eps/sk6.eps Graphic file (type eps)
+<images/eps/sk6.eps>
+l2hSize :figure537:230.86249pt::0.0pt::349.0pt.
+[15
+
+
+]
+File: images/eps/sk7.eps Graphic file (type eps)
+<images/eps/sk7.eps>
+l2hSize :figure542:230.86249pt::0.0pt::349.0pt.
+[16
+
+
+]
+File: images/eps/sk8.eps Graphic file (type eps)
+<images/eps/sk8.eps>
+l2hSize :figure547:230.86249pt::0.0pt::349.0pt.
+[17
+
+
+] (images.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 1336 strings out of 10901
+ 16461 string characters out of 71984
+ 61546 words of memory out of 263001
+ 4273 multiletter control sequences out of 10000+0
+ 5086 words of font info for 18 fonts, out of 200000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 32i,5n,40p,231b,338s stack positions out of 300i,100n,500p,30000b,4000s
+
+Output written on images.dvi (17 pages, 4828 bytes).

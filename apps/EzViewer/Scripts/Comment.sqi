@@ -1,0 +1,109 @@
+ /*
+ * EzViewer
+ *
+ * file ?	Comment.sqi
+ * what	?	Comment Functions
+ * who	?	jlv
+ * when	?	02/13/01
+ * last	?	02/17/01
+ *
+ *
+ * (c) Kirilla 2001
+ */
+ 
+; global variables
+make "thecomment ''
+make "label 'EZVIEWER:COMMENT'
+
+/*
+ * function    : GetComment
+ * purpose     : Get the comment of the image
+ * input       :
+ *
+ * file,	image path
+ *
+ * output      : none
+ * side effect : none
+ */
+to GetComment :file
+	if (attr.exists :file :label) {
+		make "thecomment attr.get :file :label	
+		output :thecomment
+	} {
+		make "thecomment ''
+		output 'Loading ... done'		
+	}
+end
+
+/*
+ * function    : SetComment
+ * purpose     : Set the comment of the image
+ * input       :
+ *
+ * file,	image path
+ * text,	comment to write
+ *
+ * output      : none
+ * side effect : none
+ */
+to SetComment :file :text
+	attr.set :file :label :text
+end
+
+/*
+ * function    : DelComment
+ * purpose     : Remove the comment of the image
+ * input       :
+ *
+ * file,	image path
+ *
+ * output      : none
+ * side effect : none
+ */
+to DelComment :file
+	attr.del :file :label
+end
+
+/*
+ * function    : EditComment
+ * purpose     : Create a window to enter the comment
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to EditComment
+	;;; check if the window is not allready on screen
+	if (is.bool :cwin) {
+		;;; create the window
+		make "cwin Window "titled 'Image\'s comment' [100 100] "not.resizable
+		;;; create the frame
+		make.local "f Frame
+		;;; and the two widgets on it	
+		make "comment Entry 'Comment' "thecomment [0 40]
+		make.local "b Button 'Ok' "navigable.jump
+		$b~config "align.h "set "center	
+		;;; set the hook of the Button widget
+		Hook :b "invoked {
+			;;; invoke the Entry widget in case the user have not press ENTER
+			$comment~invoke
+			;;; this will destroy the window 
+			make "cwin false
+			;;; write the comment in the image attributes
+			SetComment :thefile :thecomment
+			;;; and display it in the bottom message area
+			make "Status :thecomment		
+		}	
+		
+		;;; glue the widgets on the window
+		Glue :f "top [2 2] :comment	:b
+		Glue :cwin "top [] :f
+		
+		;;; insure the window will be displayed on the center of the main window
+		$cwin~center "set $win~center "get
+		;;; show the window
+		$cwin~show	
+		
+		;;; set keyboard focus to the Entry widget
+		Focus :comment
+	}
+end

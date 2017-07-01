@@ -1,0 +1,13 @@
+$bar~add :m0 :m1 :m2 :m3 :m5
+make "view Viewer [200 200]
+$view~config "expand "set true true
+make "status Frame "lowered
+$status~config "expand "set true false	
+make "msg Banner "Status "left
+$msg~config "high.color "set :Blue
+$msg~config "expand "set true false
+Glue :status "top [] :msg
+Glue :win "top [] :bar :view
+Glue :win "bottom []  :status
+$win~show
+make "Status 'Ready ...'

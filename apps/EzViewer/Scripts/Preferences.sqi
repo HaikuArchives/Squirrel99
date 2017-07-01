@@ -1,0 +1,60 @@
+ /*
+ * EzViewer
+ *
+ * file ?	Preferences.sqi
+ * what	?	Preferences Functions
+ * who	?	jlv
+ * when	?	02/13/01
+ * last	?	02/27/01
+ *
+ *
+ * (c) Kirilla 2001
+ */
+ 
+; settings variable 
+make "position [100 100] 
+make "wframe []
+make "last.dir ''
+make "style "center
+
+/*
+ * function    : SavePreferences
+ * purpose     : Save the preferences of the application (as file attributes)
+ * input       : none
+ * output      : none
+ * side effect : none
+ */ 
+to SavePreferences
+	;;; we save the geometry of the window
+	attr.set :_file 'geometry' $win~frame
+	;;; last directory used
+	attr.set :_file 'lastdir' :last.dir
+	;;; style for the viewer
+	attr.set :_file 'style' :style
+end
+
+/*
+ * function    : LoadPreferences
+ * purpose     : Load the preferences of the application (as file attributes)
+ * input       : none
+ * output      : none
+ * side effect : none
+ */ 
+to LoadPreferences
+	;;; we load the geometry
+	if (attr.exists :_file 'geometry') {	
+		make.local "geom attr.get :_file 'geometry'
+		make "position lsub :geom 1 2
+		make "wframe list ((lindex :geom 3)-(lindex :geom 1)) ((lindex :geom 4)-(lindex :geom 2))
+	} {
+		make "position [100 100]	
+	}
+	;;; we load the last directory used
+	if (attr.exists :_file 'lastdir') {
+		make "last.dir attr.get :_file 'lastdir'		
+	}
+	;;; we load the viewer's style
+	if (attr.exists :_file 'style') {
+		make "style attr.get :_file 'style'		
+	}		
+end

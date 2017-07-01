@@ -1,0 +1,182 @@
+ /*
+ * beSpotLight
+ *
+ * file ?	Funcs.sqi
+ * what	?	Various Functions
+ * who	?	jlv
+ * when	?	10/03/00
+ * last	?	02/28/01
+ *
+ *
+ * (c) Kirilla 2000
+ */
+
+; directory of the presentation script 
+make "pres.dir './'
+ 
+/*
+ * function    : Void
+ * purpose     : Render the default page when no presentation yet loaded
+ * input       : none
+ * output      : none
+ * side effect : none
+ */ 
+to Void
+
+	$sk~config "font "set :AppFont
+	$sk~goto :width/2 :height/2
+	$sk~c.string 'Drop a script here or hit CTRL-L to load one'
+	$sk~goto :width/2 (:height/2 + :font.size + 2)
+	$sk~c.string 'Hit the key h for the shortcuts'
+	$sk~goto :width/2 :height-:font.size-1
+	$sk~config "high.color "set :Blue
+	$sk~c.string :app.name+' V'+:app.version+' '+:app.author
+	$sk~config "high.color "set :Black
+end
+
+/*
+ * function    : Go
+ * purpose     : Called when a presentation has been loaded (Render the first page)
+ * input       : none
+ * output      : none
+ * side effect : Start the thread that gonna render the first page
+ */
+to Go
+	$AppSheet~config "bgcolor "set :L.color
+	$AppWin~config "title "set (:app.name + ' : ' + :app.title)
+	$AppWin~resize.to :width :height
+	$AppSheet~clear
+			
+	Hook :AppSheet "mousedown "MouseDown	
+		
+	make "th Thread "low "RenderFirstPage
+	Thread.hop :th	
+end
+
+/*
+ * function    : RenderFirstPage
+ * purpose     : Thread function that render the first page of a presentation
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to RenderFirstPage 
+
+	; we need to snooze to slow down the rendering, as the window may still be
+	; resizing it size
+	snooze 1000
+
+	if (llength :slides) {
+		make "loc 1
+		catch "error {
+			call (lindex :slides 1) :sk
+		} {
+			print :_error
+			Info "stop ['Bummer!'] 'An error occurs while rendering page ' 1 ':\n\n' :_error '\n'		
+		}	
+	}	
+				
+	if :show.clock {	
+		$stime~config "font "set :AppFont
+		make.local "l split.as.string (ctime time) ' '
+		make.local "str string (lindex :l 4)
+		make "time.w ($stime~w.string :str)
+		Hook :AppSheet "pulse "Pulse
+		Pulse :AppSheet
+	}
+	
+end
+
+/*
+ * function    : GotoPage
+ * purpose     : Render a page
+ * input       :
+ *
+ * nb, number of the page to render
+ * sk, skippy to use to render it
+ *
+ * output      : none
+ * side effect : none
+ */
+to GotoPage :nb :sk
+	make "loc :nb
+	$AppSheet~clear
+	catch "error {
+		call (lindex :slides :nb) :sk
+	} {
+		Info "stop ["Bummer] 'An error occurs while rendering page ' :nb ':\n\n' :_error '\n\n'		
+	}
+	if :show.clock {
+		Pulse :AppSheet
+	}
+end
+
+
+/*
+ * function    : LoadScript
+ * purpose     : Load a presentation
+ * input       :
+ *
+ * file, pathname of the presentation to load
+ *
+ * output      : none
+ * side effect : none
+ */
+to LoadScript :file
+	if (mime.get :file)='text/x-script.bespotlight' {
+		catch "error {
+			make.local "pos sfind.last :file '/'
+			if :pos>0 {
+				make "pres.dir substr :file 1 :pos-1	
+			} {
+				make "pres.dir './'	
+			}
+			
+			load :file
+			Go	
+		} {
+			Info "stop ["Bummer] '' 'An error occurs while loading the presentation :\n\n' :_error '\n\n'
+			Void		
+		}
+	} {
+		Question "warning ['Oh yeah ...'] '' 'To run a presentation, you need to drop a\ntext/x-script.bespotlight file.'	
+	}
+end
+
+/*
+ * function    : ShowHelp
+ * purpose     : Render the help
+ * input       :
+ *
+ * sk, skippy to use to render it
+ *
+ * output      : none
+ * side effect : none
+ */
+to ShowHelp :sk
+	$AppSheet~clear	
+	GotoTop :sk 10 15	
+	Italic
+	RenderText :sk 'Keyboard shortcuts :' 12
+	NewLine :sk 20
+	Tab :sk 5	
+	Roman
+		
+	RenderTable :sk 2 [
+		['CTRL-L' ' : Load a presentation'] 
+		['CTRL-S' ' : Save the current slide as GIF file']
+		['CTRL-Q' ' : Quit']
+		['H' ' : This help']
+		['Page-Up' ' : Previous Slide']
+		['Page-Down' ' : Next Slide']
+		['1,2,3 ... 8,9' ' : Jump by nth slide(s)']
+		['f' ' : Go to the first slide']
+		['l' ' : Go to the last slide']	
+	] 10 2	
+	
+	UnTab :sk 5
+	Bold
+	$sk~goto :width/2 :height-:font.size-1
+	$sk~c.string 'Hit Esc to exit this help'						
+	Roman
+end

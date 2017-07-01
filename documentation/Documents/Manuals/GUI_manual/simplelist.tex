@@ -1,0 +1,118 @@
+
+\section{The widget SimpleList}
+
+A SimpleList widget displays a list of simple items that the user can select and invoke. The items could be any kind of simple object like : a word, a string or a number. The widget has a linked variable.
+
+\subsection{Construction}
+
+The primitive {\tt SimpleList} is used to build a new SimpleList widget. Its syntax is :\\
+
+{\tt SimpleList} {\it word word word list (list (words)) }\\
+
+The first input is the type of the SimpleList : {\tt "single} or {\tt "multiple}. When the list is of type {\tt "multiple} the user will be able to select several items and the linked variable will be set to a list of items. The type {\tt "single} only allows one item to be selected. The second input is the layout of the scrollbar in the widget : {\tt "left} or {\tt "right}. The third input is the name of the linked variable. The fourth input is a list of items. If specified, a fifth input will be the size of the widget in characters and any other inputs would make up the flags.\\
+
+The size of the widget could be specified with two numbers. The first is always the width of the widget (without the size of the scrollbar) and the second is the number of items displayed at one time by the widget.
+
+\subsection{Methods}
+
+{\bf add\index{SimpleList@\textbf{SimpleList}!Methods!add}} 
+\begin{verbatimtab}
+$simplelist~add (thing | list)+
+\end{verbatimtab}
+Add items to the end of the list.\\
+
+{\bf add.at\index{SimpleList@\textbf{SimpleList}!Methods!add.at}} 
+\begin{verbatimtab}
+$simplelist~add.at number (thing | list)+
+\end{verbatimtab}
+Add items at a position in the list. The first input is the position. 0 is the first element of the list.\\
+
+{\bf items\index{SimpleList@\textbf{SimpleList}!Methods!items}} 
+\begin{verbatimtab}
+$simplelist~items word (list)
+\end{verbatimtab}
+If the first input is the word {\tt "get} the method will return the list of items.  If the first input is {\tt "set} the second input of the method must be a list of items. This list will replace the items.
+
+\subsection{Configuration}
+
+The widget doesn't have any specific configuration.
+
+\subsection{Hooks}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|p{3cm}|p{8.5cm}|}
+\hline
+\bf Name & \bf Description & \bf Function prototype \\
+\hline
+invoked\index{SimpleList@\textbf{SimpleList}!Hooks!invoked} & The user has double clicked on an item & {\tt
+to invoked :src :index :value\newline
+; src is the widget object\newline
+; index is the position of the invoked item in the list
+; value is the value of the invoked item in the list
+end
+}\\
+\hline
+selected\index{SimpleList@\textbf{SimpleList}!Hooks!invoked} & The user has selected a new item & {\tt
+to invoked :src :index :value\newline
+; src is the widget object\newline
+; index is the position of the selected item(s) in the list (could be a list if multiple selection)
+; value is the value of the selected item(s) in the list (could be a list if multiple selection)
+end
+}\\
+\hline
+\end{tabular}
+\caption{SimpleList's hooks}
+\end{table}
+
+\subsection{Example}
+
+\example{ex43}	
+\begin{listing}{1}
+make "items gseq 1990 2000
+make "year 1998
+make "win Window "titled 'SimpleList' [100 100]
+make "list SimpleList "single "right "year :items [0 5]
+$list~config "expand.x "set true
+make "button Button 'Process'
+Hook :button "invoked {
+	Info "info ["ok] '' 'Processing data of' :year ' ....'	
+}
+Glue :win "top [] :list :button
+$win~show
+\end{listing}
+
+This simple example shows how the linked variable is updated when the user changes the selection. On line 4, we have set the height of the widget to 5, meaning that we want only 5 items to be displayed.
+
+\newpage
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-25.eps}
+\label{s43}
+\caption{Single selection in a SimpleList}
+\end{figure}
+
+The next example shows a multiple selection. Using the {\em Shift} key of the keyboard allows us to make a multiple selection. The {\em Option} key terminates a selection.
+
+\example{ex44}	
+\begin{listing}{1}
+make "friends ["Fred "Roger "Ben "Zack "Tom]
+make "friend []
+make "win Window "titled 'SimpleList' [100 100]
+make "list SimpleList "multiple "right "friend :friends [0 5]
+$list~config "expand.x "set true
+make "button Button 'Send'
+Hook :button "invoked {
+	Info "info ["ok] '' 'Sending data to :' :friend	
+}
+Glue :win "top [] :list :button
+$win~show
+\end{listing}
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-26.eps}
+\label{s44}
+\caption{Multiple selection in a SimpleList}
+\end{figure}

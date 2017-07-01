@@ -1,0 +1,51 @@
+#!/boot/apps/Squirrel/Squirrel.5.3
+/*
+ * EzViewer
+ *
+ * file ?	EzViewer
+ * what	?	EzViewer main script
+ * who	?	jlv
+ * when	?	02/08/01
+ * last	?	02/17/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+
+/* Load a set of colors defined in a script file */
+
+load :_install + '/Libraries/Colors.sqi'
+
+/* load all the Add-Ons we need */
+
+use 'GUI' 'Imaging' 
+
+/* global variables */
+
+;make "icon entry.icon :_file "get "small
+
+/* Create the main gui */
+
+;;; create the window
+make "win Window "titled 'EzViewer' [100 100]
+	
+;;; create the menubar and the menus	
+make "bar MenuBar
+make "m0 Menu '?'
+make "m1 Menu "File
+make "m2 Menu "Display
+$m2~config "radio "set true 
+make "m3 Menu "Comment
+$m3~enable false
+make "m5 Menu "Favorites
+
+;;; add the menu to the menubar
+$bar~add :m0 :m1 :m2 :m3 :m5
+
+;;; glue the widget
+Glue :win "top [] :bar
+
+/* almost over :) */
+
+;;; show the window
+$win~show

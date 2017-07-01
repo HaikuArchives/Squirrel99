@@ -1,0 +1,373 @@
+#!/boot/apps/Squirrel/Squirrel.5.4
+/*
+ * EzCalc
+ * 
+ * A simple calculator
+ *
+ * file ?	ezcalc.sqi
+ * what	?	script
+ * who	?	jlv
+ * when	?	01/11/00
+ * last	?	02/26/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+ 
+use 'GUI' 'Widgets' 'String Processing' 'Mathematics' 'Storage'
+
+load :_install + '/Libraries/Colors.sqi'
+
+/* global variable */
+make "hint 'Howdy!'
+make "Version '0.4' 
+
+make "win Window "titled 'EzCalc' [100 100] "not.zoomable "not.resizable
+
+; window content
+
+make "Lcd Frame "lowered
+make "Pad Frame
+$Pad~config "expand.x "set true
+
+; LCD frame
+
+make "Display Odometer 10
+$Display~precision 2
+Hook :Display "mousedown {
+        make.local "icon entry.icon :_file "get "large 
+        Info :icon "Ok ('EzCalc ' + :Version) '\nA simple calculator
+		 written in Squirrel' :_version '\n\nFeedback : 
+		 jlv@kirilla.com\n\n(c) Kirilla 2000-2001' 		
+}
+Hook :Display "entered {
+	make "hint 'Click here for the version number'	
+}
+Hook :Display "exited {
+	make "hint ''	
+}
+
+$Lcd~config "expand.x "set true
+
+Glue :Lcd "top [] :Display
+
+; Pad frame
+
+; function creating the buttons
+
+to Hint :src :x :y :help
+	make "hint :help
+end
+
+to Num :label :val
+	make.local "button Button :label [1 0]
+	Hook :button "invoked "NInvoked :val 
+	output :button	
+end
+
+to Operator :label :code [:h '']
+	make.local "button Button :label [1 0]
+	Hook :button "invoked "OInvoked :code 
+	if :h <> '' {
+		Hook :button "entered "Hint :h
+		Hook :button "exited {
+			make "hint ''		
+		}
+	}	
+	output :button	
+end
+
+to Command :label :code [:h '']
+	make.local "button Button :label [1 0]
+	Hook :button "invoked "CInvoked :code
+	if :h <> '' {
+		Hook :button "entered "Hint :h
+		Hook :button "exited {
+			make "hint ''		
+		}
+	}
+	output :button	
+end
+
+; creation of the button
+
+make "row0 Frame
+$row0~config "align "set "center "top
+make "ac Command 'AC' 0
+make "ce Command 'CE/C' 3
+make "po Operator '^' 4 'Power'
+make "idiv Operator '//' 5 'Integer division'
+make "sq Command 'sqrt' 8 'Square root'
+Glue :row0 "left [] :ac :ce :po :idiv :sq
+
+make "row1 Frame
+$row1~config "align "set "center "top
+make "b7 Num '7' 7
+make "b8 Num '8' 8
+make "b9 Num '9' 9
+make "div Operator '/' 0
+make "abs Command 'abs' 4 'Absolute value'
+Glue :row1 "left [] :b7 :b8 :b9 :div :abs
+
+make "row2 Frame
+$row2~config "align "set "center "top
+make "b4 Num '4' 4
+make "b5 Num '5' 5
+make "b6 Num '6' 6
+make "mult Operator '*' 1
+make "inv Command '+/-' 5 'inverse sign' 
+Glue :row2 "left [] :b4 :b5 :b6 :mult :inv
+
+make "row3 Frame
+$row3~config "align "set "center "top
+make "b1 Num '1' 1
+make "b2 Num '2' 2
+make "b3 Num '3' 3
+make "minus Operator '-' 2
+make "ln Command 'ln' 6 'Natural logarithm'
+Glue :row3 "left [] :b1 :b2 :b3 :minus :ln
+
+make "row4 Frame
+$row4~config "align "set "center "top
+make "b0 Num '0' 0
+make "dot Command '.' 1
+make "eq Command '=' 2
+make "plus Operator '+' 3
+make "log Command 'log' 7 'Base 10 logarithm'
+Glue :row4 "left [] :b0 :dot :eq :plus :log
+
+; we glue the whole
+
+make "banner Banner "hint "left
+$banner~config "high.color "set :Blue
+$banner~config "expand.x "set true
+
+Glue :Pad "top [] :row0 :row1 :row2 :row3 :row4
+Glue :Pad "bottom [1 1] :banner
+
+; we glue the frame on the window
+
+Glue :win "top [] :Lcd :Pad
+
+; we define the function now
+
+to Compose :val
+	if :Point {
+		incr "Prec
+		make "Decimal :Decimal + (:val / :Pos)
+		make "Pos :Pos * 10
+		if :Prec>:PrecMax {	
+			make "PrecMax :Prec
+		}
+	} {
+		make "Integer (:Integer * 10) + :val
+	}
+	
+	make "Nombre :Integer + :Decimal 
+	Affiche :Nombre
+end
+
+to Affiche :val
+	if (is.float :val) {
+		if :PrecMax < 1 {
+			$Display~precision 3
+			$Display~display :val	
+		} {
+			$Display~precision :PrecMax
+			$Display~display :val
+		}	
+		$Display~precision :Prec
+	} {
+		$Display~display :val			
+	}
+end
+
+to NInvoked :src :val
+	Compose :val
+end
+
+to CInvoked :src :code
+
+	switch :code {
+		case 0 { ; AC
+			make "PrecMax 0
+			make "Prec 0
+			make "Previous 0
+			make "Nombre 0
+			make "Integer 0
+			make "Decimal 0
+			make "Opcode -1
+			make "Point 0
+			make "Pos 10
+			Affiche 0			
+		}		
+		case 1 { ; .
+			make "Point 1	
+		}
+		case 2 { ; =
+			make "Previous Compute
+			make "Nombre :Previous
+			Affiche :Previous
+			make "Opcode -1				
+		}
+		case 3 { ; CE/C
+			make "Nombre 0
+			make "Integer 0
+			make "Decimal 0
+			make "Point 0
+			make "Pos 10
+			Affiche :Previous			
+		}
+		case 4 { ; abs
+			make "Nombre Compute
+			make "Nombre abs :Nombre
+			Affiche :Nombre
+		}
+		case 5 { ; inv
+			make "Nombre Compute
+			make "Nombre -:Nombre
+			Affiche :Nombre
+		}
+		case 6 { ; ln
+			make "Nombre Compute
+			make "Nombre ln :Nombre
+			Affiche :Nombre
+		}
+		case 7 { ; log
+			make "Nombre Compute
+			make "Nombre log10 :Nombre
+			Affiche :Nombre	
+		}
+		case 8 { ; sqrt
+			make "Nombre Compute
+			if (is.integer :Nombre) {
+				make "Nombre int sqrt :Nombre	
+			} {
+				make "Nombre sqrt :Nombre
+			}
+			Affiche :Nombre
+		}
+	}
+
+end
+
+to OInvoked :src :code
+	make "Previous Compute
+	Affiche :Previous
+	make "Opcode :code	
+end
+
+to Compute
+
+	make.local "val 0
+	
+	switch :Opcode {
+		case -1 {
+			make.local "val :Nombre
+			make "Prec 0
+			make "Nombre 0
+			make "Integer 0
+			make "Decimal 0	
+			make "Point 0
+			make "Pos 10	
+			output :val				
+		}
+		case 0 { ; divide
+			if :Nombre <> 0 {
+				make "val :Previous / :Nombre
+			}				
+		}	
+		case 1 { ; multiply
+			make "val :Previous * :Nombre	
+		}
+		case 2 { ; minus
+			make "val :Previous - :Nombre
+		}
+		case 3 { ; plus
+			make "val :Previous + :Nombre	
+		}
+		case 4 { ; power
+			print "there
+			make "val :Previous ** :Nombre
+		}
+		case 5 { ; integer div
+			make "val (floor :Previous) // :Nombre
+		}	
+	}
+	
+	make "Prec 0
+	make "Nombre 0
+	make "Integer 0
+	make "Decimal 0
+	make "Point 0
+	make "Pos 10
+
+	print :val	
+		
+	output :val	
+		
+end
+
+to Keyboard :src :m :k :c
+
+	;print :c
+
+	switch :c {
+		range 48 57 { ; a number
+			Compose :c-48		
+		}		
+		case 47 { ; divide
+			OInvoked 0 0	
+		}
+		case 42 { ; multiply
+			OInvoked 0 1		
+		}
+		case 45 { ; substract
+			OInvoked 0 2	
+		}
+		case 43 { ; add
+			OInvoked 0 3	
+		}
+		case 97 { ; AC
+			CInvoked 0 0
+		}
+		case 46 { ; .
+			CInvoked 0 1
+		}
+		case 61 10 { ; equal or enter
+			CInvoked 0 2
+		}
+		case 94 { ; power
+			OInvoked 0 4
+		}
+		case 99 { ; CE/C (key c)
+			CInvoked 0 3			
+		}
+	}
+
+end
+
+
+; we intercept the keybord event
+
+Hook :Pad "keydown "Keyboard
+
+; we define global variable used
+
+make "PrecMax 0
+make "Prec 0
+make "Opcode -1
+make "Previous 0
+make "Nombre 0
+make "Integer 0
+make "Decimal 0
+make "Point 0
+make "Pos 10
+
+Focus :Pad
+
+; and we show the window
+
+$win~show
+
+$Display~display :Nombre

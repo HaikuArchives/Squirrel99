@@ -1,0 +1,137 @@
+
+\section{Inspector} 
+
+Used mostly for debugging, the Add-on {\em Inspector} provides various information on \squirrel.  For examples, the heap content, or the current memory usage.
+
+
+\subsection*{deth} \index{\verb+deth+} 
+ 
+{\tt deth} 
+\newline\newline 
+Print a dump of all the objects in the {\it eternal heap}
+\begin{verbatimtab} 
+@> deth
+BOL[1][1][0] - true
+BOL[2][2][0] - false
+DBL[4][0][0] - 23.6
+INT[7][0][0] - 12
+STR[11][0][0] - hello there
+KWO[16][1][0] - abc
+INT[18][1][0] - 2345
+LST[20][1][0] - 1 2 3 4 5
+INT[21][1][0] - 1
+INT[22][1][0] - 2
+INT[23][1][0] - 3
+INT[24][1][0] - 4
+INT[25][1][0] - 5 
+\end{verbatimtab} 
+
+\subsection*{dgloh} \index{\verb+dgloh+} 
+ 
+{\tt dgloh} 
+\newline\newline 
+Print a dump of all the objects in the {\it global heap}
+\begin{verbatimtab} 
+@> dgloh 
+BOL[1][1][0] - true
+BOL[2][2][0] - false
+DBL[4][1][0] - 23.6
+INT[7][1][0] - 12
+STR[11][1][0] - hello there 
+\end{verbatimtab} 
+
+\subsection*{dloh} \index{\verb+dloh+} 
+ 
+{\tt dloh} 
+\newline\newline 
+Print a dump of all the objects in the {\it local heap} (useful when used within a function)
+\begin{verbatimtab} 
+@> dloh 
+BOL[1][1][0] - true
+BOL[2][2][0] - false
+DBL[4][1][0] - 23.6
+INT[7][1][0] - 12
+STR[11][1][0] - hello there 
+\end{verbatimtab} 
+
+\subsection*{dump} \index{\verb+dump+} 
+ 
+{\tt dump} {\it thing1 thing2 thing3 ...} 
+\newline\newline 
+Print internal information about the inputs in the format: \begin{verbatimtab} 
+type[id][ref][status] - value
+\end{verbatimtab}
+\begin{verbatimtab} 
+@> make "a 23.56
+@> dump :a
+DBL[4][1][0] - 23.6
+\end{verbatimtab} 
+
+\subsection*{dtreeh} \index{\verb+dtreeh+} 
+ 
+{\tt dtreeh} 
+\newline\newline 
+Print a dump of all the objects in the {\it tree heap}
+\begin{verbatimtab} 
+@> dtreeh
+BLK[46][1][0] - 
+{block}[
+{builtin}[]
+
+BUI[47][1][0] - {builtin}[]
+\end{verbatimtab} 
+
+\subsection*{mem.usage?} \index{\verb+mem.usage?+} 
+ 
+{\tt mem.usage?} 
+\newline\newline 
+Output the current memory usage in bytes. 
+\begin{verbatimtab} 
+@> print mem.usage?
+4284416 
+\end{verbatimtab} 
+
+\subsection*{pglov} \index{\verb+pglov+} 
+ 
+{\tt pglov} 
+\newline\newline 
+Print all the global variables and their values.
+\begin{verbatimtab} 
+@> pglov
+a = abc
+b = 2345
+c = 1 2 3 4 5
+d = false
+\end{verbatimtab} 
+
+\subsection*{plov} \index{\verb+plov+} 
+ 
+{\tt plov} 
+\newline\newline 
+Print all the local variables and their values.
+\begin{verbatimtab} 
+@> plov
+i = 23
+j = hello there
+k = false
+\end{verbatimtab} 
+
+\subsection*{sgloh} \index{\verb+sgloh+} 
+ 
+{\tt sgloh} 
+\newline\newline 
+Print information about the {\it global heap} e.g. number of objects present and total current number of objects created.
+\begin{verbatimtab} 
+@> sgloh
+Size = 0 Last ID = 0
+\end{verbatimtab} 
+
+\subsection*{sloh} \index{\verb+sloh+} 
+ 
+{\tt sloh} 
+\newline\newline 
+Print information about the {\it local heap} e.g. number of objects present and total current number of objects created.
+\begin{verbatimtab} 
+@> sloh
+Size = 0 Last ID = 0
+\end{verbatimtab} 

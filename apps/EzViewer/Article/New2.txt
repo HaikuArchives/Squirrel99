@@ -1,0 +1,35 @@
+use 'GUI' 'Imaging' 'List Processing' 'Storage' 'String Processing'
+
+to DragDrop :src :type :msg
+	if :type = "simple {
+		make.local "file $msg~find "refs
+		make.local "m mime.get :file 	
+		if (sfind :m 'image/') {
+			make.local "img Image :file
+			$the.viewer~display :img "adapt
+			$win~config "title "set :file
+		} {
+			Info "stop ["ok] 'error' 'Hmmm ... doesn\'t look like an image to me :-p'	
+		}
+	}
+end
+make "my.image false
+if (llength :Args) = 2 { 
+	make "m mime.get lindex :Args 2 
+	if (sfind :m 'image/') {
+		make "my.image Image lindex :Args 2 
+		if (is.image :my.image) { 
+			make "win Window "titled (lindex :Args 2) [100 100] "not.resizable
+			make "the.viewer Viewer :my.image 
+		} { 
+			print 'Image file not reconized ... maybe not an image'       
+	    	} 
+	}
+} 
+if not (is.image :my.image) {
+	make "win Window "titled 'EzViewer' [100 100] "not.resizable
+	make "the.viewer Viewer [200 200]	
+}
+Hook :the.viewer "drop "DragDrop
+Glue :win "top [] :the.viewer 
+$win~show

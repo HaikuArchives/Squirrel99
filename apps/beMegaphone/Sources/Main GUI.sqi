@@ -1,0 +1,494 @@
+/*
+ * beMegaphone
+ *
+ * file ?	GUI.sqi
+ * what	?	The main GUI of the application
+ * who	?	jlv
+ * when	?	09/12/00
+ * last	?	02/19/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+ 
+/* global variables */
+
+make "set_win false
+make "from_win false 
+make "Status 'Howdy!'
+make "ads_txt 'Brought to you by beMegaphone (a BeOS application written in Squirrel)'
+make "icon entry.icon :_file "get "small
+make "icon.l entry.icon :_file "get "large
+
+/* procedures and functions */
+ 
+; we init the font (requiered) 
+Font.init 
+
+to Build_GUI :title [:pos [100 100]]
+
+	make.local "win Window "titled :title :pos
+		
+	make "the_font Font :set_family
+	$the_font~size "set :set_fsize	
+
+	; we create the memo widget
+	make.local "text Memo [50 10]
+	; we want it to expand it-self to follow the window size	
+	$text~config "expand "set true true
+	; we set the font of the widget
+	$text~config "font "set :the_font
+	
+	; we create the menu widget	
+	make.local "menu MenuBar
+	
+	; we create the menu item
+	make.local "file Menu "Contents
+	make.local "reci Menu "Recipients
+	make.local "send Menu "Send
+	make.local "ques Menu :icon
+		
+	; then the items of the file menu
+	$file~add ["Load 'L'] "M_F_Load :text
+	$file~add ["Save 'S'] "M_F_Save :text
+	$file~add 'Save as' "M_F_SaveAs :text
+	$file~add ["New 'N'] "M_F_New :text
+	$file~add "separator
+	$file~add ["Quit 'Q'] "M_F_Quit :win
+				
+	; then the items of recipients
+	make "menu_load $reci~add "Load "M_R_Load :reci :send :win
+	make "menu_unload $reci~add 'Unload' "M_R_UnLoad :reci :send 
+	make "menu_from $reci~add 'Start from ...' "M_R_From :win	
+	
+	$reci~i.enable :menu_unload false
+	$reci~i.enable :menu_from false	
+	
+	; then the items of the send menu	
+	make "menu_now $send~add "Now "M_S_Now :text :win
+	make "menu_later $send~add "Later "M_S_Later :text :win
+	
+	$send~i.enable :menu_now false
+	$send~i.enable :menu_later false
+	
+	; then the items of the ? menu
+	make "menu_setting $ques~add "Settings "M_Q_Settings :ques :win
+	$ques~add "Help "M_Q_Help
+	$ques~add "separator
+	$ques~add 'About ...' "M_Q_About	
+	
+	; then we add the menu item to the menubar
+	$menu~add :ques :file :reci :send
+	
+	; the status
+	make.local "status Frame "lowered
+	$status~config "expand "set true false	
+	
+	make.local "msg Banner "Status "left
+	$msg~config "high.color "set :Blue
+	$msg~config "expand "set true false
+	
+	Glue :status "top [] :msg	
+	
+	; the subject and type frame
+	make.local "finfo Frame "raised
+	$finfo~config "expand "set true false
+	
+	; the subject entry
+	make.local "entry Entry 'Subject :' "current_subject [0 35]		
+	
+	; the announce/new radiobutton
+	make.local "rn RadioButton 'Announce' "current_what 2
+	make.local "rl RadioButton 'Newsletter' "current_what 1	
+	
+	Glue :finfo "top [2 2] :entry	
+	Glue :finfo "right [2 2] :rn :rl	
+	
+	Glue :win "top [] :menu :finfo :text
+	Glue :win "bottom []  :status
+	
+	; we set the focus on the text widget
+	$win~config "focus "set :text
+	
+	; we set the hook for when we quit the window
+	Hook :win "quit "WannaQuit 
+	
+	; if we have a window size we going to use it
+	if not (lempty :set_size) {
+		$win~resize.to (lindex :set_size 1) (lindex :set_size 2)
+	}	
+	
+	$win~show
+		
+	output list :win :text	
+
+end
+
+/* we define bellow all the menu's hooks function */
+
+/*
+ * function    : M_F_Load
+ * purpose     : Load a text file in the memo widget
+ * input       :
+ *
+ * t, memo widget
+ *
+ * output      : none
+ * side effect : none
+ */
+to M_F_Load :t
+	
+	make "current_file FilePanel "open "current_dir ["file] "single "allow ['text/plain']
+
+	if (is.string :current_file) {
+		Busy true
+		make "Status 'Loading file ...'
+		$t~load :current_file
+		make "Status 'Loading file ... done'
+		Busy false
+	}
+
+end
+
+/*
+ * function    : M_F_Save
+ * purpose     : Save in a text file the memo widget content
+ * input       :
+ *
+ * t, memo widget
+ *
+ * output      : none
+ * side effect : none
+ */
+to M_F_Save :t
+
+	if (is.string :current_file) {
+		Busy true
+		make "Status 'Saving file ...'
+		$t~save :current_file
+		make "Status 'Saving file ... done'
+		Busy false
+	} {
+		M_F_SaveAs :t		
+	}	
+
+end
+
+/*
+ * function    : M_F_SaveAs
+ * purpose     : Save in a text file the memo widget content
+ * input       :
+ *
+ * t, memo widget
+ *
+ * output      : none
+ * side effect : none
+ */
+to M_F_SaveAs :t
+
+	make "current_file FilePanel "save "current_dir ["file] "single "allow ['text/plain']
+	
+	if (is.string :current_file) {
+		Busy true
+		make "Status 'Saving file ...'
+		$t~save :current_file
+		mime.set :current_file 'text/plain'
+		make "Status 'Saving file ... done'
+		Busy false
+	}
+end
+
+
+/*
+ * function    : M_F_New
+ * purpose     : Erase the memo widget content
+ * input       :
+ *
+ * t, memo widget
+ *
+ * output      : none
+ * side effect : none
+ */
+to M_F_New :t
+	Busy true
+	$t~text "set ''	
+	make "current_file false
+	Busy false
+end
+
+/*
+ * function    : M_F_Quit
+ * purpose     : Quit the application
+ * input       :
+ *
+ * w, the window
+ *
+ * output      : none
+ * side effect : none
+ */
+to M_F_Quit :w
+	$w~quit
+end
+
+/*
+ * function    : M_R_Load
+ * purpose     : Load the recipient from an ascii file
+ * input       : 
+ *
+ * b, DB menu 
+ *
+ * output      : none
+ * side effect : none
+ */
+to M_R_Load :b :s :w
+
+	make "current_rec FilePanel "open "current_dir_rec ["file] "single "allow ['text/plain']
+
+	if (is.string :current_rec) {
+		
+		Busy true
+		
+		$b~i.enable :menu_load false
+		$b~i.enable :menu_unload true
+		$b~i.enable :menu_from true
+		$s~i.enable :menu_now true
+		$s~i.enable :menu_later true
+			
+		th.LoadRec :w :b :s
+		
+		Busy false
+	}
+		
+end
+
+/*
+ * function    : M_R_UnLoad
+ * purpose     : UnLoad the recipient from the memory
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to M_R_UnLoad :b :s
+
+	if (is.dictionary :current_db) {
+		Busy true
+		make "Status 'Unloading recipients ...'
+		$b~i.enable :menu_load true
+		$b~i.enable :menu_unload false
+		$b~i.enable :menu_from false
+		$s~i.enable :menu_now false
+		$s~i.enable :menu_later false
+		erase "current_db
+		make "current_db false
+		make "Status 'Unloading recipients ... done'
+		Busy false
+	} 	
+
+end
+
+/*
+ * function    : M_R_From
+ * purpose     : UnLoad the recipient from the memory
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to M_R_From :parent
+
+	if not :from_win {
+
+		make "from_win Window "titled 'Send from ...' [100 100]	"not.resizable "not.closable
+		make.local "frame Frame "flatened
+		
+		make.local "email Entry 'email :' "start_from [0 25]
+		$email~config "expand "set true false	
+		
+		make.local "fbut Frame "flatened
+		$fbut~config "expand "set true true
+		
+		make.local "ok Button "Apply 
+		make.local "cancel Button "Cancel
+		
+		Hook :cancel "invoked {
+			make "start_from ''
+			make "from_win false	
+		}
+		
+		Hook :ok "invoked {
+			make "from_win false	
+		} 		
+	
+		Glue :fbut "left [] :ok
+		Glue :fbut "right [] :cancel
+		
+		Glue :frame "top [1 1] :email :fbut	
+		
+		Glue :from_win "top [] :frame	
+		
+		Focus :email	
+		
+		$from_win~center "set $parent~center "get
+		$from_win~show
+	}
+
+end
+
+/*
+ * function    : M_S_Now
+ * purpose     : Send the email now
+ * input       : 
+ *
+ * t, memo widget
+ * win, the main window
+ * 
+ * output      : none
+ * side effect : none
+ */
+to M_S_Now :t :win
+	
+	if :set_bcc {
+		SendBcc :t :win "now	
+	} {
+		SendTo :t :win "now
+	}		
+	
+end
+
+/*
+ * function    : M_S_Later
+ * purpose     : Send the email later
+ * input       :
+ *
+ * t, memo widget
+ * 
+ * output      : none
+ * side effect : none
+ */
+to M_S_Later :t :win
+	
+	if :set_bcc {
+		SendBcc :t :win "later	
+	} {
+		SendTo :t :win "later
+	}
+	
+end
+
+/*
+ * function    : M_Q_About
+ * purpose     : Display the about box
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to M_Q_About
+	Info :icon.l ["Ok] ('beMegaPhone V' + :Version) '\n\nA list-server application written in Squirrel' :_version '\n\nFeedback : jlv@kirilla.com\n\n(c) Kirilla'
+end
+
+/*
+ * function    : M_Q_Help
+ * purpose     : Display the help
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to M_Q_Help
+	launch :_path + '/Manual/index.html'
+end
+
+/*
+ * function    : WannaQuit
+ * purpose     : Hook function for the quit window event
+ * input       :
+ *
+ * src, the window
+ *
+ * output      : true or false
+ * side effect : none
+ */
+to WannaQuit :src
+	
+	; if the confirm before quit is true
+	if :set_qconf {
+
+		make.local "choice Question "info ["Yes "No] 'Do you really want to quit ?'
+		if not :choice {
+			; if the setting window is displayed we close it
+			if (is.window :set_win) {
+				$set_win~quit	
+			}
+			Save_Settings :src
+			Save_Currents :src
+			output true
+		} {
+			output false	
+		}
+	} {		
+		; if the setting window is displayed we close it
+		if (is.window :set_win) {
+			$set_win~quit	
+		}
+		Save_Settings :src
+		Save_Currents :src
+		output true				
+	}
+	
+end
+
+/*
+ * function    : th.LoadRec
+ * purpose     : Thread that parse the log file to get the recipients
+ * input       :
+ *
+ * parent, the main window
+ * b, menu to enable/disable is failure
+ * s, menu to enable/disable is failure
+ *
+ * output      : none
+ * side effect : none
+ */
+to th.LoadRec :parent :b :s
+	local "wrong
+	
+	$parent~enable false	
+	
+	make.local "MyWin Window "titled 'Loading' [100 100] "not.closable
+
+	make.local "frame Frame "raised
+	make.local "msg Text 'Processing log file  ...'
+	make.local "status BarberPole [20 10] 
+	$status~config "high.color "set :Blue
+	$status~config "expand.x "set true
+
+	Glue :frame "top [2 2] :msg :status
+	Glue :MyWin "top [] :frame
+
+	$MyWin~center "set $win~center "get
+	$MyWin~show
+
+	$status~start	
+	
+	make "Status 'Loading recipients ...'
+	make.local "lst ParseLog :current_rec
+	if (llength :lst) = 2 {
+		lscan :lst "current_db "wrong
+		make "Status string 'Loading recipients ... done (' ($current_db~size) ' valid(s) ,' :wrong ' non valid(s))'
+	} {
+		make "current_db false
+		$b~i.enable :menu_load true
+		$b~i.enable :menu_unload false
+		$b~i.enable :menu_from false
+		$s~i.enable :menu_now false
+		$s~i.enable :menu_later false
+		make.local "l lindex :lst 1
+		
+		if :l>0 {
+			make "Status string 'Loading recipients ... failed ! (Error on line ' :l ')'
+		} {
+			make "Status string 'Loading recipients ... failed ! (couldn\'t access file)'			
+		}	
+	}	
+	
+	$parent~enable true
+	
+end

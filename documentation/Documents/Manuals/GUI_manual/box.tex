@@ -1,0 +1,96 @@
+
+\section{The widget Box}
+
+A "Box" is a container widget which draws a labeled border around its children. A Box has three styles of border ({\tt "plain "fancy} or {\tt "none}). The label drawn by the widget is usually text, but it could also be another widget.
+
+\subsection{Construction}
+
+The primitive {\tt Box} is used to build a new Box widget. Its syntax is :\\
+
+{\tt Box} {\it word \verb?|? widget (list (words))}\\
+
+The first input is the label of the Box; it could be either a string or a widget. The primitive accepts a second and third input if needed. They are the size of the widget in a list in pixels (width and height) and a set of the usual widget flags. 
+
+\subsection{Methods}
+
+A Box widget has three methods :\\
+
+{\bf reglue\index{Box@\textbf{Box}!Methods!reglue}} 
+\begin{verbatimtab}
+$box~reglue
+\end{verbatimtab}
+This primitive asks the {\em geometry manager} to glue all the widgets within the Box a second time. This primitive is useful when a child from the Box is removed and new gluing is needed.\\
+
+{\bf style\index{Box@\textbf{Box}!Methods!style}} 
+\begin{verbatimtab}
+$box~style word (word)
+\end{verbatimtab}
+Set or get (according to the value of the first input : {\tt "set} or {\tt "get}) the style of the border. When setting a value, the second input must be one of the valid words : {\tt "plain "fancy} or {\tt "none}.\\
+
+{\bf widgets\index{Box@\textbf{Box}!Methods!widgets}} 
+\begin{verbatimtab}
+$box~wigets
+\end{verbatimtab}
+Output all the widgets glued on the Box.\\
+
+\subsection{Configuration}
+
+Only one configuration is added to the Box widget :
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\bf Configuration & \bf Purpose & \bf Value \\
+\hline
+\tt "label\index{Box@\textbf{Box}!Configuration!label} & Set or get the label of the widget & could be a word, a string or another widget.\\
+\hline
+\end{tabular}
+\caption{Box's configuration}
+\end{table}
+
+\subsection{Hooks}
+
+This widget has nothing particular.
+
+\subsection{Example}
+
+\example{ex23}	
+\begin{listing}{1}
+make "win Window "titled 'Box' [100 100]
+make "box Box 'A Box'
+make "frame Frame "flattened [50 50]
+Glue :box "top [] :frame
+Glue :win "top [] :box
+$win~show
+\end{listing}
+
+On line 3, we create a 50x50 pixel Frame widget.  It's used in this example to fill the Box widget.
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-3.eps}
+\label{s23}
+\caption{Box with a text label}
+\end{figure}
+
+In the next example, we use a button to label the Box :
+
+\example{ex24}	
+\begin{listing}{1}
+make "win Window "titled 'Banner' [100 100]
+make "label Button 'Click me'
+make "box Box :label
+make "frame Frame "flattened [50 50]
+Glue :box "top [] :frame
+Glue :win "top [] :box
+$win~show
+\end{listing}
+
+The primitive {\tt Box} on line 3 calls the button object instead of a simple string for labeling the Box.
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-4.eps}
+\label{s24}
+\caption{Box with a widget label}
+\end{figure}

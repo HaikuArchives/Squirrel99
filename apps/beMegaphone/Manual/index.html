@@ -1,0 +1,443 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+ 
+<head>
+<title>beMegaphone help</title>
+<style>
+      A {
+      text-decoration : none; 
+      font-weight: bold
+      }
+</style>
+</head>
+<body bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+
+<table align=center>
+
+<tr>
+<td align=center>
+<big>Using <i>beMegaphone</i></big>
+<p>
+<image src="./Images/bemegaphone.gif">
+<p>
+<i>Version 0.7 (02/28/01)</i>
+</td>
+</tr>
+<tr>
+<td> 
+<table width=100%>
+<tr>
+<td>
+<small><a href="mailto:jlv@kirilla.com"><i>Jean-Louis Villecroze</i></a></small>
+</td>
+<td align=right>
+<small><i><a href="http://www.kirilla.com">Kirilla</a></i></small>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>What is Bemegaphone ?</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+<i>beMegaphone</i> is a simple list-server for <font color=blue>B</font><font color=red>e</font>OS that allow you to broadcast a newsletter or an announce by email to a list of recipients extracted from a text file, e.g from the log file of downloads from a web site.
+<p>
+The application is written in <i>Squirrel</i> (5.3 or higher) (you may download it on <a href="http://www.bebits.com/app/344">BeBits</a> if you don't have it allready) and use the <font color=blue>B</font><font color=red>e</font>OS Mail Kit to send the emails (through the <i>Mail Add-On</i> of <i>Squirrel</i>). 
+<p>
+
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>Contents of this document</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<ul>
+<li><a href=#1>The main user interface</a>
+<li><a href=#2>Application Settings</a>
+<li><a href=#3>Recipients file</a>
+<li><a href=#4>Filtering the recipients</a>
+<li><a href=#5>Sending the message</a>
+<li><a href=#6>Hacking <i>beMegaphone</i></a>
+<li><a href=#7>Support & Feedback</a>
+<li><a href=#8>Acknowledgements</a>
+<li><a href=#9>Version History</a>
+</ul>
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="1">The main user interface</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+The user interface is composed of (from top to bottom) : 
+<ul>
+<li>a menu
+<li>an area that allow you to enter the subject of the message and the type of the message
+<li>a multi-line text entry to type the content of the message
+<li>a status bar
+</ul>
+<center>
+<image src="./Images/gui.gif">
+</center>
+<p>
+<center>
+<image src="./Images/heart.gif" align=center>Note that the application will remember it size and position on screen between session.
+</center>
+<br>
+<br>
+The menu <i>Contents</i> give access to the handling of the message contents : <p>
+<center>
+<image src="./Images/contents.gif">
+</center>
+<p>
+<ul>
+<li><tt>Load</tt> will load a plain text file in the multi-line entry. An <it>open</it> FilePanel will be displayed to select the file
+<li><tt>Save</tt> will save as a plain text file the content of the message. If the application don't know the file name, it will display a <it>save</it> FilePanel to select the file to overwrite or to create a new file
+<li><tt>Save As</tt> will always ask you to select a file to overwrite or enter the name of a new file to create, to save the content of the message
+<li><tt>New</tt> will erase the current message content and forget the name of the file (if it know of any from a previous <tt>load</tt>)
+<Li><tt>Quit</tt> will terminate the application
+</ul>
+<br>
+<center>
+<image src="./Images/heart.gif" align=center>Note that the directory where the file was saved or loaded will be keep over session.
+</center>
+<p>
+The menu <i>Recipients</i> allow to extract from a text file the list of the recipients :<p>
+<center>
+<image src="./Images/recipients.gif">
+</center>
+<p>
+<ul>
+<li><tt>Load</tt> will extract the recipients from a text file (according to the current settings). Then and only then will the two other items of the menu be available
+<li><tt>Unload</tt> will remove the list of recipients, allowing you to select another file to load
+<li><tt>Send from ...</tt> allow to set the email from which you wish to send the message. We will discuss this item later.
+</ul>
+<br>
+<center>
+<image src="./Images/heart.gif" align=center>Note that the directory where the recipients file was loaded will be remembered over sessions.
+</center>
+<br>
+The menu <i>Send</i> broadcast your message to the recipients:
+<p>
+<center>
+<image src="./Images/send.gif">
+</center>
+<p>
+<ul>
+<li><tt>Now</tt> will send the message(s) now, you must be connected to internet for the mail(s) to be send.
+<li><tt>Later</tt> will create the message(s) and put them in the out folder of your Mailbox. Next time you are online, check your email and the message(s) will be send.
+</ul>
+<p>
+The first menu <i>Application icon</i> give access to the application settings and help:
+<p>
+<center>
+<image src="./Images/question.gif">
+</center>
+<p>
+<ul>
+<li><tt>Settings</tt> will display the application settings window
+<li><tt>Help</tt> will start NetPositive and display this HTML document
+<li><tt>About</tt> will display a standard <i>About</i> window.
+</ul>
+<p>
+You will have noticed in most of the screenshot, that some of the menu items are disable. They will be enable when needed. 
+<p>
+</td>
+</tr>
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="2">Application Settings</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+Throught the <i>Settings</i> window, you can change some of the application settings to better fit your needs:<p>
+<center>
+<image src="./Images/settings.gif">
+</center>
+<p>
+The <i>Font</i> box on the left allow you to set the font family and size of the text displayed in the <i>Contents</i>. The right box , <i>Logfile parsing</i> give access to the severals settings needed to parse the recipients file :
+<ul>
+<li><tt>Field separator</tt> is the character that separate the differents informations on each recipient
+<li><tt>E-Mail field</tt> is the field's position from where to extract the recipient's email
+<li><tt>Announce field</tt> is the field's position from where the extract the wish of the recipient to receive announces
+<li><tt>Newsletter field</tt> is the field's position from where the extract the wish of the recipient to receive newsletter
+<li><tt>Recipient agree</tt> is what indicate in the logfile when the recipent agree to receive something (work for both newsletter and announce fields)
+</ul>
+<p>
+For now, thoses settings are probably a bit obscure, it will became more clear on the <a href="#3">next part</a> of this document.<p>
+
+The <tt>Blind Carbon Copy</tt> box allow to set the few settings about the BCC field. When this checkbox <tt>Use it to broadcast</tt> is checked, the entry field <i>Recipients Pool's size</i> will be enable and <i>beMegaphone</i> will broadcast using the BCC field. The pool size is the number of recipients to group on the same email using the bcc field.<p> 
+
+When the checkbox <i>Confirm to quit</i> is checked, you will be asked to confirm each time you closing the application. The checkbox <i>Add propaganda</i> will add (when checked) a little ads banner at the end of your message saying :<p>
+<tt>
+--<br>
+Brought to you by beMegaphone (a BeOS application written in Squirrel)<br>
+--<br>
+</tt>
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="3">Recipients file</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+<i>beMegaphone</i> parse a text file to extract the list of recipients. This text file must follow some rules. If your lists of recipients is to be parsed from a totaly different file, you will have to edit the source code of the application (fully readable) and adapt it to your need (or contact me).<p>
+
+The application is looking in the file for: <P>
+<ul>
+<li>the recipient's email
+<li>the recipient's wish to receive an announce
+<li>the recipient's wish to receive a newsletter
+</ul>
+<p>
+The file must contain one line by recipient, and all the informations must be on that line. This line will be something like this one : <p>
+<verbatim>
+jean-louis villecroze|jlv@bemail.org|DR1|INTEL|yes|no|Mon Sep  6 11:58:49 1999|
+</verbatim>
+<p>
+In this example, the interesting fields are numbers : 2, 5 and 6 (from left to right). The separator characters of the field is <tt>|</tt> here, and the recipient agree when the field value 5 and 6 are <tt>yes</tt>.<p>
+A simplier example could be :<p>
+<verbatim>
+jlv@bemail.org,yes,yes
+</verbatim>
+<p>
+Here the fields will be 1,2 and 3, and the comma will be the field separator character.<p>
+
+Note that <tt>yes</tt> and <tt>no</tt> are the value that indicate if the recipient want your message or not.<P>
+
+In case you have more than one time the same recipient in your file, the application will
+always keep only the last occurence of it (for the preferences of newsletter/announce).
+
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="4">Filtering the recipients</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+If you get your recipients list from a download logfile, where the email adresses are freely entered, you have probably some invalides ones that will make your message to be bounced back at you. To avoid that, <i>beMegaphone</i> performe a sanity check on the recipients email before loading them.<p>
+
+This check is done by checking: <p>
+<ul>
+<li>that the top-level domain name is a valid one
+<li>that the email is not in your banned list
+</ul>
+<p>
+Informations for the filtering are taken from two text files resident in the <i>Datas</i> directory of the application :
+<ul>
+<li><tt>banned.txt</tt> contains the list of email you wish not to send messages to. Each line of the file can contains severals emails separated by a comma.<p>
+<center>
+e.g : <tt>sfsfsfdf@foo.com , apple@pie.oven , hello@there.wassup</tt>  
+</center>
+<li><tt>domains.txt</tt> contains the list of valid top-level domain name. Each line of the file can contains severals domains separated by a comma.
+</ul>
+<p>
+Altought the <i>Domains</i> file will probably be not changed, you are invited to modify the <i>Banned</i> file to enter the incorrects emails for your list.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="5">Sending the message</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+Once you have entered your message and loaded the list of recipients, it is time to broadcast it.<p>
+When you will have, throught the menu, initiated the sending process, the main window will be disabled (until it's over) and a status window will be displayed and updated:
+<ul>
+<li>Sending with the BCC field<p>
+<center>
+<image src="./Images/sendingbcc.gif">
+</center>
+Using the BCC field is the faster way to broadcast your message.
+<li>Sending an email by recipients<p>
+<center>
+<image src="./Images/sending.gif">
+</center>
+When sending to a lot of recipients (more than 50) thought a modem link, you will see that the application stop for often a long time an then continue. Be rassured, it's normal : the generation of the emails is way faster than the <i>mail daemon</i> can handle trought a slow modem link (e.g sending 561 emails trought a 28.8 connection take about 45 minutes).
+</ul>
+<p>
+If you aren't using the BCC field and that you are connected to Internet trought a modem link, if your link go down whiles sending the emails, you may have to restart the <i>Mail daemon</i> of <font color=blue>B</font><font color=red>e</font>OS. Then you will have to
+find which recipient was the last to receive your message and by setting the <i>Start From ...</i> email in the <i>Recipients</i> menu, resend the message starting from this
+recipient (the list of recipient is sorted in the application).
+<p>
+To abort (at anytime) the sending process, you can hit the <tt>ALT-C</tt> key over the status window (only when sending one email for each recipients).
+<p>
+Whatever way you broadcasting, you have to be very careful to disconnect from Internet,
+only when you are sure that all your emails have ben really sended. It's not because <i>beMegaphone</i> said that he is done, that the <i>Mail server</i> of <font color=blue>B</font><font color=red>e</font>OS is done. The safest way when sending to a lot of recipients is to check the <tt>/boot/home/mail/out</tt> to see that there's no more pending emails.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="6">Hacking <i>beMegaphone</i></a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+One of the advantages of using a scripting language such as <i>Squirrel</i> is the way you can modify (hack) easily the script to better fit your needs or to extend it by adding new features.<P>
+
+All the source code of the application is fully readable and it can be found in the <i>Sources</i> directory. The main script is called <i>beMegaphone</i> and that's the file that <i>Squirrel</i> executes first.<p>
+
+To debug your hack, you will have to start the application from a <i>Terminal</i> in order to get any error message printed.<p>
+
+The application use the following scripts that contains various function and global variables:
+<ul>
+<li><tt>Banned.sqi</tt><p>Parse the banned file and test if an email is banned<p>
+<li><tt>Currents.sqi</tt><p>Load and save some informations (such as window position)<p>
+<li><tt>Domains.sqi</tt><p>Parse the domains file and test if an email have a valid domain name<p> 
+<li><tt>LogFile.sqi</tt><p>Parse the log file that contains the list of recipients<p>
+<li><tt>Main GUI.sqi</tt><p>Build the main GUI of the application and handle the menus<p>
+<li><tt>Settings.sqi</tt><p>Load and save the application settings<p>
+<li><tt>Settings GUI.sqi</tt><p>Build the Settings window<p>
+</ul>
+
+The main script performs :
+<ul>
+<li>load all thoses scripts and the needed Add-Ons
+<li>load the settings and currents 
+<li>creates the application window
+<li>load the banned and domains files.
+</ul>
+If you want to contribute to <i>beMegaphone</i>, please send me the changes you made to the various scripts files, and I will update and redistribute the new version (of course you will be credited for your help).
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="7">Support & Feedback</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+If you encounter troubles with this application, or if you have ideas on how to improve it, feel free to contact <a href="mailto:jlv@kirilla.com">me</a>.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="8">Acknowledegments</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+Many thanks to the various peoples presents at <i><b>BeGeistert 5</b></i> for the feedback during the
+presentation and workshop on Squirrel, and specialy to <a href="mailto:scholly@wanderer.gun.de">Scholly</a>.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="9">Version History</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+<center>
+<table border=1>
+<tr>
+<th align=center>Release date</th>
+<th align=center>Version</th>
+<th align=center>Comments</th>
+</tr>
+<tr>
+<td align=center>02/28/01</td>
+<td align=center>0.7</td>
+<td align=left>
+<ul>
+<li>Minor cosmetic changes
+<li>Adapted for <i>Squirrel</i> 5.3
+</td>
+</tr>
+<tr>
+<td align=center>10/28/00</td>
+<td align=center>0.5</td>
+<td align=left>
+<ul>
+<li>Added settings <tt>Recipient agree</tt>
+<li>Added setting <tt>Recipients pool's size</tt>, removed <tt>Copist's Email</tt>
+<li>When the contents is saved throught <tt>Save As</tt>, the mime type of the file is set to <tt>text/plain</tt>
+<li>The application now handle errors
+<li>We no longer load the recipients that want to received nothing
+<li>Complete rewrite of the broadcasting with Blind Carbon Copy
+</ul>
+</td>
+</tr>
+<tr>
+<td align=center>10/23/00</td>
+<td align=center>0.4</td>
+<td align=center>Initial public release</td>
+</tr>
+</table>
+</center>
+<p>
+</td>
+</tr>
+
+
+</table>
+
+</center>
+
+</body>
+</html>

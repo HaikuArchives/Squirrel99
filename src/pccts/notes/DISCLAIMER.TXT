@@ -1,0 +1,11 @@
+/*
+                               DISCLAIMER
+
+ These code examples and notes are provided "as is".  They may include
+ typographical or technical errors and their author disclaims all liability
+ of any kind or nature for damages due to error, fault, defect, or
+ deficiency in the notes regardless of cause.  All warranties of any kind,
+ either express or implied, including, but not limited to, the implied
+ warranties of merchantability and fitness for a particular purpose are
+ disclaimed.
+*/

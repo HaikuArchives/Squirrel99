@@ -1,0 +1,401 @@
+<HTML>
+<BODY bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+<!Listing num 5>
+<P>blahblah<p><br>
+<center>
+<TABLE border=0  bgcolor="#CCCCFF" cellspacing=0>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.1"><VERBATIM>   1</VERBATIM></a></TD>
+<TD><A NAME="l.5.1"><PRE>use 'GUI' 'Storage' 'String Processing' 'List Processing'</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.2"><VERBATIM>   2</VERBATIM></a></TD>
+<TD><A NAME="l.5.2"><PRE>make "icon entry.icon :_file "get "small</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.3"><VERBATIM>   3</VERBATIM></a></TD>
+<TD><A NAME="l.5.3"><PRE>make "win Window "titled 'EzViewer' [100 100]</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.4"><VERBATIM>   4</VERBATIM></a></TD>
+<TD><A NAME="l.5.4"><PRE>make "bar MenuBar</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.5"><VERBATIM>   5</VERBATIM></a></TD>
+<TD><A NAME="l.5.5"><PRE>make "m0 Menu :icon</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.6"><VERBATIM>   6</VERBATIM></a></TD>
+<TD><A NAME="l.5.6"><PRE>make "m1 Menu "File</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.7"><VERBATIM>   7</VERBATIM></a></TD>
+<TD><A NAME="l.5.7"><PRE>make "m2 Menu "Display</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.8"><VERBATIM>   8</VERBATIM></a></TD>
+<TD><A NAME="l.5.8"><PRE>$m2~config "radio "set true </PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.9"><VERBATIM>   9</VERBATIM></a></TD>
+<TD><A NAME="l.5.9"><PRE>make "m3 Menu "Comment</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.10"><VERBATIM>  10</VERBATIM></a></TD>
+<TD><A NAME="l.5.10"><PRE>$m3~enable false</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.11"><VERBATIM>  11</VERBATIM></a></TD>
+<TD><A NAME="l.5.11"><PRE>make "m5 Menu "Favorites</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.12"><VERBATIM>  12</VERBATIM></a></TD>
+<TD><A NAME="l.5.12"><PRE>make "m4 Menu "Export</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.13"><VERBATIM>  13</VERBATIM></a></TD>
+<TD><A NAME="l.5.13"><PRE>for.each "format (trans.mime) {</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.14"><VERBATIM>  14</VERBATIM></a></TD>
+<TD><A NAME="l.5.14"><PRE>	if (sfind :format 'image/') {</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.15"><VERBATIM>  15</VERBATIM></a></TD>
+<TD><A NAME="l.5.15"><PRE>		$m4~add ('as ' + (safter :format 'image/'))</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.16"><VERBATIM>  16</VERBATIM></a></TD>
+<TD><A NAME="l.5.16"><PRE>	}</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.17"><VERBATIM>  17</VERBATIM></a></TD>
+<TD><A NAME="l.5.17"><PRE>}</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.18"><VERBATIM>  18</VERBATIM></a></TD>
+<TD><A NAME="l.5.18"><PRE>$m4~enable false</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.19"><VERBATIM>  19</VERBATIM></a></TD>
+<TD><A NAME="l.5.19"><PRE>$m0~add "Help</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.20"><VERBATIM>  20</VERBATIM></a></TD>
+<TD><A NAME="l.5.20"><PRE>$m0~add "separator</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.21"><VERBATIM>  21</VERBATIM></a></TD>
+<TD><A NAME="l.5.21"><PRE>$m0~add 'About ...'</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.22"><VERBATIM>  22</VERBATIM></a></TD>
+<TD><A NAME="l.5.22"><PRE>$m1~add ["Load 'L']</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.23"><VERBATIM>  23</VERBATIM></a></TD>
+<TD><A NAME="l.5.23"><PRE>make "s0 $m1~add ['Load from ...' 'F']</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.24"><VERBATIM>  24</VERBATIM></a></TD>
+<TD><A NAME="l.5.24"><PRE>$m1~i.enable :s0 false</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.25"><VERBATIM>  25</VERBATIM></a></TD>
+<TD><A NAME="l.5.25"><PRE>$m1~add :m4</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.26"><VERBATIM>  26</VERBATIM></a></TD>
+<TD><A NAME="l.5.26"><PRE>$m1~add "separator</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.27"><VERBATIM>  27</VERBATIM></a></TD>
+<TD><A NAME="l.5.27"><PRE>$m1~add ["Quit 'Q'] {</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.28"><VERBATIM>  28</VERBATIM></a></TD>
+<TD><A NAME="l.5.28"><PRE>	$win~quit	</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.29"><VERBATIM>  29</VERBATIM></a></TD>
+<TD><A NAME="l.5.29"><PRE>}</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.30"><VERBATIM>  30</VERBATIM></a></TD>
+<TD><A NAME="l.5.30"><PRE>make "s1 $m2~add "Adapt</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.31"><VERBATIM>  31</VERBATIM></a></TD>
+<TD><A NAME="l.5.31"><PRE>make "s2 $m2~add "Center</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.32"><VERBATIM>  32</VERBATIM></a></TD>
+<TD><A NAME="l.5.32"><PRE>make "s3 $m2~add "Scale</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.33"><VERBATIM>  33</VERBATIM></a></TD>
+<TD><A NAME="l.5.33"><PRE>make "s4 $m2~add "Scroll</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.34"><VERBATIM>  34</VERBATIM></a></TD>
+<TD><A NAME="l.5.34"><PRE>$m3~add ["Edit 'E']</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.35"><VERBATIM>  35</VERBATIM></a></TD>
+<TD><A NAME="l.5.35"><PRE>$m3~add ["Remove 'M']</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.36"><VERBATIM>  36</VERBATIM></a></TD>
+<TD><A NAME="l.5.36"><PRE>make "s5 $m5~add ["Add 'A']</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.37"><VERBATIM>  37</VERBATIM></a></TD>
+<TD><A NAME="l.5.37"><PRE>make "s6 $m5~add ["Remove 'R']</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.38"><VERBATIM>  38</VERBATIM></a></TD>
+<TD><A NAME="l.5.38"><PRE>$m5~add "separator</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.39"><VERBATIM>  39</VERBATIM></a></TD>
+<TD><A NAME="l.5.39"><PRE>$m5~i.enable :s5 false</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.40"><VERBATIM>  40</VERBATIM></a></TD>
+<TD><A NAME="l.5.40"><PRE>$m5~i.enable :s6 false</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.41"><VERBATIM>  41</VERBATIM></a></TD>
+<TD><A NAME="l.5.41"><PRE>$bar~add :m0 :m1 :m2 :m3 :m5</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.42"><VERBATIM>  42</VERBATIM></a></TD>
+<TD><A NAME="l.5.42"><PRE>Glue :win "top [] :bar</PRE></A></TD>
+</TR>
+<TR>
+<TD valign=center align=center><A HREF="#c.5.43"><VERBATIM>  43</VERBATIM></a></TD>
+<TD><A NAME="l.5.43"><PRE>$win~show</PRE></A></TD>
+</TR>
+</TABLE>
+</center>
+<P><br>
+<P>
+<P>
+<!Line comments num 5>
+<P>
+<B><A HREF="#l.5.1"><TT>Line 1.</TT></A></B><A NAME="c.5.1">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.2"><TT>Line 2.</TT></A></B><A NAME="c.5.2">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.3"><TT>Line 3.</TT></A></B><A NAME="c.5.3">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.4"><TT>Line 4.</TT></A></B><A NAME="c.5.4">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.5"><TT>Line 5.</TT></A></B><A NAME="c.5.5">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.6"><TT>Line 6.</TT></A></B><A NAME="c.5.6">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.7"><TT>Line 7.</TT></A></B><A NAME="c.5.7">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.8"><TT>Line 8.</TT></A></B><A NAME="c.5.8">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.9"><TT>Line 9.</TT></A></B><A NAME="c.5.9">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.10"><TT>Line 10.</TT></A></B><A NAME="c.5.10">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.11"><TT>Line 11.</TT></A></B><A NAME="c.5.11">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.12"><TT>Line 12.</TT></A></B><A NAME="c.5.12">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.13"><TT>Line 13.</TT></A></B><A NAME="c.5.13">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.14"><TT>Line 14.</TT></A></B><A NAME="c.5.14">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.15"><TT>Line 15.</TT></A></B><A NAME="c.5.15">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.16"><TT>Line 16.</TT></A></B><A NAME="c.5.16">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.17"><TT>Line 17.</TT></A></B><A NAME="c.5.17">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.18"><TT>Line 18.</TT></A></B><A NAME="c.5.18">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.19"><TT>Line 19.</TT></A></B><A NAME="c.5.19">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.20"><TT>Line 20.</TT></A></B><A NAME="c.5.20">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.21"><TT>Line 21.</TT></A></B><A NAME="c.5.21">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.22"><TT>Line 22.</TT></A></B><A NAME="c.5.22">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.23"><TT>Line 23.</TT></A></B><A NAME="c.5.23">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.24"><TT>Line 24.</TT></A></B><A NAME="c.5.24">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.25"><TT>Line 25.</TT></A></B><A NAME="c.5.25">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.26"><TT>Line 26.</TT></A></B><A NAME="c.5.26">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.27"><TT>Line 27.</TT></A></B><A NAME="c.5.27">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.28"><TT>Line 28.</TT></A></B><A NAME="c.5.28">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.29"><TT>Line 29.</TT></A></B><A NAME="c.5.29">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.30"><TT>Line 30.</TT></A></B><A NAME="c.5.30">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.31"><TT>Line 31.</TT></A></B><A NAME="c.5.31">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.32"><TT>Line 32.</TT></A></B><A NAME="c.5.32">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.33"><TT>Line 33.</TT></A></B><A NAME="c.5.33">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.34"><TT>Line 34.</TT></A></B><A NAME="c.5.34">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.35"><TT>Line 35.</TT></A></B><A NAME="c.5.35">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.36"><TT>Line 36.</TT></A></B><A NAME="c.5.36">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.37"><TT>Line 37.</TT></A></B><A NAME="c.5.37">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.38"><TT>Line 38.</TT></A></B><A NAME="c.5.38">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.39"><TT>Line 39.</TT></A></B><A NAME="c.5.39">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.40"><TT>Line 40.</TT></A></B><A NAME="c.5.40">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.41"><TT>Line 41.</TT></A></B><A NAME="c.5.41">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.42"><TT>Line 42.</TT></A></B><A NAME="c.5.42">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.5.43"><TT>Line 43.</TT></A></B><A NAME="c.5.43">
+your comment here
+</A>
+</P>
+</BODY>
+</HTML>

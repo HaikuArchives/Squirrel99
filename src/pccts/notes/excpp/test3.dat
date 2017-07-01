@@ -1,0 +1,10 @@
+"normal action alt 1"               t2 *2* a 0
+"n/alt 1/rule"                      t2 *2* a  b
+"w/alt 2/rule"                      t2 *2* 0 1
+"NoViableAlt/rule"                  t2 *2* # #
+"normal action alt 2"               t2 *2* 0 a $
+"normal action alt 3 & subrule"     t2 *2* $ a a 1
+"alt3 subrule/alt3/rule"            t2 *2* $ a #
+"normal alt 3 subrule/alt3/rule"    t2 *2* $ a a #
+"normal alt 3 subrule/normal alt3"  t2 *2* $ a a 0
+"global handler (then exit f/ t0"   t2 *2* 0 a #

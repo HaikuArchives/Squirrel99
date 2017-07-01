@@ -1,0 +1,6 @@
+			if ( (LA(1)==A_or_B) && (
+LA(2)==X || LA(2)==Y)&&((LT(2),isa(LT(1)->getText()))||
+(LT(2),isb(LT(1)->getText()) )) ) {
+$
+	if ( (LA(1)==A_or_B) && (LA(2)==X)&&(LT(2),isb(LT(1)->getText()) ) ) {
+$

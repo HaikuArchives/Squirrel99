@@ -1,0 +1,9 @@
+token is (a|b)
+token is x
+token is (a|b)
+aName x executed
+token is y
+token is (a|b)
+bName y executed
+token is y
+bName y executed

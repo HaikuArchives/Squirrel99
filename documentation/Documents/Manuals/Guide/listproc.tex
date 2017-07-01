@@ -1,0 +1,170 @@
+
+\section{List processing} 
+
+This Add-on contains several primitives which operate on Lists.
+
+\subsection*{fput} \index{\verb+fput+} 
+ 
+{\tt fput} {\it thing list} 
+\newline\newline 
+Output a list formed by the concatenation of the first input and the second input.
+\begin{verbatimtab} 
+@> show fput 34.56 ['foo' 345]
+[34.56 'foo' 345]
+\end{verbatimtab}
+
+\subsection*{gseq} \index{\verb+gseq+} 
+ 
+{\tt gseq} {\it from to (count)} 
+\newline\newline 
+Output a list of the numbers from {\it from} to {\it to}. If {\it count} is specified, numbers will be equally spaced and the size of the list will be {\it count}.
+\begin{verbatimtab} 
+@> print gseq 5 10
+5 6 7 8 9 10
+@> print gseq 1 10 20
+1 1.47 1.95 2.42 2.89 3.37 3.84 4.32 4.79 5.26
+5.74 6.21 6.68 7.16 7.63 8.11 8.58 9.05 9.53 10
+\end{verbatimtab}
+
+\subsection*{lappend} \index{\verb+lappend+} 
+ 
+{\tt lappend} {\it list thing1 thing2 thing3 ...} 
+\newline\newline 
+Append the inputs to the list specified as the first input. This primitive mutates the list.
+\begin{verbatimtab} 
+@> make "a [1 2 3 4]
+@> lappend :a 5 6 7 8 [9]
+@> show :a
+[1 2 3 4 5 6 7 8 [9]]
+\end{verbatimtab} 
+
+\subsection*{lempty} \index{\verb+lempty+} 
+ 
+{\tt lempty} {\it list} 
+\newline\newline 
+Output {\it true} if the list is empty, and {\it false} otherwise.
+\begin{verbatimtab} 
+@> print lempty [1 2 3 4]
+false
+\end{verbatimtab}
+
+\subsection*{lfind} \index{\verb+lfind+} 
+ 
+{\tt lfind} {\it list thing} 
+\newline\newline 
+Output the position in the list given as first input, of the first occurrence of the second input. Output {\tt 0} if not found.
+\begin{verbatimtab} 
+@> make "l [23 56 "hello 'this is it !']
+@> print lfind :l "hello
+3
+\end{verbatimtab}
+
+\subsection*{lindex} \index{\verb+lindex+} 
+ 
+{\tt lindex} {\it list index (thing)} 
+\newline\newline 
+Output the value at the position {\tt index} in the list, or change the value at this position if a third input is specified. This primitive mutates the list.
+\begin{verbatimtab} 
+@> print lindex [1 2 3 4 5] 3
+3
+@> make "a [1 2 3 4 5]
+@> make "b :a
+@> lindex :a 5 99
+@> show :b
+[1 2 3 4 99]
+\end{verbatimtab}
+
+\subsection*{list} \index{\verb+list+} 
+ 
+{\tt list} {\it thing1 thing2 thing3 ...} 
+\newline\newline 
+Output a list whose members are in the inputs.
+\begin{verbatimtab} 
+@> make "mylist list 2 5.6 'hello' "foo
+@> show :mylist
+[2 5.6 'hello' "foo]
+\end{verbatimtab}
+
+\subsection*{ljoin} \index{\verb+ljoin+}
+
+{\tt ljoin} {\it list (thing)}
+\newline\newline
+Output the concatenation of all the elements of the list {\it list} separated by {\it thing} if specified in a string.
+\begin{verbatimtab}
+@> print ljoin [1 2 3 4 5] ';'
+1;2;3;4;5
+\end{verbatimtab}
+
+\subsection*{llength} \index{\verb+llength+} 
+ 
+{\tt llength} {\it list} 
+\newline\newline 
+Output the length of the list.
+\begin{verbatimtab} 
+@> print llength [2 5 1 76 8]
+5
+\end{verbatimtab}
+
+\subsection*{lput} \index{\verb+lput+} 
+ 
+{\tt lput} {\it thing list} 
+\newline\newline 
+Output a list formed by the concatenation of the second input and the first input.
+\begin{verbatimtab} 
+@> show lput 'end' ['foo' 345]
+['foo' 345 'end']
+\end{verbatimtab}
+\cbstart
+\subsection*{lremove} \index{\verb+lremove+} 
+ 
+{\tt lremove} {\it list thing} 
+\newline\newline 
+Remove the first occurence of the second input from the first input.
+\begin{verbatimtab} 
+@> lremove :list 4
+\end{verbatimtab} 
+\cbend
+\subsection*{lscan} \index{\verb+lscan+} 
+ 
+{\tt lscan} {\it list "var1 "var2 "var3 ...} 
+\newline\newline 
+Store the element of the list starting from the first one into each given variable name, and output the rest of the list. If there are less
+elements than variables in the list, the variable values will be set to an empty list.
+\begin{verbatimtab} 
+@> make "rest lscan [1 2 3 4 5 6] "a "b "c
+@> show :rest
+[4 5 6]
+@> show :a :b :c
+1 2 3
+\end{verbatimtab} 
+
+\subsection*{lsub} \index{\verb+lsub+} 
+ 
+{\tt lsub} {\it list from (to)} 
+\newline\newline 
+Ouput a sublist of the list given as first input, from the index {\it from} to the index {\it to} if given, else to the end of the list.
+\begin{verbatimtab} 
+@> show lsub ["a "b "c "d "e "f] 3 5
+["c "d "e]
+\end{verbatimtab}
+
+\subsection*{reverse} \index{\verb+reverse+} 
+ 
+{\tt reverse} {\it list} 
+\newline\newline 
+Output a list in the reverse order from that given as input.
+\begin{verbatimtab} 
+@> show reverse [1 2 3 4 5]
+[5 4 3 2 1]
+\end{verbatimtab} 
+
+\subsection*{sentence} \index{\verb+sentence+} 
+ 
+{\tt sentence} {\it thing1 thing2 thing3 ...} 
+\newline\newline 
+Output a list whose members are in the inputs. Lists in the inputs are flattened.
+\begin{verbatimtab} 
+@> make "mylist sentence 2 5.6 [1 2 3 4]
+@> show :mylist
+[2 5.6 1 2 3 4]
+\end{verbatimtab}

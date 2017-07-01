@@ -1,0 +1,31 @@
+-- Listing 13 (number on the far left are line number and not in the script) --------
+ 1 to WannaQuit :src
+ 2	
+ 3	; if the confirm before quit is true
+ 4 	if :set_qconf {
+ 5 
+ 6		make.local "choice Question "info ["Yes "No] 'Do you really want to quit ?'
+ 7		if not :choice {
+ 8			; if the setting window is displayed we close it
+ 9 			if (is.window :set_win) {
+10				$set_win~quit	
+11			}
+12			Save_Settings :src
+13			Save_Currents :src
+14			output true
+15		} {
+16			output false	
+17		}
+18	} {
+19		
+20		; if the setting window is displayed we close it
+21		if (is.window :set_win) {
+22			$set_win~quit	
+23		}
+24		Save_Settings :src
+25		Save_Currents :src
+26		output true				
+27	}	
+28	
+29 end
+-- end of Listing 13 ----------------------------------------------------------------- 

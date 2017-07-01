@@ -1,0 +1,90 @@
+\section{The widget Viewer}
+
+\cbstart
+This widget is part of the {\em Imaging} Add-On and it displays an image.
+
+\subsection{Construction}
+
+The primitive {\tt Viewer} is used to build a new Viewer widget. Its syntax is:\\
+
+{\tt Viewer} {\tt image | list}
+
+The only input can be either an {\it Image} object or a list. The list specify the size in pixel of the widget. If an image is given, the widget will adapt it
+size to fit the full image.
+
+\subsection{Methods}
+
+The Viewer widget has two specific methods:\\
+
+{\bf display\index{Viewer@\textbf{Viewer}!Methods!display}} 
+\begin{verbatimtab}
+$viewer~display image (word)
+\end{verbatimtab}
+Display the image given as first input. If a second input is specified, it must be one of the following words : {\tt "adapt "center "scale "scroll}. This second input give the way the widget shall display the image. By default it is {\tt "adapt}. The following table explain the different style of display:\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|p{6cm}|}
+\hline
+\bf Style & \bf Purpose \\
+\hline
+\tt "adapt\index{Viewer@\textbf{Viewer}!Style!adapt} &  Adapt the size of the widget to fit the complete image. Resize the window to fit.\\
+\hline
+\tt "center\index{Viewer@\textbf{Viewer}!Style!center} & Display the image without resizing the widget. The image is centered on the center of the widget.\\
+\hline
+\tt "scale\index{Viewer@\textbf{Viewer}!Style!scale} &  Display the image scaled to fit in the widget.\\
+\hline
+\tt "scroll\index{Viewer@\textbf{Viewer}!Style!scroll} &  Keep the current widget size, display scrollbars for the user to see the image.\\
+\hline
+\end{tabular}
+\caption{Viewer's display styles}
+\end{table}
+
+{\bf resize.to\index{Viewer@\textbf{Viewer}!Methods!resize.to}} 
+\begin{verbatimtab}
+$viewer~resize.to list
+\end{verbatimtab}
+Resize the widget to a given size. The method has for effect to ask the window
+where the widget is to resize as well.\\
+
+\subsection{Configuration}
+
+This widget don't have any specific configuration.
+
+\subsection{Hooks}
+
+This widget don't have specific hooks.
+
+\subsection{Example}
+
+\example{ex50}	
+\begin{listing}{1}
+use 'List Processing'
+
+if (llength :Args) = 2 { 
+
+	use 'GUI' 'Imaging'
+
+	make "my.image Image lindex :Args 2 
+	if (is.image :my.image) { 
+        make "win Window "titled (lindex :Args 2) [100 100] "not.resizable
+		make "the.viewer Viewer :my.image 
+		Glue :win "top [] :the.viewer 
+		$win~show    
+  	} { 
+		print 'Image file not reconized ... maybe not an image' 
+	} 
+} { 
+	print 'USAGE : image' 
+}
+\end{listing}
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-50.eps,width=110pt,height=68pt}
+\label{s50}
+\caption{The Viewer widget}
+\end{figure}
+
+
+\cbend

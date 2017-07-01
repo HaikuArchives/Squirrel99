@@ -1,0 +1,516 @@
+/*
+ * Squirrel project
+ *
+ * file ?	SQI-grammar.g
+ * what	?	Squirrel grammar for the parser
+ * who	?	jlv
+ * when	?	06/18/99
+ * last	?	08/04/99
+ *
+ *
+ * (c) electron Technology 1999
+ */
+
+// first we set the header to use in all grenerated files
+// we need the ifndef in order to avoid having redefine trouble
+
+#header <<
+#ifndef blgheader
+#define blgheader
+#include "AToken.h" 
+#include "SQI-Obj.h"
+#include "SQI-heap.h"
+#include "SQI-exception.h"
+#include "SQI-varmap.h"
+#include "SQI-ufunc.h"
+#include "SQI-interp.h"
+#include "SQI-squirrel.h"
+#include "SQI-builtin.h"
+
+char *CleanString(char *src);
+char *CleanWord(char *src);
+
+typedef ANTLRCommonToken ANTLRToken;
+
+#endif
+>>
+
+#lexclass C_COMMENT
+#token "[\n\r]" <<skip();newline();>>
+#token "\*/" <<mode(START);skip();>>
+#token "\*~[/]" <<skip();>>
+#token "~[\*\n\r]+" <<skip();>>
+
+#lexclass STRINGS
+#token "\\n" << replchar ((char) 0x0A); more (); >>
+#token "\\t" << replchar ((char) 0x09); more (); >>
+#token "\\v" << replchar ((char) 0x0B); more (); >>
+#token "\\b" << replchar ((char) 0x08); more (); >>
+#token "\\r" << replchar ((char) 0x0D); more (); >>
+#token "\\f" << replchar ((char) 0x0C); more (); >>
+#token "\\a" << replchar ((char) 0x07); more (); >>
+#token "\\\\" << replchar ((char) 0x5C); more (); >>
+#token "\\?" << replchar ((char) 0x3F); more (); >>
+#token "\\'" << replchar ((char) 0x27); more (); >>
+#token "\"" << replchar ((char) 0x22); more (); >>
+#token "~[']" <<more();>>
+#token STR "'" << mode(START); >>
+
+/*
+#lexclass WORDS
+#token "\\n" << replchar ((char) 0x0A); more (); >>
+#token "\\t" << replchar ((char) 0x09); more (); >>
+#token "\\v" << replchar ((char) 0x0B); more (); >>
+#token "\\b" << replchar ((char) 0x08); more (); >>
+#token "\\r" << replchar ((char) 0x0D); more (); >>
+#token "\\f" << replchar ((char) 0x0C); more (); >>
+#token "\\a" << replchar ((char) 0x07); more (); >>
+#token "\\\\" << replchar ((char) 0x5C); more (); >>
+#token "\\?" << replchar ((char) 0x3F); more (); >>
+#token "\\'" << replchar ((char) 0x27); more (); >>
+#token "\"" << replchar ((char) 0x22); more (); >>
+#token "\\ " << replchar (' '); advance();more (); >>
+#token "~[\ \n\r]" <<more();>>
+#token WORD "[\n\r\ ]+" <<mode(START);>>
+*/
+
+#lexclass START
+
+// the token ID is set starting from LBRAK is 2
+// if adding one token before , it's need to modify the SQI-nexpr.h file
+
+#token "/\*" <<mode(C_COMMENT);skip();>>
+#token "'" <<mode (STRINGS);more ();>>		// 2
+#token COLON    ":"		// 3
+#token LPAR     "\("		// 4
+#token RPAR	"\)"		// 5
+#token LBRACE	"\{"		// 6
+#token RBRACE	"\}"		// 7
+#token WORD "\"([a-zA-Z0-9]|\\[tbnarv])+"     //<<mode(WORDS);more ();>>			// 8
+#token LBRAK	"\["            // 9
+#token RBRAK	"\]"            // 10
+#token PLUS	"\+"            // 11
+#token MINUS	"\-"            // 12
+#token TIMES	"\*"            // 13
+#token DIV	"/"             // 14
+#token MOD	"mod"           // 15
+#token EQUALS	"=" 		// 16
+#token NOT_EQUALS "\<\>"        // 17
+#token GT	"\>"            // 18
+#token GTE	"\>="           // 19
+#token LT	"\<"            // 20
+#token LTE	"\<="           // 21
+#token AND	"and"           // 22
+#token OR	"or"            // 23
+#token NOT      "not"           // 24
+#tokclass ADD_OP {PLUS MINUS}
+#tokclass REL_OP {EQUALS NOT_EQUALS GT GTE LT LTE}
+#tokclass BOOL_OP {AND OR}
+#tokclass MULT_OP {TIMES DIV MOD}
+#token TAG	"tag"
+#token GOTO     "goto"
+#token TO	"to"
+#token END	"end"
+#token RUN	"run"
+#token RUNRESULT "runresult"
+#token REPEAT	"repeat"
+#token IF	"if"
+#token IFELSE	"ifelse"
+#token IFTRUE	"iftrue"
+#token IFFALSE	"iffalse"
+#token CATCH	"catch"
+#token FOR	"for"
+#token DOWHILE	"do.while"
+#token WHILE	"while"
+#token DOUNTIL	"do.until"
+#token UNTIL	"until"
+#token FOREACH  "for.each"
+#token COMMENT	";" <<advance();while((ch!='\n')&&(ch!=-1)) advance();>>
+#token SPACE    "[\t\ ]+"	<<skip();>>
+#token RC       "[\n\r]" <<newline();/*skip();*/>>
+//#token WORD	"[a-zA-Z_][a-zA-Z0-9_]*"
+#token ID	"[a-zA-Z_][a-zA-Z0-9_\.]*"
+#token FLOAT	"([0-9]+.[0-9]* | [0-9]*.[0-9]+) {[eE]{[\-\+]}[0-9]+}"
+#token INTEGER	"[0-9]+"
+
+class SQIParser {
+
+	// Build a block from the input
+	interp[SQI_Interp *Interp] > [SQI_nBlock *node] 
+		:	<<SQI_Object *elem;$node = Interp->Tree->Block();>> 
+			( instruction[Interp] > [elem]
+			<<if(elem) $node->Add2Inst(elem);>> )*
+		;
+
+	// Parse an instruction line
+	instruction[SQI_Interp *Interp] > [SQI_Object *node]
+		:	TAG <<SQI_String *label;SQI_nTag *atag;>> quotedword[Interp]>[label] <<
+				atag = Interp->Tree->Tag(label);
+				$node = atag;
+			>>
+		|	<<SQI_Object *label;>>
+			GOTO (basic[Interp]>[label] | quotedword[Interp]>[label]) <<
+			$node = Interp->Tree->Goto(label);
+			>>
+		|	predicate[Interp]>[$node]
+		|	control[Interp]>[$node]
+		|	funcdef[Interp] <<$node=NULL;>>       // return nothing
+		|	COMMENT <<$node=NULL;>>
+		|	RC <<$node=NULL;>>
+		;
+
+	// Parse a predicate call
+	predicate[SQI_Interp *Interp] > [SQI_Object *node]
+		:	w:ID <<
+				SQI_Node *cmd;list<SQI_Object *> *alist;
+				cmd = Interp->FindCall(w->getText());
+			>> arguments[Interp]>[alist] (RC)* <<
+				/*if(!alist->size())
+					delete alist;
+				else*/
+					cmd->SetArgs(alist);
+				$node = cmd;
+			>>
+		;
+
+	// Parse a function definition
+	funcdef[SQI_Interp *Interp]
+		: 	<<list<SQI_Object *> *params=NULL;SQI_nBlock *body=NULL;SQI_Defunc *ufunc;>> 
+			TO w:ID {lparam[Interp]>[params]} RC
+				funcbody[Interp]>[body]
+			END <<
+				ufunc = new SQI_Defunc();
+				ufunc->SetParams(params);
+				ufunc->SetBody(body);
+				Interp->UFuncMap->AddFunc(w->getText(),ufunc);
+			>>
+		;
+
+	// Parse a list of parameters
+	lparam[SQI_Interp *Interp] > [list<SQI_Object *> *params]
+		:	<<SQI_Object *var;$params = new list<SQI_Object *>;>>
+			( eparam[Interp]>[var] <<
+			$params->push_back(var);
+			>> )+
+		;
+
+	// Parse a parameter
+	eparam[SQI_Interp *Interp] > [SQI_Object *param]
+		:	variable[Interp]>[$param]
+		|	alist[Interp]>[$param] // the list must have 2 arguments , we need to check that and return an error of not
+		;	
+
+	// Parse the body of a function
+	funcbody[SQI_Interp *Interp] > [SQI_nBlock *node] 
+		:	<<SQI_Object *elem;$node = Interp->Tree->Block();>> 
+			( bodyinst[Interp] > [elem] <<
+			if(elem) $node->Add2Inst(elem);>> )*
+		;
+
+	// Parse an instruction line in a body
+	bodyinst[SQI_Interp *Interp] > [SQI_Object *node]
+		:	predicate[Interp]>[$node]
+		|	control[Interp]>[$node]
+		|	RC <<$node=NULL;>>
+		|	COMMENT <<$node=NULL;>>
+		;
+
+	// Parse a call to a predicate (in an expression for exemple)
+	call[SQI_Interp *Interp] > [SQI_Object *node]
+		:	w:ID <<
+			SQI_Node *cmd;list<SQI_Object *> *alist;
+				cmd = Interp->FindCall(w->getText());
+			>> arguments[Interp]>[alist] <<
+				if(!alist->size())
+					delete alist;
+				else
+					cmd->SetArgs(alist);
+				$node = cmd;
+			>>
+		;
+
+	// Parse the argument of a predicate call
+	arguments[SQI_Interp *Interp] > [list<SQI_Object *> *alist]
+		:	<<SQI_Object *elem = NULL; $alist = new list<SQI_Object *>;>>
+			( argument[Interp]>[elem] <<$alist->push_back(elem);>> )*
+		;
+
+	// Parse a argument of a predicate call
+	argument[SQI_Interp *Interp] > [SQI_Object *node]
+		:	quotedword[Interp]>[$node]
+		|	alist[Interp]>[$node]
+		|	basic[Interp]>[$node]
+		|	block[Interp]>[$node]
+		;
+
+	// Parse a basic element
+	basic[SQI_Interp *Interp] > [SQI_Object *node]
+		:	LPAR ebasic[Interp]>[$node] RPAR
+		|	ebasic[Interp]>[$node]
+		;
+
+
+	// Parse a basic element
+	ebasic[SQI_Interp *Interp] > [SQI_Object *node]
+		:	mexpr[Interp]>[$node]
+		|	expression[Interp]>[$node]
+		;
+
+	// Parse a counter for FOR
+	counter[SQI_Interp *Interp] > [SQI_Object *node]
+		:	variable[Interp]>[$node]
+		|	alist[Interp]>[$node]
+		|	expression[Interp]>[$node]
+		;
+
+	// Parse an expression
+	expression[SQI_Interp *Interp] > [SQI_Object *node]	
+		:	LPAR expression[Interp]>[$node] RPAR
+		|	call[Interp]>[$node]
+		;
+
+	// Parse a list
+	alist[SQI_Interp *Interp] > [SQI_List *node]	
+		:	<<SQI_Object *elem;>>
+			LBRAK <<
+			$node = Interp->Eternal->List();>> 
+			( elist[Interp]>[elem] <<
+			$node->Add2End(elem);>> 
+			)* RBRAK
+		;
+
+	// Parse an element list
+	elist[SQI_Interp *Interp] > [SQI_Object *node]
+		:	quotedword[Interp]>[$node]
+		|	keyword[Interp]>[$node]
+		|	alist[Interp]>[$node]
+		|	basic[Interp]>[$node]
+		|	block[Interp]>[$node]
+		|	LPAR call[Interp]>[$node] RPAR
+		;
+
+	// Parse a block of instruction
+	block[SQI_Interp *Interp] > [SQI_Object *node]	
+		:	<<SQI_Object *elem;>>
+			LBRACE interp[Interp]>[$node] RBRACE
+		;
+
+	// Parse an expression simple element
+	simple[SQI_Interp *Interp] > [SQI_Object *node]
+		:	number[Interp]>[$node]
+		|	variable[Interp]>[$node]
+		|	expression[Interp]>[$node]
+		;
+
+	// Parse an expression (not X)
+	boolnegexpr[SQI_Interp *Interp] > [SQI_Object *node]
+		:	<<bool fnot=false;>>
+			( NOT <<fnot=!fnot;>>)* simple[Interp] > [$node] <<
+			if(fnot)
+		 		$node = Interp->Tree->Expression(SQI_EXPR_NOT,$node);
+			>>
+		;
+
+	// Parse an expression ( -/+ X)
+	signexpr[SQI_Interp *Interp] > [SQI_Object *node]
+		:	<<bool plus=true;bool minus=true;char t;>>
+			(e:ADD_OP <<
+			
+			t = e->getType();
+			if(t==29) plus = true;
+			else
+			if(t==30) minus = !minus;
+			>>)* boolnegexpr[Interp] > [$node] <<
+			if(!(plus && minus)) // if the sign is minus
+			{
+				if($node->Is()==SQI_NUMBER)
+					(dynamic_cast<SQI_Number *>($node))->Neg();
+				else
+					$node = Interp->Tree->Expression(SQI_EXPR_NEG,$node);
+			}
+			>>
+		;
+
+	// Parse an expression (X *// Y)
+	multexpr[SQI_Interp *Interp] > [SQI_Object *node]
+		:	signexpr[Interp]>[$node] ( <<
+			SQI_Object *right;SQI_nExpr *left;>> 
+			e:MULT_OP <<
+			left = Interp->Tree->Expression(e->getType(),$node);>> 
+			signexpr[Interp]>[right] <<
+			left->Add2Args(right);$node = left;>>
+			)*
+		;
+
+	// Parse an expression X +/- Y
+	addexpr[SQI_Interp *Interp] > [SQI_Object *node]
+		:	multexpr[Interp]>[$node] ( <<
+			SQI_Object *right;SQI_nExpr *left;>> 
+			e:ADD_OP <<
+			left = Interp->Tree->Expression(e->getType(),$node);>> 
+			multexpr[Interp]>[right] <<
+			left->Add2Args(right);$node = left;>>
+			)*
+		;
+
+	// Parse a real (?) expression (X <>/=/>/(...) Y)
+	relexpr[SQI_Interp *Interp] > [SQI_Object *node]
+		:	addexpr[Interp]>[$node] { <<
+			SQI_Object *right;SQI_nExpr *left;>>
+			 e:REL_OP <<
+			left = Interp->Tree->Expression(e->getType(),$node);>> 
+			addexpr[Interp]>[right] <<
+			left->Add2Args(right);$node = left;>>
+			}
+		;
+
+	// Parse a boolean or mathematical expression
+	mexpr[SQI_Interp *Interp] > [SQI_Object *node]
+		:	<<SQI_Object *left,*right;bool rflag = false;>>	
+			relexpr[Interp]>[$node] ( <<
+			SQI_Object *right;SQI_nExpr *left;>> 
+			e:BOOL_OP <<
+			left = Interp->Tree->Expression(e->getType(),$node);>> 
+			relexpr[Interp]>[right] <<
+			left->Add2Args(right);$node = left;>>
+			)*
+		;
+		/*
+		|	<<SQI_Object *left,*right;bool rflag = false;>>	
+			LPAR relexpr[Interp]>[$node] ( <<
+			SQI_Object *right;SQI_nExpr *left;>> 
+			f:BOOL_OP <<
+			left = Interp->Tree->Expression(f->getType(),$node);>> 
+			relexpr[Interp]>[right] <<
+			left->Add2Args(right);$node = left;>>
+			)* RPAR
+		;
+		*/
+
+	// Parse a reference to a variable
+	variable[SQI_Interp *Interp] > [SQI_Object *node]
+		:	COLON w:ID <<
+			$node = Interp->Tree->Varref(Interp->Eternal->String(w->getText()));
+			>>
+		;	
+	
+	// Parse a number
+	number[SQI_Interp *Interp] > [SQI_Object *node]
+		:	i:INTEGER	<<$node = Interp->Eternal->Number(atoi(i->getText()));>>
+		|	f:FLOAT	        <<$node = Interp->Eternal->Number(atof(f->getText()));>>
+		;
+
+	// Parse a quoted word
+	quotedword[SQI_Interp *Interp] > [SQI_String *node]
+		:	w:WORD <<
+			char *str = CleanWord(w->getText());
+			$node = Interp->Eternal->String(str);
+			free(str);
+			>>
+		|	s:STR <<
+			char *str = CleanString(s->getText());
+			$node = Interp->Eternal->String(str);
+			free(str);
+			>>
+		;
+
+	// Parse a keyword
+	keyword[SQI_Interp *Interp] > [SQI_Object *node]
+		:	k:WORD <<
+			$node = Interp->Eternal->Keyword(k->getText());>>
+		;
+		
+	iblock[SQI_Interp *Interp] > [SQI_Object *node]
+		:	variable[Interp]>[$node]
+		|	block[Interp]>[$node]
+		;
+
+	// Parse a control sequence
+	control[SQI_Interp *Interp] > [SQI_nControl *node]
+		:	<<SQI_Object *arg;>> 
+			RUN iblock[Interp]>[arg] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_RUN);
+			$node->Add2Args(arg);
+			>>
+		|	<<SQI_Object *arg;>> 
+			RUNRESULT iblock[Interp]>[arg] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_RUNRESULT);
+			$node->Add2Args(arg);
+			>>
+		|	<<SQI_Object *arg;SQI_Object *expr;>> 
+			REPEAT basic[Interp]>[expr] iblock[Interp]>[arg] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_REPEAT);
+			$node->Add2Args(expr);
+			$node->Add2Args(arg);
+			>>
+		|	<<SQI_Object *expr;SQI_Object *arg1;SQI_Object *arg2=NULL;>> 
+			IF basic[Interp]>[expr] iblock[Interp]>[arg1] {iblock[Interp]>[arg2]} <<
+			$node = Interp->Tree->Control(SQI_CONTROL_IF);
+			$node->Add2Args(expr);
+			$node->Add2Args(arg1);
+			if(arg2) $node->Add2Args(arg2);
+			>>
+		|	<<SQI_Object *expr;SQI_Object *arg1;SQI_Object *arg2;>> 
+			IFELSE basic[Interp]>[expr] iblock[Interp]>[arg1] iblock[Interp]>[arg2] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_IFELSE);
+			$node->Add2Args(expr);
+			$node->Add2Args(arg1);
+			$node->Add2Args(arg2);
+			>>
+		|	<<SQI_Object *arg;>> 
+			IFTRUE iblock[Interp]>[arg] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_IFTRUE);
+			$node->Add2Args(arg);
+			>>
+		|	<<SQI_Object *arg;>> 
+			IFFALSE iblock[Interp]>[arg] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_IFFALSE);
+			$node->Add2Args(arg);
+			>>
+		|	<<SQI_Object *block;SQI_Object *tag;>> 
+			CATCH quotedword[Interp]>[tag] iblock[Interp]>[block] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_CATCH);
+			$node->Add2Args(tag);
+			$node->Add2Args(block);
+			>>
+		|	<<SQI_Object *block;SQI_Object *loop;>> 
+			FOR counter[Interp]>[loop] iblock[Interp]>[block] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_FOR);
+			$node->Add2Args(loop);
+			$node->Add2Args(block);
+			>>
+		|	<<SQI_Object *block;SQI_Object *expr;>> 
+			DOWHILE iblock[Interp]>[block] basic[Interp]>[expr] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_DOWHILE);
+			$node->Add2Args(block);
+			$node->Add2Args(expr);
+			>>
+		|	<<SQI_Object *block;SQI_Object *expr;>>
+			WHILE basic[Interp]>[expr] iblock[Interp]>[block] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_WHILE);
+			$node->Add2Args(expr);
+			$node->Add2Args(block);
+			>>
+		|	<<SQI_Object *block;SQI_Object *expr;>>
+			DOUNTIL iblock[Interp]>[block] basic[Interp]>[expr] <<
+			$node = Interp->Tree->Control(SQI_CONTROL_DOUNTIL);
+			$node->Add2Args(block);
+			$node->Add2Args(expr);
+			>>	
+		|	<<SQI_Object *block;SQI_Object *expr;>>
+			UNTIL basic[Interp]>[expr] iblock[Interp]>[block] <<
+	 		$node = Interp->Tree->Control(SQI_CONTROL_UNTIL);
+			$node->Add2Args(expr);
+			$node->Add2Args(block);
+			>>
+		|	<<SQI_Object *block;SQI_Object *var;SQI_Object *alist;>>
+			FOREACH quotedword[Interp]>[var] counter[Interp]>[alist] iblock[Interp]>[block] <<
+	 		$node = Interp->Tree->Control(SQI_CONTROL_FOREACH);
+			$node->Add2Args(var);
+			$node->Add2Args(alist);
+			$node->Add2Args(block);
+			>>
+		;
+
+}
+

@@ -1,0 +1,512 @@
+ \documentclass[11pt]{book}
+
+\usepackage{color,epsfig,makeidx}
+\usepackage{moreverb,longtable}
+
+\newcommand{\beos}{\textcolor{blue}{B}\textcolor{red}{e}OS } 
+\newcommand{\squirrel}{{\sc Squirrel} }
+\newcommand{\skippy}{{\sc Skippy} } 
+\newcommand{\etech}{{\em electron Technology} }
+\newcommand{\url}{http://www.electechno.com} 
+%\newcommand{\email}{\em jlv@cfht.hawaii.edu} 
+
+\newcounter{ex}[chapter]
+\newcounter{sc}[chapter]
+
+%\renewcommand{\theex}{\roman{ex}}
+
+\newcommand{\example}[1]{
+\refstepcounter{ex}
+\label{#1}
+\medskip
+{\em Example \theex }
+}
+
+\makeatletter
+\def\hlinewd#1{%
+\noalign{\ifnum0=`}\fi\hrule \@height #1 %
+\futurelet\reserved@a\@xhline}
+\makeatother
+
+\newcommand{\screen}[3]{
+\begin{figure}[ht!]
+\centering
+\psfig{figure=images/eps/#2} 
+\label{#1}
+\caption{#3}
+\end{figure}
+}
+
+\newcommand{\shot}[2]{
+\begin{minipage}[h]{#1}
+\includegraphics{images/eps/#2} 
+\end{minipage}
+}
+
+\newcommand{\clearemptydoublepage}{%
+	\newpage{\pagestyle{empty}\cleardoublepage}}
+ 
+\setlength{\topmargin}{0cm} 
+\setlength{\topskip}{1cm} 
+\setlength{\textheight}{21cm} 
+\setlength{\textwidth}{16.5cm} 
+\setlength{\oddsidemargin}{0cm} 
+\setlength{\evensidemargin}{0cm} 
+\setlength{\footskip}{1cm}
+  
+\makeindex 
+ 
+\begin{document} 
+ 
+\begin{quote}
+
+\thispagestyle{empty}
+\begin{flushright}
+\vspace{1cm}
+\begin{tabular}{p{1.5cm} r}
+\hlinewd{3pt}
+	&	\\
+	& {\Large {\bf \skippy User's Guide}} \\
+ 	& \\
+	& {\large Programming Reference} \\
+	& \\
+\hlinewd{3pt}
+\end{tabular}
+\vspace{2cm}
+\end{flushright}
+\begin{flushright}
+\begin{tabular}{r}
+{\large \bf Version 0.7}\\
+{\large \today}
+\end{tabular}
+\end{flushright}
+\vspace{1.0cm}
+\begin{figure}[h] 
+\centerline{ 
+%\psfig{figure=images/eps/squirrel32x32.eps} 
+\psfig{figure=images/redfoot.ps} 
+} 
+\end{figure}
+\vspace{1cm}
+\begin{center}
+\begin{tabular}{p{10.7cm}c}
+electron Technology & \url \\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage 
+
+\thispagestyle{empty}
+
+\begin{small}
+
+\begin{figure}[h] 
+\centerline{ 
+\psfig{figure=images/squirrel32x32.eps} 
+} 
+\end{figure}
+
+{\em \skippy User's Guide}\\
+Copyright \copyright 1999-2000 \etech . All Rights Reserved\\
+
+No part of this manual may be reproduced or transmitted in any form, electronic or mechanical, for any purpose without the prior written agreement of \etech .\\
+
+The contents of this document are furnished for informational use only; they are subject to change without notice and should not be understood as a commitment by \etech. \etech has tried to make the information in this document as accurate and reliable as possible, but assume no liability for errors or omissions.\\
+
+\etech will revise often the software described in this document and reserves the right to make such changes without notification.\\
+
+\vspace{1cm}
+
+Author: Jean-Louis Villecroze\\
+Email: jlv@bemail.org\\
+Web site: \url\\
+\vspace{\stretch{1}}\\
+This document was prepared with \LaTeXe.\\
+\TeX is a trademark of the American Mathematical Society
+\end{small}
+\end{quote}
+ 
+%% end of first page 
+ 
+\begin{quote} 
+ 
+\pagenumbering{roman} 
+ 
+\setcounter{page}{0} 
+ 
+\clearemptydoublepage  
+\tableofcontents 
+ 
+%\listoffigures 
+ 
+%\listoftables 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Chapter 1 
+%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%\frontmatter
+ 
+\clearemptydoublepage 
+\chapter*{About this User's Guide}
+\addcontentsline{toc}{chapter}{About this User's Guide}
+
+\setcounter{page}{1} 
+ 
+\pagenumbering{arabic}
+
+This document cover the Add-on \skippy of the \squirrel programming language. This Add-On allow to simply draw in a special widget.\\ 
+
+At this time, neither \skippy nor this document is perfect. We would appreciate notification of any errors found.\\
+
+This guide is divided into four parts:
+
+\begin{description}
+\item [Getting started] introduces \skippy
+\item [Squirrel basics] shows, mostly by examples, how to use the \skippy
+\item [Primitives and Methods] lists and describes all the primitives and methods
+\item [Release notes] contains pertinent information on the releases
+\end{description}
+
+It should be understood that several additional features will be included in upcoming releases.\\
+
+We have included several documentation conventions in this document.  These are: \\
+
+\begin{itemize}
+\item All code elements are presented in a distinct font like {\tt print "foo}
+\item Primitive syntax is often a combination of code element and italic font. The part in italic is always the input to the primitive.
+\item Primitive inputs use special kind of symbols :
+\begin{itemize}
+\item {\it \bf (word)} indicate that the input is optional
+\item {\it \bf word \verb?|? number} indicate that the input can be either a word or a number
+\item {\it \bf (word)+} indicate that the primitive can take on several words as input, but at least one is required.
+\item {\it \bf (word)*} indicate that the primitive can take on several words as input, but one is optional.
+\end{itemize}
+\end{itemize}
+
+A big {\em Mahalo\footnote{"Thank you" in Hawaiian}} to Susan Banh\footnote{and all my love}, for her much appreciated contributions towards rewriting and editing this document !\\
+
+Please enjoy reading this manual and have fun with \skippy !\\
+
+Jean-Louis, \today
+
+%\mainmatter
+
+\chapter{What is \skippy ?} 
+
+\skippy is to \squirrel what the {\it Turtle} is to Logo. It's a simple tool that offer the possibilies to draw on screen using the langage \squirrel to program the drawing.\\
+
+Using \skippy could help children to gain a better understanding of computers and mathematics (mostly geometry) by .
+
+\chapter{\skippy Basics} 
+
+\skippy is composed of two elements:
+\begin{itemize}
+\item a special widget called {\it Sheet} in which the drawing are made
+\item an object called {\it Skippy} that draw in the {\it Sheet}
+\end{itemize}
+ 
+To draw using a {\it Skippy} we need first to create a {\it Sheet} widget and place it inside a window:
+
+\example{ex1}
+\begin{listing}{1}
+make "win Window "titled 'Skippy' [100 100] "not.zoomable
+
+make "sheet Sheet [200 200]
+
+Glue :win "top [] :sheet
+
+$win~show
+
+make "sk Skippy :sheet
+$sk~show true
+\end{listing}  
+
+A {\it Sheet} widget is created by calling the primitive {\tt Sheet}. This primitive accept as input a single list which describe it width and height. It's a mandatory input. The {\it Skippy} object is then created by the primitive {\tt Skippy}. The only input of this primitive is the Sheet to which the {\it Skippy} will draw in.\\
+
+On line 10, we use the method {\tt show} of the {\it Skippy} to make it visible. A small triangle is then show wherever the {\it Skippy} is located on the {\it Sheet}. This triangle show also the heading it, in our example, the heading is 0.
+ 
+\screen{s1}{sk1.eps}{A Sheet widget and a Skippy} 
+
+To draw in the {\it Sheet} we have created we will use one of the severals methods of the {\it Skippy} object like for example the {\tt hop} method that move the {\it Skippy} forward by a certain distance:
+
+\example{ex2}
+\begin{listing}{1}
+$sk~hop 20
+\end{listing}
+ 
+A {\it Sheet} widget accept severals {\it Skippy} objects and support multi-threading. 
+ 
+\screen{s2}{sk2.eps}{Moving forward}
+ 
+The distance 20 correspond loosly to 20 pixels.\\
+
+\newpage
+
+Within a {\it Sheet} a Skippy could be move to any coordinate and get any heading. The following image show the coordinate system and the heading:
+
+\screen{s0}{sk9.eps}{Coordinate and heading}
+ 
+\chapter{The objects} 
+  
+\section{The Sheet widget} 
+ 
+A {\it Sheet} is a widget like any widgets of the GUI Add-On. It have then exactly the same configuration, hooks and methods of the common widgets. It alltought as 4 specifics methods:  
+ 
+\subsection*{clear}\index{Sheet@\textbf{Sheet}!Methods!clear}
+\begin{verbatim}
+$sheet~clear
+\end{verbatim}
+Clear the sheet widget 
+\begin{verbatim}
+@> $sheet~clear
+\end{verbatim}
+
+\subsection*{export}\index{Sheet@\textbf{Sheet}!Methods!export} 
+\begin{verbatim}
+$sheet~export word string
+\end{verbatim}
+Save a snapshot of the widget in an image file. The first input is the format of the image file and the second input is the path of the file to create. The method output {\tt false} if the export fail.
+\begin{verbatim}
+@> $sheet~export "GIF 'snap.gif'
+\end{verbatim}
+
+\subsection*{skippies}\index{Sheet@\textbf{Sheet}!Methods!skippies} 
+\begin{verbatim}
+$sheet~skippies
+\end{verbatim}
+Output a list of all the {\it Skippies} objects currently attached to the {\it Sheet.}
+\begin{verbatim}
+@> print llength $sheet~skippies
+1
+\end{verbatim}
+
+\subsection*{trans}\index{Sheet@\textbf{Sheet}!Methods!trans} 
+\begin{verbatim}
+$sheet~trans
+\end{verbatim}
+Output a list of all the image formats availables (Image Translator)
+\begin{verbatim}
+@> show $sheet~trans
+[BMP GIF GIMP JPEG PNG PPM Targa XPM] 
+\end{verbatim}
+ 
+\section{The Skippy object} 
+
+A {\it Skippy} object is like any other \squirrel's object. It could be cloned, deleted or affected to variable.\\
+
+Severals methods are available:
+
+\subsection*{arc}\index{Skippy@\textbf{Skippy}!Methods!arc} 
+\begin{verbatim}
+$sk~arc word number number number number
+\end{verbatim}
+If the first input is {\tt "fill} the method draw an arc (portion of an ellipse) and fill. If the first input is {\tt "stroke} the method just draw it. The center of the ellipse is the current position of the skippy and the second and third inputs are the x and y radius. The arc will start at the angle given as fourth input and stretches along the ellipse for the given number of degrees as fifth input. The position of the skippy is not changed.
+\begin{verbatim}
+@> $sk~arc "stroke 20 20 0 180
+\end{verbatim}
+
+\screen{s3}{sk3.eps}{Drawing an arc}
+
+\subsection*{config}\index{Skippy@\textbf{Skippy}!Methods!config} 
+\begin{verbatim}
+$sk~config word word (thing)
+\end{verbatim}
+Set or get the configuration of the skippy. The first input must be {\tt set} or {\tt get}. The second input is the name of the configuration and the third input is
+specified only when setting a value to the configuration. The method output the value of the configuration when the the first input is {\tt "get}.
+\begin{verbatim}
+@> $sk~config "set "size 5
+\end{verbatim}
+
+\subsection*{ellipse}\index{Skippy@\textbf{Skippy}!Methods!ellipse} 
+\begin{verbatim}
+$sk~arc word number number
+\end{verbatim}
+If the first input is {\tt "fill} the method draw an ellipse and fill it. If the first input is {\tt "stroke} the method just draw it. The center of the ellipse is the current position of the skippy and the second and third inputs are the x and y radius. The position of the skippy is not changed.
+\begin{verbatim}
+@> $sk~ellipse "fill 20 50
+\end{verbatim}
+
+\screen{s4}{sk4.eps}{Drawing an ellipse}
+
+\subsection*{gohome}\index{Skippy@\textbf{Skippy}!Methods!gohome} 
+\begin{verbatim}
+$sk~gohome
+\end{verbatim}
+Move the skippy back to it's home position.
+\begin{verbatim}
+@> $sk~gohome
+\end{verbatim}
+
+\subsection*{goto}\index{Skippy@\textbf{Skippy}!Methods!goto} 
+\begin{verbatim}
+$sk~goto (number number) | list
+\end{verbatim}
+Move the skippy to a new location. The input could be a list of two elements (x and y) or two number (x y).
+\begin{verbatim}
+@> $sk~goto [10 10]
+\end{verbatim}
+
+\subsection*{hback}\index{Skippy@\textbf{Skippy}!Methods!hback} 
+\begin{verbatim}
+$sk~hback number
+\end{verbatim}
+Move the skippy backward of a given distance. This primitive draw a line from the current position to the new position if the pen is down.
+\begin{verbatim}
+@> $sk~hback 20
+\end{verbatim}
+
+\subsection*{heading}\index{Skippy@\textbf{Skippy}!Methods!heading} 
+\begin{verbatim}
+$sk~heading (number)
+\end{verbatim}
+Set the heading of the skippy if an input is given or output the current heading if no input is given.
+\begin{verbatim}
+@> print $sk~heading
+256
+\end{verbatim}
+
+\subsection*{hop}\index{Skippy@\textbf{Skippy}!Methods!hop} 
+\begin{verbatim}
+$sk~hop number
+\end{verbatim}
+Move the skippy forward of a given distance. This primitive draw a line from the current position to the new position if the pen is down.
+\begin{verbatim}
+@> $sk~hop 5
+\end{verbatim}
+
+\subsection*{left}\index{Skippy@\textbf{Skippy}!Methods!left} 
+\begin{verbatim}
+$sk~left number (number)
+\end{verbatim}
+Turn left the skippy by a given amount of degree (first input). If a second input is specified the skippy will also go forward of the given distance.
+\begin{verbatim}
+@> $sk~left 90 5
+\end{verbatim}
+
+\subsection*{pen}\index{Skippy@\textbf{Skippy}!Methods!pen} 
+\begin{verbatim}
+$sk~pen (word)
+\end{verbatim}
+If the input is {\tt "up} the skippy will not draw when it move. When the input is {\tt "down} the skippy. If not input is given, the method output {\tt "up} if the pen is up and {\tt "down} if the pen is down.
+\begin{verbatim}
+@> $sk~pen "up
+\end{verbatim}
+
+\subsection*{rect}\index{Skippy@\textbf{Skippy}!Methods!rect} 
+\begin{verbatim}
+$sk~rect number number
+\end{verbatim}
+If the first input is {\tt "fill} the method draw a rectangle and fill it. If the first input is {\tt "stroke} the method just draw it. The center of the rectangle is the current position of the skippy and the second and third inputs are the with and height. The position of the skippy is not changed.
+\begin{verbatim}
+@> $sk~rect "stroke 30 40
+\end{verbatim}
+
+\screen{s5}{sk5.eps}{Drawing an rectangle}
+
+\subsection*{right}\index{Skippy@\textbf{Skippy}!Methods!right} 
+\begin{verbatim}
+$sk~right number (number)
+\end{verbatim}
+Turn right the skippy by a given amount of degree (first input). If a second input is specified the skippy will also go forward of the given distance.
+\begin{verbatim}
+@> $sk~right 30 10
+\end{verbatim}
+
+\subsection*{round.rect}\index{Skippy@\textbf{Skippy}!Methods!round.rect} 
+\begin{verbatim}
+$sk~round.rect number number
+\end{verbatim}
+If the first input is {\tt "fill} the method draw a rectangle and fill it. If the first input is {\tt "stroke} the method just draw it. This rectangle will have is corner rounded using the third and fourth inputs as x and y radius. The center of the rectangle is the current position of the skippy and the second and third inputs are the with and height. The position of the skippy is not changed.
+\begin{verbatim}
+@> $sk~round.rect "stroke 30 30 5 5
+\end{verbatim}
+
+\screen{s6}{sk6.eps}{Drawing a round rectangle}
+
+\subsection*{show}\index{Skippy@\textbf{Skippy}!Methods!show} 
+\begin{verbatim}
+$sk~round.show boolean
+\end{verbatim}
+If the input is {\tt true} the skippy will always be show. If {\tt false} the skippy will ne be show. 
+\begin{verbatim}
+@> $sk~show false
+\end{verbatim}
+
+\subsection*{string}\index{Skippy@\textbf{Skippy}!Methods!string} 
+\begin{verbatim}
+$sk~string (thing)+
+\end{verbatim}
+Draw a string from the current position using the current heading as orientation of the string.  
+\begin{verbatim}
+@> $sk~string 'HELLO'
+\end{verbatim}
+
+\screen{s7}{sk7.eps}{Drawing a string}
+
+\subsection*{string}\index{Skippy@\textbf{Skippy}!Methods!string} 
+\begin{verbatim}
+$sk~string (thing)+
+\end{verbatim}
+If the first input is {\tt "fill} the method draw a triangle and fill it. If the first input is {\tt "stroke} the method just draw it. The three corners of the triangle are given as angle and distance from the current position.  The position of the skippy is not changed.  
+\begin{verbatim}
+@> $sk~triangle "fill 0 30 90 30 0 0 
+\end{verbatim}
+
+\newpage
+
+\screen{s8}{sk8.eps}{Drawing a triangle}
+
+The configuration of a {\it Skippy} allow to set the color, font, size and home position.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\bf Configuration & \bf Purpose & \bf Value \\
+\hline
+\tt "color\index{Skippy@\textbf{Skippy}!Configuration!color} & Set or get the pen color & a color list.\\
+\hline
+\tt "high.color\index{Skippy@\textbf{Skippy}!Configuration!high.color} & Set or get the high color of the pen & a color list\\
+\hline
+\tt "home\index{Skippy@\textbf{Skippy}!Configuration!home} & Set or get the home position & 2 numbers or a list of 2 numbers\\
+\hline
+\tt "low.color\index{Skippy@\textbf{Skippy}!Configuration!low.color} & Set or get the low color of the pen & a color list\\
+\hline
+\tt "size\index{Skippy@\textbf{Skippy}!Configuration!size} & Set or get the size of the pen & a number\\
+\hline
+\end{tabular}
+\caption{Skippy's configuration}
+\end{table}
+
+\chapter{Release notes}
+
+\section{Version 0.7}
+
+\subsection{Notes}
+
+This release is the first release of the rewritted \squirrel's {\it Skippy}. Most of the commands of the old version have been re-implemented and severals new features added.
+
+\subsection{Changes}
+
+None.
+
+\subsection{Additions}
+
+None.
+
+\subsection{Bugs fixed}
+
+None.
+
+%\appendix
+ 
+%% index 
+ 
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+ 
+\end{quote} 
+ 
+\end{document} 

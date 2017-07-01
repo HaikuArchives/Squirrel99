@@ -1,0 +1,5 @@
+/* this contains a comment
+   which is not properly 
+   terminated and should
+   generate a Bad_Comment
+   token on the last line

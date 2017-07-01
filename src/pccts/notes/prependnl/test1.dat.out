@@ -1,0 +1,29 @@
+TokenType (Comment) Text (* this is a comment on the very first line) Token # 2  Line=1  Col=0
+naked newline
+TokenType (ID) Text (a) Token # 4  Line=2  Col=0
+TokenType (Mult) Text (*) Token # 5  Line=2  Col=0
+TokenType (ID) Text (b) Token # 6  Line=2  Col=0
+naked newline
+TokenType (ID) Text (this) Token # 8  Line=3  Col=0
+TokenType (ID) Text (is) Token # 9  Line=3  Col=0
+TokenType (ID) Text (a) Token # 10  Line=3  Col=0
+TokenType (ID) Text (list) Token # 11  Line=3  Col=0
+TokenType (ID) Text (of) Token # 12  Line=3  Col=0
+TokenType (ID) Text (variables) Token # 13  Line=3  Col=0
+TokenType (Comment) Text (c this is a comment) Token # 14  Line=4  Col=0
+naked newline
+TokenType (ID) Text (c) Token # 16  Line=5  Col=0
+TokenType (ID) Text (variable) Token # 17  Line=5  Col=0
+TokenType (Label) Text (100) Token # 18  Line=6  Col=0
+TokenType (ID) Text (this) Token # 19  Line=6  Col=0
+TokenType (ID) Text (is) Token # 20  Line=6  Col=0
+TokenType (ID) Text (a) Token # 21  Line=6  Col=0
+TokenType (ID) Text (statement) Token # 22  Line=6  Col=0
+TokenType (ID) Text (label) Token # 23  Line=6  Col=0
+naked newline
+TokenType (ID) Text (and) Token # 25  Line=7  Col=0
+TokenType (Number) Text (100) Token # 26  Line=7  Col=0
+TokenType (ID) Text (is) Token # 27  Line=7  Col=0
+TokenType (ID) Text (a) Token # 28  Line=7  Col=0
+TokenType (ID) Text (number) Token # 29  Line=7  Col=0
+naked newline

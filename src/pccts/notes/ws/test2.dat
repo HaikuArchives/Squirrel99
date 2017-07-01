@@ -1,0 +1,10 @@
+/* one line comment on line 1*/
+/* three line comment on lines 2
+   line 3 
+   line 4 inclusive */  followed by data
+line five       /* comment */
+	nine via tabs
+		seventeen via tabs
+                seventeen via spaces
+       	  	seventeen via tabs and spaces
+/* the end */

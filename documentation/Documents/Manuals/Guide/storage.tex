@@ -1,0 +1,334 @@
+\section{Storage}
+
+This Add-on contains various primitives which offer access to the BeOS file-system.  The BeOS file-system features file attribute handling, mime type and directory browsing.
+
+\subsection*{attr.del} \index{\verb+attr.del+}
+
+{\tt attr.del} {\it file\_path attribute\_name}
+\newline\newline
+Delete the attribute specified by the string {\it attribute\_name} in the file {\it file\_path}.
+\begin{verbatimtab}
+@> attr.del '/boot/home/myfile.txt' 'myattribute'
+\end{verbatimtab}
+
+\subsection*{attr.exists} \index{\verb+attr.exists+}
+
+{\tt attr.exists} {\it file\_path attribute\_name}
+\newline\newline
+Output {\tt true} if the attribute {\it attribute\_name} exists in the file {\it file\_path}, and output {\tt false} otherwise.
+\begin{verbatimtab}
+@> print attr.exists '/boot/home/myfile.txt' 'myattribute'
+true
+\end{verbatimtab}
+
+\subsection*{attr.get} \index{\verb+attr.get+}
+
+{\tt attr.get} {\it file\_path attribute\_name}
+\newline\newline
+Output the value of an attribute specified by the string {\it attribute\_name} in the file {\it file\_path}.
+\begin{verbatimtab}
+@> print attr.get '/boot/home/myfile.txt' 'myattribute'
+12.45
+\end{verbatimtab}
+
+\subsection*{attr.list} \index{\verb+attr.list+}
+
+{\tt attr.list} {\it file\_path}
+\newline\newline
+Output a list of all the attributes in the file {\it file\_path}.
+\begin{verbatimtab}
+@> show attr.list '/boot/home/myfile.txt'
+["wrap "alignment "styles "myattribute "BEOS:TYPE]
+\end{verbatimtab}
+
+\subsection*{attr.set} \index{\verb+attr.set+}
+
+{\tt attr.set} {\it file\_path attribute\_name thing}
+\newline\newline
+Set the value of the attribute {\it attribute\_name} in the file {\it file\_path} to {\it thing}. Only strings and numbers are accepted as valid values to be stored in an attribute.
+\begin{verbatimtab}
+@> attr.set '/boot/home/myfile.txt' 'myattribute' 56.89
+\end{verbatimtab}
+
+\subsection*{dir.current} \index{\verb+dir.current+}
+
+{\tt dir.current} {\it (string)}
+\newline\newline
+If the primitive has an input, the current directory will be changed to this input.  Otherwise the primitive will output the path of the current directory.
+\begin{verbatimtab}
+@> print dir.current
+/boot/home/e-/New Squirrel/Tests
+\end{verbatimtab}
+
+\subsection*{dir.exists} \index{\verb+dir.exists+}
+
+{\tt dir.exists} {\it string}
+\newline\newline
+Test if the directory given as the first input exists. The primitive outputs {\tt true} if the directory exists, and {\tt false} otherwise.
+\begin{verbatimtab}
+@> print dir.exists /boot/home/foo
+false
+\end{verbatimtab}
+
+\subsection*{dir.list} \index{\verb+dir.list+}
+
+{\tt dir.list} {\it string | ((string) word string) }
+\newline\newline
+Output a list of all the entries in a directory. If the first input is not a string, the current directory is used, else the first input is the path of the directory to list the contents. If more than one input is given, the primitive will only output the directory entries which meet specific criteria. The first criteria is a word that specifies the type of entry to select : {\tt "file \"directory "link} or {\tt any}. The next input must be a string that allows us to select entries by name.
+\begin{verbatimtab}
+@> print dir.list "any "t*.sqi"
+thread.sqi test_hello.sqi test.sqi
+\end{verbatimtab}
+
+\subsection*{dir.contains} \index{\verb+dir.contains+}
+
+{\tt dir.contains} {\it (string) word string}
+\newline\newline
+Output {\tt true} if the current directory (or the directory specified as the first input) contains an entry that matches the type. The name of the entry is given as the last input.
+\begin{verbatimtab}
+@> print dir.contains '/boot/apps' "directory 'Squirrel'
+true
+\end{verbatimtab}
+
+\subsection*{entry.delete} \index{\verb+entry.delete+}
+
+{\tt entry.delete} {\it string}
+\newline\newline
+Output {\tt true} if the entry given as input has been deleted or {\tt false} if not.
+\begin{verbatimtab}
+@> print entry.delete 'myfile.txt'
+true
+\end{verbatimtab}
+\cbstart
+\subsection*{entry.exists} \index{\verb+entry.exists+}
+
+{\tt entry.exists} {\it string}
+\newline\newline
+Output {\tt true} if the entry given as input exists. {\tt false} else.
+\begin{verbatimtab}
+@> print entry.exists '/boot/apps'
+true
+@> print entry.exists '/biit/apps'
+false
+\end{verbatimtab}
+\cbend
+\cbstart
+\subsection*{entry.icon} \index{\verb+entry.icon+}
+
+{\tt entry.get} {\it file\_name word word (image)}
+\newline\newline
+Set or get the icon for a given file as an {\it Image} object. The first input is the file path, the second input is the word {\tt "get} or {\tt "set}. The third input indicates wether we want the {\tt "small} icon or the {\tt "large} one. If we set the icon, an {\it Image} as fourth input is requiered. 
+\begin{verbatimtab}
+@> make "icn entry.icon 'myfile.txt' "get "small
+\end{verbatimtab}
+\cbend
+
+\subsection*{entry.isdir} \index{\verb+entry.isdir+}
+
+{\tt entry.isdir} {\it string}
+\newline\newline
+Output {\tt true} if the input is a directory, and output {\tt false} otherwise.
+\begin{verbatimtab}
+@> print entry.isdir '/boot/apps'
+true
+@> print entry.isdir 'foo.txt'
+false
+\end{verbatimtab}
+
+\subsection*{entry.isfile} \index{\verb+entry.isfile+}
+
+{\tt entry.isfile} {\it string}
+\newline\newline
+Output {\tt true} if the input is a standard file, and output {\tt false} otherwise.
+\begin{verbatimtab}
+@> print entry.isfile '/boot/apps'
+false
+@> print entry.isfile 'foo.txt'
+true
+\end{verbatimtab}
+
+\subsection*{entry.islink} \index{\verb+entry.islink+}
+
+{\tt entry.islink} {\it string}
+\newline\newline
+Output {\tt true} if the input is a symbolic link to a file, and output {\tt false} otherwise.
+\begin{verbatimtab}
+@> print entry.islink '/boot/apps'
+false
+@> print entry.islink 'foo2.txt'
+true
+\end{verbatimtab}
+
+\subsection*{entry.match} \index{\verb+entry.match+}
+
+{\tt entry.match} {\it string string}
+\newline\newline
+Output {\tt true} if the second input matches the regular expression given as the first input.
+\begin{verbatimtab}
+@> print entry.match 'foo*45*h.dat' 'hello45rgh.dat'
+false
+\end{verbatimtab}
+
+\subsection*{entry.move} \index{\verb+entry.move+}
+
+{\tt entry.move} {\it string string}
+\newline\newline
+Move the entry as first input to the path given as second input. The primitive output {\tt false} if it fails.
+\begin{verbatimtab}
+@> entry.move 'myfile.txt' '../../'
+\end{verbatimtab}
+
+\subsection*{entry.rename} \index{\verb+entry.rename+}
+
+{\tt entry.rename} {\it string string}
+\newline\newline
+Rename the entry as first input to the name given as second input. The primitive output {\tt false} if it fails.
+\begin{verbatimtab}
+@> entry.rename 'myfile.txt' 'data.txt'
+\end{verbatimtab}
+
+\subsection*{entry.reveal} \index{\verb+entry.reveal+}
+
+{\tt entry.reveal} {\it string}
+\newline\newline
+Output the path of the original file if the input is a {\it link}.
+\begin{verbatimtab}
+@> print entry.reveal 'foo2.txt'
+foo.txt
+\end{verbatimtab}
+
+\clearpage
+
+\subsection*{entry.stats} \index{\verb+entry.stats+}
+
+{\tt entry.stats} {\it entry.stats string word word (thing)}
+\newline\newline
+Set or Get {\em statistical} information of the entry given as first input. The second input is the word {\tt "get} or {\tt "set} that indicates if we want to set or to get an information. The third input indicates the information to access :
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\bf Name & information \\
+\hline
+\tt "access &  Time at which the entry was last accessed (open)\\
+\hline
+\tt "creation &  Time at which the entry was created\\
+\hline
+\tt "group &  Group ID of the entry owner\\
+\hline
+\tt "owner &  User ID of the entry owner\\
+\hline
+\tt "rights &  Access rights of the entry\\
+\hline
+\tt "size &  Size in bits of the entry\\
+\hline
+\tt "update &  Time at which the entry was last updated\\
+\hline
+\end{tabular}
+\caption{Entry's stats}
+\end{table}
+
+Size of an entry can NOT be set. Reading the entry rights return a list that
+contains strings. Each strings describes the rights for the user, group and other : {\tt \verb+['urx' 'grwx' 'owx']+}. The first character of each string
+indicates if it is the rights for the {\tt u}ser, {\tt g}roup, {\tt o}ther or for {\tt a}ll. The rest of the string describes the right {\tt r}ead {\tt w}rite e{\tt x}ecute. To add or remove right, a {\tt +} or a {\tt -} can be added to the right string as the second character: {\tt \verb+'g-r'+} will make the entry unreadable for the group. When setting the rights, the fourth input can be a
+list of strings or a string.
+
+\begin{verbatimtab}
+@> print ctime entry.stats :_file "get "access
+Sun Nov 19 10:30:20 2000
+@> entry.stats 'myfile.txt' "set "rights ['o-rwx' 'g-wx']
+\end{verbatimtab}
+
+\subsection*{FilePanel} \index{\verb+FilePanel+}
+
+{\tt FilePanel} {\it mode dir flavor selection filter mimes names}
+\newline\newline
+Provide an "Open File" or "Save File" window and provides the user to select one or more file(s). Output the user's selection.\\
+
+The primitives inputs are :
+\begin{enumerate}
+\item{\bf mode} is a word {\tt "open} or {\tt "save} that indicate if we want to open a file or to save it.
+\item{\bf dir} is a a variable name when we want to know the last directory visited by the user. Else, it's a string that give the directory from where the user must start.
+\item{\bf flavor} is a list (must contain at least one element) that indicates what flavor of node the user can select from : {\tt "file "directory "link} (It is possible to combine them , eg. {\tt ["file "link]}).
+\item{\bf selection} describes if the user can selects more than a file or only one. It must be the word : {\tt "single} or {\tt "multiple}. When the user select more than one file, the output of the primitive is a list.
+\item{\bf filter} is the word {\tt "allow} or {\tt "disallow}. It indicates if the selection given as inputs 6 and 7 must be shown or not shown.
+\item{\bf mimes} is the list of mime types allowed or diallowed, eg. {\tt ['image/*' 'video/*']}.
+\item{\bf names} is the list of filenames allowed or diallowed, eg. {\tt ['*.zip' '*.tgz']}. 
+\end{enumerate}
+
+If the user cancels the panel, the primitive output the boolean value {\tt false}.
+
+\begin{verbatimtab}
+@> make "dir '/boot/home'
+@> make "myfile FilePanel "open "dir ["file] "single "allow ['image/*'] []
+@> print :dir
+/boot/home/Images
+\end{verbatimtab}
+
+\subsection*{mime.delete} \index{\verb+mime.delete+}
+
+{\tt mime.delete} {\it mime\_type}
+\newline\newline
+Delete a mime-type from the BeOS mime database.
+\begin{verbatimtab}
+@> mime.delete 'text/jlv-text'
+\end{verbatimtab}
+
+\subsection*{mime.desc} \index{\verb+mime.desc+}
+
+{\tt mime.desc} {\it word mime\_type word (string)}
+\newline\newline
+Set or get the description of a mime type. The first input is the word {\tt "short} or {\tt "long} that indicate if we are working on the long or short description. The second input is the mime-type. The third input is the word {\tt "get} or {\tt set} that indicates if we want to set or get the decription. If we want to set it, we need to give as 4th input a string that will be the description.
+\begin{verbatimtab}
+@> mime.desc "short 'text/jlv-text' "set 'JLV\'s special format'
+\end{verbatimtab}
+
+\subsection*{mime.exists} \index{\verb+mime.exists+}
+
+{\tt mime.exists} {\it mime\_type}
+\newline\newline
+Output {\tt true} if the mime-type given as input exists in the BeOS mime database.
+\begin{verbatimtab}
+@> print mime.exists 'text/plain'
+true
+\end{verbatimtab}
+
+\subsection*{mime.get} \index{\verb+mime.get+}
+
+{\tt mime.get} {\it file\_path}
+\newline\newline
+Output the MIME type of the file {\it file\_path} as a string.
+\begin{verbatimtab}
+@> print mime.get /boot/home/myfile.txt'
+text/plain
+\end{verbatimtab}
+
+\cbstart
+\subsection*{mime.icon} \index{\verb+mime.icon+}
+
+{\tt mime.get} {\it mime\_type word word (image)}
+\newline\newline
+Set or get the icon for the MIME type as an {\it Image} object. The first input is the MIME type, the second input is the word {\tt "get} or {\tt "set}. The third input indicates wether we want the {\tt "small} icon or the {\tt "large} one. If we set the icon, an {\it Image} as fourth input is requiered. 
+\begin{verbatimtab}
+@> make "icn mime.icon 'image/jpeg' "get "large
+\end{verbatimtab}
+\cbend
+
+\subsection*{mime.install} \index{\verb+mime.install+}
+
+{\tt mime.install} {\it mime\_type}
+\newline\newline
+Install a mime type in the BeOS Mime database.
+\begin{verbatimtab}
+@> mime.install 'text/jlv-text'
+\end{verbatimtab}
+
+\subsection*{mime.set} \index{\verb+mime.set+}
+
+{\tt mime.set} {\it file\_path mime\_type}
+\newline\newline
+Set the MIME type of the file {\it file\_path} to the string {\it mime\_type}. The MIME type must be valid, otherwise an error will be issued.
+\begin{verbatimtab}
+@> mime.set /boot/home/myfile.txt' 'text/mydata'
+\end{verbatimtab}

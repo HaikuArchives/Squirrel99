@@ -1,0 +1,152 @@
+
+\section{The widget Button}
+
+This widget is a labeled button which executes a function or a block when clicked or operated with the keyboard.
+
+\subsection{Construction}
+
+The primitive {\tt Button} is used to build a new Button widget. Its syntax is :\\
+
+{\tt Button} {\it word \verb?|? string (list (words))}\\
+
+The first input is the label of the button. The primitive accepts optional second and third inputs.  The second input must be two integers, specifying the width and height of the button in characters. The last input is the flags. 
+
+\subsection{Methods}
+
+{\bf invoke\index{Button@\textbf{Button}!Methods!invoke}} 
+\begin{verbatimtab}
+$button~invoke
+\end{verbatimtab}
+Execute the hook from the event {\tt invoked} by the button.\\
+
+{\bf default\index{Button@\textbf{Button}!Methods!default}} 
+\begin{verbatimtab}
+$button~default boolean
+\end{verbatimtab}
+Make the button the default button for the window if the input is {\tt true}, else the widget has lost this status.\\
+
+{\bf is.default\index{Button@\textbf{Button}!Methods!is.default}} 
+\begin{verbatimtab}
+$button~is.default
+\end{verbatimtab}
+Output {\tt true} if the widget is the default button for the window, {\tt false} otherwise.\\
+
+\subsection{Configuration}
+
+Only one configuration is added to the Button widget :
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\bf Configuration & \bf Purpose & \bf Value \\
+\hline
+\tt "label\index{Button@\textbf{Button}!Configuration!label} & Set or get the label of the widget & could be a word or a string.\\
+\hline
+\end{tabular}
+\caption{Button's configuration}
+\end{table}
+
+\subsection{Hooks}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|p{4cm}|p{4cm}|}
+\hline
+\bf Name & \bf Description & \bf Function prototype \\
+\hline
+\tt "invoked\index{Button@\textbf{Button}!Hooks!invoked} & The button has been clicked & {\tt
+to invoked :src\newline
+; src is the widget object\newline
+end
+}\\
+\hline
+\end{tabular}
+\caption{Button's hooks}
+\end{table}
+
+\subsection{Example}
+
+\example{ex25}	
+\begin{listing}{1}
+make "win Window "titled 'Button' [100 100]
+make "b1 Button 'Doing something'
+make "b2 Button 'Doing nothing'
+Glue :win "top [] :b1 :b2
+$win~show
+\end{listing}
+
+When the button's label is not the same size as that in the example \ref{ex25}, the result is not very nice. 
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-5.eps}
+\label{s25}
+\caption{Unsized buttons}
+\end{figure}
+
+One solution that has already been shown in the first chapter is to set up the buttons to expand their size to fill the empty place on the window.  This is shown in the next example :
+
+\example{ex26}	
+\begin{listing}{1}
+make "win Window "titled 'Button' [100 100]
+make "b1 Button 'Doing something'
+make "b2 Button 'Doing nothing'
+$b1~config "expand.x "set true
+$b2~config "expand.x "set true
+Glue :win "top [] :b1 :b2
+$win~show
+\end{listing}
+
+Line 4 and 5 set the {\tt expand.x} of the two buttons. 
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-6.eps}
+\label{s26}
+\caption{Expanded buttons}
+\end{figure}
+
+Another solution is to fix the character's width in both buttons :
+
+\example{ex27}	
+\begin{listing}{1}
+make "win Window "titled 'Button' [100 100]
+make "b1 Button 'Doing something' [14 0]
+make "b2 Button 'Doing nothing' [14 0]
+Glue :win "top [] :b1 :b2
+$win~show
+\end{listing}
+
+On line 2 and 3 you will notice the second input to the primitive {\tt Button}. This two element list gives the width and height of the button. Here, the height is 0 for both buttons.  This is interpreted by \squirrel as a free dimension and will therefore be set by the {\em geometry manager}.
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-7.eps}
+\label{s27}
+\caption{Fixed buttons}
+\end{figure}
+
+One of the problems with this solution is the difficulty getting the size of the right widget (as we can see from the previous figure).  We set the size to 14 characters but both of the buttons are bigger.  This is due to the fact that the font used is a TrueType font. If the font was a fixed size font like {\em Monospac821}, we would have achieved a correct size for the button.  This can be seen in the next example:
+
+\example{ex28}	
+\begin{listing}{1}
+Font.init
+make "font Font 'Monospac821 BT'
+make "win Window "titled 'Button' [100 100]
+$win~config "font "set :font
+make "b1 Button 'Doing something' [14 0]
+make "b2 Button 'Doing nothing' [14 0]
+Glue :win "top [] :b1 :b2
+$win~show
+\end{listing}
+
+Line 1 and 2 create a font using one of the system's font {\tt Monospac821 BT}. On line 4, we set this font to the default font for the window.\\
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-8.eps}
+\label{s28}
+\caption{Fixed buttons with a fixed-size font}
+\end{figure}
+
+Now the sizes of the buttons match 14 characters.

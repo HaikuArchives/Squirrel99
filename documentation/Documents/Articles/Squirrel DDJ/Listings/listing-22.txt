@@ -1,0 +1,5 @@
+-- Listing 22 (number on the far left are line number and not in the script) --------
+1 to M_Q_About
+2	Question "idea ["Ok] 'beMegaPhone V' :Version '\n\nA list-server application written in Squirrel' :_version '\n\nFeedbacks : jlv@bemail.org\n\n(c) JLV'
+3 end 
+-- end of Listing 22 -----------------------------------------------------------------

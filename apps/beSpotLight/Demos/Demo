@@ -1,0 +1,103 @@
+/*
+ * beMegaVox
+ *
+ * file ?	Demo
+ * what	?	Demo Presentation
+ * who	?	jlv
+ * when	?	11/21/00
+ * last	?	02/28/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+ 
+make "img Image :pres.dir + '/redfoot.jpg'  
+  
+/*********** linked functions ***********/ 
+ 
+to Hello :b
+	Question "idea ["Yup] '' 'You cliked on it !'
+end 
+ 
+/*********** Slide functions ***********/
+
+/*
+ * function	   : Slide1
+ * purpose     : Render the slide 1
+ * input       :
+ *
+ * s, skippy to use
+ *
+ * output      : none
+ * side effect : none
+ */
+to Slide1 :s
+	RenderFrame :s 1 (llength :slides)
+	GotoTop :s
+	RenderTitle :s 'A title'
+	Tab :s 20	
+	Space :s 5
+	RenderNumbered :s 1 'A numbered text' :std.size
+	Space :s 5	
+	RenderNumbered :s 2 'Another ...' 15
+	Space :s 5
+	RenderNumbered :s 3 'and another ...' :std.size :Red
+	Space :s 20
+	RenderItemize :s "triangle 'That\'s an item' :std.size
+	RenderItemize :s "circle 'and another' :std.size :Green
+	RenderItemize.link :s "triangle 'This item is linked to a function, click it' :std.size "Hello :Blue	
+	Space :s 5
+	RenderImage :s :img (:pos.x + 250) :pos.y
+	RenderText :s 'You can also display code source :' 10
+	NewLine :s 10
+	RenderCode :s [
+		'to hello'
+		''
+		'     Question "idea ["Yup] \'You cliked on it !\''
+		''	
+		'end'
+	] 10
+	Space :s 20
+	RenderText :s 'Or a simple table :' 10
+	NewLine :s 15
+	RenderTable :s 3 [
+		[23.45 'hello there' 'so .. ?? wassup ?']
+		[12300 'hmmm' 'yoooooo']
+		['when' 'well ok then but' 'there']
+	] 10 2 :Blue 
+
+end
+
+/*********** global variable ***********/
+
+; list of all the slides of the presentation
+make "slides		[
+	"Slide1
+]
+
+; width and height of the presentation slides
+make "width		500
+make "height 	450 
+
+; various sizes
+make "top.col 30
+make "top.line 40
+make "std.size 20
+make "title.size 26
+make "std.tab 50
+
+; font name
+make "font.name 'Swis721 BT'
+
+; Shall will display a clock ?
+make "show.clock true
+
+; Background color of the slide
+make "L.color :White
+
+; informations on the presentation
+make "app.title 'Demo'
+make "pres.title 'beSpotLight Demo'
+make "pres.event '' 
+make "pres.author 'JLV'
+

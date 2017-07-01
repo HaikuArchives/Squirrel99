@@ -1,0 +1,211 @@
+#!/boot/apps/Squirrel/Squirrel.5.3
+/*
+ * EzViewer
+ *
+ * file ?	EzViewer
+ * what	?	EzViewer main script
+ * who	?	jlv
+ * when	?	02/08/01
+ * last	?	03/11/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+
+/* Load a set of colors defined in a script file */
+
+load :_install + '/Libraries/Colors.sqi'
+
+/* load all the Add-Ons we need */
+
+use 'GUI' 'Imaging' 'Storage' 'String Processing' 'Exec' 'List Processing' 'Threading'
+
+/* we need to load the other scripts */
+
+make "to.load [
+	'Preferences.sqi' 
+	'Comment.sqi'
+	'Functions.sqi'	
+	'Favorites.sqi'
+]
+
+for.each "f :to.load {
+	load :_path + '/Scripts/' + :f
+}
+
+/* global variables */
+
+make "Version '0.7'
+make "img false
+make "thefile false
+make "icon entry.icon :_file "get "small
+make "cwin false
+
+/* Load the application preferences */
+
+LoadPreferences
+
+/* Create the main gui */
+
+;;; create the window
+make "win Window "titled 'EzViewer' :position
+$win~config "constraint "set "manual
+
+Hook :win "quit "Quit
+	
+;;; create the menubar and the menus	
+make "bar MenuBar
+make "m0 Menu :icon
+make "m1 Menu "File
+make "m2 Menu "Display
+$m2~config "radio "set true 
+make "m3 Menu "Comment
+$m3~enable false
+make "m5 Menu "Favorites
+
+;;; create export menu and fill it
+make "m4 Menu "Export
+make "i 1
+for.each "format (trans.mime) {
+	if (sfind :format 'image/') {
+		$m4~add ('as ' + (safter :format 'image/')) "Export :format lindex (trans.name) :i
+	}
+	make "i :i + 1
+}
+$m4~enable false
+
+;;; create and set menu items
+$m0~add "Help "Help
+$m0~add "separator
+$m0~add 'About ...' "About
+
+$m1~add ["Load 'L'] {
+	make "file FilePanel "open "last.dir ["file] "single "allow ['image/*'] []
+	if (is.string :file) {	
+		Load :file
+	}		
+}
+make "s0 $m1~add ['Load from ...' 'F'] {
+	make "file FilePanel "open (sbefore :thefile '/') ["file] "single "allow ['image/*'] []
+	if (is.string :file) {	
+		Load :file
+	}		
+}
+$m1~i.enable :s0 false
+$m1~add :m4
+$m1~add "separator
+$m1~add ["Quit 'Q'] {
+	$win~quit	
+}
+
+make "s1 $m2~add "Adapt {
+	make "style "adapt
+	; redisplay the bitmap if any
+	$view~display :style
+}
+make "s2 $m2~add "Center {
+	make "style "center
+	; redisplay the bitmap if any
+	$view~display :style	
+}
+
+make "m6 Menu "Scale
+$m6~add 'to current size' {
+	$m2~i.mark :s3 true
+	make "style "scale
+	$view~display :style
+}
+$m6~add 'to 320 by 240' "ScaleTo [320 240]
+$m6~add 'to 640 by 480' "ScaleTo [640 480]
+$m6~add 'to 800 by 600' "ScaleTo [800 600]
+$m6~add 'to 1024 by 768' "ScaleTo [1024 768]
+
+make "s3 $m2~add :m6
+
+make "s4 $m2~add "Scroll {
+	make "style "scroll
+	; redisplay the bitmap if any
+	$view~display :style	
+}
+
+if :style = "adapt {
+	$m2~i.mark :s1 true	
+} {
+	if :style = "center {
+		$m2~i.mark :s2 true
+	} {
+		if :style = "scale {
+			$m2~i.mark :s3 true
+		} {
+			$m2~i.mark :s4 true					
+		}			
+	}		
+}
+
+$m3~add ["Edit 'E'] "EditComment
+$m3~add ["Remove 'M'] {
+	DelComment :thefile 
+	make "Status ''	
+}
+
+make "s5 $m5~add ["Add 'A'] {
+	AddToFavorites :m5 :thefile	
+}
+make "s6 $m5~add ["Remove 'R'] {
+	RemFromFavorites :m5 :thefile	
+}
+$m5~add "separator
+
+$m5~i.enable :s5 false
+$m5~i.enable :s6 false
+
+;;; add the menu to the menubar
+$bar~add :m0 :m1 :m2 :m3 :m5
+
+;;; create the Viewer widget
+make "view Viewer [200 200]
+$view~config "expand "set true true
+
+;;; set the drag&drop hook of the viewer widget
+Hook :view "drop "DragDrop
+
+;;; create the status message area
+make.local "status Frame "lowered
+$status~config "expand "set true false	
+
+;;; create the Banner widget that display the message
+make.local "msg Banner "Status "left
+$msg~config "high.color "set :Blue
+$msg~config "expand "set true false
+
+;;; glue everything
+Glue :status "top [] :msg
+Glue :win "top [] :bar :view
+Glue :win "bottom []  :status
+
+;;; the minimum size of the window is the size that fit all it contents
+make "l $win~bounds
+make "w (lindex :l 3)+1
+make "h (lindex :l 4)+1
+$win~config "limit "set "min [:w :h] 
+
+;;; if we have a window size we going to use it to put the window like the user
+;;; had it before
+if not (lempty :wframe) {
+	$win~resize.to (lindex :wframe 1) (lindex :wframe 2)
+}	
+
+/* almost over :) */
+
+;;; show the window
+$win~show
+
+; Set the status message
+make "Status 'Ready ...'
+
+/* Get the favorites and add the menu items */
+
+Busy true
+GetFavorites
+MenuFavorites :m5
+Busy false

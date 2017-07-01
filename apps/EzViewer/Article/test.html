@@ -1,0 +1,210 @@
+<HTML>
+<BODY bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+<!Listing num 1>
+<P>blahblah<p><br>
+<center>
+<TABLE border=0  bgcolor="#CCCCFF" cellspacing=-15 width=600>
+<TR>
+<TD><A HREF="#c.1.1"><VERBATIM>   1</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.1"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>use 'GUI' 'Imaging' 'List Processing'</PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.2"><VERBATIM>   2</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.2"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>if (llength :Args) = 2 { </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.3"><VERBATIM>   3</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.3"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>    make "my.image Image lindex :Args 2 </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.4"><VERBATIM>   4</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.4"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>    if (is.image :my.image) { </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.5"><VERBATIM>   5</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.5"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>        make "win Window "titled (lindex :Args 2) [100 100] "not.resizable</PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.6"><VERBATIM>   6</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.6"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>        make "the.viewer Viewer :my.image </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.7"><VERBATIM>   7</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.7"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>        Glue :win "top [] :the.viewer </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.8"><VERBATIM>   8</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.8"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>        $win~show    </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.9"><VERBATIM>   9</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.9"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>    } { </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.10"><VERBATIM>  10</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.10"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>        print 'Image file not reconized ... maybe not an image' </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.11"><VERBATIM>  11</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.11"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>    } </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.12"><VERBATIM>  12</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.12"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>} { </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.13"><VERBATIM>  13</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.13"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>    print 'USAGE : ezviewer.sqi image' </PRE></TD>
+</TR>
+<TR>
+<TD><A HREF="#c.1.14"><VERBATIM>  14</VERBATIM></a>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+<VERBATIM>                                     </VERBATIM>
+</TD>
+<TD><A NAME="l.1.14"></A><VERBATIM>      </VERBATIM></TD>
+<TD><PRE>}</PRE></TD>
+</TR>
+</TABLE>
+</center>
+<P><br>
+<P>
+<P>
+<!Line comments num 1>
+<P>
+<B><A HREF="#l.1.1"><TT>Line 1.</TT></A></B><A NAME="c.1.1">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.2"><TT>Line 2.</TT></A></B><A NAME="c.1.2">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.3"><TT>Line 3.</TT></A></B><A NAME="c.1.3">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.4"><TT>Line 4.</TT></A></B><A NAME="c.1.4">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.5"><TT>Line 5.</TT></A></B><A NAME="c.1.5">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.6"><TT>Line 6.</TT></A></B><A NAME="c.1.6">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.7"><TT>Line 7.</TT></A></B><A NAME="c.1.7">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.8"><TT>Line 8.</TT></A></B><A NAME="c.1.8">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.9"><TT>Line 9.</TT></A></B><A NAME="c.1.9">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.10"><TT>Line 10.</TT></A></B><A NAME="c.1.10">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.11"><TT>Line 11.</TT></A></B><A NAME="c.1.11">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.12"><TT>Line 12.</TT></A></B><A NAME="c.1.12">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.13"><TT>Line 13.</TT></A></B><A NAME="c.1.13">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.1.14"><TT>Line 14.</TT></A></B><A NAME="c.1.14">
+your comment here
+</A>
+</P>
+</BODY>
+</HTML>

@@ -1,0 +1,7 @@
+               special case is whitespace at start of file
+dollar sign represents a newline in the output
+this is text separated by spaces
+this	is	text	separated	by	tabs
+a1	a9	a17	a25	a33	a41
+ a2	 a10	 a18	 a26	 a34	 a42
+note that newline is joined to preceding token

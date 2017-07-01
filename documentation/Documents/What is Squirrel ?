@@ -1,0 +1,65 @@
+-> What is Squirrel ?
+
+Squirrel is a scripting language like Perl, Python or Tcl, but on
+the contrary of those languages, which are all available on BeOS
+among other, Squirrel has been designed for BeOS and it is only
+available for it.
+
+If you're not familiar with scripting language, what you need to
+know is that a program is "interpreted" and not "compiled". A 
+scripting language come with an interpreter that parses the 
+program (also called script) at run-time. Of course, a script will
+be always slower than a compiled program. However, a script is 
+easier to write than a program and the development process
+bypass compilation/link and hence writing an application in a 
+scripting language is faster.
+
+-> So, what's so special about Squirrel ?
+
+Squirrel is a "Logo Dialect". Don't get me wrong, Squirrel is NOT
+a programming language for kids ! Altought it is convenient
+and well adapted for school use, as any Logo dialect is, I tried 
+to adapt Squirrel to fit beginner and veterans programmers
+needs.
+
+The major strength of Squirrel is it easy access to some of the
+BeOS keys features such as :
+
+* File attributes (Read/Write attributes)
+* Multi-Threading (Create/suspend/synchronize threads)
+* Mailing ability (Build and send an email from your script)
+* Graphical User Interface building (with Font sensitivite and
+automatic placement)
+
+Squirrel comes with severals Add-On providing primitives (built-in 
+procedures) for you to use :
+
+* Input/Output (console)
+* Data processing (list, string)
+* Data structures (Dictionary, Vector)
+* Execution in background of external application
+* Maths functions
+....
+
+-> What about the "turtle" ?
+    
+If you looking for this Logo famous feature, you will find it in Squirrel,
+but with a different name : "Skippy". This tool will give your kids (or 
+you) more control or power than the usual turtle, such as 
+multi-threaded drawing ability. 
+
+-> What to remember about Squirrel ?
+
+Squirrel is a scripting language that give you the power to build your
+BeOS application, quickly and easily. No C++ required ! :)
+
+-> Want to know more ?
+
+Check out the web site : www.electechno.com, or search on BeGroovy 
+or BeOSJournal for past articles on Squirrel. On the web site, you
+will find in the "Manual" section of Squirrel, the "Developer's Guide" in 
+PDF format (altought it will not work correctly with BePDF due to Font
+trouble, but it will work fine under Windows, sorry about that).
+
+You could also drop me a note, jlv@bemail.org, I would like to hear from
+you :)

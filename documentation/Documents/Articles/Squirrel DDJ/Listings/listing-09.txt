@@ -1,0 +1,6 @@
+-- Listing 9 (number on the far left are line number and not in the script) --------
+1 to Restrict :lst
+2 	make.local "pos lfind :lst :send_from
+3 	output lsub :lst :pos+1 
+4 end
+-- end of Listing 9 ----------------------------------------------------------------- 

@@ -1,0 +1,30 @@
+Squirrel99
+=========
+Squirrel is a scripting language like Perl, Python or Tcl, but on
+the contrary of those languages, which are all available on BeOS
+among other, Squirrel has been designed for BeOS and it is only
+available for it.
+
+Squirrel is a "Logo Dialect". Don't get me wrong, Squirrel is NOT
+a programming language for kids ! Altought it is convenient
+and well adapted for school use, as any Logo dialect is, I tried 
+to adapt Squirrel to fit beginner and veterans programmers
+needs.
+
+The major strength of Squirrel is it easy access to some of the
+BeOS keys features such as :
+
+* File attributes (Read/Write attributes)
+* Multi-Threading (Create/suspend/synchronize threads)
+* Mailing ability (Build and send an email from your script)
+* Graphical User Interface building (with Font sensitivite and
+automatic placement)
+
+Squirrel comes with severals Add-On providing primitives (built-in 
+procedures) for you to use :
+
+* Input/Output (console)
+* Data processing (list, string)
+* Data structures (Dictionary, Vector)
+* Execution in background of external application
+* Maths functions

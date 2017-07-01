@@ -1,0 +1,14 @@
+/*
+		COPYRIGHT
+
+
+Samples of code in this directory which are not specifically attributed
+to others are Copyright (C) 1995 Polhode Inc.
+
+These examples of code may be redistributed as long as there is no charge 
+for them and the disclaimer and copyright notices are retained.
+
+There is no restriction on the use of these samples in other programs or
+code.
+
+*/

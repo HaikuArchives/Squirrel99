@@ -1,0 +1,122 @@
+\section{The widget Frame}
+
+A "Frame" is a container widget displaying a relief border. This border could be raised, lowered or flattened.
+
+\subsection{Construction}
+
+The primitive {\tt Frame} is used to build a new Frame widget. Its syntax is :\\
+
+{\tt Entry} {\it word (list (words)) }\\
+
+The first input is the relief style of the frame, and it must be a valid word : {\tt "flattened "raised "bordered} or {\tt "lowered}. The second input, if specified, is the size of the widget, consisting of a list of two elements (width height).  Any other inputs make up the flags.
+
+\subsection{Methods}
+
+A Frame widget has three methods :\\
+
+{\bf reglue\index{Frame@\textbf{Frame}!Methods!reglue}} 
+\begin{verbatimtab}
+$frame~reglue
+\end{verbatimtab}
+This primitive asks the {\em geometry manager} to glue all the widgets within the Frame a second time. This primitive is useful when a child of the Frame has been removed and new gluing
+is required.\\
+
+{\bf relief\index{Frame@\textbf{Frame}!Methods!relief}} 
+\begin{verbatimtab}
+$frame~relief word (word)
+\end{verbatimtab}
+Set or get (according to the value of the first input : {\tt "set} or {\tt "get}) the relief of the border. When setting a value, the second input must be one of the valid words : {\tt "lowered "flattened "bordered} or {\tt "raised}.\\
+
+{\bf widgets\index{Frame@\textbf{Frame}!Methods!widgets}} 
+\begin{verbatimtab}
+$frame~wigets
+\end{verbatimtab}
+Output all the widgets glued on the Frame.\\
+
+\subsection{Configuration}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\bf Configuration & \bf Purpose & \bf Value \\
+\hline
+\tt "level\index{Frame@\textbf{Frame}!Configuration!level} & Set or get the level of the relief & a number\\
+\hline
+\end{tabular}
+\caption{Frame's configuration}
+\end{table}
+
+\subsection{Hooks}
+
+This widget doesn't have any hooks.
+
+\subsection{Example}
+
+\example{ex36}	
+\begin{listing}{1}
+make "win Window "titled 'Frame' [100 100]
+make "f Frame "bordered [70 70]
+$f~config "level "set 5
+Glue :win "top [] :f
+$win~show
+\end{listing}
+
+On line 3, we set the level of relief of the border to 5.
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-18.eps}
+\label{s36}
+\caption{A Frame widget with a bordered relief}
+\end{figure}
+
+\example{ex37}	
+\begin{listing}{1}
+make "win Window "titled 'Frame' [100 100]
+make "f Frame "raised [70 70]
+$f~config "level "set 2
+Glue :win "top [] :f
+$win~show
+\end{listing}
+
+On line 3, we set the level of the relief of the border to 5.
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-19.eps}
+\label{s37}
+\caption{A Frame widget with a raised relief}
+\end{figure}
+
+\example{ex38}	
+\begin{listing}{1}
+make "win Window "titled 'Frame' [100 100]
+make "f Frame "lowered [70 70]
+Glue :win "top [] :f
+$win~show
+\end{listing}
+
+A lower relief gives a nice sunken feature to the frame.
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-20.eps}
+\label{s38}
+\caption{A Frame widget with a lowered relief}
+\end{figure}
+
+\example{ex39}	
+\begin{listing}{1}
+make "win Window "titled 'Frame' [100 100]
+make "f Frame "flattened [70 70]
+Glue :win "top [] :f
+$win~show
+\end{listing}
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-21.eps}
+\label{s39}
+\caption{A Frame widget without a border}
+\end{figure}

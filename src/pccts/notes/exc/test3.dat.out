@@ -1,0 +1,43 @@
+
+Examples of exceptions in C mode - 30-Jun-97
+
+Expecting "normal action alt 1"
+	Normal Action for t2 alt 1
+Expecting "n/alt 1/rule"
+	Exception [n] in t2: MismatchedToken
+	Exception alt 1 of t2: MismatchedToken
+	Exception for rule t2: MismatchedToken
+	Exception [ex2] (MismatchedToken) in rule t0
+Expecting "w/alt 2/rule"
+	Exception [w] in t2: MismatchedToken
+	Exception in alt 2 of t2: MismatchedToken
+	Exception for rule t2: MismatchedToken
+	Exception [ex2] (MismatchedToken) in rule t0
+Expecting "NoViableAlt/rule"
+	Exception for rule t2: NoViableAlt
+	Exception [ex2] (NoViableAlt) in rule t0
+Expecting "normal action alt 2"
+	Normal Action for t2 alt 2
+Expecting "normal action alt 3 & subrule"
+	Normal Action for t2 alt 3 subrule {...}
+	Normal Action for t2 alt 3
+Expecting "alt3 subrule/alt3/rule"
+	Exception in alt 3 subrule {...} of t2: MismatchedToken
+	Exception in alt 3 of t2: MismatchedToken
+	Exception for rule t2: MismatchedToken
+	Exception [ex2] (MismatchedToken) in rule t0
+Expecting "normal alt 3 subrule/alt3/rule"
+	Normal Action for t2 alt 3 subrule {...}
+	Exception in alt 3 subrule {...} of t2: MismatchedToken
+	Exception in alt 3 of t2: MismatchedToken
+	Exception for rule t2: MismatchedToken
+	Exception [ex2] (MismatchedToken) in rule t0
+Expecting "normal alt 3 subrule/normal alt3"
+	Normal Action for t2 alt 3 subrule {...}
+	Normal Action for t2 alt 3
+Expecting "global handler (then exit f/ t0"
+	Normal Action for t2 alt 2
+	Global default exception handler (token is "#")
+
+
+End of program

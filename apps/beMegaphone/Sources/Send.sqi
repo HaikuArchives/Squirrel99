@@ -1,0 +1,363 @@
+/*
+ * beMegaphone
+ *
+ * file ?	Send.sqi
+ * what	?	beMegaphone Application (send email)
+ * who	?	jlv
+ * when	?	09/20/00
+ * last	?	02/19/01
+ *
+ *
+ * [e-] 2000
+ */
+  
+/* global variable */
+
+make "send_from '' 
+
+/*
+ * function    : KeyDown
+ * purpose     : User keydown on the sending window
+ * input       : 
+ *
+ * src, source widget of the event
+ * m, key modifiers
+ * k, key (text version, often unreliable)
+ * c, key code (always reliable)
+ * th, id of the sending thread
+ * swin, the sending window
+ * mwin, the main application window
+ * 
+ * output      : none
+ * side effect : kill the sending thread if the key is LEFT-CTRL C
+ */
+to KeyDown :src :m :k :c :th :swin :mwin
+
+	; if we have a LEFT-CTRL C we abort the sending
+	if (:m = "left_control) and (:c = 3) {
+			
+		Thread.kill :th
+				
+		$swin~quit
+		
+		$mwin~enable true
+			
+		if :current_what = 1 {
+			make "Status 'Sending newsletter ... aborted'
+		} {
+			make "Status 'Sending announce ... aborted'	
+		}	
+		
+	}
+end
+ 
+/* with BCC field */ 
+
+/*
+ * function    : Restrict
+ * purpose     : Restrict a list of recipients
+ * input       :
+ *
+ * lst, the recipients list
+ * 
+ * output      : a list
+ * side effect : none
+ */ 
+to Restrict :lst
+	make.local "pos lfind :lst :send_from
+	output lsub :lst :pos+1 
+end
+ 
+/*
+ * function    : SendBcc
+ * purpose     : Send email using BCC (send now or later)
+ * input       :
+ *
+ * t, memo widget
+ * win, the main window
+ * when, when to send the mails (now or later)
+ * 
+ * output      : none
+ * side effect : none
+ */ 
+to SendBcc :t :win :when
+
+ 	if :current_what = 1 {
+		make "Status 'Sending newsletter ...'
+	} {
+		make "Status 'Sending announce ...'	
+	}
+	
+	$win~enable false
+	
+	; we get a list of the recipient
+	make.local "lst $current_db~find.if.all "WantIt :current_what
+	
+	; if we have to send it from a certain recipient, we restrict the list
+	if :send_from <> '' {
+		make "lst Restrict :lst		
+	}
+	
+	make.local "MyWin Window "titled 'Sending' [100 100] "not.closable
+
+	make.local "frame Frame "raised	
+	make.local "size ceil (llength :lst)/:set_bcc_pool
+	make.local "status StatusBar [0 4] :size 'Broadcasting ...' string ' of ' :size
+	$status~config "expand "set true true
+
+	Glue :frame "top [2 2] :status
+	Glue :MyWin "top [] :frame
+
+	$MyWin~center "set $win~center "get
+	$MyWin~show
+	
+	Focus :status
+	
+	make.local "mail Mail
+	
+	$mail~subject "set :current_subject
+	$mail~content "set $t~text "get
+	
+	if :set_ads {
+		$mail~content "set '---'
+		$mail~content "set :ads_txt
+		$mail~content "set '---'	
+	}
+		
+	make.local "th Thread "normal "th.send.bcc :when :MyWin :win :status :mail	:lst	
+	Thread.hop :th
+			
+	Hook :status "keydown "KeyDown :th :MyWin :win
+end
+
+to WantIt :l :i
+	output lindex :l :i
+end
+
+
+/*
+ * function    : th.send .bcc
+ * purpose     : Thread that send the emails using bcc (now or later)
+ * input       :
+ *
+ * swin, sending window
+ * mwin, the main window
+ * status, the statusbar widget
+ * mail, the mail object to use
+ * lst, list of recipients to send to
+ * 
+ * output      : none
+ * side effect : none
+ */
+to th.send.bcc :when :swin :mwin :status :mail :lst
+
+	Busy true
+
+	catch "error {
+								
+		make.local "send 0
+		make.local "index 0
+		make.local "last 0
+		make.local "first true
+					
+		for.each "rec :lst {
+
+			make "index :index + 1
+
+			if :first {
+				$mail~to "set :rec
+				make "first false	
+			} {
+				$mail~bcc "set :rec	
+			}
+
+			if not (:index % :set_bcc_pool) {
+				make "last :index
+				make "send :send + 1
+				$status~update 1 '' string :send
+				Send :mail :when
+				$mail~to "del
+				$mail~bcc "del
+				make "first true		
+			}
+		}
+				
+		if :last<=(llength :lst) {
+			make "send :send + 1
+			$status~update 1 '' string :send
+			Send :mail :when	
+		}
+						
+		if :current_what = 1 {
+			make "Status 'Sending newsletter ... done'
+		} {
+			make "Status 'Sending announce ... done'	
+		}
+	
+	} {
+	
+		if :current_what = 1 {
+			make "Status 'Sending newsletter ... failed!'
+		} {
+			make "Status 'Sending announce ... failed!'	
+		}			
+		
+	}
+	
+	Busy false	
+	
+	$win~enable true
+		
+	$swin~quit	
+end
+
+/* without BCC field */
+
+/*
+ * function    : Process
+ * purpose     : Send an email now or later
+ * input       : 
+ *
+ * email, email adress
+ * lst, list of choice
+ * s, status widget to update
+ * mail, mail to send
+ * when, when to send the email
+ * 
+ * output      : none
+ * side effect : none
+ */
+to Process :email :lst :what :s :mail :when
+
+	if :send_from <> '' {
+
+		if :mail >= :send_from {
+		
+			if (lindex :lst :what) {
+				; we set the recipient of the email
+				$mail~to "chg :email 	
+				; we send it
+				Send :mail :when
+				; we update the status
+				$s~update 1 :email
+			} {
+				$s~update 1	
+			}		
+		
+		} {
+			$s~update 1			
+		}
+
+	} {
+
+		if (lindex :lst :what) {
+			; we set the recipient of the email
+			$mail~to "chg :email 	
+			; we send it
+			Send :mail :when
+			; we update the status
+			$s~update 1 :email
+		} {
+			$s~update 1	
+		}	
+	
+	}
+
+end
+
+/*
+ * function    : SendTo
+ * purpose     : Create the sending window and start the sending thread
+ * input       :
+ *
+ * t, memo widget
+ * win, the main window
+ * 
+ * output      : none
+ * side effect : none
+ */
+to SendTo :t :win :when
+
+ 	if :current_what = 1 {
+		make "Status 'Sending newsletter ...'
+	} {
+		make "Status 'Sending announce ...'	
+	}
+	
+	$win~enable false
+	
+	make.local "MyWin Window "titled 'Sending' [100 100] "not.closable
+
+	make.local "frame Frame "flatened
+	make.local "status StatusBar [20 2] ($current_db~size) 'Sending to :'
+
+	Glue :frame "left [2 2] :status
+	Glue :MyWin "top [] :frame
+	
+	Focus :status
+
+	$MyWin~center "set $win~center "get
+	$MyWin~show
+	
+	make.local "mail Mail
+	
+	$mail~subject "set :current_subject
+	$mail~content "set $t~text "get
+	
+	if :set_ads {
+		$mail~content "set '---'
+		$mail~content "set :ads_txt
+		$mail~content "set '---'	
+	}
+
+	make.local "th Thread "normal "th.send :MyWin :win :status :mail :when
+	Thread.hop :th
+		
+	Hook :status "keydown "KeyDown :th :MyWin :win
+end
+
+/*
+ * function    : th.send 
+ * purpose     : Thread that send the emails (now or later)
+ * input       :
+ *
+ * swin, sending window
+ * mwin, the main window
+ * status, the statusbar widget
+ * mail, the mail object to use
+ * when, when to send the email
+ * 
+ * output      : none
+ * side effect : none
+ */
+to th.send :swin :mwin :status :mail :when
+
+	Busy true
+
+	catch "error {
+
+		$current_db~iterate.i "Process :current_what :status :mail :when
+			
+		if :current_what = 1 {
+			make "Status 'Sending newsletter ... done'
+		} {
+			make "Status 'Sending announce ... done'	
+		}
+	
+	} {
+	
+		if :current_what = 1 {
+			make "Status 'Sending newsletter ... failed!'
+		} {
+			make "Status 'Sending announce ... failed!'	
+		}	
+		
+	}	
+	
+	Busy false	
+	
+	$mwin~enable true
+	
+	$swin~quit	
+
+end

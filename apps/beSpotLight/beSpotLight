@@ -1,0 +1,115 @@
+#!/boot/apps/Squirrel/Squirrel.5.3
+/*
+ * beSpotLight
+ *
+ * file ?	beSpotLight.sqi
+ * what	?	Display sliders
+ * who	?	jlv
+ * when	?	10/03/00
+ * last	?	01/23/01
+ *
+ *
+ * Kirilla 2000-20001
+ */
+
+load :_install + '/Libraries/Colors.sqi'
+
+use 'GUI' 'Skippy' 'List Processing' 'String Processing' 'Time' 'Exec' 'Storage' 'Threading'
+
+make "needed [
+	'Render.sqi'
+	'Hooks.sqi'
+	'Funcs.sqi'
+	'Settings.sqi'
+]
+
+for.each "f :needed {
+	load :_path + '/Scripts/' + :f
+}
+
+/* application information */
+
+make "app.version '0.8'
+make "app.name 'beSpotLight'
+make "app.author '[Kirilla]'
+
+/* global variable */
+
+make "slides 	[]
+make "loc		0
+make "height 	200
+make "width		300
+
+make "font.size 11
+make "H.color :Black
+make "L.color :White
+make "top.col 30
+make "top.line 100
+make "title.size 25
+make "bigtitle.size 40
+make "std.tab 50
+make "show.clock false
+make "font.name 'Swis721 BT'
+
+make "last.dir dir.current
+make "app.title ''
+make "pres.title ''
+make "pres.event ''
+make "pres.author ''
+
+
+
+bind "font.name "set "FontChanged 
+
+/* GUI creation */
+
+LoadSettings
+
+Font.init 
+
+make "AppFont Font :font.name
+$AppFont~size "set :font.size
+$AppFont~aliasing "set "on
+$AppFont~style "set "Regular
+
+make "AppWin Window "titled (:app.name+' : none') :position "not.zoomable "not.resizable
+
+$AppWin~config "pulserate "set 1000000 
+
+Hook :AppWin "quit {
+	SaveSettings	
+}
+
+make "AppSheet Sheet list :width :height
+$AppSheet~config "expand "set true true
+
+Hook :AppSheet "drop "DragDrop
+Hook :AppSheet "keydown "KeyDown
+
+Glue :AppWin "top [] :AppSheet
+
+$AppWin~show
+
+Focus :AppSheet
+
+/* Skippy creation */
+
+make "sk Skippy :AppSheet
+$sk~heading 90
+$sk~show false
+$sk~config "font "set :AppFont
+$sk~config "high.color "set :H.color
+$sk~config "low.color "set :L.color
+
+make "stime clone :sk
+make "ft $stime~config "font "get  
+$ft~size "set 10
+$stime~config "font "set :ft
+
+
+; if we have an args it's a presentation to load
+if (llength :Args)=2 {	
+	LoadScript lindex :Args 2
+} {
+	Void
+}

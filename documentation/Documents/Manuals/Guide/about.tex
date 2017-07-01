@@ -1,0 +1,57 @@
+\chapter*{About this document\markboth{About this document}{}}
+\addcontentsline{toc}{chapter}{About this Developer's Guide}
+
+\begin{quote}
+
+\pagestyle{fancy}
+\pagenumbering{arabic}
+
+Squirrel is a programming language in the Logo family. There are some distinct differences between \squirrel and Logo, some stemming from \squirrel taking advantage of advanced features of the Be operating system (\beos).\\
+
+At this time, neither \squirrel nor this document is perfect. We would appreciate notification of any errors found.\\
+
+This guide is divided into four parts:
+
+\begin{description}
+\item [Getting started] introduces \squirrel and describes how to install it
+\item [Squirrel basics] shows, mostly by examples, how to use the \squirrel language
+\item [Primitives] lists and describes all the primitives
+\item [Release notes] contains pertinent information on the releases
+\end{description}
+
+It should be understood that several additional features will be included in upcoming releases. These features include advanced scripting capabilities and other additions for the Add-ons. Some Add-ons will be complete while others will not. An Add-on API in the near future will allow third party additions, which will enhance \squirrel 's usefulness.\\
+
+We have included several documentation conventions in this document. These are: \\
+
+\begin{itemize}
+\item All code elements are presented in a distinct font like {\tt print "foo}
+\item Primitive syntax is often a combination of code element and italic font. The part in italic is always the input to the primitive.
+\item Primitive inputs use special kind of symbols :
+\begin{itemize}
+\item {\it \bf (word)} indicate that the input is optional
+\item {\it \bf word \verb?|? number} indicate that the input can be either a word or a number
+\item {\it \bf (word)+} indicate that the primitive can take on several words as input, but at least one is required.
+\item {\it \bf (word)*} indicate that the primitive can take on several words as input, but one is optional.
+\end{itemize}
+\end{itemize}
+
+\cbstart
+A bar in the right or left margin helps to locate an update or addition (from the previous revision) in this document.\\ 
+\cbend
+
+A big {\em Mahalo\footnote{"Thank you" in Hawaiian}} to (in chronological order) :
+
+\begin{itemize}
+\item Henry van Eyken
+\item Susan Banh\footnote{and all my love}
+\item Ulrich "scholly" Scholz
+\item Guido Soranzio
+\item Jonas Sundstr\"om
+\end{itemize}
+
+for their much appreciated contributions towards rewriting and editing this document !\\
+
+Please enjoy reading this manual and have fun with \squirrel !\\
+
+Jean-Louis, \today
+

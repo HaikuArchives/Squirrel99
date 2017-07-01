@@ -1,0 +1,12 @@
+make "win Window "titled 'EzViewer' [100 100]	
+make "bar MenuBar
+make "m0 Menu '?'
+make "m1 Menu "File
+make "m2 Menu "Display
+$m2~config "radio "set true 
+make "m3 Menu "Comment
+$m3~enable false
+make "m5 Menu "Favorites
+$bar~add :m0 :m1 :m2 :m3 :m5
+Glue :win "top [] :bar
+$win~show

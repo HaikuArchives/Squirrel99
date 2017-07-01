@@ -1,0 +1,186 @@
+\section{The widgets MenuBar and Menu}
+
+This widget displays a pull down list of menu items. Once filled with menu items, the menu could be glued anywhere in a container (window or widget). The widget MenuBar is a container widget which accepts only Menu widgets.
+
+\subsection{Construction}
+
+The primitive {\tt MenuBar} is used to build a new MenuBar widget. Its syntax is :\\
+
+{\tt MenuBar} {\it (word)}\\
+
+If specified, the first and only input of the primitive must be the word : {\tt "column} or {\tt row}. This is the layout of the menu in the MenuBar. By default the layout is in columns.\\
+
+The primitive {\tt Menu} is used to create a new Menu widget. Its syntax is :\\
+
+\cbstart
+{\tt Menu} {\it word \verb?|? string \verb?|? image}\\
+
+The first input is the label of the menu. In an {\it Image} is specifed of it will be displayed instead of a text label. 
+\cbend
+
+\subsection{Methods}
+
+\subsubsection{MenuBar}
+
+A MenuBar widget has three methods :\\
+
+{\bf add\index{MenuBar@\textbf{MenuBar}!Methods!add}} 
+\begin{verbatimtab}
+$menubar~add Menu (Menu)*
+\end{verbatimtab}
+Add a menu (or several) on the MenuBar.\\
+
+{\bf find\index{MenuBar@\textbf{MenuBar}!Methods!find}} 
+\begin{verbatimtab}
+$menubar~find word | string
+\end{verbatimtab}
+The Menu widget output has the label as input to the primitive. If no Menu matches, -1 is returned by the method.\\
+
+{\bf remove\index{MenuBar@\textbf{MenuBar}!Methods!remove}} 
+\begin{verbatimtab}
+$menubar~remove Menu
+\end{verbatimtab}
+Remove from the MenuBar a Menu.\\
+
+\subsubsection{Menu}
+
+Like a MenuBar, a Menu had a few methods:\\
+
+{\bf add\index{Menu@\textbf{Menu}!Methods!add}} 
+\begin{verbatimtab}
+$menu~add menu | (list | word | string) ((word things...) | block)
+\end{verbatimtab}
+\cbstart
+Add an item to a menu. An item could be another Menu then when added, this Menu will be a submenu. When using a string, word or a list, a second input could be specified. It could be either the name of a function (and then some input to pass on to this function) or a block. This will be the function or the block executed when the menu item is invoked by the user. The method output the index of the new item in the menu. If the first input is a list, it can specify the
+label to display as first element of the list, then the shortcut (as a string) and then if specified the modifiers to add to {\tt ALT} for the shortcut. Modifiers can be {\tt "alt}, {\tt "shift}, {\tt "control} and {\tt "option}. When the item is invoked, the callback function will run on a separate thread.\\
+\cbend
+
+{\bf find\index{Menu@\textbf{Menu}!Methods!find}} 
+\begin{verbatimtab}
+$menu~find word | string
+\end{verbatimtab}
+Find a menu item or submenu in the Menu. If the item is found, its position in the Menu is returned by the method.  If it's a submenu, the Menu widget is returned. When nothing is found, the method returns -1.\\
+
+{\bf i.enable\index{Menu@\textbf{Menu}!Methods!i.enable}} 
+\begin{verbatimtab}
+$menu~i.enable number boolean
+\end{verbatimtab}
+Enable or disable an item of the menu. The first input is the index of the item in the menu. The second input is {\tt true} or {\tt false}.\\
+
+\cbstart
+{\bf i.font\index{Menu@\textbf{Menu}!Methods!i.font}} 
+\begin{verbatimtab}
+$menu~i.font number font
+\end{verbatimtab}
+Set the font used by a menu item.\\
+\cbend
+
+{\bf i.mark\index{Menu@\textbf{Menu}!Methods!i.mark}} 
+\begin{verbatimtab}
+$menu~i.mark number boolean
+\end{verbatimtab}
+Mark or unmark an item of the menu. The first input is the index of the item in the menu. The second input is {\tt true} or {\tt false}.\\
+
+{\bf remove\index{Menu@\textbf{Menu}!Methods!remove}} 
+\begin{verbatimtab}
+$menu~remove string | word | Menu
+\end{verbatimtab}
+Remove an item (simple or submenu) from the Menu.\\
+
+\subsection{Configuration}
+
+Although a MenuBar doesn't have any specific configuration, a Menu widget has only one specific configuration but it doesn't support the usual widget configuration :
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\bf Configuration & \bf Purpose & \bf Value \\
+\hline
+\tt "radio\index{Menu@\textbf{Menu}!Configuration!radio} & Set or get the radio mode of the menu  & a boolean\\
+\hline
+\end{tabular}
+\caption{Menu's configuration}
+\end{table}
+
+\subsection{Hooks}
+
+A MenuBar and a Menu widget don't have any specific hooks. The Menu widget doesn't even have the standard widget hooks.
+
+\subsection{Example}
+
+\example{ex40}	
+\begin{listing}{1}
+make "win Window "titled 'Menu' [100 100]
+make "f Frame "flattened [100 100]
+make "menu MenuBar
+$menu~config "expand.x "set true
+make "file Menu "File
+$file~add "Load
+$file~add "Save
+$file~add "separator
+$file~add "Quit {
+	$win~quit	
+}
+make "option Menu "Option
+$option~config "radio "set true
+$option~add 'BeOS style'
+$option~add 'Dos style'
+make "question Menu '?'
+$question~add 'Help'
+$question~add "separator
+$question~add 'About ...'
+$menu~add :file :option :question
+Glue :win "top [] :menu :f
+$win~show
+\end{listing}
+
+At line 8 of this example, we are creating an item {\tt "separator} in the menu {\tt file}. This word {\tt "separator} is a reserved word which creates a separator item in the menu, like shown below : 
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-22.eps}
+\label{s40}
+\caption{A simple MenuBar with Menu}
+\end{figure}
+
+In the next example, we will create a submenu :
+
+\example{ex41}	
+\begin{listing}{1}
+make "win Window "titled 'Menu' [100 100]
+make "f Frame "flattened [100 100]
+make "menu MenuBar
+$menu~config "expand.x "set true
+make "file Menu "File
+$file~add "Load
+$file~add "Save
+make "export Menu "Export
+$export~add 'to dos'
+$export~add 'to mac'
+$file~add :export
+$file~add "separator
+$file~add "Quit {
+	$win~quit	
+}
+make "option Menu "Option
+$option~config "radio "set true
+$option~add 'BeOS style'
+$option~add 'Dos style'
+make "question Menu '?'
+$question~add 'Help'
+$question~add "separator
+$question~add 'About ...'
+$menu~add :file :option :question
+Glue :win "top [] :menu :f
+$win~show
+\end{listing}
+
+We create and set the submenu in lines 8 to 14. 
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-23.eps}
+\label{s41}
+\caption{Menu width submenu}
+\end{figure}

@@ -1,0 +1,194 @@
+<HTML>
+<BODY bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+<!Listing num 13>
+<P>blahblah<p><br>
+<center>
+<TABLE border=0  bgcolor="#CCCCFF" cellspacing=0>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.1"><SMALL>   1</SMALL></a></TD>
+<TD><A NAME="l.13.1"><PRE><SMALL>to EditComment</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.2"><SMALL>   2</SMALL></a></TD>
+<TD><A NAME="l.13.2"><PRE><SMALL>	if (is.bool :cwin) {</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.3"><SMALL>   3</SMALL></a></TD>
+<TD><A NAME="l.13.3"><PRE><SMALL>		make "cwin Window "titled 'Image\'s comment' [100 100] "not.resizable</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.4"><SMALL>   4</SMALL></a></TD>
+<TD><A NAME="l.13.4"><PRE><SMALL>		make.local "f Frame	</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.5"><SMALL>   5</SMALL></a></TD>
+<TD><A NAME="l.13.5"><PRE><SMALL>		make "comment Entry 'Comment' "thecomment [0 40]</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.6"><SMALL>   6</SMALL></a></TD>
+<TD><A NAME="l.13.6"><PRE><SMALL>		make.local "b Button 'Ok' "navigable.jump</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.7"><SMALL>   7</SMALL></a></TD>
+<TD><A NAME="l.13.7"><PRE><SMALL>		$b~config "align.h "set "center	</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.8"><SMALL>   8</SMALL></a></TD>
+<TD><A NAME="l.13.8"><PRE><SMALL>		Hook :b "invoked {</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.9"><SMALL>   9</SMALL></a></TD>
+<TD><A NAME="l.13.9"><PRE><SMALL>			$comment~invoke</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.10"><SMALL>  10</SMALL></a></TD>
+<TD><A NAME="l.13.10"><PRE><SMALL>			make "cwin false</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.11"><SMALL>  11</SMALL></a></TD>
+<TD><A NAME="l.13.11"><PRE><SMALL>			SetComment :thefile :thecomment</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.12"><SMALL>  12</SMALL></a></TD>
+<TD><A NAME="l.13.12"><PRE><SMALL>			make "Status :thecomment		</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.13"><SMALL>  13</SMALL></a></TD>
+<TD><A NAME="l.13.13"><PRE><SMALL>		}	</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.14"><SMALL>  14</SMALL></a></TD>
+<TD><A NAME="l.13.14"><PRE><SMALL>		Glue :f "top [2 2] :comment	:b</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.15"><SMALL>  15</SMALL></a></TD>
+<TD><A NAME="l.13.15"><PRE><SMALL>		Glue :cwin "top [] :f</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.16"><SMALL>  16</SMALL></a></TD>
+<TD><A NAME="l.13.16"><PRE><SMALL>		$cwin~center "set $win~center "get</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.17"><SMALL>  17</SMALL></a></TD>
+<TD><A NAME="l.13.17"><PRE><SMALL>		$cwin~show	</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.18"><SMALL>  18</SMALL></a></TD>
+<TD><A NAME="l.13.18"><PRE><SMALL>		Focus :comment</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.19"><SMALL>  19</SMALL></a></TD>
+<TD><A NAME="l.13.19"><PRE><SMALL>	}</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.13.20"><SMALL>  20</SMALL></a></TD>
+<TD><A NAME="l.13.20"><PRE><SMALL>end</SMALL></PRE></A></TD>
+</TR>
+</TABLE>
+</center>
+<P><br>
+<P>
+<P>
+<!Line comments num 13>
+<P>
+<B><A HREF="#l.13.1"><TT>Line 1.</TT></A></B><A NAME="c.13.1">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.2"><TT>Line 2.</TT></A></B><A NAME="c.13.2">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.3"><TT>Line 3.</TT></A></B><A NAME="c.13.3">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.4"><TT>Line 4.</TT></A></B><A NAME="c.13.4">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.5"><TT>Line 5.</TT></A></B><A NAME="c.13.5">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.6"><TT>Line 6.</TT></A></B><A NAME="c.13.6">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.7"><TT>Line 7.</TT></A></B><A NAME="c.13.7">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.8"><TT>Line 8.</TT></A></B><A NAME="c.13.8">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.9"><TT>Line 9.</TT></A></B><A NAME="c.13.9">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.10"><TT>Line 10.</TT></A></B><A NAME="c.13.10">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.11"><TT>Line 11.</TT></A></B><A NAME="c.13.11">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.12"><TT>Line 12.</TT></A></B><A NAME="c.13.12">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.13"><TT>Line 13.</TT></A></B><A NAME="c.13.13">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.14"><TT>Line 14.</TT></A></B><A NAME="c.13.14">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.15"><TT>Line 15.</TT></A></B><A NAME="c.13.15">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.16"><TT>Line 16.</TT></A></B><A NAME="c.13.16">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.17"><TT>Line 17.</TT></A></B><A NAME="c.13.17">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.18"><TT>Line 18.</TT></A></B><A NAME="c.13.18">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.19"><TT>Line 19.</TT></A></B><A NAME="c.13.19">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.13.20"><TT>Line 20.</TT></A></B><A NAME="c.13.20">
+your comment here
+</A>
+</P>
+</BODY>
+</HTML>

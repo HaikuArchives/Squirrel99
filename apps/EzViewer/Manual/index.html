@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+ 
+<head>
+<title>EzViewer help</title>
+<style>
+      A {
+      text-decoration : none; 
+      font-weight: bold
+      }
+</style>
+</head>
+<body bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+
+<table align=center>
+
+<tr>
+<td align=center>
+<big>Using <i>EZViewer</i></big>
+<p>
+<image src="./Images/ezviewer.gif">
+<p>
+<i>Version b0.7 (02/11/01)</i>
+</td>
+</tr>
+<tr>
+<td> 
+<table width=100%>
+<tr>
+<td>
+<small><a href="mailto:jlv@kirilla.com"><i>Jean-Louis Villecroze</i></a></small>
+</td>
+<td align=right>
+<small><i><a href="http://www.kirilla.com">Kirilla</a></i></small>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>What is EZViewer ?</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+<i>beMegaphone</i> is a simple image viewer for <font color=blue>B</font><font color=red>e</font>OS. Its main features are:
+<ul>
+<li>Keep a list of your favorites images
+<li>Possibility to write a comment on the images.
+</ul>
+<p>
+The application is written in <i>Squirrel</i> (5.3 or higher) (you may download it on <a href="http://www.bebits.com/app/344">BeBits</a> if you don't have it allready).
+<p>
+
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b>Contents of this document</b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<ul>
+<li><a href=#1>The user interface</a>
+<li><a href=#2>Displaying an image</a>
+<li><a href=#3>Image's comment</a>
+<li><a href=#4>List of Favorites</a>
+<li><a href=#6>Hacking <i>EzViewer</i></a>
+<li><a href=#7>Support & Feedback</a>
+<li><a href=#9>Version History</a>
+</ul>
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="1">The user interface</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+The user interface of <i>EZviewer</i> is composed of:
+<ul>
+<li>A menu bar
+<li>An area that display the image
+<li>A status/comment display area
+</ul>
+<p>
+<center>
+<img src="./Images/gui.gif">
+</center>
+<p>
+The <i>File</i> menu allow you to load and export an image.<p>
+<center>
+<img src="./Images/file.gif">
+</center>
+<p>
+The <i>Display</i> menu allow to change the way images should be displayed.<p>
+<center>
+<img src="./Images/display.gif">
+</center>
+<p>
+The <i>Comment</i> menu allow you to edit or delete the comment on the currently<p>
+displayed image.
+<center>
+<img src="./Images/comment.gif">
+</center>
+<p>
+The <i>Favorites</i> menu allow you to display one of your favorites images and/or to add the currently displayed image (or remove it) to the list.<p>
+<center>
+<img src="./Images/favorites.gif">
+</center>
+<p>
+To quit the application, use the <i>Quit</i> item of the <i>File</i> menu or hit the <tt>COMMAND-Q</tt> keyboard shortcut.
+<p>
+<img src="./Images/heart.gif" align="absmiddle"> The application will remember next time you run it it size and position on the screen, as well as the last folder explored.
+<p>
+</td>
+</tr>
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="2">Displaying an image</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+To display an image, simply use the <i>File</i> menu item <i>Load</i> to select the file you want to load. You may want to select the best way of displaying the image before loading it, by selecting one of the possible style from the menu <i>Display</i>. You can
+actualy do that anytime you want, <i>EzViewer</i> will always redisplay the image whenever the display style is loaded.
+<p>
+The next table explain the various display style:<p>
+<center>
+<table border=1>
+<tr>
+<th>Adapt</th>
+<td>
+The window ajust it size to fit the complete image<p>
+<center>
+<img src="./Images/adapt.gif">
+</center>
+</td>
+</tr>
+<tr>
+<th>Center</th>
+<td>The image is displayed centered, the size of the window is not changed<p>
+<center>
+<img src="./Images/center.gif">
+</center>
+</td>
+</tr>
+<tr>
+<th>Scale</th>
+<td>The image is scaled to the size of the window, or to another size<p>
+<center>
+<img src="./Images/scale.gif">
+</center>
+</td>
+</tr>
+<tr>
+<th>Scroll</th>
+<td>The image is displayed full size, the window size is not adjusted but scrollbar allow to scroll the image<p>
+<center>
+<img src="./Images/scroll.gif">
+</center>
+</td>
+</tr>
+</table>
+</center>
+
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="3">Image's comment</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+To add or change the comment on an image, use the item <i>Edit</i> of the menu <i>Comment</i>. A window will be displayed for you to enter a comment. Pressing the
+<tt>Ok</tt> button will store the comment in the image file attributes.<p>
+<center>
+<img src="./Images/edit.jpg">
+</center>
+<p>
+As you can see in the previous screenshot, the comment of an image is displayed in the status area. If a comment is present for an image, it will be automaticaly displayed.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="4">List of Favorites</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+Adding an image to your list of favorites images is very easy. Once you have displayed the image, just select the item <i>Add</i> of the <i>Favorites</i> menu to add this image in your list. You can always remove it later by using the <i>Remove</i> item. Be aware than this item remove the currently displayed image from the list.
+<P>
+To display an image from your favorites list, you just have to select the item that have for label the name of the image.
+<P>
+Once you have loaded an image from your favorites list, the item <i>Load From</i> of the <i>File</i> menu is enabled. This item allow you to load another image from the same folder than the favorites images.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="6">Hacking <i>EZViewer</i></a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+One of the advantages of using a scripting language such as <i>Squirrel</i> is the way you can modify (hack) easily the script to better fit your needs or to extend it by adding new features.<P>
+
+All the source code of the application is fully readable and it can be found in the <i>Scripts</i> directory. The main script is called <i>EzViewer</i> and that's the file that <i>Squirrel</i> executes first.<p>
+
+To debug your hack, you will have to start the application from a <i>Terminal</i> in order to get any error message printed.<p>
+
+The application use the following scripts that contains various function and global variables:
+<ul>
+<li><tt>Comment.sqi</tt><p>All the functions for the image's comment<p>
+<li><tt>Favorites.sqi</tt><p>All the functions for the favorites list<p>
+<li><tt>Functions.sqi</tt><p>Menu callbacks and other functions<p> 
+<li><tt>Preferences.sqi</tt><p>Retrieve and store the application preferences<p>
+</ul>
+
+The main script performs :
+<ul>
+<li>load all thoses scripts and the needed Add-Ons
+<li>load the preference 
+<li>creates the application window
+</ul>
+If you want to contribute to <i>EzViewer</i>, please send me the changes you made to the various scripts files, and I will update and redistribute the new version (of course you will be credited for your help).
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="7">Support & Feedback</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+If you encounter troubles with this application, or if you have ideas on how to improve it, feel free to contact <a href="mailto:jlv@kirilla.com">me</a>.
+<p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#CCCCFF" align=left>
+<b><a name="9">Version History</a></b>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<br>
+</p>
+<center>
+<table border=1>
+<tr>
+<th align=center>Release date</th>
+<th align=center>Version</th>
+<th align=center>Comments</th>
+</tr>
+<tr>
+<td align=center>03/11/01</td>
+<td align=center>b0.7</td>
+<td align=center>Initial public release</td>
+</tr>
+</table>
+</center>
+<p>
+</td>
+</tr>
+
+
+</table>
+
+</center>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+-- Listing 10 (number on the far left are line number and not in the script) --------
+ 1 to th.send.bcc :when :swin :mwin :status :mail :lst
+ 2
+ 3	catch "error {
+ 4				
+ 5		make.local "send 0
+ 6		make.local "index 0
+ 7		make.local "last 0
+ 8		make.local "first true
+ 9					
+10		for.each "rec :lst {
+11
+12			make "index :index + 1
+13
+14			if :first {
+15				$mail~to "set :rec
+16				make "first false	
+17			} {
+18				$mail~bcc "set :rec	
+19			}
+20
+21			if not (:index % :set_bcc_pool) {
+22				make "last :index
+23				make "send :send + 1
+24				$status~update 1 '' string :send
+25				Send :mail :when
+26				$mail~to "del
+27				$mail~bcc "del
+28				make "first true		
+29			}
+30		}
+31		
+32		if :last<=(llength :lst) {
+33			make "send :send + 1
+34			$status~update 1 '' string :send
+35			Send :mail :when
+36			$mail~to "del
+37			$mail~bcc "del		
+38		}	
+39				
+40		if :current_what = 1 {
+41			make "Status 'Sending newsletter ... done'
+42		} {
+43			make "Status 'Sending announce ... done'	
+44		}
+45	
+46	} {
+47	
+48		if :current_what = 1 {
+49			make "Status 'Sending newsletter ... failed!'
+50		} {
+51			make "Status 'Sending announce ... failed!'	
+52		}			
+53		
+54	}
+55	
+56	$win~enable true	
+57	
+58	$swin~quit	
+59
+60 end
+-- end of Listing 10 -----------------------------------------------------------------

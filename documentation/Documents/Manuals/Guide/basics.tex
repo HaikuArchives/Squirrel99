@@ -1,0 +1,1385 @@
+\chapter{\squirrel Basics}
+
+This guide concentrates on showing how to program in \squirrel. Demonstrations of the capabilities of \squirrel are not provided here. However, the user may find some demo files that may be run by opening them from \squirrel.
+
+\section{Console}
+
+When \squirrel is running on its console version, the first thing one notices is the main window or console. The \beos Terminal may also be used; details will be given at the end of this section.
+
+\begin{center} 
+\begin{figure}[h] 
+\centerline{ 
+\psfig{figure=images/console.ps} 
+} 
+\end{figure} 
+\end{center}
+ 
+Console and {\em \beos Terminal} are used in the same way.  Prompts like \verb+@>+, invite the user to enter their statements containing \squirrel commands.  These statements are also known as command lines.  Once an entry has been made, pressing the \verb+<entry>+ key causes \squirrel's interpreter to examine (or parse) the command line for immediate execution.  The interpreter will print out a warning in red lettering if it does not understand the request. This will occur if the user made an improper entry or if an error occurred during execution. 
+ 
+The keyboard's left and right arrow keys permit one to move the cursor along a command line.  Pressing the up arrow copies the previous entry.  Entered text may be copied and pasted using the {\tt Alt-C} and {\tt Alt-V} key combinations.  The keyboard's function keys may be configured to handle a sequence of tasks.  This will be described in the chapter {\em Squirrel menu} under {\em Preferences}.  
+ 
+Experienced users wishing to perform computation-intensive work may wish to use the {\em \beos Terminal} program rather than \squirrel's console.  To start, they should enter the following line to the first line of their script file: 
+
+\begin{verbatimtab}
+#!/boot/apps/Squirrel/Squirrel.5.3 
+\end{verbatimtab}
+
+Adapt this line to wherever you have installed \squirrel.
+  
+An alternative approach is to set {\tt Squirrel.5.3} as the preferred application of their script file. 
+ 
+This is treated like the console, except that this does not accept interactive commands.
+
+\subsection{The menus}
+
+\begin{itemize}
+\item \squirrel menu
+
+The \squirrel menu provides a number of options related to \squirrel itself.
+
+\begin{description}
+
+\item[About] displays a window with information about the current version of \squirrel
+\item[Help] starts your favorite browser and loads the HTML version of this document.
+\item[Preferences] \squirrel behaves according to a number of default settings that may be altered by the user.\\
+The Preferences window has three tabs: 
+\begin{description}
+\item[Start-up] lets the user enter the name of the folder containing the \squirrel script files (extension {\tt .sqi}), which will be loaded at start-up.  This option works for the \squirrel console, and not the \beos Terminal. 
+\item[Console] shows three panels. One panel lets the user select the type and size of font used in the console. Another permits the user to save a record entered in the console. {\em Size} is the number of most recent lines saved.  A third panel serves to bound macros to each of the keyboard's twelve function keys.
+\item[Interpreter] gives the user control over certain behavior of the interpreter, such as automatic garbage collection and thread priority. (Refer to the release notes for more detail.)
+\end{description}
+\item[Quit] closes Squirrel.
+\end{description}
+
+\item Script menu
+
+\begin{description}
+\item[Open a script file] loads the code into the interpreter from one or more \squirrel script file.
+\end{description}
+
+\item Console menu
+
+\begin{description}
+\item[Clear] clears the console of all text and displays a new prompt.
+\item[Save text as ...] This option permits one to save the console's content as a text file.
+\end{description}
+\end{itemize}
+
+\subsection{Activity status}
+
+Below the menu bar is a bar with two widgets showing the activity status of the interpreter. The left widget is a {\em LED-style} widget which shows the elapsed time of the last command executed (in seconds).  The right widget indicates whether or not the interpreter is active.
+
+\section{Programming fundamentals} 
+
+The following pages cover \squirrel's syntax, by providing lots of simple examples.  Users with Logo experience are also encouraged to pursue this material since the syntax in \squirrel is not entirely identical to that of Logo!
+  
+\subsection{Commands - an introduction} 
+
+In Logo, a command is either a {\em primitive} or a {\em procedure}.  Primitives are predefined and are immediately available to \squirrel's interpreter. We demonstrate this with some following examples.  Chapter 3, {\em Primitives} lists and describes these commands.  Procedures are created by combining commands and using parameters.  Thus, they become commands for \squirrel to do more complicated things.  Procedures may call on already existing procedures.  Typically, procedures are created by the user themselves.  Users may store them in a library\footnote{\squirrel script files} for future use. 
+ 
+Users may give procedures any name they wish, provided that name has not already been assigned to an existing primitive or procedure\footnote{If the procedure already exists, the new procedure will replace the old one}. The name can take on any length, but it must be an uninterrupted string of characters.  Characters which are permitted include dots (\verb+.+), underscores (\verb+_+), and question marks (\verb+?+). \squirrel is case-sensitive, hence \verb+Myfunc+ and \verb+myfunc+ identify different procedures.. 
+ 
+Here are some examples of \squirrel statements that show how primitives and data are combined into instructions. The reader is encouraged to enter these examples in the console.  People familiar with Logo will notice some of \squirrel's departures from Logo.  These have been deliberately incorporated by \squirrel's author.\\
+
+The syntax of a \squirrel's command is:\\
+
+{\tt order input1 input2 input3 ....}\\
+
+\example{ex1}
+\begin{verbatimtab}
+@> print 6+4
+10
+\end{verbatimtab}
+
+Note. -- The interpreter also accepts spaces between numbers and mathematical symbols,\\ eg. :
+
+\example{ex2}
+\begin{verbatimtab}
+@> print 6 + 4
+10
+\end{verbatimtab}
+
+\example{ex3}
+\begin{verbatimtab}
+@> print sum 6 4
+10
+\end{verbatimtab}
+ 
+Two primitives are invoked in Example \ref{ex3}, \verb+print+ and \verb+sum+.  This is an instance in which the argument to print is a command itself.  The section {\em Commands as input to another command} discusses this kind of situation. Observe that it is obviously necessary here to put spaces between the numbers entered.  {\bf Rule: All data on a statement line must be separated from each other by spaces}.
+ 
+\example{ex4}
+\begin{verbatimtab}
+@> print "Hello "world
+Hello world
+\end{verbatimtab}
+ 
+\squirrel and Logo attaches a special meaning to {\it word}.  That special meaning is brought out by using a double-quote as shown here.  Typically, a word may store a variable.  Variables may be other words and numbers.  In \squirrel, a variable may also be a string, which is defined as anything that is enclosed between single quotes.  This will be shown in the following examples.   
+
+\example{ex5}
+\begin{verbatimtab}
+@> make "a "Hello
+@> make "b "world
+@> print :a :b
+Hello world
+\end{verbatimtab}
+
+Here the words \verb+"a+ and \verb+"b+ are made to store values.  In this case, these values are words.  The colons in the print statement causes the interpreter to print what has been stored.\\
+ 
+\example{ex6}
+\begin{verbatimtab}
+@> make "a 'Hello world!'
+@> print :a
+Hello world!
+\end{verbatimtab}
+
+This example shows an important difference between how \squirrel and Logo handles their strings.
+ 
+\example{ex7}
+\begin{verbatimtab}
+@> make "a 12
+@> make "b 4
+@> print :a*:b
+48
+\end{verbatimtab}
+ 
+Here the labels \verb+"a+ and \verb+"b+ are made to store or assign numerical values.  The \verb+print+ command displays the product of these values.  A double quote defines a container created to hold a variable.  A colon points to the content of that container.  
+ 
+If we had used double quotes instead of colons in the print command, would have obtained the names of the containers, \verb+a b+:\\
+
+\example{ex8}
+\begin{verbatimtab}
+@> make "a
+Wrong number of arguments made
+\end{verbatimtab}
+
+When one runs the last line in \squirrel 's console, the result appears in red.\\
+
+\example{ex9}
+\begin{verbatimtab}
+@> print :a 
+Unknown variable [] a
+\end{verbatimtab}
+ 
+In other words, the container is empty. 
+ 
+\example{ex10}
+\begin{verbatimtab}
+@> make "a "Squirrel 
+@> print slength :a 
+8
+\end{verbatimtab}
+
+The interpreter printed out the number of characters stored in \verb+a+.  In this example, the double quote identified a word; it was not counted as part of that word.  We emphasize this point because we have found literature on Logo which erroneously states that the double quote is part of the word.  This may cause mental confusion.  The double quote merely states that what is attached is to be treated as a word, or a container that holds a value.\\
+
+\example{ex11}
+\begin{verbatimtab}
+@> make "b 'Skippy' 
+@> print slength :b
+6
+\end{verbatimtab}
+
+The interpreter printed out the number of characters transferred to it, and then stored in the word \verb+"b+.  This example shows how single quotes are used to identify a string; they are not part of that string. The term {\tt slength} is a primitive.\\
+
+The small set examples just given, was to simply get the user's feet wet.  The following pages go into more detail. 
+
+\subsection{More about words and variables} 
+
+The primitive \verb+make+ is used to: 
+ 
+\begin{enumerate}
+\item[a.] create a word if it does not already exist and then  
+\item[b.] assign a value to it
+\end{enumerate} 
+ 
+That value may be a number, a word (a string of characters preceded by a double quote), a string (anything contained between two single quotes) or a list. A string may be empty, but there does not exist an empty word.\\
+
+\example{ex12}
+\begin{verbatimtab}
+@> make "word "apples, make "string 'We have', make "number 12
+@> print :string :number :word
+We have 12 apples
+\end{verbatimtab}
+
+There may be more than one command on a command line, but these must be separated by commas.  Clearly, the value stored by a word may be a number, a word, or a string.
+
+\example{ex13}
+\begin{verbatimtab}
+@> make "my_list ["man "wife "son "daughter] 
+@> show :my_list
+["man "wife "son "daughter]
+\end{verbatimtab}
+
+Logo works with lists of data.  These lists are recognized by placing them within square brackets.  \squirrel's string allows a list to be stored in a word.
+
+\example{ex14}
+\begin{verbatimtab}
+@> make "print 'letters' 
+@> print :print 
+letters
+\end{verbatimtab}
+ 
+This example merely demonstrates how words may have the same name as primitives -- or procedures, for that matter.
+ 
+\example{ex15}
+\begin{verbatimtab}
+@> make "number '12' 
+@> print :number * 3 
+Invalid operation [String * Object]
+\end{verbatimtab}  
+ 
+Reason:  The interpreter did not recognize \verb+'12'+ to be a number.  Multiplication was impossible since it was perceived as a string.
+
+\example{ex16}
+\begin{verbatimtab}
+@> make "empty ''
+@> make "fruit "oranges 
+@> print :empty :fruit
+oranges
+\end{verbatimtab}
+
+{\tt :empty} had nothing to offer, so only the contents of {\tt :fruit} was printed.
+  
+Note. -- Programmers with experience in Pascal, C, or C++ will recognize that {\em data typing} is not required here.  Data typing is a procedure which specifies the particular kind of variable that is set aside in the computer's memory, e.g. strings, integers or floating point numbers.  A lot of hassle is avoided when this is not required.  This permits users to explore ideas without the constraint of data typing.
+ 
+\subsection{Commands as input to another command} 
+ 
+When \squirrel's interpreter parses a command line, it analyzes the line from left to right and then attempts to execute the given instructions in that order.\\
+ 
+\example{ex17}
+\begin{verbatimtab} 
+@> print sum 4 5 3
+12
+\end{verbatimtab}
+ 
+The interpreter first sees the command, "print".  It expects that something is to be printed.  That something is called the input to the command print.  In this instance, the input is another command, the primitive \verb+sum+.  Because \verb+sum+ is another command, the interpreter expects \verb+sum+'s inputs to follow.  The inputs to sum are 4, 5 and 3.  Another way of putting it is that the entire command:
+ 
+\begin{verbatimtab}
+sum 4 5 3  
+\end{verbatimtab}
+ 
+is seen as the input to \verb+print+.\\ 
+  
+If the sum of the numbers in the previous example were followed by something else to be printed, it becomes necessary to separate the \verb+sum+ from that something else.   We use parentheses to do this: 
+
+\example{ex18}
+\begin{verbatimtab} 
+@> print (sum 4 5) 'is the value of 4 + 5' 
+9 is the value of 4 + 5
+\end{verbatimtab}  
+
+Without the parentheses, the command \verb+sum+ would attempt to add the string but, of course, it cannot!  If this seems a little tricky, remember that parentheses are always needed on a command line where there is more than one command with inputs.
+
+What will happen if we do not use parentheses ?  Let's see: 
+ 
+\example{ex19}
+\begin{verbatimtab} 
+@> print sum 4 5 'is the value of 4+5'
+9
+\end{verbatimtab}  
+
+In this instance, the interpreter attempts to evaluate the sum of three entities, the last of which has no numerical value.  Hence, the primitive {\tt sum} will ignore the third input.\\ 
+ 
+Note. -- The reader may wish to compare this result with that in Example \ref{ex15} of the previous section, {\em More about words and variables}:
+ 
+\example{ex20}
+\begin{verbatimtab} 
+make "number '12' 
+print :number * 3
+Invalid operation [String * Object]
+\end{verbatimtab}  
+ 
+Why did it not print \verb+0+ ?  This is because {\tt :number} has no numerical value whereas 0 is a numerical value.  Thus, all the interpreter interprets is the instruction:
+ 
+\begin{verbatimtab}
+* 3 
+\end{verbatimtab}
+
+The interpreter then asks the question, "how much times three?"  Since there is no answer to the conundrum, it prints a warning in red.
+ 
+\subsection{Mathematical expressions} 
+ 
+\squirrel evaluates mathematical expressions perfectly e.g. 2.34567 * 10**3 = 2345.67.  It also accepts scientific notation.  Here, \squirrel surpasses ordinary Logo written for children.\\
+
+\squirrel recognizes the following operators:
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{|c|c|l|}
+\hline
+{\tt **}\index{\verb+**+}& Power & \verb+:x**4+\\
+\hline
+{\tt * / // \verb+%+} \index{\tt *} \index{\tt /} & Multiply, divide, integer division, reminder & \begin{tt}:x*4\end{tt}\\
+\hline
+{\tt + -} \index{\tt +} \index{\tt -} & Add, substract & \begin{tt}:x-4\end{tt}\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Arithmetic operators from highest to lowest precedence}
+\label{arth}
+\end{table}
+ 
+\example{ex21}
+\begin{verbatimtab} 
+@> print 'solutions:' 10+4 3-2 'and' 12+5*2
+14 1 and 22
+\end{verbatimtab}
+ 
+Here, the numbers \verb+10+ and \verb+4+ are related by an operator.  {\tt 3-2} and {\tt 12+5*2} are also related by an operator.   
+The mathematical operations are therefore executed.  The three mathematical expressions are independent from one another; hence, the interpreter's response is a list of data separated by spaces. 
+ 
+In the third expression of this example, multiplication takes precedence over addition.  Commonly accepted rules for operator precedence are adhered to -- see Table \ref{arth}.
+ 
+\example{ex22}
+\begin{verbatimtab}
+@> print ((2.3+ 3.7) * 2**3)**2
+2304
+\end{verbatimtab} 
+
+This example contains no curly brackets nor square brackets.  \squirrel requires these brackets for other computing tasks which will be discussed later.  Only parentheses are used in mathematical operations.
+
+\example{ex23}
+\begin{verbatimtab} 
+@> print (sum 12 8) / 5 
+4
+\end{verbatimtab} 
+ 
+This example demonstrates that primitives may be placed within a mathematical expression.  For assurance, parentheses should be used to clarify the command line for the interpreter.   The same applies to procedures. 
+ 
+\example{ex24}
+\begin{verbatimtab}
+@> print 12.3 * -.5 
+-6.150
+\end{verbatimtab} 
+ 
+This demonstrates that the absence of a leading zero presents no problem.  The interpreter will correct for that in the calculation.
+ 
+\example{ex25}
+\begin{verbatimtab} 
+@> print (rsin .2345)**2 
+0.054
+\end{verbatimtab} 
+ 
+This example corresponds to what is traditionally written as: sin(0.2345)\verb+^+2.  The \verb+r+ in \verb+rsin+ refers to an angle expressed in radians.\\ 
+ 
+Further examples of mathematical functions are given in Chapter 3. {\em Primitives}.
+ 
+\subsection{Boolean expressions} 
+ 
+Boolean expressions are used mostly for testing how values compare.  We will encounter them in the chapter on control structures. The following table summarizes the operators now available in \squirrel. 
+
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|c|l|l|}
+\hline
+\verb+=+\index{\verb+=+} & equality test & \begin{tt}:x = 5\end{tt}\\
+\hline
+\verb+<>+\index{\verb+<>+} & non-equality test & \begin{tt} :x <> 5 \end{tt}\\
+\hline
+\verb+<+\index{\verb+<+} & less than test & \begin{tt}:x < 3\end{tt}\\
+\hline
+\verb+<=+\index{\verb+<=+} & less than or equal test & \begin{tt}:x <= 3\end{tt}\\
+\hline
+\verb+>+\index{\verb+>+} & greater than test & \begin{tt}:x > 3\end{tt}\\
+\hline
+\verb+>=+\index{\verb+>=+} & greater than or equal test & \begin{tt}:x >= 3\end{tt}\\
+\hline
+\verb+not+\index{\verb+not+} & negation test & \begin{tt}not :x<3\end{tt}\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Booleans Operators}
+\end{table}
+
+The boolean value {\tt true} and {\tt false} are part of Squirrel grammar and
+are recognized as such. For example :
+
+\begin{verbatimtab} 
+@> do_something 45.5 true "hello false
+\end{verbatimtab}
+ 
+\section{Strings and words} 
+
+Let's recapitulate.  \squirrel's syntax distinguishes between words and strings.  Words are strings of characters whereas strings may be composed of more than one word.   
+ 
+Like Logo, \squirrel identifies a word with a leading double quote.  For those unfamiliar with Logo, the term {\em word} is likely to be synonymous with the term {\em identifier}. A string is identified by two single quotes, marking the beginning and end of the string.  \squirrel's strings serve to store text which may be manipulated.   
+Here are some examples of words:  
+
+\begin{verbatimtab}
+"computer
+"this_is_a_word
+"<<..>>
+\end{verbatimtab}
+ 
+Most commands that accept a string will also accept a word, but the inverse is not true.  Commands designed to accept a word will not accept a string.
+  
+\example{ex26}
+\begin{verbatimtab}
+@> print slength 'this is a test' 
+14
+\end{verbatimtab}
+ 
+The string may contain any number of words.  The answer is the string's character count. 
+ 
+\example{ex27}
+\begin{verbatimtab}
+@> make "a "horse
+@> make "b 'feathers'
+@> print :a + :b 
+horsefeathers
+\end{verbatimtab} 
+
+This is an example of concatenation.  Concatenation is one way of manipulating text.\\
+  
+Why does Squirrel have strings if words themselves are enough?  To answer this question, consider this example:
+
+\example{ex28}
+\begin{verbatimtab}
+@> print "this "is "my "long "string  
+this is my long string
+\end{verbatimtab}
+ 
+To provide that answer, the machine had to operate on five distinct words.  By joining all these words into a single string, the computer's work is reduced to a single operation.  Thus, working with strings tends to be faster.\\ 
+ 
+Some special characters are required to initiate important computer operations that cannot otherwise be taken care of.  Backslashes in a string serve to identify those special characters that control aspect of the computer's behavior.  Here is a list of them and their actions: 
+ 
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+\verb+\n+\index{\verb+\n+} & line feed (newline)\\
+\hline
+\verb+\t+\index{\verb+\t+} & horizontal tabulation\\
+\hline
+\verb+\v+\index{\verb+\v+} & vertical tabulation\\
+\hline
+\verb+\b+\index{\verb+\b+} & backspace\\
+\hline
+\verb+\r+\index{\verb+\r+} & carriage return\\
+\hline
+\verb+\f+\index{\verb+\f+} & form feed\\
+\hline
+\verb+\'+\index{\verb+\'+} & single quote\\
+\hline
+\verb+\\+\index{\verb+\\+} & backslash\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Backslashed characters}
+\end{table}
+ 
+Here's how they are used:
+
+\begin{verbatimtab}
+@> make "a 'this is a test\n'
+@> make "b '\t Squirrel is cool !!!!\n'
+\end{verbatimtab}
+
+It is best to copy and paste these lines into the console to observe the effects.\\
+
+{\bf -- Note}:  Logo is not familiar with strings which are made up of separate words.  When the word string is used in Logo, it is interpreted as the string of characters that make a word.  A word is one or more characters, usually offset by blank spaces or by a bracket before or after it.
+ 
+\section{Lists} 
+
+The basic list elements in \squirrel are: numbers, strings, words, and other lists. It is possible\footnote{since release 5.1} to create list with references to variables or primitive/function calls. In this case, when the list is evaluated, all such elements will be processed and a new list is created.\\
+
+To introduce lists, we again present Example \ref{ex28} from the page headed {\em Strings and Words}: 
+ 
+\begin{verbatimtab}
+@> print "this "is "my "long "string 
+\end{verbatimtab}
+ 
+The interpreter is instructed to print out a list of words that are separated by spaces.  Alternately, the list might have been prepared before hand, like in this sequence of statements: 
+ 
+\example{ex29}
+\begin{verbatimtab}
+@> make "a ["this "is "my "long "string] 
+@> print :a
+this is my long string
+\end{verbatimtab}
+ 
+The first statement contains a list with five elements, all of them being words.  That list is stored in the variable {\tt a}. The name of the variable is given as a word. As shown on the second statement, accessing the variable value is done by using the semicolon. Typically, a list is enclosed by square brackets. 
+
+\example{ex30}
+\begin{verbatimtab} 
+@> make "mylist ['this is a list' 3.45 'with' 56.6 
+["various "things "inside]]
+@> print :mylist
+this is a list 3.45 with 56.6 various things inside
+\end{verbatimtab} 
+ 
+\example{ex31}
+\begin{verbatimtab}
+@> make "element_a [10] 
+@> make "element_b "element_a
+@> print :element_b 
+element_a 
+\end{verbatimtab}
+ 
+One element has been substituted by another.
+ 
+\example{ex32}
+\begin{verbatimtab}
+@> make "element_a [10] 
+@> make "element_b :element_a 
+@> show :element_b
+[10]
+\end{verbatimtab}
+ 
+Here, one element has been given the value of another.\\ 
+
+The next example show how to use variable and function call in a list:
+
+\example{ex67}
+\begin{verbatimtab}
+@> make "a 34 
+@> make "b 45 
+@> make "lst [:a :b :a+:b (max :a :b)]
+@> show :lst
+[34 45 79 45]
+\end{verbatimtab}
+
+A concluding note of some historical interest. -- As mentioned before, LISP is a language of artificial intelligence on which Logo is based on.  In LISP, individual units are atoms.  Atoms are letters, numbers, or any string composed of alphanumeric characters.  Both atoms and lists are referred to as s-expressions (symbolic expressions).  Logo's list elements are similar.  A big difference is that the atoms of LISP cannot be decomposed (the word atom comes from classical Greek meaning indivisible).  Atoms are no longer atoms in Logo.  Here, they can be broken down.  The string 'horsefeathers' may be split into 'horse' and 'feathers'.  However, the meaning of a list is no different in the Logo family of languages from that of LISP.  There is a difference in notation.  LISP uses parentheses to identify lists, whereas Logo and Squirrel uses square brackets.  Lists are used for building elements for programming.
+   
+\section{Control structures} 
+
+A control structure determines the order in which the interpreter does its work. Programmers recognize sequence structures, decision structures, and iteration structures. 
+ 
+A sequence of commands is called a sequence structure.  Example: 
+ 
+\begin{verbatimtab}
+@> make "a 2 + 3 
+@> make "b 'apples' 
+@> print :a :b
+\end{verbatimtab}
+ 
+A structure that lets the interpreter decide which action to take is called a {\em decision structure}. 
+A decision involves a criterion, or a basis for deciding whether to do {\em this} or {\em that}. Example: 
+ 
+\begin{verbatimtab}
+@> if :a > 10 {print 'ok'} 
+\end{verbatimtab}
+
+Here, if the value of \verb+:a <= 10+, nothing will be printed.\\ 
+ 
+A structure that causes the interpreter to go through a repeated cycle of instructions is called an {\em iteration structure}.  This structure is commonly referred to as a {\em loop}.  Typically, a loop involves decision making with a base case for ending the iteration.  Example: 
+
+\begin{verbatimtab}
+@> for ["i 0 10] {print :i} 
+\end{verbatimtab}
+ 
+The result will print the numbers from \verb+0+ to \verb+10+. Once \verb+10+ has been printed, the interpreter terminates the iteration since decision has been made to stop printing.  The interpreter will then act on the next statement.\\ 
+ 
+In \squirrel, for various reasons, lists containing primitives or procedures are enclosed within curly braces \verb+{ }+.  These lists are referred to as {\em blocks}.  The block notation also improves the readability of a program as well as the efficiency of execution.\\ 
+ 
+One may endow variables with the value of a block, e.g. 
+ 
+\begin{verbatimtab}
+@> make  "ablock {print 'hello world'}  
+@> run :ablock 
+\end{verbatimtab}
+
+The answer supplied is:  \verb+hello world+\\
+ 
+Sadly, a block may be empty.  It will then be denoted by \verb+{}+.\\  
+ 
+Commands for decision structures: 
+ 
+\begin{verbatimtab}
+if  
+ifelse  
+test  
+iftrue  
+iffalse  
+\end{verbatimtab}
+ 
+Commands for iteration structures (loops):  
+ 
+\begin{verbatimtab}
+for  
+repeat  
+do.while  
+while  
+do.until  
+until  
+foreach
+\end{verbatimtab}
+ 
+\subsection{Decision structures} 
+  
+\subsubsection*{if} \index{\verb+if+}
+
+An \verb+if+ statement tests whether an expression meets a criteria and if so,
+executes a command.  There are, therefore, two parts to the statement: the
+test and the command.  What follows the word "if" is a Boolean expression.  The Boolean expression can either return TRUE or FALSE.  The command to be executed is held between curly brackets.  The curly brackets identify a block.\\
+  
+{\tt if} {\it expression} {\it block}\\ 
+ 
+\example{ex33}
+\begin{verbatimtab}
+@> make "a 78
+@> if :a>10 {print 'ok!!'} 
+ok!!
+\end{verbatimtab} 
+ 
+{\tt if} supports a third input which must be a block. If this input is specified, the {\tt if} will 
+act like an {\tt ifelse} 
+ 
+\subsubsection*{ifelse} \index{\verb+ifelse+}
+ 
+An \verb+ifelse+ statement contains two blocks.  If the Boolean expression returns
+TRUE, then the first block is executed.  If it returns FALSE, then the
+second block is executed.\\ 
+ 
+{\tt ifelse} {\it expression block block}\\ 
+  
+\example{ex34}
+\begin{verbatimtab} 
+@> make "a 3
+@> ifelse :a>10 {print 'ok'} {print 'not ok'} 
+not ok
+\end{verbatimtab}
+ 
+\subsubsection*{test} \index{\verb+test+}
+Execution of this test will assign a value that is either TRUE or
+FALSE to {\tt test}.  Typically, such a test statement is followed by an {\tt iftrue} or an
+{\tt iffalse} statement. The syntax is:\\ 
+ 
+{\tt test} {\it expression}\\ 
+ 
+A call to this command will always replace the previous value, so only the last {\tt test} 
+is valid. 
+ 
+\subsubsection*{iftrue} \index{\verb+iftrue+}
+ 
+{\tt iftrue} will execute the associated block if test returned a
+Boolean TRUE. The syntax is:\\ 
+ 
+{\tt iftrue} {\it block}
+ 
+\example{ex35}
+\begin{verbatimtab}
+@> make "a 10 
+@> make "b random 10 
+@> test :a<:b 
+@> type 'here' 
+@> iftrue {print 'my random number was bigger than 10'}
+\end{verbatimtab}
+
+In this example, the output could either be {\tt here} or {\tt here my random number was greater than 10}.
+ 
+\subsubsection*{iffalse} \index{\verb+iffalse+}
+ 
+{\tt iffalse} will execute the associated block if test returned
+a Boolean FALSE. The syntax is:\\
+ 
+{\tt iffalse} {\it block} 
+ 
+\example{ex36}
+\begin{verbatimtab} 
+@> make "a 10
+@> make "b random 10
+@> test :a<:b
+@> type 'here'
+@> iffalse {print 'my random number was smaller than 10'}
+\end{verbatimtab}
+
+In this example, the output could either be {\tt here} or {\tt here my random number was smaller than 10}.
+ 
+\subsubsection*{switch} \index{\verb+switch+} 
+
+Occasionally, a script may contain a serie of decisions in which the same variable or expression is tested. \squirrel provides the {\tt switch} multiple-selection structure for this special purpose.\\
+
+A {\tt switch} is composed of a serie of {\tt case} and {\tt range} labels, and an optional {\tt other} label. The variable or expression to be tested could be of any basic type (number, string, word, list).\\
+
+The following example tests the value of the variable {\tt var}:
+
+\example{ex100}
+\begin{verbatimtab} 
+switch :var {
+	
+	case 2 {
+		print 'var is 2'	
+	}
+	
+	case 45 {
+		print 'var is 45'	
+	}
+	
+	case 46 50 55 {
+		print '46 50 or 55'	
+	}
+
+	range 60 100 {
+		print 'between 60 and 100'		
+	}
+	
+	other {
+		print 'var is something else'		
+	}	
+}
+\end{verbatimtab} 
+
+The label {\tt case} test the value for equality with at least one of the input of the {\tt case}. The {\tt range} label, tests if the value is between the 2 inputs. {\tt other} will be executed only if all the test have failed.
+ 
+\subsection{Loops} 
+ 
+There are several ways of looping in \squirrel:
+
+\subsubsection*{for} \index{\verb+for+}
+ 
+This command will execute a block repeatedly in accordance with the contents
+of a settings list.  The first element of the list is a word that is assigned values from a range of numbers.  The fourth element is optional.
+Any fourth element indicates a step, as shown in Example \ref{ex38}. The syntax is: \\ 
+ 
+{\tt for} [{\it word number number (number)}] {\it block} \\
+ 
+\example{ex37}
+\begin{verbatimtab}  
+@> for ["i 1 100] {print :i} 
+1
+2
+3
+4
+...
+99
+100
+\end{verbatimtab}
+
+\example{ex38}
+\begin{verbatimtab}
+@> for ["i 50 1 -10] {print :i}
+50
+40 
+30 
+20 
+10
+\end{verbatimtab}
+ 
+Here, the fourth element in the list specifies a step.  The step is negative because the loop runs from an initial value of 50 to a lower value.\\
+
+{\bf When a loop has run its course, the first element, the "i in this instance, is destroyed.}
+ 
+\subsubsection*{repeat} \index{\verb+repeat+}
+ 
+The statement {\tt repeat} executes a block a specified number of times. The syntax is:\\ 
+  
+{\tt repeat} {\it number block}\\ 
+
+The first input will be the number of times we want to execute the block.\\
+
+\example{ex39}
+\begin{verbatimtab} 
+@> repeat 5 {print 'Hello John !'}
+Hello John !
+Hello John ! 
+Hello John ! 
+Hello John ! 
+Hello John ! 
+\end{verbatimtab}
+ 
+\subsubsection*{do.while} \index{\verb+do.while+}
+ 
+This command will cause repeated execution of the block as long as the
+Boolean expression returns the value TRUE. The syntax is:\\
+ 
+{\tt do.while}  {\it block expression}\\
+
+\example{ex40}
+\begin{verbatimtab} 
+@> make "j 10 
+@> do.while {print :j,make "j :j-1} :j>0 
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1	
+\end{verbatimtab}
+ 
+\subsubsection*{while} \index{\verb+while+}
+
+The difference between {\tt while} and {\tt do.while} is that with {\tt while}, a Boolean
+expression is evaluated before a block is executed.  If the Boolean
+expression returns FALSE the first time, the block will never be
+executed. The syntax is:\\
+
+{\tt while}  {\it expression block} \\ 
+ 
+\example{ex41}
+\begin{verbatimtab} 
+@> make "j 10 
+@> while :j>0 {print :j,make "j :j - 1} 
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1	
+\end{verbatimtab}
+ 
+\subsubsection*{do.until} \index{\verb+do.until+}
+ 
+With {\tt do.until}, looping continues until the Boolean expression returns TRUE.
+Notice that the block will always be executed at least once. The syntax is: \\
+ 
+{\tt do.until} {\it block expression}\\ 
+
+\example{ex42}
+\begin{verbatimtab}
+@> make "j 10 
+@> do.until {print :j,make "j :j-1} :j<0
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1	
+0
+\end{verbatimtab} 
+ 
+\subsubsection*{until} \index{\verb+until+}
+ 
+The difference between {\tt until} and {\tt do.until} is that with {\tt until} a Boolean expression is evaluated before a block is executed.  If the Boolean
+expression returns TRUE the first time, the block will never be
+executed. The syntax is:\\
+ 
+{\tt until} {\it expression block}\\  
+ 
+\example{ex43}
+\begin{verbatimtab} 
+@> make "j 10
+@> until :j<10 {print :j,make "j :j-1}
+10
+\end{verbatimtab}
+ 
+\subsubsection*{for.each} \index{\verb+for.each+}
+
+The command {\tt for.each} considers consecutive values found in a
+list. The syntax is: \\ 
+ 
+{\tt for.each} {\it word list block}  
+ 
+The word used will be the variable containing the value from the list.  The block will be executed as long as there is still an element in the list. 
+ 
+\example{ex44}
+\begin{verbatimtab}
+@> make "i 0
+@> for.each "e [5 2 6 7 8 1 5] {make "i :i+:e**2,print :i}
+25
+29
+65
+114
+178
+179
+204	
+\end{verbatimtab}
+ 
+\subsection{Error handling} 
+ 
+\squirrel will abort the execution of a script when an error occurs. Hopefully, it's possible to catch an unexpected error 
+or even throw your own error using a {\tt catch\index{\verb+catch+}} and then a {\tt \index{\verb+throw+}}. 
+ 
+The syntax for catching an error is:\\
+ 
+{\tt catch} {\it word block (block)} \\
+ 
+The syntax for throwing an error is: \\
+ 
+{\tt throw} {\it word thing} \\
+  
+\example{ex45} 
+\begin{verbatimtab} 
+catch "divbyzero { 
+ 
+	if :a=0 { 
+		throw "divbyzero 'The value of a is zero !!' 
+	} 
+ 
+	make "j :b/:a  
+} {
+	print 'an error has occured'	
+}
+\end{verbatimtab}
+ 
+In this example, we caught an error thrown by our self when the value of {\tt a} was zero. The {\tt throw} order accepts two inputs: {\em the name of the error} and the {\em return value}, which could be anything. The error's name must match the word specified in the {\tt catch} order, otherwise the error will not be caught. 
+ 
+In the case of an unknown error, one that did not come from a {\tt throw} order, you may specify the word {\tt "error} to catch it.  An example of such an error would be a bad number of arguments. 
+
+An optional second block will be executed when an error occurs only.
+ 
+\example{ex46} 
+\begin{verbatimtab} 
+catch "error { 
+	print 'we generate an error bellow' 
+	print gseq 23 
+	print 'this line will never been executed if we have an error' 
+} 
+\end{verbatimtab} 
+ 
+The order {\tt gseq} is a primitive requiring at least two inputs. Using it alone will generate an error and we will need to catch it. The execution of the script will resume from the order after the {\tt catch}.\\
+
+Whenever an error is raised, the global variable {\tt \_error\index{\verb+_error+}} will contains the error message.
+ 
+\section{Procedures} 
+ 
+Procedures encapsulate a set of orders (a block of orders) and parameterize them.\\
+
+The syntax to define a function is:\newline
+ 
+{\tt to} {\it word re1 ref2 ref3 ....}\\ 
+...\\ 
+{\tt end}\newline 
+ 
+There is no need to use the {\tt \{\}} to mark a block as {\tt to\index{\verb+to+}} and {\tt end\index{\verb+end+}} to perform this task. For examples, to define a function which subtracts four from a value and then prints the result, we write in a script file:
+ 
+\begin{verbatimtab}
+to sub4 :a 
+	print :a-4 
+end 
+\end{verbatimtab}
+ 
+Calling it is the same as calling any primitive:
+ 
+\begin{verbatimtab}
+@> sub4 6 
+\end{verbatimtab}
+ 
+When defining a procedure, you may want to return a value\footnote{A procedure which returns a value is called a {\em function}}.  For examples, if we want to return the result of {\tt :a-4} and not print it, we would use the {\tt output\index{\verb+output+}} primitive which returns this input as the result of the function and then stops the function. If you just wanted to stop the function, you may use the order {\tt stop}.\\
+
+When a script need to return an error code, the {\tt output} primitive can be
+used to return a value (must be an integer). The script will then be ended and
+this value returned to the caller of the script.\\  
+
+We now modify our function to reflect what we want: 
+ 
+\begin{verbatimtab}  
+to sub4 :a 
+	output :a-4
+end 
+\end{verbatimtab}
+ 
+Calling is similar, except that we could take the output as the input of another order: 
+ 
+\begin{verbatimtab}
+@> print sub4 6 
+@> make "a sub4 6 
+\end{verbatimtab}
+ 
+It's possible to define default values for the inputs. To do this, we use a list instead of a variable reference. The syntax of the list is: 
+ 
+\begin{verbatimtab}
+[ ref value ] 
+\end{verbatimtab}
+ 
+For example: 
+ 
+\begin{verbatimtab}
+to sub :a [:b 4]
+	print :a-:b 
+end 
+\end{verbatimtab}
+ 
+If we call it: 
+ 
+\begin{verbatimtab}
+@> print sub 6 
+\end{verbatimtab} 
+ 
+We will get {\tt 2}, but calling it: 
+ 
+\begin{verbatimtab}  
+@> print sub 6 2 
+\end{verbatimtab}
+ 
+will give us {\tt 4}.\\
+ 
+Using default values is very powerful, but there's an obvious limitation.  This is demonstrated in the next example: 
+ 
+\begin{verbatimtab}
+to sub :a [:b 4] :c 
+	print :a-:b+:c 
+end 
+\end{verbatimtab}
+ 
+This function is syntaxically correct and will not generate any errors during parsing.  The execution will also work if you always specify three inputs. But if you specify only two, like: 
+ 
+\begin{verbatimtab}
+@> print sub 6 2 
+\end{verbatimtab}
+ 
+An error will be reported during execution because an input is missing. Here, the value for {\tt :c} is not known. 
+ 
+One of the advantages of using default values is the ability to use a previous argument. e.g.: 
+ 
+\begin{verbatimtab}
+to foo :a [:b :a+4] [:c (random 40)]
+	print :a+:b+:c
+end 
+\end{verbatimtab}
+ 
+Calling it: 
+ 
+\begin{verbatimtab}  
+@> print foo 10 
+\end{verbatimtab}
+ 
+Will change the value {\tt 10} to {\tt :a}, the value {\tt 14} to {\tt :b} and a random number between {\tt 0} and {\tt 40} to {\tt :c}. 
+ 
+This is done just before calling the function.  Notice that only the global variable and the previous input are known at this time. 
+ 
+Once defined, a function is used like any other \squirrel primitive. When called, each input is assigned to a variable specified in the corresponding function. 
+ 
+\section{Local and global variables} 
+ 
+A function is executed by \squirrel in a scope, created specially for the function.  It is still possible to access global variables you want to set, get or modify, but creating a local variable using the order {\tt local\index{\verb+local+}} will 
+require a step more than what is required for creating a global variable. 
+ 
+When a function ends, all the local variables and values created within the function will be destroyed 
+(except the one still in use, e.g. a value returned by the function using {\tt output} or the value set in global variables). 
+ 
+Creating a local variable using {\tt local} follows the syntax:\\
+ 
+{\tt local} {\it word word word word ....} \\
+
+You may use as many calls to {\tt local} as you want and specify as many variable names (words) as you need each time. Setting the value to a local variable is the same as setting one for a global variable. For examples: 
+ 
+\example{ex47}
+\begin{verbatimtab}  
+to foo :a :b
+	local "c "d
+	make "c :a-5
+	make "d :c//2
+	output :d*2
+end 
+\end{verbatimtab}
+
+Using the primitive {\tt make.local\index{\verb+make.local+}} simplifies the process of creating and initializing a new local variable in a single call. The previous example becomes:
+
+\example{ex48}
+\begin{verbatimtab}
+to foo :a :b
+	make.local "c :a-5
+	make.local "d :c//2
+	output :d*2
+end 
+\end{verbatimtab}
+
+If you wish to modify the value of your local variable later in your function, you will use {\tt make\index{\verb+make+}}.\\
+
+When defining a local variable, you may {\em shadow} a global variable. Your function will not have access to the global variable and you will use its own local variable. For examples: 
+ 
+\example{ex49}
+\begin{verbatimtab}
+make "c 10 
+
+to foo :a
+	local "c
+	make "c :a
+end
+
+foo 4 
+\end{verbatimtab} 
+ 
+This will not change the value of the global variable {\tt c}. 
+ 
+A function can create a global variable using the order {\tt make} if the variable hasn't already been specified using {\tt local}. You have to make sure when you're using variables inside your function that you define them as local variables.  Otherwise the program will create global variables which will stay long after your function is over.
+
+\section{Using objects}
+
+Since {\em Developer Release 3}, \squirrel has been featuring a new type of data called an {\em object}. The use of an {\em object} is not really different from that of a simple data, e.g. a number or a string.
+
+The Add-on {\em Data Structures} for examples, add to \squirrel's various data structures other than the list : {\tt Vector} and {\tt Dictionary}.   
+
+{\em Objects} in \squirrel have the peculiarity of possessing certain primitives (called {\em methods}) which only apply to an object.\\
+ 
+Using a {\em method} is different from using a primitive : 
+
+\example{ex50}
+\begin{verbatimtab}  
+@> make "myarray Vector 10
+@> $myarray~set 1 45
+\end{verbatimtab}
+
+In this example, we are creating a {\tt Vector} object, which is a simple array of 10 elements.  We set the element 1 to the value 45. You will notice the use of {\tt \$} instead of {\tt :} and the presence of {\tt \verb+~+}. The syntax to call a method on an object is : \\
+
+{\tt \$}{\it (variable name)}{\tt \verb+~+}{\it (method name)} {\it arguments of the method}\\
+
+Passing an object to a command or a function is the same as that for any standard data, using {\tt :}. Example :
+
+\example{ex51}
+\begin{verbatimtab}  
+@> make "myarray Vector 10
+@> print :myarray
+0 0 0 0 0 0 0 0
+\end{verbatimtab}
+
+Otherwise objects are manipulated in the same way numbers are.  For examples:
+
+\example{ex52}
+\begin{verbatimtab}  
+@> make "a Vector [3 2 4 1 5 6]
+@> make "b :a+1
+4 3 5 2 6 7
+\end{verbatimtab}
+
+\example{ex53}
+\begin{verbatimtab}  
+@> make "a Vector [3 2 4 1 5 6]
+@> make "b 2.5*:a
+7.5 5 10 2.5 12.5 15
+\end{verbatimtab}
+
+\example{ex54}
+\begin{verbatimtab}  
+@> make "a Vector [3 2 4 1 5 6] 
+@> make "b Vector [1 2 3 4 5 6]
+@> print :a+:b
+4 4 7 5 10 12
+\end{verbatimtab}
+
+\section{Variable Binding}
+
+In the lifetime of a variable, the variable could have its contents changed, accessed, or the variable could be erased. The primitibes {\tt bind\index{\verb+bind+}} and {\tt unbind\index{\verb+unbind+}} offers the possibility to bind a variable to these events and execute a block or a function each time an event occurs.
+
+A variable accepts only one binding for each event. If we set two binding sequentially on a variable, only the last one will be executed.
+
+\subsection{{\tt Get} event}
+
+Each time the variable is read (or fetched), this event is generated. This kind of event occurs anywhere where the variable is used like in a {\tt print} or in a math operation.  For examples:
+
+\example{ex55}
+\begin{verbatimtab}  
+@> make "b 4 
+@> bind "b "get {print 'b has been read'}
+@> make "a :b+5
+b has been read
+\end{verbatimtab}
+
+When executed, the example will access the variable b and then execute the block set for the binding. We could have also used a function instead of a block. In this case we would have defined a function with one input since \squirrel would fill the first input of the command with the value of the variable :
+
+\example{ex56}
+\begin{verbatimtab}
+to vget :val
+	print 'b read with value :' :val
+end	
+
+@> make "b 4 
+@> bind "b "get "vget
+@> make "a :b+5
+b has been read with value : 4
+\end{verbatimtab}
+
+Using a function instead of a block will allow us to make changes to the variable's value. The variable's value is not changed, but accessing the variable will return another value other than the real one. To do this, we just change our function to return the value we want :
+
+\example{ex57}
+\begin{verbatimtab}
+to vget :val
+	print 'b read with value :' :val
+	output 5
+end
+	
+@> make "b 4
+@> bind "b "get "vget
+@> make "a :b+5
+b has been read with value : 4
+\end{verbatimtab}
+
+If we print the variable {\tt a} after executing this example, we will get {\tt 10} and not {\tt 9}.
+
+\subsection{{\tt erase} event}
+
+When a variable is deleted (using the primitive {\tt erase} for example), an event is sent to the variable and the binding is executed. Consider the following example :
+
+\example{ex58}
+\begin{verbatimtab}
+to erase :val
+	print 'b erased'
+end
+
+@> make "b 4
+@> bind "b "erase "erase
+@> make "a :b+5
+@> print :a
+@> erase "b
+b has been read with value : 4
+b erased
+\end{verbatimtab}
+
+When the last line is executed, the function {\tt erase} is executed and {\tt b erased} will be print to the console. The function could have returned a value which will be then a Boolean value.  If this value is {\tt true}, the variable will be erased, if {\tt false} is returned, the variable will not be erased, as you can see in the next example :
+
+\example{ex59}
+\begin{verbatimtab}
+to verase :val
+	print 'b erased'
+	return false
+end
+
+@> make "b 4
+@> bind "b "erase "verase
+@> make "a :b+5
+@> print :a
+@> erase "b
+b erased
+@> print :b
+b has been read with value : 4
+4
+\end{verbatimtab}
+
+\subsection{{\tt set} event}
+
+When the variable is set to a new value, the event {\tt set} is sent to the variable. It's also possible to define a block or a function to execute when this is happening. The function must have two inputs.
+
+\example{ex60}
+\begin{verbatimtab}
+to vset :old :new
+	print 'value changed to' :new 'from' :old
+end
+
+@> make "b 4
+@> bind "b "set "vset
+@> make "b :b+5
+value changed to 9 from 4
+\end{verbatimtab}
+
+If the function used for the binding returns a value, this value will be set to the variable.  Otherwise the variable will have its value changed. The next example shows this:
+
+\example{ex61}
+\begin{verbatimtab}
+to vset :old :new
+	print 'value changed to' :new 'from' :old
+	output :old
+end
+
+@> make "b 4
+@> bind "b "set "vset
+@> make "b :b+5
+@> print :b
+value changed to 9 from 4
+4
+\end{verbatimtab}
+
+\section{Adding comments to scripts} 
+ 
+It's often the case that a programmer wishes to include comments to parts of their code.  Comments are meant for humans only. \squirrel features two variants for this procedure, known as commenting.  When code is parsed into instructions to the hardware for translation, comments tell the interpreter to ignore what's written.  We identify them as Logo-style commenting and C-style commenting.  Users familiar with these programming languages will immediately recognize the styles used.\\ 
+
+\begin{description}
+\item[Logo-style commenting] Any line intended to be ignored by the interpreter must begin with a semicolon ( ; ) 
+\item[C-style commenting] Any line or succession of lines to be ignored by the interpreter must be enclosed by \verb+/*+ and \verb+*/+
+\end{description} 
+
+\example{ex62}
+\begin{verbatimtab}  
+make "e 2.718 
+; e is the base for natural logarithms 
+print :e
+\end{verbatimtab}
+ 
+One line comments are easiest to handle in this way.\\
+ 
+\example{ex63}
+\begin{verbatimtab} 
+/* we prefer to comment out a big chunk of code
+by using the C style method of commenting.
+print 'here'
+print 4 5 6 7 8
+*/
+print 'and we execute again'
+\end{verbatimtab}
+
+\section{Including script}
+
+Using the keyword {\tt \verb+#+include\index{\verb+#include+}} in a script file allow to include a file during the parsing.\\
+
+If we have in a script file a function called {\tt libfunc} and that we wish to use this function in our script, we will use {\tt \verb+#+include} to access this function: 
+ 
+\example{ex64}
+\begin{verbatimtab} 
+#include 'mylib.sqi'
+
+libfunc 34
+\end{verbatimtab} 
+
+{\tt \verb+#+include} is somehow equivalent to the primitive {\tt load} except that incuding a file is done during the parsing and not during the execution of the script as it's done by the primitive {\tt load}. For example, if we wish to load a script file only in certain condition:
+
+\example{ex65}
+\begin{verbatimtab}
+if (need 'mylib.sqi') { 
+	#include 'mylib.sqi'
+}
+\end{verbatimtab}
+
+Will not work the way we want as it will {\bf always} include the file. We must use the primitive {\tt load}:
+
+\example{ex66}
+\begin{verbatimtab}
+if (need 'mylib.sqi') { 
+	load 'mylib.sqi'
+}
+\end{verbatimtab}
+
+Unless you are in the above situation, using {\tt \verb+#+include} instead of {\tt load} is more efficient.
+
+\section{System global variables}
+ 
+When a script is run by \squirrel, it is possible to get the list of command-line arguments that were given using the global variable {\tt Args\index{\verb+Args+}}. This variable has a list for value. It is also possible to know the name and complete path of the script file executed by using the global variable {\tt \verb+_+file\index{\verb+_file+}}. The variable {\tt \verb+_+path\index{\verb+_path+}} will give the path.\\
+
+For example, let's have the following script file:
+\begin{verbatimtab}
+if (llength :Args)>1 {
+ make "dir lindex :Args 2
+ make "myfile FilePanel "open "dir ["file] "single "allow ['image/*'] []
+ print :dir
+}
+\end{verbatimtab}
+
+When run with the command : {\tt @@> myscript.sqi '/home'} the {\tt Args} global variable will contains {\tt ['./myscript.sqi' '/home']} and the {\tt \verb+_+file} variable will have:\\ 
+{\tt '/boot/home/scripts/myscript.sqi'}.\\
+
+The variable {\tt \verb+_+install\index{\verb+_install+}} will give the path of the directory where \squirrel is installed on the user computer. As well, {\tt \verb+_+version\index{\verb+_version+}} will give (as a string) the release number of \squirrel.\\
+
+To know from where a \squirrel script has been launched, you can check the global variable {\tt \verb+_+from\index{\verb+_from+}}. When the script is runned from a terminal, this variable will hold the word {\tt "terminal}, and when the user have double-clicked on the script icon, and that the Preferred Application is \squirrel, the variable will have for value {\tt "tracker}. If
+the script is running from the \squirrel Console, the value will be {\tt "console}.
+
+\section{Using Add-Ons}
+ 
+Prior to the release 5.0, all the Add-Ons providing the primitives were loaded automaticaly by \squirrel. From release 5.0 on, \squirrel loads on start-up
+(except for the console version of \squirrel, which load them all) only the following Add-Ons :
+
+\begin{itemize}
+\item {\it Communication}
+\item {\it Control}
+\item {\it Data Processing}
+\item {\it Workspace}
+\end{itemize}
+
+To get access to the other Add-Ons, you need to specify in your script which ones to load, using the primitive {\tt use\index{\verb+use+}}. For example, if we need to use the {\tt timing} primitive from the {\it Time} Add-on, we will add this to our script:
+
+\begin{verbatimtab}
+use 'Time'
+
+to test :nb
+	for ["i 1 :nb] {
+		; do something		
+	}
+end
+
+print 'time : ' (timing "test 1000) 'microseconds'
+\end{verbatimtab}
+
+{\tt use} accepts as many inputs as needed to load all the Add-Ons you need. The name of the Add-Ons need to be given with correct spelling and it's case sensitive.\\
+
+The benefit is a real gain in starting time (specialy if you don't need the {\it GUI} Add-On) for your script and also lower use of the memory.
+
+If you happend to load twice (or more) the same Add-On, \squirrel will simply replace all the primitives definied in that Add-On by what it will suppose is a new version of them.

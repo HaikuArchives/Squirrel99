@@ -1,0 +1,80 @@
+\section{The widget DropList}
+
+This widget is a labeled drop down list of items. When the user clicks on the drop down list, all the possible items are displayed. The widget always displays the current selection. A variable is linked to the widget.
+
+\subsection{Construction}
+
+The primitive {\tt DropList} is used to build a new DropList widget. Its syntax is :\\
+
+{\tt DropList} {\it string \verb?|? word word list (list (words)) }\\
+
+The first input is the label of the widget. The second input is the name of the linked variable. The third is the list of items.  This could be any kind of data like a word, a string or a number. If specified, a fourth input will be the size of the widget in characters and any other input would make up the flags.
+
+\subsection{Methods}
+
+This widget doesn't have specific methods.
+
+\subsection{Configuration}
+
+A DropList widget has three specific configuration items :
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\bf Configuration & \bf Purpose & \bf Value \\
+\hline
+\tt "label\index{DropList@\textbf{DropList}!Configuration!label} & Set or get the label of the widget & a string or a word\\
+\hline
+\tt "value\index{DropList@\textbf{DropList}!Configuration!value} & Set or get the selected item & a thing\\
+\hline
+\tt "variable\index{DropList@\textbf{DropList}!Configuration!variable} & Set or get the linked variable of the widget & a word\\
+\hline
+\end{tabular}
+\caption{DropList's configuration}
+\end{table}
+
+\subsection{Hooks}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|p{3cm}|p{8.5cm}|}
+\hline
+\bf Name & \bf Description & \bf Function prototype \\
+\hline
+\tt "selected\index{DropList@\textbf{DropList}!Hooks!selected} & The user has selected another item & {\tt
+to selected :src :index :value\newline
+; src is the widget object\newline
+; index is the index in the list of the selected item\newline
+; value is the selected value
+end
+}\\
+\hline
+\end{tabular}
+\caption{DropList's hooks}
+\end{table}
+
+\subsection{Example}
+
+\example{ex33}	
+\begin{listing}{1}
+make "win Window "titled 'DropList' [100 100]
+make "weather "Rainy
+make "list DropList 'How\'s the weather ?' "weather ["Sunny "Rainy "Overcast]
+make "button Button 'Make it better'
+$button~config "align.h "set "center
+Hook :button "invoked {
+	make "weather "Sunny	
+}
+Glue :win "top [] :list :button
+$win~show
+\end{listing}
+
+When the user clicks on the button {\tt button}, the linked variable is changed to the value {\tt Sunny} and the DropList widget will be updated.
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-15.eps}
+\label{s33}
+\caption{A DropList}
+\end{figure}

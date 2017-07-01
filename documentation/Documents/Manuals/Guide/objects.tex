@@ -1,0 +1,333 @@
+\chapter{Standard Objects}
+
+This chapter describes the various {\em Objects} than \squirrel handle.
+
+\section{Application Messaging}
+ 
+\cbstart 
+Using the object {\tt Message}, it is possible with \squirrel to send or receive messages from/to another application or to receive a drag and drop notication on a widget.\\
+\cbend
+
+The primitive {\tt Message} is used to create a message object. The primitive accept as only input a number (integer or exadecimal) which is a value that captures what the message is about.\\
+
+A message could store pretty mutch any basics \squirrel object like : word, number or list. When a list is given, the list elements will be added with the same data name. They must be of the exact same object type, else the method {\tt add} will fail.\\
+
+A \squirrel script accept to receive message by using a hook function that the script must define : {\tt \verb+_+MessageReceived}. This function has only one input which is the received message:
+
+\example{ex101}
+\begin{verbatimtab}
+to _MessageReceived :msg
+	
+	switch ($msg~what) {
+		case 0x80 {
+			print 'Received :' $msg~find "test
+			$msg~reply Message 0xFF			
+		}	
+	}	
+	
+end
+\end{verbatimtab}
+
+When adding data in a message, it is possible to specify the exact datatype. The following table list them all:
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+{\tt "int8} & an int8 or uint8 \\
+\hline
+{\tt "int16} & an int16 or uint16 \\
+\hline
+{\tt "int32} & an int32 or uint32 \\
+\hline
+{\tt "int64} & an int64 or uint64 \\
+\hline
+{\tt "float} & a float \\
+\hline
+{\tt "double} & a double \\
+\hline
+{\tt "string} & a string \\
+\hline
+{\tt "point} & a BPoint \\
+\hline
+{\tt "rect} & a BRect \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Message datatype}
+\label{messtype}
+\end{table}
+
+A message object has severals methods that allow to get/set the datas stored into it, as well as sending it to an application:
+
+\subsubsection*{Message\textasciitilde add} \index{\verb+Message+!\verb+~add+}
+
+{\tt \verb+~+add (word | string) thing (word)} 
+\newline\newline
+Put data in the message. The first input is the name of the data to add, the second is the value to store. If a third input is given it must be a word that describe the exact datatype to use. The method will output {\tt true} if no error occurs, {\tt false} else.  
+\begin{verbatimtab}
+@> $msg~add "length 56.78
+\end{verbatimtab}
+
+\subsubsection*{Message\textasciitilde delivered} \index{\verb+Message+!\verb+~delivered+}
+
+{\tt \verb+~+delivered} 
+\newline\newline
+Output {\tt true} if the message has been delivered and so that it is possible to send a reply to that message. 
+\begin{verbatimtab}
+@> print $msg~delivered
+true
+\end{verbatimtab}
+
+\subsubsection*{Message\textasciitilde empty} \index{\verb+Message+!\verb+~empty+}
+{\tt \verb+~+empty} 
+\newline\newline
+Remove all data from a message. Output {\tt true} if no error is encounter. 
+\begin{verbatimtab}
+@> $msg~add "test 'hello there'
+@> $msg~empty
+@> print $msg~has "test
+false
+\end{verbatimtab}
+
+\subsubsection*{Message\textasciitilde find} \index{\verb+Message+!\verb+~find+}
+
+{\tt \verb+~+find word | string} 
+\newline\newline
+Output a new object created from the data(s) read in the message for the name given as input of the method. An error is raised if the name is not found.
+\begin{verbatimtab}
+@> $msg~add "test 'hello there'
+@> print $msg~find "test
+hello there
+\end{verbatimtab}
+
+\subsubsection*{Message\textasciitilde has} \index{\verb+Message+!\verb+~has+}
+
+{\tt \verb+~+has (word | string) (word)} 
+\newline\newline
+Output {\tt true} if a data is found for the name given as first input. If a second input is given, it should match the datatype of the data found. 
+\begin{verbatimtab}
+@> $msg~add "test 'hello there'
+@> print $msg~has "test
+true
+@> print $msg~has "test "int32
+false
+\end{verbatimtab}
+
+\subsubsection*{Message\textasciitilde is.empty} \index{\verb+Message+!\verb+~is.empty+}
+
+{\tt \verb+~+is.empty} 
+\newline\newline
+Output {\tt true} if a the message is empty of any data.
+\begin{verbatimtab}
+@> $msg~add "test 'hello there'
+@> print $msg~is.empty
+false
+\end{verbatimtab}
+ 
+\subsubsection*{Message\textasciitilde is.remote} \index{\verb+Message+!\verb+~is.remote+}
+
+{\tt \verb+~+is.remote} 
+\newline\newline
+Output {\tt true} if a the message has been sended by another application.
+\begin{verbatimtab}
+@> print $msg~is.remote
+true
+\end{verbatimtab} 
+ 
+\subsubsection*{Message\textasciitilde is.reply} \index{\verb+Message+!\verb+~is.reply+}
+
+{\tt \verb+~+is.reply} 
+\newline\newline
+Output {\tt true} if a the message is a reply to another message.
+\begin{verbatimtab}
+@> $msg~add "test 'hello there'
+@> print $msg~is.reply
+false
+\end{verbatimtab} 
+ 
+\subsubsection*{Message\textasciitilde is.waiting} \index{\verb+Message+!\verb+~is.waiting+}
+
+{\tt \verb+~+is.waiting} 
+\newline\newline
+Output {\tt true} if a the sender of the message is waiting for a reply.
+\begin{verbatimtab}
+@> print $msg~is.waiting
+false
+\end{verbatimtab} 
+ 
+\subsubsection*{Message\textasciitilde names} \index{\verb+Message+!\verb+~names+}
+
+{\tt \verb+~+names} 
+\newline\newline
+Output a list of all the data names in the message.
+\begin{verbatimtab}
+@> $msg~add "num 23.56
+@> $msg~add "str 'what can I do ?'
+@> $msg~add "foo [34 65 23 90]
+@> show $msg~names
+['num' 'str' 'foo']
+\end{verbatimtab} 
+
+\subsubsection*{Message\textasciitilde previous} \index{\verb+Message+!\verb+~previous+}
+
+{\tt \verb+~+previous} 
+\newline\newline
+Output the message to which the current message is a reply. {\tt false} is outputted if the message is not a reply.
+\begin{verbatimtab}
+@> make "org $rep~previous
+\end{verbatimtab} 
+
+\subsubsection*{Message\textasciitilde rem} \index{\verb+Message+!\verb+~rem+}
+
+{\tt \verb+~+rem word | string} 
+\newline\newline
+Remove a data from the message. Output {\tt true} if it succes.
+\begin{verbatimtab}
+@> $msg~rem "test
+\end{verbatimtab} 
+
+\subsubsection*{Message\textasciitilde replace} \index{\verb+Message+!\verb+~replace+}
+
+{\tt \verb+~+replace (word | string) thing (word)} 
+\newline\newline
+Replace data in the message. The first input is the name of the data to be replaced, the second if the value to store. If a third input is given is must be a word that describe the exact datatype to use. The method will output {\tt true} if no error occurs, {\tt false} else. The datatype MUST be the same than the data to replace.  
+\begin{verbatimtab}
+@> $msg~add "length 56.78
+@> $msg~replace "length 34
+\end{verbatimtab}
+
+\subsubsection*{Message\textasciitilde reply} \index{\verb+Message+!\verb+~reply+}
+
+{\tt \verb+~+reply message (word)} 
+\newline\newline
+Send a message as the reply to the message given as first input. The message is NOT destroyed by this method. A message could then be send several time. If a second input is given, it must be the word {\tt "reply}. In this case, the method will block until it receives a reply from the target of the message. The method outputs {\tt true} if the reply has been send.
+\begin{verbatimtab}
+make "r Message 0x78
+$r~add "data 45.8
+$msg~reply :r 
+\end{verbatimtab} 
+ 
+\subsubsection*{Message\textasciitilde send} \index{\verb+Message+!\verb+~send+}
+
+{\tt \verb+~+send string (word)} 
+\newline\newline
+Send the message to an application whose signature is given as first input. The message is NOT destroyed by this method. A message could then be send several time. If a second input is given, it must be the word {\tt "reply}. In this case, the method will block until it receives a reply from the target of the message. The method output {\tt true} if the message has been send.
+\begin{verbatimtab}
+@> $msg~send 'application/x-vnd.Foo-Inc.MyApp'
+\end{verbatimtab}  
+ 
+\subsubsection*{Message\textasciitilde timeout} \index{\verb+Message+!\verb+~timeout+}
+
+{\tt \verb+~+timeout word (number)} 
+\newline\newline
+Set the timeout of the message when sending it, if the first input is {\tt "send} or output the current timout if no second input is given. If the first inputs is {\tt "reply} the timout will be ON to wait for a reply. A value of {\tt -1} sets an infinite timeout.  
+\begin{verbatimtab}
+@> $msg~timeout "reply 50000
+\end{verbatimtab} 
+
+\subsubsection*{Message\textasciitilde what} \index{\verb+Message+!\verb+~what+}
+
+{\tt \verb+~+what} 
+\newline\newline
+Output the number that defines what the message is all about. 
+\begin{verbatimtab}
+@> print $msg~what
+128
+\end{verbatimtab} 
+
+\cbstart
+\section{Image object}
+
+\squirrel 5.3 introduces a new kind of object that allow to handle images. This object can load and manipulate any kind of images for which there is an installed translator.\\
+
+The primitive {\tt Image} is used to create an {\it Image} object. It accept either a filename or a given width and height (in a list) in pixels. When no filename is given, the image will be created empty.\\
+
+The primitive {\tt trans.mime}\index{\verb+trans.mime+} outputs a list of all MIME type for which there is a Translator, whiles the primitive {\tt trans.name}\index{\verb+trans.name+} outputs a list of the image format names.\\  
+
+An {\it Image} object had severals methods described bellow:
+
+\subsubsection*{Image\textasciitilde height} \index{\verb+Image+!\verb+~height+}
+
+{\tt \verb+~+height}  
+\newline\newline
+Output the height in pixel of the image. 
+\begin{verbatimtab}
+@> $img~load 'ariane5.jpg'
+@> print $img~height
+600
+\end{verbatimtab}
+
+\subsubsection*{Image\textasciitilde length} \index{\verb+Image+!\verb+~length+}
+
+{\tt \verb+~+length} 
+\newline\newline
+Output the memory used by the Image (in bytes).
+\begin{verbatimtab}
+@> $img~length
+1228800
+\end{verbatimtab}
+
+\subsubsection*{Image\textasciitilde load} \index{\verb+Image+!\verb+~load+}
+
+{\tt \verb+~+load string}  
+\newline\newline
+Load an file into the image and discard any image already loaded. The method will select the correct Translator according to the file's MIME type.
+\begin{verbatimtab}
+@> $img~load 'myimage.gif'
+\end{verbatimtab}
+
+\subsubsection*{Image\textasciitilde mime} \index{\verb+Image+!\verb+~mime+}
+
+{\tt \verb+~+mime word (string)}  
+\newline\newline
+Set or get the MIME type of the image. If the MIME type is set it will be used when the image is save.
+\begin{verbatimtab}
+@> $img~load 'myimage.jpg'
+@> print $img~mime "get
+image/jpeg 
+\end{verbatimtab}
+
+\subsubsection*{Image\textasciitilde path} \index{\verb+Image+!\verb+~path+}
+
+{\tt \verb+~+path word (string)}  
+\newline\newline
+Set or get the path of the image.
+\begin{verbatimtab}
+@> $img~load 'myimage.jpg'
+@> $img~path "set '/this/place/this_name.gif'
+@> $img~save
+\end{verbatimtab}
+
+\subsubsection*{Image\textasciitilde save} \index{\verb+Image+!\verb+~save+}
+
+{\tt \verb+~+save (string word)}  
+\newline\newline
+Save the image into a file. If no input is given, the method use the path and MIME type of the image object. Otherwise, the input must be the path of the file to create and the name of the format to store the image in.
+\begin{verbatimtab}
+@> $img~load 'myimage.jpg'
+@> $img~save 'myimage.gif' "GIF
+\end{verbatimtab}
+
+\subsubsection*{Image\textasciitilde valid?} \index{\verb+Image+!\verb+~valid?+}
+
+{\tt \verb+~+valid?}  
+\newline\newline
+Output {\tt true} if the image is a correct image. When an image object is created from a file, the image is only valid if the loading has been a sucess. 
+\begin{verbatimtab}
+@> $img~load 'myimage.cpp'
+@> print $img~valid?
+false
+\end{verbatimtab}
+
+\subsubsection*{Image\textasciitilde width} \index{\verb+Image+!\verb+~width+}
+
+{\tt \verb+~+width}  
+\newline\newline
+Output the width in pixel of the image. 
+\begin{verbatimtab}
+@> $img~load 'ariane5.jpg'
+@> print $img~width
+800
+\end{verbatimtab}
+\cbend

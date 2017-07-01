@@ -1,0 +1,6 @@
+-- Listing 17 (number on the far left are line number and not in the script) --------
+1 to M_F_New :t
+2	$t~text "set ''	
+3	make "current_file false
+4 end
+-- end of Listing 17 -----------------------------------------------------------------

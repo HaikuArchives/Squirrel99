@@ -1,0 +1,66 @@
+Squirrel - Pre Release 5.4
+
+** Release Notes
+
+Thanks for trying Squirrel ! We hope you will enjoy discovering and using this scripting language for BeOS.
+
+When you will encounter a bug or if you have any suggestions for enhancements, please e-mail to jlv@kirilla.com
+
+If you wish to have the documentation, you will find them on
+BeBits as PDF file, fully readable with BePDF.
+
+>> What's new ?
+
+* A little bit less memory consumption 
+* Info and Question minor glitch fixed (window much wider than needed)
+* Changes in the Mail Add-On
+	- Mail renamed mail.new
+	- Send renamed mail.send
+
+>> MIME Type
+
+Squirrel has the MIME type application/x-vnd.kirilla-Squirrel for itself and use the MIME type text/x-script.squirrel for the Squirrel code text file. The extension of the file should be .sqi
+
+You must switch the MIME type of the text file you will make to be loaded by Squirrel to text/x-script.squirrel , else the file will not be loaded.
+
+>> Files
+
+Squirrel.5.3				The Application without console
+Squirrel's Console.5.3		The Application with a console
+lib/						Contain libraries used by Squirrel
+Demos/						Some demos (too few for this release)
+Libraries/					Some usefull scripts used by the demos
+Getting Started/			A simple HTML to help you get started :)
+
+Enjoy using Squirrel and have fun !
+
+Mahalo ! Merci ! Thanks ! :)
+
+Jean-Louis
+
+
+** Licence
+
+This is a legal agreement between you and Kirilla covering your use of Squirrel.  Be sure to read the following agreement before using the software.  IF YOU DO NOT AGREE TO THE TERMS OF THIS AGREEMENT, DO NOT USE THE SOFTWARE AND DESTROY ALL COPIES OF IT.
+
+This copyright software is distributed as freeware.  You may use this software without any charge and may distribute to others.  The software is owned by Kirilla and is protected by United States copyright laws and international treaty provisions.  Therefore, you must treat the software like any other copyrighted material (e.g. a book or musical recording).
+
+Commercial distribution of the software is restricted without permission of Kirilla.  We are more than happy to allow you to distribute our software, but you must first have a license to do so.  Contact Kirilla
+for details on obtaining a license.
+
+You may not rent or lease the software, nor may you modify, adapt, translate, reverse engineer, decompile, or disassemble the software.  If you violate any part of this agreement, your right to use this software terminates automatically and you then must destroy all copies of this software in your possession.
+
+The software, related documentation, and/or demo code are provided "AS IS" and without warranty of any kind and Kirilla expressly disclaims all other warranties, express or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose.  Under no circumstances shall Kirilla or any Kirilla members be liable for any incidental, special or consequential damages that result from the use or inability to use the software or related documentation, even if Kirilla or any members of Kirilla has been advised of the possibility of such damages.  
+
+This Agreement shall be governed by the laws of the FRANCE.  If for any reason a court of competent jurisdiction finds any provision of this Agreement, or portion thereof, to be unenforceable, that provision of the Agreement shall be enforced to the maximum extent permissible so as to effect the intent of the parties, and the remainder of this Agreement shall continue in full force and effect.
+
+The software and documentation is provided with RESTRICTED RIGHTS. Use, duplication, or disclosure by the Government is subject to restrictions as set forth in subdivision (b)(3)(ii) of The Rights in Technical Data and Computer Software clause at 252.227-7013. Manufacturer is : Kirilla
+
+
+
+
+
+
+
+All trademarks are held by their respective owners.
+Release 5.3 - 03/06/01 -  Paris

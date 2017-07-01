@@ -1,0 +1,44 @@
+\chapter{Primitives}
+
+\squirrel is exploiting the system of Add-Ons from \beos. All the primitives are actually in several Add-Ons. A future release will include \squirrel's API, which will allow third parties to write Add-Ons very easily. 
+ 
+This chapter describes all the primitives defined in each standard Add-on delivered with this release.
+
+\section{Add-ons management} 
+ 
+This set of primitives allows you to seek details on the Add-on that is loaded. In the next release it will 
+be possible to load and unload Add-ons using primitives. 
+ 
+\subsection*{addon.list}\index{\verb+addon.list+}
+ 
+{\tt addon.list}
+\newline\newline
+Output a list of all the Add-on loaded. 
+\begin{verbatimtab}
+@> show addon.list 
+['AddOn' 'Communication' 'Control' 'Data Handling' 'Inspector'
+'List Handling' 'Mathematics' 'String' 'Handling' 'Time' 'Workspace'] 
+\end{verbatimtab}
+ 
+\subsection*{addon.info} \index{\verb+addon.info+} 
+ 
+{\tt addon.info} {\it string} 
+\newline\newline 
+Print information about an Add-on. 
+\begin{verbatimtab} 
+@> print addon.info 'Inspector' 
+Purpose     : Allow access to information on the interpreter 
+Author      : [e-] 
+Version     : 0.5 
+Last Update : 08/09/99 
+\end{verbatimtab}
+ 
+\subsection*{addon.func} \index{\verb+addon.func+} 
+ 
+{\tt addon.func} {\it string} 
+\newline\newline 
+Output a list of all the primitive defined in the Add-on given as input. 
+\begin{verbatimtab} 
+@> print addon.func 'AddOn' 
+addon.func addon.info addon.list  
+\end{verbatimtab}

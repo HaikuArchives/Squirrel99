@@ -1,0 +1,20 @@
+#!/boot/apps/Squirrel/Squirrel.5.3
+
+use 'List Processing'
+
+if (llength :Args) = 2 { 
+
+	use 'GUI' 'Imaging'
+
+	make "my.image Image lindex :Args 2 
+	if (is.image :my.image) { 
+        make "win Window "titled (lindex :Args 2) [100 100] "not.resizable
+		make "the.viewer Viewer :my.image 
+		Glue :win "top [] :the.viewer 
+		$win~show    
+  	} { 
+		print 'Image file not reconized ... maybe not an image' 
+	} 
+} { 
+	print 'USAGE : image' 
+}

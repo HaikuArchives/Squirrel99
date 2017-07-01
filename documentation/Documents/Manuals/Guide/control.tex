@@ -1,0 +1,86 @@
+\section{Control} 
+ 
+Most control structures are implemented deep inside the interpreter, but some of the simplest are in this Add-on. 
+ 
+\subsection*{call} \index{\verb+call+} 
+ 
+{\tt call} {\it word thing1 thing2 thing3 ...} 
+\newline\newline 
+The command {\tt call} executes commands (primitive or procedure) given as its first input. All the other inputs will be treated as regular inputs to this command. 
+\begin{verbatimtab} 
+@> call "print 'This is a test:' sum 4 5
+This is a test: 9
+\end{verbatimtab}
+ 
+\subsection*{break} \index{\verb+break+} 
+ 
+{\tt break} 
+\newline\newline 
+This order only makes sense within a loop. It will stop the execution of the loop and return without executing the remaining orders in the loop block. 
+\begin{verbatimtab} 
+for ["i 1 100] { 
+ 
+	if (myfunc :i (random 45))<34 {break} 
+ 
+	dosomething_with :i 
+}
+\end{verbatimtab}
+ 
+\subsection*{continue} \index{\verb+continue+} 
+ 
+{\tt continue} 
+\newline\newline 
+This order only makes sense within a loop. It will advance in the execution of the loop and not execute the remaining orders in the loop block. 
+\begin{verbatimtab} 
+for ["i 1 100] { 
+ 
+	if :i%10 {continue} 
+ 
+	print :i 
+} 
+\end{verbatimtab}
+ 
+Will produce: 
+ 
+\begin{verbatimtab} 
+10 
+20 
+30 
+40 
+50 
+60 
+70 
+80 
+90 
+100 
+\end{verbatimtab}
+  
+\subsection*{stop} \index{\verb+stop+} 
+ 
+{\tt stop} 
+\newline\newline 
+Stop the execution of a function. Execute the next order after calling the function. 
+\begin{verbatimtab} 
+to foo :a 
+	if :a=0 {stop} 
+ 	print :a 
+end 
+\end{verbatimtab}
+ 
+\subsection*{test} \index{\verb+test+} 
+ 
+{\tt test} {\it expression} 
+\newline\newline 
+Evaluate the expression in input and remember the result. The result will be used by an {\tt iftrue} and {\tt iffalse}. 
+\begin{verbatimtab} 
+@> test :a < 10 
+\end{verbatimtab}
+  
+\subsection*{wait} \index{\verb+wait+} 
+ 
+{\tt wait} {\it number} 
+\newline\newline 
+Suspend the execution for a {\it number} seconds. The input must be an integer. 
+\begin{verbatimtab} 
+@> wait 2 
+\end{verbatimtab}

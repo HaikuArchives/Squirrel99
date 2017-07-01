@@ -1,0 +1,68 @@
+/*
+ * beMegaphone
+ *
+ * file ?	Banned.sqi
+ * what	?	Parse the banned file and test if an email is banned
+ * who	?	jlv
+ * when	?	10/14/00
+ * last	?	02/28/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+
+/* some global variables */
+
+make "fbanned 'banned.txt'
+make "Banned Dictionary
+
+/*
+ * function    : LoadDBan
+ * purpose     : Parse the text file and fill a dictionary
+ * input       :
+ *
+ * file, the file to load from
+ *
+ * output      : true if no error, false else
+ * side effect : none
+ */
+to LoadBan :path
+	
+	local "line "e
+				
+	catch "error {			
+								
+		make.local "f fopen "in :path
+		
+		while not (feof :f) {
+			make "line split.as.string (fgets :f) ','
+			if not (lempty :line) {
+				for.each "e :line {
+					$Banned~set (strim :e ' ') true	
+				}	 	
+			}	
+		}	
+			
+		fclose :f
+		
+		output true
+	} {
+		output false		
+	}		
+end
+
+/*
+ * function    : Banned
+ * purpose     : Check if an email is banned
+ * input       :
+ *
+ * mail, the email to test
+ *
+ * output      : true or false
+ * side effect : none
+ */
+to Banned :mail
+	
+	output $Banned~exists :mail		
+	
+end

@@ -1,0 +1,40 @@
+\begin{theindex}
+
+  \item \textbf{Sheet}
+    \subitem Methods
+      \subsubitem clear, 7
+      \subsubitem export, 7
+      \subsubitem origin, 7
+      \subsubitem skippies, 8
+  \item \textbf{Skippy}
+    \subitem Configuration
+      \subsubitem color, 15
+      \subsubitem font, 15
+      \subsubitem high.color, 15
+      \subsubitem home, 15
+      \subsubitem low.color, 15
+      \subsubitem size, 15
+    \subitem Methods
+      \subsubitem arc, 8
+      \subsubitem c.draw, 9
+      \subsubitem c.string, 8
+      \subsubitem config, 8
+      \subsubitem draw, 9
+      \subsubitem ellipse, 9
+      \subsubitem gohome, 10
+      \subsubitem goto, 10
+      \subsubitem hback, 10
+      \subsubitem heading, 11
+      \subsubitem hop, 11
+      \subsubitem left, 11
+      \subsubitem pen, 11
+      \subsubitem rect, 11
+      \subsubitem right, 12
+      \subsubitem round.rect, 12
+      \subsubitem show, 12
+      \subsubitem string, 13
+      \subsubitem triangle, 13
+      \subsubitem w.string, 13
+      \subsubitem warp, 14
+
+\end{theindex}

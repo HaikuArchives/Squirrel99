@@ -1,0 +1,88 @@
+#!/boot/apps/Squirrel/Squirrel.5.4
+/*
+	Drawing 4 trees concurently	
+	
+	Recursivity and Threading in Squirrel
+	
+	[e-] October 2000
+*/
+
+load :_install + '/Libraries/Colors.sqi'
+
+use 'GUI' 'Skippy' 'Threading' 'Mathematics' 'Time'
+
+; take a snapshot of the sheet widget
+to snap
+	make.local "i 1
+	while (true) { 
+		$sheet~export "Targa string 'tree' :i '.tga'
+		incr "i	
+		Snooze 50000		
+	}
+end
+
+; thread that draw a tree
+to thtree :sk :distance 
+  if :distance <= 0 {stop}
+  $sk~left 15 
+  make "distance :distance + (random :distance//2)
+  $sk~hop :distance 
+  thtree :sk :distance//2
+  $sk~hback :distance 
+  $sk~right 30 
+  make "distance :distance + (random :distance//2)
+  $sk~hop :distance 
+  thtree :sk :distance//2
+  $sk~hback :distance 
+  $sk~left 15  
+end 
+
+; we create the window
+make "win Window "titled 'Multi-threaded Skippy' [100 100] "not.zoomable
+
+; we create a Sheet widget
+make "sheet Sheet [400 400]
+
+; we glue it on the window
+Glue :win "top [] :sheet
+
+; we show the window
+$win~show
+
+$sheet~config "origin "set [200 200]
+
+; we create 4 skippy
+make "sk1 Skippy :sheet
+make "sk2 clone :sk1
+make "sk3 clone :sk1
+make "sk4 clone :sk1
+
+; all have diferrent colors
+$sk1~config "color "set :Red
+$sk2~config "color "set :Blue
+$sk3~config "color "set :Green
+$sk4~config "color "set :Yellow
+
+; and diferrent heading
+$sk2~heading 180
+$sk3~heading 90
+$sk4~heading 270
+
+;$sk1~goto 0 0
+
+; we create the threads
+make "th1 Thread "normal "thtree :sk1 30
+make "th2 Thread "normal "thtree :sk2 30
+make "th3 Thread "normal "thtree :sk3 30
+make "th4 Thread "normal "thtree :sk4 30
+/* make "th5 Thread "normal "snap */
+
+; and we run them
+Thread.hop :th1 :th2 :th3 :th4 
+/* :th5 */
+; we wait for all to be ober
+Thread.waitfor "all :th1 :th2 :th3 :th4
+/* Thread.kill :th5 */
+
+; we take a picture (GIF format) of the sheet widget
+$sheet~export "GIF 'thtree.gif'

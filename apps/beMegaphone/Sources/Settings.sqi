@@ -1,0 +1,131 @@
+/*
+ * beMegaphone
+ *
+ * file ?	Settings.sqi
+ * what	?	Load and save the application settings
+ * who	?	jlv
+ * when	?	09/20/00
+ * last	?	02/28/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+ 
+/* settings variables */
+
+make "set_position []
+make "set_size []
+make "set_family 'Monospac821 BT'
+make "set_fsize 9
+make "set_qconf true
+make "set_ads true
+make "set_separator '|'
+make "set_field_email 2
+make "set_field_letter 5
+make "set_field_news 6 
+make "set_wish_yes "yes
+make "set_bcc false
+make "set_bcc_pool 10
+
+/*
+ * function    : Load_Settings
+ * purpose     : load the settings (from the file attributes)
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to Load_Settings
+			
+	/* the font family and size */
+	
+	if (attr.exists :_file 'family') {
+		make "set_family attr.get :_file 'family'	
+	}
+		
+	if (attr.exists :_file 'size') {
+		make "set_fsize attr.get :_file 'size'	
+	}
+	
+	/* the confirm to quit setting */	
+	
+	if (attr.exists :_file 'qconf') {
+		make "set_qconf attr.get :_file 'qconf'	
+	}
+	
+	/* the database settings */
+
+	if (attr.exists :_file 'separator') {
+		make "set_separator attr.get :_file 'separator'	
+	}
+	
+	if (attr.exists :_file 'f_email') {
+		make "set_field_email attr.get :_file 'f_email'	
+	}
+	
+	if (attr.exists :_file 'f_news') {
+		make "set_field_news attr.get :_file 'f_news'	
+	}
+	
+	if (attr.exists :_file 'f_letter') {
+		make "set_field_letter attr.get :_file 'f_letter'	
+	}
+	
+	/* the ads setting */	
+	
+	if (attr.exists :_file 'ads') {
+		make "set_ads attr.get :_file 'ads'	
+	}
+		
+	/* the bcc setting */	
+	
+	if (attr.exists :_file 'bcc') {
+		make "set_bcc attr.get :_file 'bcc'	
+	}
+	
+	if (attr.exists :_file 'bcc_pool') {
+		make "set_bcc_pool attr.get :_file 'bcc_pool'	
+	}
+		
+	/* the wish setting */
+	
+	if (attr.exists :_file 'wish') {
+		make "set_wish_yes attr.get :_file 'wish'	
+	}		
+								
+end
+
+/*
+ * function    : Save_Settings
+ * purpose     : Save the settings (as file attributes)
+ * input       :
+ *
+ * win, the window
+ *
+ * output      : none
+ * side effect : none
+ */
+to Save_Settings :win
+	; we save the font family
+	attr.set :_file 'family' :set_family
+	; we save the font size
+	attr.set :_file 'size' :set_fsize
+	; we save if we want to confirm when we quit
+	attr.set :_file 'qconf' :set_qconf
+	; we save the database settings
+	attr.set :_file 'separator' :set_separator
+	attr.set :_file 'f_email' :set_field_email
+	attr.set :_file 'f_news' :set_field_news
+	attr.set :_file 'f_letter' :set_field_letter
+	; we save if we want to add a eMegaphone ads to the message
+	attr.set :_file 'ads' :set_ads
+	; we save if we want to use the bcc field or not
+	attr.set :_file 'bcc' :set_bcc
+	; we save the size of the bcc pool
+	attr.set :_file 'bcc_pool' :set_bcc_pool
+	; we save the wish yes
+	attr.set :_file 'wish' :set_wish_yes
+end
+
+
+
+

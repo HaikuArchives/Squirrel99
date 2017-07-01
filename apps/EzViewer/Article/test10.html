@@ -1,0 +1,221 @@
+<HTML>
+<BODY bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+<!Listing num 10>
+<P>blahblah<p><br>
+<center>
+<TABLE border=0  bgcolor="#CCCCFF" cellspacing=0>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.1"><SMALL>   1</SMALL></a></TD>
+<TD><A NAME="l.10.1"><PRE><SMALL>to Load :f</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.2"><SMALL>   2</SMALL></a></TD>
+<TD><A NAME="l.10.2"><PRE><SMALL>	Busy true</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.3"><SMALL>   3</SMALL></a></TD>
+<TD><A NAME="l.10.3"><PRE><SMALL>	make "Status 'Loading ...'</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.4"><SMALL>   4</SMALL></a></TD>
+<TD><A NAME="l.10.4"><PRE><SMALL>	catch "error {	</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.5"><SMALL>   5</SMALL></a></TD>
+<TD><A NAME="l.10.5"><PRE><SMALL>		make.local "i Image :f</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.6"><SMALL>   6</SMALL></a></TD>
+<TD><A NAME="l.10.6"><PRE><SMALL>		if (is.image :i) {</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.7"><SMALL>   7</SMALL></a></TD>
+<TD><A NAME="l.10.7"><PRE><SMALL>			$win~config "title "set ('EzViewer' + ' : ' + :f)</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.8"><SMALL>   8</SMALL></a></TD>
+<TD><A NAME="l.10.8"><PRE><SMALL>			$view~display :i</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.9"><SMALL>   9</SMALL></a></TD>
+<TD><A NAME="l.10.9"><PRE><SMALL>			$m3~enable true</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.10"><SMALL>  10</SMALL></a></TD>
+<TD><A NAME="l.10.10"><PRE><SMALL>			$m4~enable true</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.11"><SMALL>  11</SMALL></a></TD>
+<TD><A NAME="l.10.11"><PRE><SMALL>			make "img :i</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.12"><SMALL>  12</SMALL></a></TD>
+<TD><A NAME="l.10.12"><PRE><SMALL>			make "Status 'Loading ... done'</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.13"><SMALL>  13</SMALL></a></TD>
+<TD><A NAME="l.10.13"><PRE><SMALL>			make "thefile :f</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.14"><SMALL>  14</SMALL></a></TD>
+<TD><A NAME="l.10.14"><PRE><SMALL>		} {</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.15"><SMALL>  15</SMALL></a></TD>
+<TD><A NAME="l.10.15"><PRE><SMALL>			throw "error	</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.16"><SMALL>  16</SMALL></a></TD>
+<TD><A NAME="l.10.16"><PRE><SMALL>		}</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.17"><SMALL>  17</SMALL></a></TD>
+<TD><A NAME="l.10.17"><PRE><SMALL>	} {</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.18"><SMALL>  18</SMALL></a></TD>
+<TD><A NAME="l.10.18"><PRE><SMALL>		make "Status 'Loading ... failed!'</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.19"><SMALL>  19</SMALL></a></TD>
+<TD><A NAME="l.10.19"><PRE><SMALL>		$m3~enable false</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.20"><SMALL>  20</SMALL></a></TD>
+<TD><A NAME="l.10.20"><PRE><SMALL>		$m4~enable false		</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.21"><SMALL>  21</SMALL></a></TD>
+<TD><A NAME="l.10.21"><PRE><SMALL>	}</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.22"><SMALL>  22</SMALL></a></TD>
+<TD><A NAME="l.10.22"><PRE><SMALL>	Busy false</SMALL></PRE></A></TD>
+</TR>
+<TR>
+<TD valign=middle align=center><A HREF="#c.10.23"><SMALL>  23</SMALL></a></TD>
+<TD><A NAME="l.10.23"><PRE><SMALL>end</SMALL></PRE></A></TD>
+</TR>
+</TABLE>
+</center>
+<P><br>
+<P>
+<P>
+<!Line comments num 10>
+<P>
+<B><A HREF="#l.10.1"><TT>Line 1.</TT></A></B><A NAME="c.10.1">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.2"><TT>Line 2.</TT></A></B><A NAME="c.10.2">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.3"><TT>Line 3.</TT></A></B><A NAME="c.10.3">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.4"><TT>Line 4.</TT></A></B><A NAME="c.10.4">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.5"><TT>Line 5.</TT></A></B><A NAME="c.10.5">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.6"><TT>Line 6.</TT></A></B><A NAME="c.10.6">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.7"><TT>Line 7.</TT></A></B><A NAME="c.10.7">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.8"><TT>Line 8.</TT></A></B><A NAME="c.10.8">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.9"><TT>Line 9.</TT></A></B><A NAME="c.10.9">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.10"><TT>Line 10.</TT></A></B><A NAME="c.10.10">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.11"><TT>Line 11.</TT></A></B><A NAME="c.10.11">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.12"><TT>Line 12.</TT></A></B><A NAME="c.10.12">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.13"><TT>Line 13.</TT></A></B><A NAME="c.10.13">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.14"><TT>Line 14.</TT></A></B><A NAME="c.10.14">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.15"><TT>Line 15.</TT></A></B><A NAME="c.10.15">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.16"><TT>Line 16.</TT></A></B><A NAME="c.10.16">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.17"><TT>Line 17.</TT></A></B><A NAME="c.10.17">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.18"><TT>Line 18.</TT></A></B><A NAME="c.10.18">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.19"><TT>Line 19.</TT></A></B><A NAME="c.10.19">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.20"><TT>Line 20.</TT></A></B><A NAME="c.10.20">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.21"><TT>Line 21.</TT></A></B><A NAME="c.10.21">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.22"><TT>Line 22.</TT></A></B><A NAME="c.10.22">
+your comment here
+</A>
+</P>
+<P>
+<B><A HREF="#l.10.23"><TT>Line 23.</TT></A></B><A NAME="c.10.23">
+your comment here
+</A>
+</P>
+</BODY>
+</HTML>

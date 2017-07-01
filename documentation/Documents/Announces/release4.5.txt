@@ -1,0 +1,19 @@
+FOR IMMEDIATE RELEASE
+
+February 14, 2000
+
+electron Technology would like to ANNOUNCE the release of Squirrel,
+Developer Release 4.5.
+
+This new release include :
+
+* multithreading
+* execution of external application
+* Directory browsing
+
+Development of this new scripting language for BeOS continue and
+every feedbacks (good or bad) is welcome.
+
+Squirrel is running on BeOS 4.5.x for Intel.
+
+You may download it on the web site http://www.electechno.com

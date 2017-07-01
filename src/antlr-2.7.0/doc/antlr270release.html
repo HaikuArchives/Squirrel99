@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+<title>ANTLR 2.7.0 Release Notes</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<table border="0">
+  <tr>
+    <td align="center" valign="top" width="120"><br>
+    <a href="http://www.jguru.com"><img src="j-guru-blue.jpg" width="70" height="80"
+    alt="j-guru-blue.jpg (8086 bytes)" border="0"></a><p><a href="http://www.antlr.org"
+    style="color: rgb(255,255,255)"><font face="Arial" color="#000000"><small><strong>ANTLR</strong></small></font></a></p>
+    <p><a href="http://www.jguru.com"><small><font face="Arial" color="#000000"><strong>jGuru</strong></font></small></a></td>
+    <td></td>
+    <td valign="top" width="520"><font size="6" face="Courier New"><strong>ANTLR 2.7.0<br>
+    Release Notes</strong></font><p><font face="Arial" size="2"><em>&quot;The Millenium
+    release&quot; (A2K?)</em></font></p>
+    <p><font face="Arial" size="2"><em>January 19, 2000</em></font></p>
+    <p><font face="Arial"><font size="2">The </font><small>ANTLR 2.7.0 release is a big
+    feature release, but also fixes a number of bugs.&nbsp; See <a
+    href="http://www.antlr.org/bug">http://www.antlr.org/bug</a> for the current list of
+    bugs/suggestions and the bugs fixed for this version.</small></font></p>
+    <p><font face="Arial"><small>Brought to you by those hip cats at <a
+    href="http://www.jguru.com">jGuru.com</a>.</small></font></p>
+    <h3><strong><small><font face="Arial">Binary Incompatibility</font></small></strong></h3>
+    <p><small><font face="Arial">YOU MUST REGENERATE PARSERS/LEXERS FROM 2.6.0 GRAMMAR FILES
+    TO BE COMPATIBLE WITH 2.7.0 CLASSES--SOME CLASS NAME HAS CHANGED.</font></small></p>
+    <h3><strong><small><font face="Arial">Source Incompatibility</font></small></strong></h3>
+    <p><small><font face="Arial">The exception names have changed.&nbsp; If you trapped
+    exceptions such as </font><font face="Courier New">ParserException</font><font
+    face="Arial"> emanating from the parser in your main() or wherever, you will have to
+    change the invocation code; e.g., use </font><font face="Courier New">RecognitionException</font><font
+    face="Arial">.</font></small></p>
+    <h3><strong><small><font face="Arial">Enhancements</font></small></strong></h3>
+    <p><font face="Arial"><small>ANTLR 2.7.0 has the following enhancements:</small></font><ul>
+      <li><small><font face="Arial"><a href="lexer.html#Nongreedy Subrules">Nongreedy subrules</a></font></small></li>
+      <li><small><font face="Arial"><a href="trees.html#Heterogeneous ASTs">Heterogeneous trees</a></font></small></li>
+      <li><small><font face="Arial">Element options.&nbsp; To support heterogeneous trees,
+        elements such as token references may now include options.&nbsp; See <a
+        href="metalang.html#TokensSection">Token Section</a> and <a
+        href="metalang.html#Token reference.">Token Reference</a></font></small></li>
+      <li><small><font face="Arial">Exception hierarchy redesign</font></small></li>
+      <li><a href="trees.html#AST Serialization"><small><font face="Arial">XML serialization</font></small></a></li>
+      <li><small><font face="Arial">Improved C++ code generator</font></small></li>
+      <li><small><font face="Arial">New Sather code generator</font></small></li>
+    </ul>
+    <h4><font face="Arial"><strong><small>New Exception Hierarchy</small></strong></font></h4>
+    <p><small><font face="Arial">I have radically changed the exception hierarchy from 2.6.x.
+    &nbsp; The ANTLR source is compatible, but if you trap exceptions in your main() or
+    wherever, have to change use new exception names.&nbsp; See <a
+    href="err.html#ANTLR Exception Hierarchy">ANTLR Exception Hierarchy</a> and note the
+    following:</font></small><ul>
+      <li><small><font face="Arial">TokenStream.nextToken() now throws TokenStreamException
+        instead of IOException.</font></small></li>
+      <li><small><font face="Arial">CharScanner.consume() now throws CharStreamException</font></small></li>
+      <li><small><font face="Arial">Added ANTLRError, though it is not currently used.</font></small></li>
+      <li><small><font face="Arial">Lexer rules now throw RecognitionException,
+        CharStreamException, and TokenStreamException instead of ScannerException and IOException</font></small></li>
+      <li><small><font face="Arial">Parser rules now throw RecognitionException and
+        TokenStreamException not IOException and ParserException.</font></small></li>
+    </ul>
+    <h3><font face="Arial"><strong><small>C++ Output</small></strong></font></h3>
+    <p><font face="Arial"><small>According to <a href="mailto:pete@yamuna.demon.co.uk">Pete
+    Wells</a>, the C++ output has been updated to include the 2.7.0 functionality and fix a
+    few bugs in the C++ code generator.&nbsp; A big thanks to Pete for his hard work on the
+    C++ code generator.&nbsp; Pete says:</small></font><ul>
+      <li><font face="Arial"><small>Updates to namespace support - all namespace references are
+        through macros, so that older compilers can still work ; the library code goes into a
+        namespace antlr ; there is a new file<br>
+        level option namespace which allows the generated code to go<br>
+        into a namespace.</small></font></li>
+      <li><font face="Arial"><small>Changes to the AST model - reverting to more like the Java
+        model (rather than separate tree and leaf classes). NOTE: this uses dynamic_cast, so MSVC
+        users need to turn on RTTI.</small></font></li>
+      <li><font face="Arial"><small>Named header actions - there are now 4 named blocks
+        (pre_include_cpp, pre_include_hpp, post_include_cpp, and post_include_hpp) which place the
+        code in different parts of the generated code. Syntax is header &quot;name&quot;
+        {...code...}, and multiple headers are allowed. NOTE: no checks are yet done for invalid
+        names.</small></font></li>
+    </ul>
+    <h3><font face="Arial"><strong><small>New! Sather Code Generator</small></strong></font></h3>
+    <p><small><font face="Arial"><a href="mailto:mika@sdna2.ucsd.edu">Mika Illouz</a> has
+    generously developed and released a Sather code-generator for ANTLR. The Sather code
+    generation option sports: <ul>
+      <li>a port of most of the Java/C++ grammar examples</li>
+      <li>a new Sather grammar adapted from the ICSI Sather 1.1 specification</li>
+      <li>look ma! No typecasts!</font></li>
+    </ul>
+    <h3><font face="Arial"><strong>New Grammars</strong></font></h3>
+    <h4><font face="Arial"><strong>New Pascal Grammar</strong></font></h4>
+    <p><font face="Arial"><a href="mailto:dogusanh@tr-net.net.tr">Hakki Dogusan</a> has
+    written and donated a cool Pascal grammar.&nbsp; See examples/java/pascal.</font></p>
+    <h4><font face="Arial"><strong>New TinyBasic Interpreter</strong></font></h4>
+    <p><font face="Arial"><a href="mailto:sinan.karasu@boeing.com">Sinan Karasu</a> has
+    written and donated a TinyBasic interpreter; see examples/java/tinybasic.&nbsp; It's
+    pretty cool!&nbsp; He says:</font></p>
+    <blockquote>
+      <p><font face="Arial">This is a simple Basic Parser/Interpreter I put together in 3
+      days.&nbsp; Has NOT been tested, only for instructional value.&nbsp; Do whatever you do
+      with it, I don't care....</font></p>
+    </blockquote>
+    <h3><font face="Arial">ANTLR Emacs mode</font></h3>
+    <p><small><font face="Arial"><a href="mailto:Christoph.Wedler@sap-ag.de">Christoph Wedler</a>
+    wrote a nice <a href="http://www.antlr.org/nirvana/antlr.emacs.mode.txt">emacs mode</a>
+    for ANTLR.&nbsp; Check it out!</font></small></p>
+    <h3><font face="Arial">Perforce Revision Control</font></h3>
+    <p><font face="Arial">Terence is now using <a href="http://www.perforce.com">Perforce</a>'s
+    groovy source code control system.&nbsp; They have graciously granted the ANTLR project a
+    100-user license, which means that up to 100 active ANTLR folks will have access via the
+    net.&nbsp; Some users will have write access to update bugs they find, letting all the
+    other users get immediate fixes.&nbsp; Also, you'll note the file revision now in source
+    and documentation files.</font></p>
+    <p><font face="Arial">Perforce is an absolutely great tool for distributed
+    development.&nbsp; We use it at jGuru.com commercially to collaborate, to develop
+    software, and to keep all of our gurus and operations folks in sync.&nbsp; The advent of
+    this system for the ANTLR project will dramatically improve collaboration between all of
+    us.</font></p>
+    <p><font face="Arial">I will put together a description of how to gain access (there is a
+    perforce client for just about everything...ok not the timex sinclair zx-80) when I get
+    the chance.</font></p>
+    <h3><font face="Arial"><small>Miscellaneous updates</small></font></h3>
+    <p><font face="Arial">(not including the bugs fixes described at <a
+    href="http://www.antlr.org/bug">http://www.antlr.org/bug</a>):</font><ul>
+      <li><font face="Arial">To better support C++, you can name header blocks:<br>
+        &nbsp; </font><font face="Courier New">&nbsp; header &quot;name&quot; {...code...}</font><font
+        face="Arial">.<br>
+        See the section above from Pete Wells.</font></li>
+      <li><font face="Arial" size="2">I have added method:<br>
+        &nbsp;&nbsp;&nbsp; public int testLiteralsTable(String text, int ttype) {}<br>
+        for use when you only want to test a portion of a token's text.</font></li>
+      <li><font face="Arial" size="2">A new method is available for reacting to the end of file
+        condition; e.g., you might want to pop the lexer state at the end of an include file.
+        &nbsp; This method, </font><font size="2" face="Courier New">CharScanner.uponEOF()</font><font
+        face="Arial" size="2">, is called from </font><font size="2" face="Courier New">nextToken()</font><font
+        face="Arial" size="2"> right before the scanner returns an </font><font size="2"
+        face="Courier New">EOF_TYPE</font><font face="Arial" size="2"> token object to parser.
+        &nbsp; See <a href="lexer.html#The End Of File Condition">The End Of File Condition</a>.</font></li>
+      <li><font face="Arial" size="2">Added method public int getColumn() to CharScanner. &nbsp;
+        Read Monty Zukowski's article on <a
+        href="http://www.antlr.org/fieldguide/columns/index.html">tracking column info</a>.</font></li>
+      <li><font face="Arial" size="2">Updated action translation to be less sensitive to spacing
+        and to have fewer warnings.&nbsp; The grammar file was physically moved from
+        antlr/actions/action.g to antlr/actions/java/action.g.</font></li>
+      <li><font face="Arial" size="2">The examples dir is now a generic examples dir and has java,
+        cpp, and sather subdirectories.&nbsp; Directory examples/* is now examples/java/*.</font></li>
+      </small>
+      <li><font face="Arial" size="2">Fixed preprocessor/preproc.g to use latest goodies to hush
+        warnings etc...</font></li>
+      <small>
+      <li><font face="Arial" size="2">Fixed bugs in java grammar; see java.g and bug list for
+        details.</font></li>
+      <li><font face="Arial" size="2">Enhanced TokenStreamSelector: added a retry mechanism.
+        &nbsp; Throw TokenStreamRetryException from any selector input stream and the nextToken()
+        method will try to reset and grab another token.&nbsp; This is great when switching input
+        streams because the selector will try to grab a token from a different stream.</font></li>
+      <li><font face="Arial" size="2">Added antlr.Tool.getGrammarReader() so you can override Tool
+        to specify where to get input (nice for using in IDEs).</font></li>
+      </small>
+      <li><font face="Arial" size="2">All parsers and tree parsers now import AST, ASTPair, and
+        ASTArray in case you use #(...) without buildAST on.</font></li>
+      <li><font face="Arial" size="2">Add setASTNodeClass to TreeParser to be consistent with
+        Parser.</font></li>
+      <small>
+      <li><font face="Arial" size="2">The file/line error message prefix is now emacs-friendly.
+        &nbsp; Since it wasn't friendly to any environment, I felt ok to change it arbitrarily.
+        &nbsp; I have set it up so you can modify ANTLR fairly easily to change prefix handling.
+        &nbsp; I have moved all the error handling into DefaultToolErrorHandler and defined a
+        file/line formatter interface so you can change how error messages are printed out in one
+        place.</small><br>
+        <br>
+        If you want to change the file/line error prefix, set Tool.fileLineFormatter to the object
+        of your choice.&nbsp; The default FileLineFormatter for emacs-style errors is defined as:</font><small></li>
+    </ul>
+    <blockquote>
+      <pre>public static
+FileLineFormatter fileLineFormatter =
+  new FileLineFormatter() {
+    public String getFormatString(</small>
+<small>        String fileName, int line)</small>
+<small>    {
+        if ( fileName != null ) {
+            return fileName+&quot;:&quot;+line+&quot;: &quot;;
+        }
+        else {
+            return &quot;line &quot;+line+&quot;: &quot;;
+        }
+    }
+  }
+};</pre>
+    </blockquote>
+    </small><h3><small><font face="Arial"><strong>ANTLR Installation</strong></font></small></h3>
+    <p><small><font face="Arial">ANTLR comes as a single zip or compressed tar file. Unzipping
+    the file you receive will produce a directory called <tt>antlr-2.7.0</tt> with
+    subdirectories <tt>antlr</tt>, <tt>doc</tt>, <tt>examples</tt>, cpp, and examples.cpp. You
+    need to place the <tt>antlr-2.7.0</tt> directory in your <tt>CLASSPATH</tt> environment
+    variable. For example, if you placed <tt>antlr-2.7.0</tt> in directory <tt>/tools</tt>,
+    you need to append </font></small></p>
+    <blockquote>
+      <p><small><font face="Arial"><tt>/tools/antlr-2.7.0</tt> </font></small></p>
+    </blockquote>
+    <p><small><font face="Arial">to your <tt>CLASSPATH</tt> or. </font></small></p>
+    <blockquote>
+      <p><small><font face="Arial"><tt>\tools\antlr-2.7.0</tt></font></small></p>
+    </blockquote>
+    <p><small><font face="Arial">if you work on an NT or Win95 box.</font></small></p>
+    <p><small><font face="Arial">References to <tt>antlr.*</tt> will map to <tt>/tools/antlr-2.7.0/antlr/*.class</tt>.</font></small></p>
+    <p><small><font face="Arial">You must have at least JDK 1.1 installed properly on your
+    machine.&nbsp; The ASTFrame AST viewer uses Swing 1.1.</font></small></p>
+    <h4><small><font face="Arial"><strong>JAR FILE</strong></font></small></h4>
+    <p><small><font face="Arial">Try using the <strong>runtime</strong> library </font><font
+    face="Courier New">antlr.jar</font><font face="Arial"> file. Place it in your CLASSPATH
+    instead of the antlr-2.7.0 directory. The jar includes all <strong>parse-time</strong>
+    files needed (if it is missing a file, email <a href="mailto:parrt@magelang.com">parrt@jguru.com</a>)
+    You cannot run the antlr tool itself with the jar, but your parsers should run with just
+    this jar file. &nbsp; It's pretty small, around 50k uncompressed.</font></small></p>
+    <h4><small><font face="Arial"><strong>RUNNING ANTLR</strong></font></small></h4>
+    <p><small><font face="Arial">ANTLR is a command line tool (although many development
+    environments let you run ANTLR on grammar files from within the environment). The main
+    method within antlr.Tool is the ANTLR entry point.</font></small></p>
+    <blockquote>
+      <p><small><font face="Arial"><tt>java antlr.Tool file.g</tt> </font></small></p>
+    </blockquote>
+    <p><small><font face="Arial">The command-line option is -diagnostic, which generates a
+    text file for each output parser class that describes the lookahead sets. Note that there
+    are number of options that you can specify at the grammar class and rule level.</font></small></p>
+    <p><small><font face="Arial">Options -trace, -traceParser, -traceTreeParser may be used to
+    track the lexer, parser, and tree parser invocations.</font></small></p>
+    <p><small><font face="Arial">Try the new -html option to generate HTML output of your
+    grammar(s); this is only partially done.</font></small></p>
+    <p><small><font face="Arial">If you have trouble running ANTLR, ensure that you have Java
+    installed correctly and then ensure that you have the appropriate <tt>CLASSPATH</tt> set.</font></small></p>
+    <small><pre><font face="Arial" size="1">Version: $Id: //depot/code/org.antlr/release/antlr-2.7.0/doc/antlr270release.html#3 $</font></pre>
+    </small></td>
+  </tr>
+</table>
+</body>
+</html>

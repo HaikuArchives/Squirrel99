@@ -1,0 +1,334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.43)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>skippy</TITLE>
+<META NAME="description" CONTENT="skippy">
+<META NAME="keywords" CONTENT="skippy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="skippy.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY  bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+<!--Navigation Panel-->
+<A NAME="tex2html20"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/boot/home/config/lib/latex2html/icons/next.gif"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/boot/home/config/lib/latex2html/icons/up_g.gif"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/boot/home/config/lib/latex2html/icons/prev_g.gif"> 
+<A NAME="tex2html16"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/boot/home/config/lib/latex2html/icons/contents.gif"></A> 
+<A NAME="tex2html18"
+  HREF="node47.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="file:/boot/home/config/lib/latex2html/icons/index.gif"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html21"
+  HREF="node1.html">Contents</A>
+ &nbsp <B>  <A NAME="tex2html17"
+  HREF="node1.html">Contents</A></B> 
+ &nbsp <B>  <A NAME="tex2html19"
+  HREF="node47.html">Index</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+<P>
+<BLOCKQUOTE>
+
+<DIV ALIGN="RIGHT">
+<BR>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=43><HR></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=43>&nbsp;</TD>
+<TD ALIGN="RIGHT"><FONT SIZE="+2"><B>S<SMALL>KIPPY</SMALL> Developer's Guide</B></FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=43>&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=43>&nbsp;</TD>
+<TD ALIGN="RIGHT"><FONT SIZE="+1">Programming Reference</FONT></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=43>&nbsp;</TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=43><HR></TD>
+<TD ALIGN="RIGHT">&nbsp;</TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+
+</DIV>
+
+<DIV ALIGN="RIGHT">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="RIGHT"><FONT SIZE="+1"><B>Version 0.9</B></FONT></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><FONT SIZE="+1">November 19, 2000</FONT></TD>
+</TR>
+</TABLE>
+</DIV>
+<BR>
+<BR>
+<BR>
+</BLOCKQUOTE>
+<P></P>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="412" HEIGHT="380" BORDER="0"
+ SRC="img1.gif"
+ ALT="\begin{figure}\centerline{
+\psfig{figure=images/eps/thtree.eps}
+}\end{figure}">
+</DIV>
+<P></P><BLOCKQUOTE>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=303>electron Technology</TD>
+<TD ALIGN="CENTER">http://www.electechno.com</TD>
+</TR>
+</TABLE>
+</DIV>
+</BLOCKQUOTE>
+<P>
+<P>
+<P><BLOCKQUOTE></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE></BLOCKQUOTE>
+<P></P>
+<DIV ALIGN="CENTER">
+<IMG
+ WIDTH="53" HEIGHT="53" BORDER="0"
+ SRC="img2.gif"
+ ALT="\begin{figure}\centerline{
+\psfig{figure=images/squirrel32x32.eps}
+}\end{figure}">
+</DIV>
+<P></P><BLOCKQUOTE></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><FONT SIZE="-1"><EM>S<SMALL>KIPPY</SMALL> Developer's Guide</EM>
+<BR>
+Copyright &#169;1999-2000 <EM>electron Technology</EM> . All Rights Reserved
+<BR></FONT></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><FONT SIZE="-1">No part of this manual may be reproduced or transmitted in any form, electronic or mechanical, for any purpose without the prior written agreement of <EM>electron Technology</EM> .
+<BR></FONT></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><FONT SIZE="-1">The contents of this document are furnished for informational use only; they are subject to change without notice and should not be understood as a commitment by <EM>electron Technology</EM> . <EM>electron Technology</EM> has tried to make the information in this document as accurate and reliable as possible, but assume no liability for errors or omissions.
+<BR></FONT></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><FONT SIZE="-1"><EM>electron Technology</EM> will revise often the software described in this document and reserves the right to make such changes without notification.
+<BR></FONT></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><FONT SIZE="-1">
+<BR>
+<BR>
+<BR>
+</FONT></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><FONT SIZE="-1">Author: Jean-Louis Villecroze
+<BR>
+Email: jlv@bemail.org
+<BR>
+Web site: http://www.electechno.com
+<BR>
+<BR>
+<BR>
+This document was prepared with L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X2<SUB>e</SUB>.
+<BR>
+T<SMALL>E</SMALL>Xis a trademark of the American Mathematical Society
+</FONT>
+</BLOCKQUOTE>
+
+<P>
+<P>
+<P>
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html22"
+  HREF="node1.html">Contents</A>
+<LI><A NAME="tex2html23"
+  HREF="node2.html">List of Figures</A>
+<LI><A NAME="tex2html24"
+  HREF="node3.html">About this Developer's Guide</A>
+<LI><A NAME="tex2html25"
+  HREF="node4.html">What is S<SMALL>KIPPY</SMALL> ?</A>
+<LI><A NAME="tex2html26"
+  HREF="node5.html">S<SMALL>KIPPY</SMALL> Basics</A>
+<LI><A NAME="tex2html27"
+  HREF="node6.html">The objects</A>
+<UL>
+<LI><A NAME="tex2html28"
+  HREF="node7.html">The Sheet widget</A>
+<UL>
+<LI><A NAME="tex2html29"
+  HREF="node8.html">clear</A>
+<LI><A NAME="tex2html30"
+  HREF="node9.html">export</A>
+<LI><A NAME="tex2html31"
+  HREF="node10.html">skippies</A>
+<LI><A NAME="tex2html32"
+  HREF="node11.html">trans</A>
+</UL>
+<LI><A NAME="tex2html33"
+  HREF="node12.html">The Skippy object</A>
+<UL>
+<LI><A NAME="tex2html34"
+  HREF="node13.html">arc</A>
+<LI><A NAME="tex2html35"
+  HREF="node14.html">config</A>
+<LI><A NAME="tex2html36"
+  HREF="node15.html">c.string</A>
+<LI><A NAME="tex2html37"
+  HREF="node16.html">ellipse</A>
+<LI><A NAME="tex2html38"
+  HREF="node17.html">gohome</A>
+<LI><A NAME="tex2html39"
+  HREF="node18.html">goto</A>
+<LI><A NAME="tex2html40"
+  HREF="node19.html">hback</A>
+<LI><A NAME="tex2html41"
+  HREF="node20.html">heading</A>
+<LI><A NAME="tex2html42"
+  HREF="node21.html">hop</A>
+<LI><A NAME="tex2html43"
+  HREF="node22.html">left</A>
+<LI><A NAME="tex2html44"
+  HREF="node23.html">pen</A>
+<LI><A NAME="tex2html45"
+  HREF="node24.html">rect</A>
+<LI><A NAME="tex2html46"
+  HREF="node25.html">right</A>
+<LI><A NAME="tex2html47"
+  HREF="node26.html">round.rect</A>
+<LI><A NAME="tex2html48"
+  HREF="node27.html">show</A>
+<LI><A NAME="tex2html49"
+  HREF="node28.html">string</A>
+<LI><A NAME="tex2html50"
+  HREF="node29.html">triangle</A>
+<LI><A NAME="tex2html51"
+  HREF="node30.html">w.string</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html52"
+  HREF="node31.html">Release notes</A>
+<UL>
+<LI><A NAME="tex2html53"
+  HREF="node32.html">Version 0.9</A>
+<UL>
+<LI><A NAME="tex2html54"
+  HREF="node33.html">Notes</A>
+<LI><A NAME="tex2html55"
+  HREF="node34.html">Changes</A>
+<LI><A NAME="tex2html56"
+  HREF="node35.html">Additions</A>
+<LI><A NAME="tex2html57"
+  HREF="node36.html">Bugs fixed</A>
+</UL>
+<LI><A NAME="tex2html58"
+  HREF="node37.html">Version 0.8</A>
+<UL>
+<LI><A NAME="tex2html59"
+  HREF="node38.html">Notes</A>
+<LI><A NAME="tex2html60"
+  HREF="node39.html">Changes</A>
+<LI><A NAME="tex2html61"
+  HREF="node40.html">Additions</A>
+<LI><A NAME="tex2html62"
+  HREF="node41.html">Bugs fixed</A>
+</UL>
+<LI><A NAME="tex2html63"
+  HREF="node42.html">Version 0.7</A>
+<UL>
+<LI><A NAME="tex2html64"
+  HREF="node43.html">Notes</A>
+<LI><A NAME="tex2html65"
+  HREF="node44.html">Changes</A>
+<LI><A NAME="tex2html66"
+  HREF="node45.html">Additions</A>
+<LI><A NAME="tex2html67"
+  HREF="node46.html">Bugs fixed</A>
+</UL>
+</UL>
+<LI><A NAME="tex2html68"
+  HREF="node47.html">Index</A>
+<LI><A NAME="tex2html69"
+  HREF="node48.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html20"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/boot/home/config/lib/latex2html/icons/next.gif"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/boot/home/config/lib/latex2html/icons/up_g.gif"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/boot/home/config/lib/latex2html/icons/prev_g.gif"> 
+<A NAME="tex2html16"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/boot/home/config/lib/latex2html/icons/contents.gif"></A> 
+<A NAME="tex2html18"
+  HREF="node47.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="file:/boot/home/config/lib/latex2html/icons/index.gif"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html21"
+  HREF="node1.html">Contents</A>
+ &nbsp <B>  <A NAME="tex2html17"
+  HREF="node1.html">Contents</A></B> 
+ &nbsp <B>  <A NAME="tex2html19"
+  HREF="node47.html">Index</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2000-11-19
+</ADDRESS>
+</BODY>
+</HTML>

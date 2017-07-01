@@ -1,0 +1,110 @@
+#!/boot/apps/Squirrel/Squirrel.5.3
+/*
+ * beMegaphone
+ *
+ * file 	?	beMegaphone.sqi
+ * what	?	beMegaphone Application (main file)
+ * who	?	jlv
+ * when	?	09/12/00
+ * last		?	02/19/01
+ *
+ *
+ * Kirilla 2000-2001
+ */
+
+/* The needed Add-On */
+
+use 'GUI' 'String Processing' 'List Processing' 'File IO' 'Mail' 'Storage' 'Data Structures' 'Threading' 'Exec' 'Mathematics'
+
+/* we load the scripts we need */
+
+load :_install + '/Libraries/Colors.sqi'
+
+/* we need to load the application files */
+
+make "to.load [
+	'Main GUI.sqi'
+	'Settings GUI.sqi'
+	'LogFile.sqi'
+	'Send.sqi' 
+	'Settings.sqi' 
+	'Currents.sqi'
+	'Domains.sqi'
+	'Valid.sqi'
+	'Banned.sqi'	
+]
+
+for.each "file :to.load {
+	load :_path + '/Sources/' +:file
+}
+
+/* some functions */
+
+/*
+ * function    : UpdateFamily
+ * purpose     : Update the family of the font
+ * input       :
+ *
+ * old, old value
+ * new, new value
+ *
+ * output      : none
+ * side effect : none
+ */
+to UpdateFamily :old :new
+	$the_font~family "set :new
+	$text~config "font "set :the_font			
+end
+
+/*
+ * function    : UpdateSize
+ * purpose     : Update the Size of the font
+ * input       :
+ *
+ * old, old value
+ * new, new value
+ *
+ * output      : none
+ * side effect : none
+ */
+to UpdateSize :old :new
+	$the_font~size "set :new
+	$text~config "font "set :the_font			
+end
+
+/* some globals variables */
+
+make "Version '0.8'
+
+/* we load the settings */
+
+Load_Settings
+
+/* we load the currents */
+
+Load_Currents
+
+/* we create the GUI */
+
+make "widgets Build_GUI 'beMegaphone' :set_position
+make "win lindex :widgets 1
+make "text lindex :widgets 2
+
+/* we set some bind on the font variable */
+
+bind "set_family "set "UpdateFamily
+bind "set_fsize "set "UpdateSize
+
+Busy true
+$win~enable false
+
+if not (LoadDom :_path + '/Datas/' + :fdomains) {
+	Question "stop ['Bummer!'] 'Sorry, an error occured whiles processing the domains file'	
+}
+
+if not (LoadBan :_path + '/Datas/' + :fbanned) {
+	Question "stop ['Bummer!'] 'Sorry, an error occured whiles processing the banned file'		
+}
+
+$win~enable true
+Busy false

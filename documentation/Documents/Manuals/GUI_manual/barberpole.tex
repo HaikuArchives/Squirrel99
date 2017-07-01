@@ -1,0 +1,64 @@
+
+\section{The widget BarberPole}
+
+A {\it BarberPole} is a widget that display a barberpole that can be started to stoped. Usually this widget is used to show activity without knowing how long it's gonna take.
+
+\subsection{Construction}
+
+The primitive {\tt BarberPole} is used to build a new widget. Its syntax is :\\
+
+{\tt BarberPole} {\it list (word)}\\
+
+The first input is a list of two number that indicate the size of the widget in pixel (with height). If a second input is given, it must be the word {\tt "left} or {\tt "right}. It indicate the direction the BarberPole must run. By default it is left to right.
+
+\subsection{Methods}
+
+A BarberPole widget has two methods :\\
+
+{\bf start\index{BarberPole@\textbf{BarberPole}!Methods!start}} 
+\begin{verbatimtab}
+$barber~start
+\end{verbatimtab}
+The method start the widget spinning.\\
+
+{\bf stop\index{BarberPole@\textbf{BarberPole}!Methods!stop}} 
+\begin{verbatimtab}
+$barber~stop
+\end{verbatimtab}
+The method stop the widget from spinning.\\
+
+\subsection{Configuration}
+
+This widget have nothing particular. To control the color of the barberpole, use {\tt high.color} and {\tt low.color}.
+
+\subsection{Hooks}
+
+This widget doesn't have any particular hook.
+
+\subsection{Example}
+
+\example{ex47}	
+\begin{listing}{1}
+make "MyWin Window "titled 'BarberPole' [100 100] "not.closable
+make "pole BarberPole [30 10]
+$pole~config "high.color "set :Blue
+Glue :MyWin "top [] :pole
+$MyWin~show
+
+$pole~start
+for ["i 1 2] {
+	wait 1	
+}
+$pole~stop
+
+$MyWin~quit
+\end{listing}
+
+In this example, we create a simple Window with only a BarberPole in it, then we set it spinning and we execute a loop that will take 2 seconds to complete, then we stop the the BarberPole and we ask the Window to quit. :
+
+\begin{figure}[ht!]
+\centering
+\psfig{figure=images/eps/ex3-49.eps,width=41pt,height=40pt}
+\label{s47}
+\caption{Spining BarberPole}
+\end{figure}

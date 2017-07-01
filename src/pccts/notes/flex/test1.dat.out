@@ -1,0 +1,21 @@
+
+Example of interfacing flex with antlr - 13-Nov-95
+
+Because of parser lookahead the current lexclass may be one
+  token ahead of the last token read by the parser
+
+LexClass INITIAL TokenType ID  Text (word)
+LexClass INITIAL TokenType NL  Text (<newline>)
+LexClass INITIAL TokenType Num  Text (123456)
+LexClass INITIAL TokenType NL  Text (<newline>)
+LexClass INITIAL TokenType Comment  Text (/* in line comment */)
+LexClass LC_COMMENT TokenType NL  Text (<newline>)
+LexClass LC_COMMENT TokenType Comment  Text (/* comment)
+LexClass LC_COMMENT TokenType Comment  Text (   spanning )
+LexClass INITIAL TokenType Comment  Text (   line)
+LexClass INITIAL TokenType Comment  Text (*/)
+LexClass INITIAL TokenType NL  Text (<newline>)
+LexClass INITIAL TokenType ID  Text (the)
+LexClass INITIAL TokenType ID  Text (last)
+LexClass INITIAL TokenType ID  Text (words)
+LexClass INITIAL TokenType NL  Text (<newline>)

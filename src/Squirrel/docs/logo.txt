@@ -1,0 +1,57 @@
+From - Fri Jun 18 08:38:38 1999
+X-UIDL: 11805149916300b7b0a15c2e2634fbd8
+Received: from anarres.CS.Berkeley.EDU (anarres.CS.Berkeley.EDU [128.32.35.57])
+	by uwila.cfht.hawaii.edu (8.8.8/8.8.8) with ESMTP id SAA00260
+	for <jlv@cfht.hawaii.edu>; Thu, 17 Jun 1999 18:06:24 -1000 (HST)
+Received: (from bh@localhost)
+	by anarres.CS.Berkeley.EDU (8.9.1/8.9.1) id VAA18053;
+	Thu, 17 Jun 1999 21:06:12 -0700 (PDT)
+Date: Thu, 17 Jun 1999 21:06:12 -0700 (PDT)
+From: Brian Harvey <bh@CS.Berkeley.EDU>
+Message-Id: <199906180406.VAA18053@anarres.CS.Berkeley.EDU>
+To: jlv@cfht.hawaii.edu
+Subject: Re: Logo Grammar
+Newsgroups: comp.lang.logo
+In-Reply-To: <376992BE.3C4869A9@cfht.hawaii.edu>
+Organization: University of California, Berkeley
+Status: U
+X-Mozilla-Status: 8013
+X-Mozilla-Status2: 00000000
+
+
+In Logo everything is a procedure call.  A procedure is either a
+command, which has an effect, or an operation, which returns a value.
+So basically the syntax is
+
+<instruction> ::= <command-name> <expression>* |
+		  ( <command-name> <expression>* )
+
+<expression>  ::= <operation-name> <expression>* |
+		  <list> | <quoted-word> | <number> |
+		  <variable-ref> | ( <expression> )
+
+<list>	      ::= [ <list-element>* ]
+
+<quoted-word> ::= " <word>
+
+<list-element>::= <list> | <word>
+
+<word>	      ::= <string of characters other than space or [ or ]>
+
+<variable-ref>::= : <word>
+
+except that there is also infix arithmetic with + - * / = < > in the
+usual way.  Wherever it says <expression>* the number of expressions
+must match what the called procedure expects.
+
+But different dialects differ about the precise rules for tokenization,
+so the description of <word> above is a lie.  I'm afraid I know of no
+published bnf, even for specific dialects.
+
+Logo does have one special form, TO, which is used to define
+procedures.
+
+You might want to look at
+	ftp://anarres.cs.berkeley.edu/pub/ucblogo/usermanual
+for the Berkeley Logo reference manual, which gives examples.
+

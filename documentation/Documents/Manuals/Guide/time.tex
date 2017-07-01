@@ -1,0 +1,55 @@
+\section{Time} 
+
+This Add-on contains primitives to access time.
+
+\subsection*{clock} \index{\verb+clock+} 
+ 
+{\tt clock} 
+\newline\newline
+Output an approximation for the current processor time used by the program.
+\begin{verbatimtab} 
+@> print clock
+1
+\end{verbatimtab}
+
+\subsection*{ctime} \index{\verb+ctime+} 
+ 
+{\tt ctime} {\it long}
+\newline\newline
+Output the time in a string format from a time value given as the second input.
+\begin{verbatimtab} 
+@> print ctime time
+Thu Aug 19 14:30:06 1999
+\end{verbatimtab}
+
+\subsection*{c2sec} \index{\verb+c2sec+} 
+ 
+{\tt c2sec} {\it long}
+\newline\newline
+Output the time in seconds from a clock value.
+\begin{verbatimtab} 
+@> make "t0 clock
+@> do_something_rather_long
+@> print 'Time elapsed: ' c2sec :t0-(clock)
+0.34
+\end{verbatimtab}
+
+\subsection*{time} \index{\verb+time+} 
+ 
+{\tt time} 
+\newline\newline
+Output the time elapsed in seconds since Epoch (00:00:00 UTC, January 1, 1970).
+\begin{verbatimtab} 
+@> print time
+935108764
+\end{verbatimtab}
+
+\subsection*{timing} \index{\verb+timing+} 
+ 
+{\tt timing block | (word things ...)} 
+\newline\newline
+Output the elapsed time in microseconds of the execution of the block or function.
+\begin{verbatimtab} 
+@> print timing "foo 45 "hello
+4234
+\end{verbatimtab}

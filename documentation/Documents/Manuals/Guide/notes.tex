@@ -1,0 +1,432 @@
+\chapter{Release notes}
+
+\section{Release 5.3}
+
+\subsection{Changes}
+
+\begin{itemize}
+\item Primitives {\tt Question} and {\tt Info} can accept an {\it Image} as first input. Both primitives request now an extra input which is the title of the message box.
+\item Strings can be spread over several line. Tabulation within a string is no longer taken into account.
+\item Use \verb+\\+ followed by a {\tt carriage return} to spread an instruction
+over two lines.
+\item Renamed primitives {\tt mime.exist dir.exist attr.exist} in {\tt mime.exists dir.exists attr.exists}.
+\item Renamed method {\tt exist} of the {\it Dictionary} object in {\tt exists}. 
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item Added {\it Image} object.
+\item New Add-On {\em Image Processing} with two primitives : {\tt img.crop} and {\tt img.scale}.
+\item Added primitive {\tt mime.icon}, {\tt entry.icon} and {\tt entry.exists} in the {\em Storage} Add-On.
+\item Added primitive {\tt lremove} in the {\em List Processing} Add-On.
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item Severals issues in the way \squirrel was terminating have been solved.
+\item Fixed a bug in the {\tt FilePanel} primitive (file selected but see as panel canceled).
+\item Fixed possible crash of \squirrel (in SQILib.a).
+\end{itemize}
+
+\section{Release 5.2b}
+
+\subsection{Changes}
+
+\begin{itemize}
+\item Speed improvement of function's execution time. Up to 3 times faster than for the previous release.
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item Added gobal variable {\tt \_error} that contains the error message when
+an error is throw.
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+None.
+
+\section{Release 5.2}
+
+\subsection{Changes}
+
+\begin{itemize}
+\item Primitive {\tt difference} return always a positive number.
+\item Using {\tt output} outside in function return the value as the error code
+of the script.
+\item Removed \squirrel banners displayed when running \squirrel from a Terminal.
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item Global variable {\tt \verb+_from+} that indicates from where a script has been run (terminal, tracker or \squirrel console).
+\item Primitives {\tt Info} and {\tt Question} that display a messagebox. Moved
+from the {\em GUI Add-On} in the {\tt Communication Add-On}.
+\item Primitives {\tt env.exists env.list env.get env.set} to access Environment
+variables.
+\item Primitive {\tt entry.stats} to the {\em Storage Add-On} that give access to the {\em Statistical} informations on an entry.
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+None.
+
+\section{Release 5.1b and 5.1c}
+
+\subsection{Notes}
+
+Those two upgrades has been applied to \squirrel 5.1 to mostly fix problems.
+
+\subsection{Changes}
+
+None.
+
+\subsection{Additions}
+
+\begin{itemize}
+\item Added primitive {\tt lfind} that output the position of something within
+a list.
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item Crash caused by {\tt FilePanel} when using a filter ({\em Storage Add-On})
+\item Crash when killing a non existent thread ({\em Thread Add-On})
+\item Impossibility to use list in expression such like {\tt :a <> [3 4 5]}
+\end{itemize}
+
+\section{Release 5.1}
+
+\subsection{Notes}
+
+Starting from this release, \squirrel come in two release package, on for the developers and one for the user.\\
+
+This version had quiet some additions, thanks to all that gave me feedback at BeGeistert 5 in D\"usseldorf (7-8 October 2000).
+
+\subsection{Changes}
+
+\begin{itemize}
+\item Name of the executables have change, loosing it {\tt .dr.}
+\item The primitive {\tt with} have been renamed {\tt use} to be more clear.
+\item Lists can contains variable, function/primitive calls and block.
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item Added primitives {\tt mime.desc}, {\tt mime.install}, {\tt mime.delete} and {\tt mime.exist} to the {\it Storage} Add-On to give access to the \beos Mime-database.
+\item Added {\tt cc} and {\tt bcc} methods to the {\it Mail} object to set/get the {\it carbon copy} and {\it blind carbon copy} fields.
+\item Added primitives {\tt strim}, {\tt strim.r}, {\tt strim.l} and {\tt smatch} to the {\it String Processing} Add-On.
+\item Added method {\tt exist} to the {\tt Dictionary} object of the {\it Data Structures} Add-On.
+\item Added global system variables : {\tt \_path} , {\tt \_install} and {\tt \_version}.
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item Crash when storing the output of a function in a list.
+\item Crash when not using the output of the last function/primitive called in a block
+\item Fixed some memory problems 
+\end{itemize}
+
+\section{Developer Release 5.0}
+
+\subsection{Notes}
+
+Althougt this release is numbered {\tt 5.0} it's mostly a maintenance release.
+
+\subsection{Changes}
+
+\begin{itemize}
+\item Add-Ons are no longer all loaded when \squirrel start (except for the console version). 
+\item {\tt true} and {\tt false} are no longer primitives but literal value.
+\item Definition of a list can be spraid over severals line
+\begin{verbatimtab}
+make "lst [
+	34.78
+	23.67
+	12.90
+]
+\end{verbatimtab}
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item {\tt with} primitive that allow to load one or more Add-On(s).
+\item {\tt timing} primitive to the {\it Time} Add-On that output the elapsed time in {\it microseconds}.
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item {\tt substr} was crashing.
+\end{itemize}
+
+\section{Developer Release 4.9}
+
+\subsection{Notes}
+
+This release is the first version to be compiled for \beos 5.0. Use with older version of \beos is not supported.\\
+
+Check the {\it GUI} Add-On documentation for more details about this release.
+
+\subsection{Changes} 
+
+none
+
+\subsection{Additions}
+
+\begin{itemize}
+\item {\it Mail} Add-On, that give the ability to send email from \squirrel
+\item Primitive {\tt FilePanel} in the {\it Storage} Add-On, that allow the user to select one or more files from the disk(s).
+\item Global variable {\tt \verb+_+file} that give the fill path of the current running script file.
+\item Primitive {\tt lsub} in the {\it List Processing} Add-On, that return a part of a list.
+\item Methods {\tt empty} to the Dictionary object ({\it Data Structure} Add-On), that empty the dictionary.
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item Use of a string/word in a boolean expression
+\item {\it Segmentation Fault} when setting a file's attribute using the primitive {\tt attr.set}, with a word value.
+\item \squirrel quitting before executing anything
+\end{itemize}
+
+\section{Developer Release 4.8}
+
+\subsection{Notes}
+
+This release enable the ability to send or receive message from another application. Sending a message to a \squirrel script could be a problem when several script are running as the signature of the scripts is always the signature of \squirrel. This problem will be fixed in the coming releases.
+
+\subsection{Changes}
+
+\begin{itemize}
+\item The {\tt catch} structure support now a second block to execute when an error is catched.
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item Control Structure {\tt switch}
+\item Hexadecimal number like {\tt 0x34} now supported
+\item Message object and Application messanging
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item A little bug in thedisplay of float number fixed (another :)
+\end{itemize}
+
+\section{Developer Release 4.7}
+
+\subsection{Notes}
+
+This release introduce {\it Skippy} which replace the old {\em 2D Drawing Board} Add-on. This new add-on had it own documentation file. 
+
+\subsection{Changes}
+
+\begin{itemize}
+\item More informations are provided when a parsing error occurs
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item The directive {\tt \verb+#+include} allow to include a script file during the parsing.
+\item Severals new primitives to the Add-on {\em String Processing} have been added: {\tt substr, sinsert, sreplace, serase, sleft, sright, sfind, sfind.all,\\ sfind.last, sfirst.of, slast.of, sfirst.not.of, slast.not.of}.
+\item Three new primitives have been added to the add-on {\em Storage}: {\tt entry.delete, entry.rename, entry.move}.
+\item New primitive {\tt Wait} to the {\it Threading} Add-on that wait for a variable to be updated by another thread.
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item Output of temporary object as input of a primitive/method/function was crashing in certain configuration.
+\end{itemize}
+
+\section{Developer Release 4.5}
+
+\subsection{Notes}
+
+One of the main objectives of this release was to introduce the new {\em Threading Add-on}.  The {\em Threading Add-on} offers the possibility of performing multi-threading in \squirrel.
+
+\subsection{Changes}
+
+\begin{itemize}
+\item There are now two executables in a \squirrel distribution
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item New Add-on {\em Exec} allows one to execute external programs and to collect the output
+\item Several primitives have been added to the add-on for browsing directories e.g. {\em Storage}.
+\item {\em Threading} Add-on for multi-threading
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item {\tt output} in a loop within a function doesn't stop the function.
+\end{itemize}
+
+\section{Developer Release 4}
+
+\subsection{Notes}
+
+The GUI Add-On on the previous versions has been replaced by a newer version. This Add-On is no longer described in this manual but is described in a another manual.
+
+\subsection{Changes}
+
+\begin{itemize}
+\item New version of the GUI Add-On has been totally recoded. This version makes obsolete all the old GUI commands and features. Check the GUI Add-On manual for more details.
+\item The command {\tt gseq} has been changed to create a list in reverse order when the first input is greater than the second. 
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item New {\em Variable Binding} commands : {\tt bind} and {\tt unbind}
+\item New command {\tt Precision} which changes the number of digits shown after the decimal point of a float number.
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item A bug in {\tt for.each} has been fixed
+\item One flaw in the "garbage collection" has been corrected
+\item Using a member call in a boolean expression
+\item Float display problems fixed
+\item Commands : {\tt is.float is.object} and {\tt is.number} weren't correct.
+\end{itemize}
+
+\section{Developer Release 3}
+
+\subsection{Notes}
+
+\subsubsection{About this release}
+
+This release introduces the way \squirrel handles and uses objects.  Three new Add-ons are also added, two of which directly exploits the new object ability.
+
+\subsubsection{Data Structure Add-on}
+
+This Add-on offers two new data structures to be used in addition to the usual {\tt list}: {\tt Vector} and {\tt Dictionary}. 
+
+A {\tt Vector} is a dynamic array which offers better performance and more capabilities than a list.  On the other hand, a {\tt Dictionary} should be seen as a useful way to store information like in a C structure.  However, it offers good performance, though not as good as a {\tt Vector}.
+
+\subsubsection{File Input/Ouput Add-on}
+
+Reading and writing from and to a text file is possible using the primitive defined in this Add-on.
+
+\subsubsection{Storage Add-on}
+
+This new Add-on contains a first set of {\em File System} related primitives. For this release
+only the {\em file attributes} handling primitives are working. By using them, one is able to save numbers, strings, words, lists, Vectors and Dictionaries in the attributes of the file. There are also two primitives of this Add-on which manipulate MIME type.
+
+\subsection{Changes}
+
+\begin{itemize}
+\item An error in the user manual has been fixed for the {\tt foreach} loop which is {\tt for.each}
+\item Some optimizations of the interpreter has been performed. 
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item New Object handling ability
+\item New "File I/O" Add-on
+\item New primitives {\tt split} and {\tt split.as.string} which splits a string in list elements added to the "String processing" Add-on
+\item New primitive {\tt ljoin} added to "List processing". This primitive creates a string from the concatenation of all the elements of a list
+\item New "Data Structures" Add-on with the object :{\tt Dictionary} and {\tt Vector} 
+\item New primitive {\tt make.local} added to "Workspace" which simplifies the creation and initialization of a local variable
+\item New primitive {\tt is.object} added to "Data processing". This primitive returns {\tt true} if the input is an object (not a number, string, word or list)
+\item New "Storage" Add-on which offers file attributes and mime type manipulations
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item Using {\tt make} within a function when creating a variable (first use)
+\item Segmentation Fault when using the operator + - ... with a list
+\item Problem with the use of an object within a function
+\end{itemize}
+
+\section{Developer Release 2}
+
+\subsection{Notes}
+
+\subsubsection{About this release}
+
+Except for the {\em GUI Add-on} which is introduced in this release, there is no particular evolution of \squirrel between DR2 and DR1. A few bugs have been fixed and some minor changes have been applied. You may find more detail in this chapter about all that.
+
+\subsubsection{The GUI Add-on}
+
+The GUI Add-on shipped with this release is not yet complete. It's a first version, almost an {\em Alpha} version, which is subject to a lot of additions and changes in the coming releases.
+
+Several features are missing in this release:
+
+\begin{itemize}
+\item No font handling
+\item No automatic placement tool (like the {\em packer} of Tcl/Tk)
+\item Lots Views objects are missing
+\item Drawing in a view is not implemented
+\item Lack of a good Tutorial
+\end{itemize}
+
+But this version works well with the GUI objects already implemented.
+
+\subsection{Changes}
+\begin{itemize}
+\item The operator power \verb+^+ has been changed to \verb+**+, so for example:
+\begin{verbatimtab}
+@> print 5\^2
+25
+\end{verbatimtab}
+is now:
+\begin{verbatimtab}
+@> print 5**2
+25
+\end{verbatimtab}
+\item The {\em Arithmetic} Add-on has been renamed {\em Mathematics}.
+\item The primitive {\tt avg} which computes the average value of the input has been renamed {\tt av}
+\end{itemize}
+
+\subsection{Additions}
+
+\begin{itemize}
+\item \squirrel could be set to be the {\em preferred application} of a \squirrel script file, and the file will be loaded and executed. 
+\item New Add-on {\em GUI}
+\item The mathematical expression operators has been completed with \verb+&+ and \verb+|+, which performs bit wise operations.
+\item New primitive {\tt call} which calls a command specified by a word, in the {\em Control} Add-on
+\item New primitives in the {\em Mathematics} Add-on supporting angles in degree: {\tt deg2rad rad2deg dsin dcos dtan dasin dacos datan dsinh dcosh dtanh}
+\item New primitive {\tt string} which creates a string from the concatenation of the inputs, to the {\em String Processing} Add-on
+\end{itemize}
+
+\subsection{Bugs fixed}
+
+\begin{itemize}
+\item Non quitting \squirrel when in {\tt noconsole} mode
+\item Exception handling of unknown variables
+\item Wrong Precedence's of the math operators
+\item {\tt Segmentation fault} when quitting \squirrel (both {\tt noconsole} and {\tt console} mode
+\item Function calling
+\end{itemize}
+
+\section{Developer Release 1}
+
+Please consider this release as a first iteration of \squirrel and will therefore, be far from being perfect. Although the interpreter is working well, several things are missing and will be added in the coming releases. In addition, the various Add-ons will be completed and some new ones will be added.\\
+
+The availability of the \squirrel Add-ons API in the near future will allow third parties to write Add-ons, and will therefore, increase the versatility of \squirrel.
+
+\begin{itemize}
+\item Although recursive algorithms are working fine, a non-recursive approach is somewhat better when performance is an issue
+\item The {\em Automatic Garbage collection} is a prototype. The performance optimization is not yet perfect but is fully working.
+\item If you don't wish to use the {\em Automatic Garbage collection}, we recommend that you use the {\tt gc} order to perform {\em Garbage collection} when performing heavy tasks. As well, using the {\tt erase} order to destroy unused variables is recommended. But you're encouraged to use the {\em Automatic Garbage collection}.
+\end{itemize} 

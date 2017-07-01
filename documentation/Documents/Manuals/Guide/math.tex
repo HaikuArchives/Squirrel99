@@ -1,0 +1,454 @@
+\section{Mathematics} 
+ 
+To perform mathematical operations such as {\tt max}, and {\tt rsin}, you may use this Add-on. It provides random number generations and contains a large amount of Mathematical primitives. 
+ 
+ 
+\subsection*{abs} \index{\verb+abs+} 
+ 
+{\tt abs} {\it number} 
+\newline\newline 
+Output the absolute value of the input 
+\begin{verbatimtab} 
+@> print abs -4.78 
+4.78 
+\end{verbatimtab} 
+ 
+ 
+\subsection*{av} \index{\verb+av+} 
+ 
+{\tt av} {\it thing1 thing2 thing3 thing4 ...} 
+\newline\newline 
+Output the average value of the input. The input may be a {\it number} or a {\it list}. Any input of other types will be ignored. 
+\begin{verbatimtab} 
+@> print av 3 6 2 9.6 [3 2 4 0.5] 
+3.762 
+\end{verbatimtab} 
+ 
+\subsection*{ceil} \index{\verb+ceil+} 
+ 
+{\tt ceil} {\it number} 
+\newline\newline 
+Output the smallest integer that is not less than the input. 
+\begin{verbatimtab} 
+@> print ceil 4.576
+5 
+\end{verbatimtab} 
+
+\subsection*{deg2rad} \index{\verb+deg2rad+} 
+ 
+{\tt deg2rad} {\it number} 
+\newline\newline 
+Output the equivalent angle in radians for the degree given (converting degrees to radians)
+\begin{verbatimtab} 
+@> print deg2rad 120 
+2.094
+\end{verbatimtab}
+ 
+\subsection*{difference} \index{\verb+difference+} 
+ 
+{\tt difference} {\it number1 number2} 
+\newline\newline 
+Output the difference between {\it number1} and {\it number2}.
+\begin{verbatimtab} 
+@> print difference 4 5 
+1 
+\end{verbatimtab}
+
+\subsection*{dacos} \index{\verb+dacos+} 
+ 
+{\tt dacos} {\it number} 
+\newline\newline 
+Output the arccosine of the input given in degrees 
+\begin{verbatimtab} 
+@> print dacos 45 
+0.9033
+\end{verbatimtab}
+
+\subsection*{dasin} \index{\verb+dasin+} 
+ 
+{\tt dasin} {\it number} 
+\newline\newline 
+Output the arcsine of the input given in degrees 
+\begin{verbatimtab} 
+@> print dasin 180
+nan
+\end{verbatimtab}
+
+\subsection*{datan} \index{\verb+datan+} 
+ 
+{\tt datan} {\it number} 
+\newline\newline 
+Output the arctangent of the input given in degrees
+\begin{verbatimtab} 
+@> print datan 45
+0.6658
+\end{verbatimtab}
+
+\subsection*{dcos} \index{\verb+dcos+} 
+ 
+{\tt dcos} {\it number} 
+\newline\newline 
+Output the cosine of the input given in degrees 
+\begin{verbatimtab} 
+@> print dcos 180 
+-1
+\end{verbatimtab} 
+
+\subsection*{dcosh} \index{\verb+dcosh+} 
+ 
+{\tt rcosh} {\it number} 
+\newline\newline 
+Output the hyperbolic cosine of the input given in degrees 
+\begin{verbatimtab} 
+@> print dcosh 180
+11.59
+\end{verbatimtab}
+
+\subsection*{dsin} \index{\verb+dsin+} 
+ 
+{\tt dsin} {\it number} 
+\newline\newline 
+Output the sine of the input given in degrees 
+\begin{verbatimtab} 
+@> print dsin 60 
+0.866
+\end{verbatimtab}
+
+\subsection*{dsinh} \index{\verb+dsinh+} 
+ 
+{\tt dsinh} {\it number} 
+\newline\newline 
+Output the hyperbolic sine of the input given in degrees 
+\begin{verbatimtab} 
+@> print dsinh 180
+11.55
+\end{verbatimtab}
+
+\subsection*{dtan} \index{\verb+dtan+} 
+ 
+{\tt dtan} {\it number} 
+\newline\newline 
+Output the tangent of the input given in degrees 
+\begin{verbatimtab} 
+@> print dtan 140 
+-0.8391
+\end{verbatimtab}
+
+\subsection*{dtanh} \index{\verb+dtanh+} 
+ 
+{\tt dtanh} {\it number} 
+\newline\newline 
+Output the hyperbolic-tangent of the input given in degrees 
+\begin{verbatimtab} 
+@> print dtanh 78 
+0.8767
+\end{verbatimtab}
+
+\subsection*{erf} \index{\verb+erf+} 
+ 
+{\tt erf} {\it number} 
+\newline\newline 
+Output the error function of the input. 
+\begin{verbatimtab} 
+@> print erf 4.5 
+1 
+\end{verbatimtab}
+ 
+\subsection*{erfc} \index{\verb+erfc+} 
+ 
+{\tt erfc} {\it number} 
+\newline\newline 
+Output the complementary error function of the input. 
+\begin{verbatimtab} 
+@> print erfc 4.5 
+1.96616e-10 
+\end{verbatimtab}
+ 
+\subsection*{exp} \index{\verb+exp+} 
+ 
+{\tt exp} {\it number} 
+\newline\newline 
+Output the exponential value of the input. 
+\begin{verbatimtab} 
+@> print exp 4.7 
+109.95 
+\end{verbatimtab} 
+ 
+\subsection*{floor} \index{\verb+floor+} 
+ 
+{\tt floor} {\it number} 
+\newline\newline 
+Output the largest integer that is not greater than the input. 
+\begin{verbatimtab} 
+@> print floor 4.576 
+4 
+\end{verbatimtab} 
+ 
+\subsection*{gamma} \index{\verb+gamma+} 
+ 
+{\tt gamma} {\it number} 
+\newline\newline 
+Output the log gamma function of the input. 
+\begin{verbatimtab} 
+@> print gamma 4.5 
+2.45374 
+\end{verbatimtab} 
+ 
+\subsection*{hypot} \index{\verb+hypot+} 
+ 
+{\tt hypot} {\it number1 number2} 
+\newline\newline 
+Output the Euclidean distance function of the input 
+\begin{verbatimtab} 
+@> print hypot 2.5 6.8 
+7.245 
+\end{verbatimtab} 
+ 
+\subsection*{incr} \index{\verb+incr+} 
+ 
+{\tt incr} {\it word (number)} 
+\newline\newline 
+Increment the value stored in a variable by 1 or by the number specified as the second input. The first input must be a known variable name. 
+\begin{verbatimtab} 
+@> make "a 1 
+@> incr "a -1 
+@> print :a 
+0 
+\end{verbatimtab}
+ 
+\subsection*{int} \index{\verb+int+} 
+ 
+{\tt int} {\it number} 
+\newline\newline 
+Output a cast of the input into an integer. 
+\begin{verbatimtab} 
+@> print int 4.576 
+4 
+\end{verbatimtab}
+ 
+\subsection*{log10} \index{\verb+log10+} 
+ 
+{\tt log10} {\it number} 
+\newline\newline 
+Output the logarithm (base 10) of the input. 
+\begin{verbatimtab} 
+@> print log10 5000 
+3.699 
+\end{verbatimtab}
+ 
+\subsection*{ln} \index{\verb+ln+} 
+ 
+{\tt ln} {\it number} 
+\newline\newline 
+Output the natural logarithm of the input. 
+\begin{verbatimtab} 
+@> print ln 5000 
+8.517 
+\end{verbatimtab}
+ 
+ 
+\subsection*{max} \index{\verb+max+} 
+ 
+{\tt max} {\it thing1 thing2 thing3 thing4 ...} 
+\newline\newline 
+Output the maximum value of the inputs.  The inputs may be {\it numbers} or {\it lists}. Any input of other types 
+will be ignored. 
+\begin{verbatimtab} 
+@> print max 3 6 2 9.6 [3 2 4 0.5] 
+9.6 
+\end{verbatimtab} 
+ 
+\subsection*{min} \index{\verb+min+} 
+ 
+{\tt min} {\it thing1 thing2 thing3 thing4 ...} 
+\newline\newline 
+Output the minimum value of the inputs.  The inputs may be {\it numbers} or {\it lists}. Any input of other types 
+will be ignored. 
+\begin{verbatimtab} 
+@> print min 3 6 2 9.6 [3 2 4 0.5] 
+0.5 
+\end{verbatimtab}
+ 
+\subsection*{minus} \index{\verb+minus+} 
+ 
+{\tt minus} {\it number} 
+\newline\newline 
+Output the negative value of the input.  
+\begin{verbatimtab} 
+@> print minus -5 
+5 
+@> print minus 45.78 
+-45.78 
+\end{verbatimtab}
+ 
+\subsection*{product} \index{\verb+product+} 
+ 
+{\tt product} {\it thing1 thing2 thing3 thing4 ...} 
+\newline\newline 
+Output the product of all the inputs.  The inputs may be {\it numbers} or {\it lists}. Any input of other types 
+will be ignored. 
+\begin{verbatimtab} 
+@> print product 3 6 2 9.6 [3 2 4 0.5] 
+4147.2 
+\end{verbatimtab}
+ 
+\subsection*{quotient} \index{\verb+quotient+} 
+ 
+{\tt quotient} {\it number1 number2 } 
+\newline\newline 
+Output the quotient of {\it number1} over {\it number2.} 
+\begin{verbatimtab} 
+@> print quotient 5 7 
+0.714 
+\end{verbatimtab}
+ 
+\subsection*{modulo} \index{\verb+modulo+} 
+ 
+{\tt modulo} {\it number1 number2 } 
+\newline\newline 
+Output the remainder from performing the integer quotient of {\it number1} over {\it number2}. Both numbers must be integers. 
+\begin{verbatimtab} 
+@> print modulo 10 2 
+0 
+\end{verbatimtab}
+ 
+\subsection*{power} \index{\verb+power+} 
+ 
+{\tt power} {\it number1 number2} 
+\newline\newline 
+Output the power of {\it number1} by {\it number2}
+\begin{verbatimtab} 
+@> print power 3.4 5 
+454.354
+\end{verbatimtab} 
+ 
+\subsection*{racos} \index{\verb+racos+} 
+ 
+{\tt racos} {\it number} 
+\newline\newline 
+Output the arccosine of the input given in radians 
+\begin{verbatimtab} 
+@> print racos 0.4 
+1.159 
+\end{verbatimtab}
+
+\subsection*{rad2deg} \index{\verb+rad2deg+} 
+ 
+{\tt rad2deg} {\it number} 
+\newline\newline 
+Output the corresponding angle in degrees, given the angle in radians  (converting from radians into degrees)
+\begin{verbatimtab} 
+@> print rad2deg 2.094
+120
+\end{verbatimtab}
+ 
+\subsection*{random} \index{\verb+random+} 
+ 
+{\tt random} {\it (min) max} 
+\newline\newline 
+Output a random number between the given min and max.  If only one input is given, it will be interpreted as the max and the output will be a number between 0 and max. 
+\begin{verbatimtab} 
+@> print random 40 
+15 
+\end{verbatimtab}
+ 
+\subsection*{rcos} \index{\verb+rcos+} 
+ 
+{\tt rcos} {\it number} 
+\newline\newline 
+Output the cosine of the input given in radians 
+\begin{verbatimtab} 
+@> print rcos 60 
+-0.952 
+\end{verbatimtab}
+ 
+\subsection*{rcosh} \index{\verb+rcosh+} 
+ 
+{\tt rcosh} {\it number} 
+\newline\newline 
+Output the hyperbolic cosine of the input given in radians 
+\begin{verbatimtab} 
+@> print rcosh 0.56 
+1.160 
+\end{verbatimtab}
+ 
+\subsection*{rasin} \index{\verb+rasin+} 
+ 
+{\tt rasin} {\it number} 
+\newline\newline
+Output the arcsine of the input given in radians 
+\begin{verbatimtab} 
+@> print rasin 0.4 
+0.411 
+\end{verbatimtab}
+ 
+\subsection*{rsin} \index{\verb+rsin+} 
+ 
+{\tt rsin} {\it number} 
+\newline\newline 
+Output the sine of the input given in radians 
+\begin{verbatimtab} 
+@> print rsin 60 
+-0.304 
+\end{verbatimtab}
+ 
+\subsection*{rsinh} \index{\verb+rsinh+} 
+ 
+{\tt rsinh} {\it number} 
+\newline\newline 
+Output the hyperbolic sine of the input given in radians 
+\begin{verbatimtab} 
+@> print rsinh 0.56 
+0.589 
+\end{verbatimtab}
+ 
+\subsection*{ratan} \index{\verb+ratan+} 
+ 
+{\tt ratan} {\it number} 
+\newline\newline 
+Output the arctangent of the input given in radians 
+\begin{verbatimtab} 
+@> print ratan 0.6 
+0.540 
+\end{verbatimtab}
+ 
+\subsection*{rtan} \index{\verb+rtan+} 
+ 
+{\tt rtan} {\it number} 
+\newline\newline 
+Output the tangent of the input given in radians 
+\begin{verbatimtab} 
+@> print rtan 60 
+0.32 
+\end{verbatimtab}
+ 
+\subsection*{rtanh} \index{\verb+rtanh+} 
+ 
+{\tt rtanh} {\it number} 
+\newline\newline 
+Output the hyperbolic tangent of the input given in radians 
+\begin{verbatimtab} 
+@> print rtanh 0.7 
+0.604 
+\end{verbatimtab}
+ 
+\subsection*{sqrt} \index{\verb+sqrt+} 
+ 
+{\tt sqrt} {\it number} 
+\newline\newline 
+Output the square root of the input. 
+\begin{verbatimtab} 
+@> print sqrt 25 
+5 
+\end{verbatimtab} 
+ 
+\subsection*{sum} \index{\verb+sum+} 
+ 
+{\tt sum} {\it thing1 thing2 thing3 thing4 ...} 
+\newline\newline 
+Output the sum of the all the inputs.  The inputs may be {\it numbers} or {\it lists}. Any input of other types 
+will be ignored. 
+\begin{verbatimtab} 
+@> print sum 3 6 2 9.6 [3 2 4 0.5] 
+30.01 
+\end{verbatimtab}

@@ -1,0 +1,23 @@
+to Load :f
+	Busy true
+	make "Status 'Loading ...'
+	catch "error {	
+		make.local "i Image :f
+		if (is.image :i) {
+			$win~config "title "set ('EzViewer' + ' : ' + :f)
+			$view~display :i
+			$m3~enable true
+			$m4~enable true
+			make "img :i
+			make "Status 'Loading ... done'
+			make "thefile :f
+		} {
+			throw "error	
+		}
+	} {
+		make "Status 'Loading ... failed!'
+		$m3~enable false
+		$m4~enable false		
+	}
+	Busy false
+end

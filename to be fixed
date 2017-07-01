@@ -1,0 +1,16 @@
+
+List of things that need a change or a fix
+
+9/22/99
+
+* add the possibility to "catch" to execute something when an error occurs. Example:
+
+catch "error {
+	blah blah blah
+} {
+	print 'an error just occurs'
+}
+
+10/01/99
+
+* Clone and DeepClone don't work on other things than list [FIXED]

@@ -1,0 +1,161 @@
+\section{Threading}
+
+\squirrel supports {\em multi-threading} with this Add-on. A thread could be either a function or a block and will run concurrently and asynchronously to any other \squirrel thread. A thread has an ID which is unique. Using this ID as its reference, it's possible to kill, suspend, or wait for the end of thread. Each thread has a priority. Higher priority threads will run more often and will terminate faster than a lower priority thread. The following table contains all the priorities supported by \squirrel:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|}
+\hline
+\bf Name \\
+\hline
+\tt "low \\
+\hline
+\tt "normal \\
+\hline
+\tt "display \\
+\hline
+\tt "urgent\_display \\
+\hline
+\tt "realtime\_display \\
+\hline
+\tt "urgent \\
+\hline
+\tt "realtime \\
+\hline
+\end{tabular}
+\caption{Thread priority (from low to high)}
+\end{table}
+
+When the thread is a function, the function can output a value. In case another thread is waiting, the output of the function will be returned to the {\tt Thread.waitfor} primitive.
+
+It may be necessary in a threading script to use a locker (or several lockers) to insure that a critical section of the script will be protected from concurrent threads. For example, the modification of the value of a global variable shared between several threads.
+
+\subsection*{Locker} \index{\verb+Locker+}
+
+{\tt Locker}
+\newline\newline
+Output a new locker object. This object has a two member functions that locks it  {\tt \verb+~+lock} or unlocks it  {\tt \verb+~+unlock}.
+\begin{verbatimtab}
+make "mylock Locker
+make "sum 0
+
+to thread_1
+	mylock~lock
+	incr "sum 10
+	mylock~unlock
+end
+
+make "th1 Thread "normal "thread_1
+make "th2 Thread "normal "thread_1
+Thread.hop :th1 :th2
+\end{verbatimtab}
+
+\subsection*{Priority} \index{\verb+Priority+}
+
+{\tt Priority} {\it (word)}
+\newline\newline
+Output or set the priority of the calling thread. If an input is given, it should be a valid word.
+\begin{verbatimtab}
+@> Priority "low
+\end{verbatimtab}
+
+\subsection*{snooze} \index{\verb+snooze+}
+
+{\tt snooze} {\it integer}
+\newline\newline
+Pause the calling thread for a given number of microseconds.
+\begin{verbatimtab}
+@> snooze 10000
+\end{verbatimtab}
+
+\subsection*{Thread} \index{\verb+Thread+}
+
+{\tt Thread} {\it word block \verb+|+ (word (thing)*)}
+\newline\newline
+Create a new thread. The first input is the priority of the thread. The second input could either be a block or a word. When the name of a function is given, the restart inputs of the primitives will be fed to the function when it is executed. The primitive outputs the {\em thread id} of the thread. The thread does not start at the end of this primitive.
+\begin{verbatimtab}
+to thread_1 :iter
+	make.local "s 0
+	for ["i 1 :iter] {
+		make "s :i		
+	}
+	output :s
+end
+
+@> make "th1 Thread "low "thread_1 20
+\end{verbatimtab}
+
+\subsection*{ThreadID} \index{\verb+ThreadID+}
+
+{\tt ThreadID}
+\newline\newline
+Output the {\em thread id} of the calling thread.
+\begin{verbatimtab}
+@> print ThreadID
+367
+\end{verbatimtab}
+
+\subsection*{Thread.hop} \index{\verb+Thread.hop+}
+
+{\tt Thread.hop} {\it (number)+}
+\newline\newline
+Start or resume one or more thread(s). The input must be the {\em thread ids} of the threads to run.
+\begin{verbatimtab}
+@> Thread.hop :th1
+\end{verbatimtab}
+
+\subsection*{Thread.hoping} \index{\verb+Thread.hoping+}
+
+{\tt Thread.hoping}
+\newline\newline
+Output a list of the {\em thread ids} of all the running threads.
+\begin{verbatimtab}
+@> show Thread.hoping
+[453]
+\end{verbatimtab}
+
+\subsection*{Thread.kill} \index{\verb+Thread.kill+}
+
+{\tt Thread.kill} {\it (number)+}
+\newline\newline
+Kill one or more thread(s). The input must be the {\em thread ids} of the threads to kill.
+\begin{verbatimtab}
+@> Thread.kill :th1
+\end{verbatimtab}
+
+\subsection*{Thread.priority} \index{\verb+Thread.priority+}
+
+{\tt Thread.priority} {\it number (word)}
+\newline\newline
+Output or set the priority of a thread given as the first input. If a second input is given, it should be a valid word.
+\begin{verbatimtab}
+@> print Thread.priority :th1
+normal
+\end{verbatimtab}
+
+\subsection*{Thread.suspend} \index{\verb+Thread.suspend+}
+
+{\tt Thread.suspend} {\it (number)+}
+\newline\newline
+Suspend one or more thread(s). The input must be the {\em thread ids} of the threads to suspend.
+\begin{verbatimtab}
+@> Thread.suspend :th1
+\end{verbatimtab}
+
+\subsection*{Thread.waitfor} \index{\verb+Thread.waitfor+}
+
+{\tt Thread.waitfor} {\it number \verb+|+ (word (number)+)}
+\newline\newline
+Wait for the end of one or more thread(s). When the primitive should wait for several threads, the first input must be the word : {\tt "all} or {\tt "first}. When {\tt "all} is used, the primitive will wait for the end of all the threads before producing a list of the thread's output values. When {\tt "first} is used, the primitive will return when the first thread ends and then outputs the thread's output values.
+\begin{verbatimtab}
+@> print Thread.waitfor :th1
+\end{verbatimtab}
+
+\subsection*{Wait} \index{\verb+Wait+}
+
+{\tt Wait} {\it word}
+\newline\newline
+The calling thread waits for the variable given as input to be updated by another thread. The primitive output {\tt true} if the thread as wait, {\tt false} else.
+\begin{verbatimtab}
+@> Wait "mtvar
+\end{verbatimtab}

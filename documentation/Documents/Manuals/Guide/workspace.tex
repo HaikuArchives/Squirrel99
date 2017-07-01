@@ -1,0 +1,152 @@
+\section{Workspace} 
+
+This Add-on contains most of the workspace management primitives.
+
+\subsection*{bind} \index{\verb+bind+} 
+ 
+{\tt bind} {\it word word block \verb+|+ word things ....} 
+\newline\newline
+Bind the variable given as the first input to the event given as the second input.  The first and second input must be one of the valid words : {\tt "get "set "erase}. The third input could either be a block or a word defining a function (in this case, we could also add inputs to this function). Each time an event occurs on the variable, the block or the function will be executed.
+\begin{verbatimtab} 
+@> bind "myvar "get {
+	print 'Variable readed'	
+}
+\end{verbatimtab}
+
+\subsection*{env.exists} \index{\verb+env.exists+} 
+ 
+{\tt env.exists} {\it word} 
+\newline\newline
+Check if an environment variable exists. Output {\tt true} or {\tt false
+}.
+\begin{verbatimtab} 
+@> print env.exists SHELL
+true
+\end{verbatimtab}
+
+\subsection*{env.get} \index{\verb+env.get+} 
+ 
+{\tt env.get} {\it word}
+\newline\newline
+Output the value of an environment variable. If the variable doesn't exists,
+an exception will be raised.
+\begin{verbatimtab} 
+@> print env.get "SHELL
+/bin/sh
+\end{verbatimtab}
+
+\subsection*{env.list} \index{\verb+env.list+} 
+ 
+{\tt env.list} 
+\newline\newline
+Output a list of all the environment variables.
+\begin{verbatimtab} 
+@> print env.list
+PWD BETOOLS BE_C_COMPILER HOSTNAME BE_DEFAULT_CPLUS_FLAGS
+BEINCLUDES BELIBRARIES SAFEMODE TTY BE_LINKER ADDON_PATH
+USER MACHTYPE BUILDHOME OLDPWD LIBRARY_PATH BE_HOST_CPU
+BE_DEFAULT_C_FLAGS SHLVL GROUP SHELL BE_CPLUS_COMPILER
+HOSTTYPE OSTYPE HOME TERM PATH _
+\end{verbatimtab}
+
+\subsection*{env.set} \index{\verb+env.set+} 
+ 
+{\tt env.set} {\it word thing}
+\newline\newline
+Set the value of an environment variable. The first input is the variable name, the second input is the value. {\bf The variable is not exported.}
+\begin{verbatimtab} 
+@> env.set "FOO 34
+\end{verbatimtab}
+
+\subsection*{erase} \index{\verb+erase+} 
+ 
+{\tt erase} {\it word1 word2 word3 ....} 
+\newline\newline
+Erase all the inputs from the workspace if they are variable or function names.
+\begin{verbatimtab} 
+@> erase "myvar "myfunc
+\end{verbatimtab}
+
+\subsection*{gc} \index{\verb+gc+} 
+ 
+{\tt gc}
+\newline\newline
+Performs a "garbage collection" and then outputs the number of objects destroyed.
+\begin{verbatimtab} 
+@> print gc
+2
+\end{verbatimtab}
+
+\subsection*{help} \index{\verb+help+} 
+ 
+{\tt help} {\it word} 
+\newline\newline
+Prints an online help on the {\it word} given if it's a primitive name.
+\begin{verbatimtab} 
+@> help "is.var
+AddOn   :	Workspace
+Purpose :	Return true if the argument is the name of a variable
+Usage   :	is.var "name
+\end{verbatimtab}
+
+\subsection*{is.pred} \index{\verb+is.pred+} 
+ 
+{\tt is.pred} {\it word} 
+\newline\newline
+Output {\it true} if {\it word} is the name of a function or primitive
+\begin{verbatimtab} 
+@> print is.pred "list
+true
+@> print is.pred "myfunc
+true
+\end{verbatimtab}
+
+\subsection*{is.proc} \index{\verb+is.proc+} 
+ 
+{\tt is.proc} {\it word} 
+\newline\newline
+Output {\it true} if {\it word} is the name of a function
+\begin{verbatimtab} 
+@> print is.proc "list
+false
+\end{verbatimtab}
+
+\subsection*{is.prim} \index{\verb+is.prim+} 
+ 
+{\tt is.prim} {\it word} 
+\newline\newline
+Output {\it true} if {\it word} is the name of a primitive
+\begin{verbatimtab} 
+@> print is.prim "list
+true
+\end{verbatimtab}
+
+\subsection*{name} \index{\verb+name+} 
+ 
+{\tt name} {\it thing word} 
+\newline\newline
+Makes the value {\it thing} a synonym for the variable {\it word}.
+\begin{verbatimtab} 
+@> name 3.1416 "pi
+@> print :pi
+3.141
+\end{verbatimtab}
+ 
+\subsection*{thing} \index{\verb+thing+} 
+ 
+{\tt thing} {\it word} 
+\newline\newline
+Output the value of the variable {\it word}.
+\begin{verbatimtab} 
+@> make "a 'hello'
+@> make "b thing "a
+\end{verbatimtab}
+
+\subsection*{unbind} \index{\verb+unbind+} 
+ 
+{\tt unbind} {\it word word} 
+\newline\newline
+Unbind the variable given as the first input for the event given as the second input.  The first and second input must be one of the valid words: {\tt "get "set "erase}.
+\begin{verbatimtab} 
+@> unbind "myvar "get
+\end{verbatimtab}

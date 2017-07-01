@@ -1,0 +1,570 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Building GUI with Squirrel - Part 2 of 2</title>
+	<style>
+      A {
+      text-decoration : none; 
+      font-weight: bold
+      }
+</style>
+</head>
+<body bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+		
+<table width=500 border=0>	
+
+<tr>
+<td align=center>
+<img src="./squirrel32x32.gif" width=33 height=33 alt="squirrel32x32">
+</td>
+</tr>
+
+<tr>	
+<td align=left>	
+<left>	
+<p>
+<hr>
+<center><h2>Building an application</h2></center>
+</p>
+<p>
+To better understand how to build a GUI with Squirrel, let's build a rather simple application which will demonstrate how easy it could be.
+</p>
+<p>
+Let's said that we want to store some datas on every movie you have. Your VCR tapes & DVD collection is increasing almost every months, and it's time to use your computer to help you with that ...
+</p>
+<p>
+For each of your favorite movie, you want to store certains informations :
+<ul>
+	<li>Title of the Movie
+	<li>Style
+	<li>Some keywords on the movie
+	<li>Your ranking of the movie
+	<li>Date of release
+	<li>Casting
+	<li>Director name
+	<li>How did I acquire it ? (Bought or recorded from TV)
+	<li>Date of acquisition
+	<li>Type of media (DVD or VCR)
+	<li>Comments
+</ul>
+
+The easier way to handle all thoses datas under Squirrel will be to use a Dictionary of Dictionaries, which will store for each movie the datas, but
+it's another storie ... for another article ...</p>
+<p>
+What do we need for the user interface ? 
+<ol>
+	<li>Select from a list of the movies
+	<li>Display of the information and modification of them
+	<li>Adding new movies and removing movies if needed
+</ol>
+
+Let's start by creating a the window :
+</p>
+<p>
+<table border=0 width=800>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>Font.init</pre>
+</td>
+</tr>
+<tr>
+<td><p><i>This command get all the fonts available on the system. It will allow us to create a font object</i></p></td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>make "font Font 'Comix Sans MS'</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+We create a font object to be stored in the variable </i><tt>font</tt><i> from the font </i><tt>'Comix Sans MS'</tt> 
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>$font~size "set 10</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+The standard font size is 9. We want it a bite bigger, so we use the method </i><tt>size</tt><i> on our font object to change it to 10
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>make "win Window "titled 'BeMovie' [100 100] "not.zoomable</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+Creating a window is done by using the command </i><tt>Window</tt><i>. The look of the window is specified by the first input of the command. In our exemple we want a standard window. The next input is the title of the window. The list specified as third input is the position on the screen of the left-top corner of the window. The next inputs are a words which define the behavior of the window. In our case we just want the window to be not zoomable by the user</i>
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>$win~config "font "set :font</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+In Squirrel, all the widgets inherites of the color and font of their parent. We want the widgets we will place in the window to all have the same font style and size, so we set the font we have create ealier to be the default font. Unless the font is changed for a widget, this default font will be used.</i>
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>$win~show</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+A window is not visible after it creation. You need to call the method </i><tt>show</tt><i> on it to make it visible. It's better to show a window at last, well all the initialisation and gluing is done for better performance.
+</p>
+</td>
+</tr>
+<tr>
+<td align=center>
+<img src="./bemovie1.gif" width=111 height=130 alt="bemovie1">
+</td>
+</tr>
+</table>
+</p>
+<p>
+In Squirrel, a window adapt it's size to fit it content. As we don't have any
+widget glued on the window, the size of the window is just fixed for the window to be visible.
+</p>
+<p>
+Now that we have our window, let define what's happening when the user want to
+quit the application. We want the user to confirm that he want to quit, and the
+performe some operations maybe , like saving our database of movie.
+</p>
+<p>
+We keep the same code than previously and we add just after the setting of the window font and before the <tt>show</tt> method the following code :
+</p>
+<p>
+<table border=0 width=800>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>$win~config "font "set :font
+
+; Ask the user if he confirm the Quit
+to ConfirmQuit :src
+	output not (Question "info ["Yes "No] 'Do you really want to quit ?')
+end
+
+Hook :win "quit "ConfirmQuit</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<I>
+The best way to respond to the user request to quit is to have a function which ask him to confirm that he want to quit, that's why we define the function </i><tt>ConfirmQuit</tt><i> to return the boolean negation of the output of the command </i><tt>Question</tt><i>. Indeed as this command return the index of the button clicked by the user in the list </i><tt>["Yes "No]</tt><i>, if the user click on </i><tt>Yes</tt><i> it will return </i><tt>0</tt><i> and so </i><tt>true</tt><i> will be returned by our function.
+Squirrel is waiting the value </i><tt>true</tt><i> to be returned by the function specified in the </i><tt>Hook</tt><i> given for the event </i><tt>"quit</tt><i> of a window to be </i><tt>true</tt><i> when we really want to quit and </i><tt>false</tt><i> else.
+</p>
+</td>
+</tr>
+<tr>
+<td align=center>
+<img src="./bemovie2.gif" width=398 height=130 alt="bemovie2">
+</td>
+</tr>
+</table>
+</p>
+<p>
+Now, when the user will click on the <it>close button</it> on the window yellow tab or when the method <tt>quit</tt> will be used on the window object, the function <tt>ConfirmQuit</tt> will be executed.
+</p>
+<p>
+The best way to build a nice GUI with Squirrel is to follow the "simple" process of <it>divide and conqueirt</it>. Indeed we going to divide our window into 3 elements :
+<ol>
+	<li><b>a menu</b>
+	<p>
+	<table border=0 width=800>
+	<tr>
+	<td align=left bgcolor="#CCCCFF">
+	<pre>; create the menubar
+make "menubar MenuBar</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+To put menus on a window we need to create first a </i><tt>MenuBar</tt>
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>make "movie Menu 'Movie'
+$movie~add "Add
+$movie~add 'Remove current'
+$movie~add "separator
+$movie~add "Quit {
+	$win~quit	
+}</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+A </i><tt>MenuBar</tt><i> is filled by </i><tt>Menu</tt><i> like the one we creating here. Once created, using the method </i><tt>add</tt><i> we add the items to the menu. The 2 firsts ones have only one argument as we don't know yet what we will do when the items are invoked by the user. The third item is a separator item</i>
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>make "app Menu '?'
+$app~add 'Help' {
+	Info "warning ["ok] 'Sorry folks, no help available for now'	
+}
+$app~add "separator
+$app~add 'About ...' {
+	Info "info ["ok] 'BeMovie!\n\nBrought to you by Squirrel\n\nBeGroovie December 1999'
+}</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>We create another menu and add 3 items on it</i>
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>; fill the menubar
+
+$menubar~add :movie :app</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+Adding the two menus to the menubar is done by using the method </i><tt>add</tt><i> of the </i><tt>MenuBar</tt><i> object</i>
+</p>
+</td>
+</tr>
+</table>
+</p>
+<p>
+	<li><b>the data zone</b>
+	<p>
+	<table border=0 width=800>
+	<tr>
+	<td align=left bgcolor="#CCCCFF">
+	<pre>; create the data frame
+
+make "frame Frame "raised</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+A </i><tt>Frame</tt><i> is a container widget that have relief. Here we want the relief of the frame to be raised</i>
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>$frame~config "expand "set (true) (true)</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+As we want this frame to contains the datas, it's the principal widget of the application, so it should expand it size automaticaly when the user resize the window</i>
+</p>
+</td>
+</tr>
+	</table>
+	</p>
+	<p>	
+	<li><b>a status/message zone</b>
+	<p>
+	<table border=0 width=800>
+	<tr>
+	<td align=left bgcolor="#CCCCFF">
+	<pre>; create the status frame
+
+make "status Frame "lowered</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+The status frame will be a place where a message will be displayed to the attention of the user. We decide to set it relief to </i><tt>"lowered</tt><i> which give a sunken effecte to the frame</i>
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>$status~config "expand.x "set true</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+We planing on having this status frame at the bottom of the window and when the user will resize the window, it should be resized by only horizontaly, so we set the property </i><tt>expand.x</tt><i> of the frame to </i><tt>true</tt><i>
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>; and create a text display to put into the status frame
+
+make "Status 'Ready to serve ...'
+
+make "msg Banner "Status "left</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+To display a message to the user, we going to need a widget which display a string. But, as we need the message displayed to be easy to change we need this widget to be linked to a variable. The widget </i><tt>Banner</tt><i> offer this ability by geting the string to dispay from a variable. Each time we will change the variable value, the text displayed will automaticaly change</i>
+</p>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>$msg~config "high.color "set :Blue
+
+Glue :status "top [] :msg</pre>
+</td>
+</tr>
+<tr>
+<td>
+<p>
+<i>
+To be more visible, we set the color of the text displayed by the </i><tt>Banner</tt><i> object to the color blue. The variable </i><tt>Blue</tt><i> contain a list describing the color in RGB : </i><tt>[49 61 225]</tt><i>
+</p>
+</td>
+</tr>
+</table>
+</p>
+<p>	
+</ol>
+</p>
+<p>
+Now we just glue the 3 elements on the window :
+</p>
+<p>
+<table border=0 width=800>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>; glue the three widget on the window
+
+Glue :win "top [] :menubar :frame
+Glue :win "bottom [] :status</pre></td>
+</tr>
+</table>
+</p>
+<p>
+After completing our script file, we execute it and the window displayed is now:
+</p>
+<P>
+<center>
+<img src="./bemovie3.gif" width=95 height=68 alt="bemovie3">
+</center>
+</p>
+<p>
+The <tt>Frame</tt> that we have put beetween the menubar and the status frame is not visible when the window is showed as it don't have any widgets glued in it. But if the user resize the window, this frame will be showed as we have set the <tt>expand</tt> property of it to <tt>true</tt> in x and y :
+</p>
+<p>
+<center>
+<img src="./bemovie4.gif" width=288 height=167 alt="bemovie4">
+</center>
+</p>
+<p>
+The frame that we call <i>data zone</i> is going to display the movie and the informations on the selected movie. For a better understanding, we going to faq a list of movie and the informations on each of the movie. Normaly the list of the movie sould be loaded from a data file, but for now, we just going to fill the list and the datas by hand each time the script is executed:
+</p>
+<p>
+<table border=0 width=800>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>/* We faque some movies */
+
+; movies list
+make "Movies ['13th Floor' 'Wallace & Gromit' 'Interview with a Vampire' 'The Matrix' '2001: A Space Odyssey']
+
+; movies data
+
+make "Datas Dictionary
+
+make "dico Dictionary
+$dico~set "style 'Science Fiction'
+$dico~set "keys ['virtual reality' 'crime']
+$dico~set "rank 16
+$dico~set "release 'September 99'
+$dico~set "casting ['Craig Bierko' 'Gretchen Mol' 'Vincent D\'Onofrio' 'Dennis Haysbert']
+$dico~set "comment 'Nice SF Thriller'
+$Datas~set '13th Floor' :dico
+
+make "dico Dictionary
+$dico~set "style 'Animation'
+$dico~set "keys ['A Grand Day Out' 'The Wrong Trousers' 'A close Shave']
+$dico~set "rank 19
+$dico~set "release 'unknow'
+$dico~set "casting ['Wallace' 'Gromit']
+$dico~set "director 'unknow'
+$dico~set "acquire	"Bought
+$dico~set "date	'September 99'
+$dico~set "media "DVD
+$dico~set "comment 'Amazing clay animation!'
+$Datas~set 'Wallace & Gromit' :dico
+
+make "dico Dictionary
+$dico~set "style 'Horror'
+$dico~set "keys ['Vampire' 'New-Orleans']
+$dico~set "rank 18
+$dico~set "release 'unknow'
+$dico~set "casting ['Tom Cruise' 'Brad Pitt' 'Antonio Banderas' 'Stephen Rea' 'Christian Slater']
+$dico~set "director 'Neil Jordan'
+$dico~set "acquire	"Bought
+$dico~set "date	'October 99'
+$dico~set "media "DVD
+$dico~set "comment 'Great version of the amazing Anne Rice book'
+$Datas~set 'Interview with a Vampire' :dico
+
+make "dico Dictionary
+$dico~set "style 'Science Fiction'
+$dico~set "keys ['Matrix' 'Virtual Reality' 'Free your mind']
+$dico~set "rank 18
+$dico~set "release 'September 99'
+$dico~set "casting ['Keanu Reeves' 'Laurence Fishburn' 'Carrie-Anne Moss']
+$dico~set "director 'The Wachowski Brothers'
+$dico~set "acquire	"Bought
+$dico~set "date	'September 99'
+$dico~set "media "DVD
+$dico~set "comment 'Spectacular specials effects!!'
+$Datas~set 'The Matrix' :dico
+
+make "dico Dictionary
+$dico~set "style 'Science Fiction'
+$dico~set "keys ['Hal' 'Jupiter moon']
+$dico~set "rank 17
+$dico~set "release 'unknow'
+$dico~set "casting ['Keir Dullea' 'Gary Lockwood']
+$dico~set "director 'Stanley Kubrick'
+$dico~set "acquire	"Bought
+$dico~set "date	'September 99'
+$dico~set "media "DVD
+$dico~set "comment 'Great show .. the end is a bit strange ...'
+$Datas~set '2001: A Space Odyssey' :dico
+
+; end of faking</pre>
+</td>
+</tr>
+</table>
+</p>
+<p>
+Our data structure for this application is a Dictionary <tt>Datas</tt> which contain an entry for each of our movies listed in the list <tt>Movies</tt>. The entry of a movie contain a dictionary which have an entry for each datas we storing.
+</p>
+<p>
+We going now to devide our <i>data zone</i> in 2 part. In the left side, we will allow the user to select a movie, and on the right, the datas on the movie will
+be displayed :
+</p>
+<p>
+<table border=0 width=800>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>make "selection Frame
+make "infos Frame</pre>
+</td>
+</tr>
+<tr>
+<td>
+<i>We create two frame to divide the "data zone"</i>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>make "list SimpleList "single "right "movie :Movies [0 5]</pre>
+</td>
+</tr>
+<tr>
+<td>
+<tt>SimpleList</tt><i> is a widget that display a list of simple elements and allow the user to select one item or more. This widget will be linked to the variable </i><tt>movie</tt><i> and will display the content of our movies list </i><tt>Movies</tt><i>. The two first input of the command specify that the user is allowed to select only one item at a time and that we want the scrollbar of the list to be displayed on the right. The last input is a list of two elements which discribe the width in characters of the widget and the height in characters also. Here, we want the widget to be as width as needed and to be big enought to display 5 items.
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>$list~config "expand "set (true) (true)</pre>
+</td>
+</tr>
+<tr>
+<td>
+<i>We want the list to expand it-self when the user resize the window</i>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>Glue :selection "top [] :list</pre>
+</td>
+</tr>
+<tr>
+<td>
+<i>We now glue on top of our </i><tt>selection</tt><i> frame the list we have created</i>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>$selection~config "expand.y "set true
+$infos~config "expand "set (true) (true)</pre>
+</td>
+</tr>
+<tr>
+<td>
+<i>For a better estetic of the application, we want the frame containing the list to expand it size only verticaly while the right frame will be expanded both verticaly and horizontaly.</i>
+</td>
+</tr>
+<tr>
+<td align=left bgcolor="#CCCCFF">
+<pre>Glue :frame "left [] :selection :infos</pre>
+</td>
+</tr>
+<tr>
+<td>
+<br><p>
+</td>
+</tr>
+<tr>
+<td align=center>
+<img src="./bemovie5.gif" width=156 height=161 alt="bemovie5">
+</td>
+</tr>
+</table>
+</p>
+<p>
+
+
+
+
+</td>
+</tr>
+
+</table>	
+</body>
+</html>
+

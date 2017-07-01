@@ -1,0 +1,124 @@
+\section{Mail}
+
+This Add-On give to \squirrel script to build and send emails throught a new {\it Mail} object.\\
+
+A Mail object is not automaticaly destroyed when sended, it's to the developer to do it, if we want.
+
+\subsection{Primitives}
+
+The following primitives are available:
+
+\subsubsection*{is.mail} \index{\verb+is.mail+} 
+
+{\tt is.mail} {\it thing} 
+\newline\newline 
+Output {\tt true} if the input is a Mail object
+\begin{verbatimtab} 
+@> make "msg Mail
+@> print is.mail 5
+false
+@> print is.mail :msg
+true
+\end{verbatimtab} 
+
+\subsubsection*{Mail} \index{\verb+Mail+} 
+
+{\tt Mail} 
+\newline\newline 
+Output a new mail object. 
+\begin{verbatimtab} 
+@> make "msg Mail
+@>
+\end{verbatimtab} 
+
+\subsubsection*{Send} \index{\verb+Send+} 
+
+{\tt Send} {\it (mail (word))} 
+\newline\newline 
+Send an email if the email is given as first input. If no input given, all the pending emails in the {\it Out folder} will be send. If a second input is given, it must be the word {\tt "now} or {\tt "later}. {\tt "now} will send the message now. 
+\begin{verbatimtab} 
+@> Send :msg "later  
+\end{verbatimtab} 
+
+\subsection{Mail Object}
+
+To fill a mail, we use the severals methods available :
+
+\subsubsection*{Mail\textasciitilde attachment} \index{\verb+Mail+!\verb+~attachment+}
+
+{\tt \verb+~+attachment} {\it word (string)} 
+\newline\newline
+The method acts on the files attached to the email. If the first input is {\tt "set} the second input is added to the list of attachments. If the first input is {\tt "chg}, the second input will replace the current list. If the first input is {\tt "del} (no second input needed), the list will be deleted. If it's {\tt "get}, the method will output the current attached files.
+\begin{verbatimtab}
+@> $msg~attachment "set 'myfile.zip'
+\end{verbatimtab}
+
+\subsubsection*{Mail\textasciitilde bcc} \index{\verb+Mail+!\verb+~bcc+}
+
+{\tt \verb+~+bcc} {\it word (string)} 
+\newline\newline
+The method acts on the blind carbon-copy recipients of the mail. If the first input is {\tt "set} the second input is added to the list of recipient. If the first input is {\tt "chg}, the second input will replace the current list of recipients. If the first input is {\tt "del} (no second input needed), all the recipients will be
+removed from the list. If it's {\tt "get}, the method will output the current list of recipients.
+\begin{verbatimtab}
+@> $msg~bcc "set 'joe@cool.net'
+\end{verbatimtab}
+
+\subsubsection*{Mail\textasciitilde cc} \index{\verb+Mail+!\verb+~cc+}
+
+{\tt \verb+~+cc} {\it word (string)} 
+\newline\newline
+The method acts on the carbon-copy recipients of the mail. If the first input is {\tt "set} the second input is added to the list of recipient. If the first input is {\tt "chg}, the second input will replace the current list of recipients. If the first input is {\tt "del} (no second input needed), all the recipients will be
+removed from the list. If it's {\tt "get}, the method will output the current list of recipients.
+\begin{verbatimtab}
+@> $msg~cc "set 'bill@cool.net'
+\end{verbatimtab}
+
+\subsubsection*{Mail\textasciitilde content} \index{\verb+Mail+!\verb+~content+}
+
+{\tt \verb+~+content} {\it word (string)} 
+\newline\newline
+The method acts on the content of the mail. If the first input is {\tt "set} the second input is added a new line in the content. If the first input is {\tt "chg}, the second input will replace the current content. If the first input is {\tt "del} (no second input needed), the content will be deleted. If it's {\tt "get}, the method will output the current content.
+\begin{verbatimtab}
+@> $msg~content "set 'Hello Bob,\n'
+@> $msg~content "set 'Can you tell me where you are ?\n'
+@> $msg~content "set 'Thanks\n'
+\end{verbatimtab}
+
+\subsubsection*{Mail\textasciitilde from} \index{\verb+Mail+!\verb+~from+}
+
+{\tt \verb+~+from} {\it word (string)} 
+\newline\newline
+Set or get the sender email of the message. By default, the sender email is set at sending time from the \beos settings.
+\begin{verbatimtab}
+@> $msg~from "set 'jlv@bemail.org'
+\end{verbatimtab}
+
+\subsubsection*{Mail\textasciitilde to} \index{\verb+Mail+!\verb+~to+}
+
+{\tt \verb+~+to} {\it word (string)} 
+\newline\newline
+The method acts on the recipient of the mail. If the first input is {\tt "set} the second input is added to the list of recipient. If the first input is {\tt "chg}, the second input will replace the current list of recipients. If the first input is {\tt "del} (no second input needed), all the recipients will be
+removed from the list. If it's {\tt "get}, the method will output the current list of recipients.
+\begin{verbatimtab}
+@> $msg~to "set 'bob@cool.net'
+\end{verbatimtab}
+
+\subsubsection*{Mail\textasciitilde reply} \index{\verb+Mail+!\verb+~reply+}
+
+{\tt \verb+~+reply} {\it word (string)} 
+\newline\newline
+Set or get the reply field of the message. By default, the reply is set at sending time from the \beos settings.
+\begin{verbatimtab}
+@> $msg~reply "set 'me@me.org'
+\end{verbatimtab}
+
+\subsubsection*{Mail\textasciitilde subject} \index{\verb+Mail+!\verb+~subject+}
+
+{\tt \verb+~+subject} {\it word (string)} 
+\newline\newline
+Set or get the subject of the email.
+\begin{verbatimtab}
+@> $msg~subject "set 'Business Plan Rev0.8'
+@> print $msg~subject "get
+Business Plan Rev0.8
+\end{verbatimtab}

@@ -1,0 +1,71 @@
+\section{The widget Banner}
+
+A "Banner" is a simple widget displaying a text linked to a variable.  Since all the widgets are linked to a variable, the variable modification will update the widget.
+
+\subsection{Construction}
+
+The primitive {\tt Banner} is used to build a new Banner widget. Its syntax is :\\
+
+{\tt Banner} {\it word word (list (words))}\\
+
+The first input word is the variable name given to the widget. If the variable doesn't already exist, it will be created. The second word is the justification for the text within the widget. It must be the word : {\tt "center "left} or {\tt "right}. The third input, if specified, is a list which indicates the size of the widget in characters. This list has two elements : width and height. An empty list will be the same as no list and the size of the widget will adapt to fit the size of the displayed text. All the inputs left are the flags which may be specified. The primitive outputs the widget object.
+
+\subsection{Methods}
+
+The Banner widget has a few methods uncommon to all the widgets :\\
+
+{\bf justify\index{Banner@\textbf{Banner}!Methods!justify}} 
+\begin{verbatimtab}
+$banner~justify word (word)
+\end{verbatimtab}
+Set or get (according to the value of the first input : {\tt "set} or {\tt "get}) the text justification in the widget. When setting a value, the second input must be one of the valid words : {\tt "left "center} or {\tt "right}.\\
+
+{\bf text\index{Banner@\textbf{Banner}!Methods!Text}} 
+\begin{verbatimtab}
+$banner~text word (string | word)
+\end{verbatimtab}
+Set or get (according to the value of the first input : {\tt "set} or {\tt "get}) the text displayed by the widget. The second input could be a string or a word. The linked variable to the widget will have its value changed if we set a new text to be displayed.
+
+\subsection{Configuration}
+
+Only one configuration is added to the Banner widget :
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\bf Configuration & \bf Purpose & \bf Value \\
+\hline
+\tt "variable\index{Banner@\textbf{Banner}!Configuration!variable} & Set or get the linked variable of the widget & the name of the variable (a word)\\
+\hline
+\end{tabular}
+\caption{Banner's configuration}
+\end{table}
+\subsection{Hooks}
+
+The Banner widget has no more hooks than the common widget.
+
+\subsection{Example}
+
+\example{ex22}	
+\begin{listing}{1}
+make "win Window "titled 'Banner' [100 100]
+make "msg 'Click on the button!'
+make "widget Banner "msg "center
+make "button Button 'The Button'
+$button~config "expand.x "set true
+Hook :button "invoked {
+	make "msg 'You done it!'	
+}
+Glue :win "top [] :widget :button
+$win~show
+\end{listing}
+
+In this example, the linked variable is updated when the button is invoked. Lines 6 to 8 set the hook for the button.  Line 7 just sets a new value to the variable. The widget is updated at this moment:
+
+\begin{figure}[ht!]
+\centering
+\psfig{figure=images/eps/ex3-1.eps}
+\psfig{figure=images/eps/ex3-2.eps} 
+\label{s22}
+\caption{Banner updated}
+\end{figure}

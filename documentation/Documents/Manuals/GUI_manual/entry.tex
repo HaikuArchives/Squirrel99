@@ -1,0 +1,135 @@
+
+\section{The widget Entry}
+
+This widget is a simple labeled text field. After modifying the text by pressing the {\em Enter} key or by changing the focus, an event will be generated and the linked variable will be updated.
+
+\subsection{Construction}
+
+The primitive {\tt Entry} is used to build a new Entry widget. Its syntax is :\\
+
+{\tt Entry} {\it string \verb?|? word word (list (words)) }\\
+
+The first input is the label of the widget. The second input is the name of the linked variable. If specified, a fourth input will be a list containing the size of the label in characters and the size of the entry field in characters.  All other inputs would make up the flags.\\
+
+The widget adapt itself to the value of the linked variable. If the value is a number, only number will be allowed in the Entry and once changed by the user, the new value set to the linked variable will be a number.
+
+\subsection{Methods}
+
+{\bf invoke\index{Entry@\textbf{Entry}!Methods!invoke}} 
+\begin{verbatimtab}
+$entry~invoke
+\end{verbatimtab}
+Invoke the widget as though the text was modified by the user.\\
+
+{\bf entry\index{Entry@\textbf{Entry}!Methods!entry}} 
+\begin{verbatimtab}
+$entry~entry word  word (string | word)
+\end{verbatimtab}
+Set or get the configuration of the entry field. The first input must be the word {\tt "align} or {\tt "expand}. When {\tt "align} is used, the method will get or set the alignment of the label within the widget. When the first input is the word {\tt "expand}, the expand property of the field will be set or get, and a boolean value will be required.  When setting the value, the third input must be the word : {\tt "left "right} or {\tt "center}.\\
+
+{\bf label\index{Entry@\textbf{Entry}!Methods!label}} 
+\begin{verbatimtab}
+$entry~label word word (string | word)
+\end{verbatimtab}
+Set or get the configuration of the label. The first input must be the word {\tt "align} or {\tt "text}. When {\tt "align} is used, the method will get or set the alignment of the entry field within the widget. If the first input is the word {\tt "text}, the label string will be set or get. The third input when setting the value must be the word : {\tt "left "right} or {\tt "center} when working on the alignment, otherwise it must be a string.
+
+\subsection{Configuration}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\bf Configuration & \bf Purpose & \bf Value \\
+\hline
+\tt "value\index{Entry@\textbf{Entry}!Configuration!value} & Set or get the value of the entry field & a string or word\\
+\hline
+\tt "variable\index{Entry@\textbf{Entry}!Configuration!variable} & Set or get the linked variable of the widget & a word\\
+\hline
+\end{tabular}
+\caption{Entry's configuration}
+\end{table}
+
+\newpage
+
+\subsection{Hooks}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|p{3cm}|p{8.5cm}|}
+\hline
+\bf Name & \bf Description & \bf Function prototype \\
+\hline
+\tt "changed\index{Entry@\textbf{Entry}!Hooks!changed} & The string in the entry field have been modified & {\tt
+to changed :src :old :new\newline
+; src is the widget object\newline
+; old is the old string\newline
+; new is the new string entered by the user\newline
+end
+}\\
+\hline
+\end{tabular}
+\caption{Entry's hooks}
+\end{table}
+
+\subsection{Example}
+
+\example{ex34}	
+\begin{listing}{1}
+make "win Window "titled 'Entry' [100 100]
+make "f Frame
+make "name Entry 'What\'s your name ?' "friend
+Hook :name "changed {
+	Info "none ["Hello] '' 'Hello' :friend '!'	
+}
+Glue :f "top [] :name
+Glue :win "top [] :f
+$win~show
+\end{listing}
+
+When the user hits the {\em Enter} key after an update in the entry field, the hook {\tt changed} will be called.
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-16.eps}
+\label{s34}
+\caption{A Entry widget}
+\end{figure}
+
+The next example play with the linked variable :
+
+\example{ex35}	
+\begin{listing}{1}
+to IncrTime :src :s :t
+	if :s {
+		make "Time string (parse.number :Time) + :t	
+	} {
+		make "Time string (parse.number :Time) - :t				
+	}
+end
+
+make "win Window "titled 'Entry' [100 100]
+make "box Box 'Test to do'
+$box~config "expand.x "set true
+make "c1 CheckBox 'Computer' "computer
+make "c2 CheckBox 'AC' "ac
+make "c3 CheckBox 'Power' "power
+Hook :c1 "invoked "IncrTime 10
+Hook :c2 "invoked "IncrTime 20
+Hook :c3 "invoked "IncrTime 30
+Glue :box "top [] :c1 :c2 :c3
+make "f Frame
+make "Time '0'
+make "name Entry 'Time :' "Time [0 4]
+Glue :f "top [] :name
+Glue :win "top [] :box :f
+$win~show
+\end{listing}
+
+The function {\tt IncrTime} is called each time one of the CheckBoxes is checked or unchecked. This function modifies the variable which is always a string.
+
+\begin{figure}[h!]
+\centering
+\psfig{figure=images/eps/ex3-17.eps}
+\label{s35}
+\caption{A Entry widget updated by its linked variable}
+\end{figure}

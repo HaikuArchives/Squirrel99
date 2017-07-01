@@ -1,0 +1,805 @@
+ /*
+ * beSpotlight
+ *
+ * file ?	Render.sqi
+ * what	?	Slide rendering functions
+ * who	?	jlv
+ * when	?	10/03/00
+ * last	?	02/28/01
+ *
+ *
+ * (c) Kirilla 2000-2001
+ */
+ 
+make "time.w 0 
+make "pos.x 30
+make "pos.y 60 
+make "link clone []
+
+/*
+ * function    : InlinedText
+ * purpose     : Render a text inlined
+ * input       : 
+ *
+ * s, 	skippy to use
+ * str,	string to display
+ *
+ * output      : none
+ * side effect : none
+ */ 
+to InlinedText :s :str 
+	$s~pen "up
+	$s~right 90 5
+	$s~left 90 5
+	$s~pen "down
+	$s~config "low.color "set :L.color
+	$s~string :str
+	$s~config "low.color "set :H.color
+	$s~pen "up
+	$s~left 90 5
+	$s~right 90 5
+	$s~pen "down	
+end 
+  
+/*
+ * function    : RenderFrame
+ * purpose     : Render the frame around a page
+ * input       : 
+ *
+ * s, 	skippy to use
+ * num,	page number
+ * max,	maximum number of page in the presentation
+ *
+ * output      : none
+ * side effect : none
+ */  
+to RenderFrame :s :num :max
+
+	$AppFont~size "set 11
+	$s~config "font "set :AppFont
+
+	$s~config "low.color "set :H.color
+	
+	; top line
+	;$s~show true
+	$s~goto 5 5
+	$s~heading 90
+	if (slength :pres.title) {
+		$s~hop 20
+		InlinedText :s :pres.title
+		make.local "x lindex ($s~goto) 1
+		$s~hop (:width-5) - :x +1
+	} {
+		$s~hop :width-10		
+	}
+
+	; right vertical
+	if (slength :pres.author) {
+	
+		make.local "needed 10 + ($s~w.string :pres.author)			
+		$s~right 90 :height-30-:needed
+		make.local "x lindex ($s~goto) 1
+		InlinedText :s :pres.author
+		$s~warp :x :height - 5
+	} {
+		$s~right 90 :height - 10	
+	}
+	; left vertical
+	$s~goto 5 5
+	$s~heading 180
+	$s~hop :height - 10
+	; bottom line
+	$s~heading 90
+	if (slength :pres.event) {
+		$s~hop 20
+		InlinedText :s :pres.event
+		make.local "x lindex ($s~goto) 1
+		$s~hop (:width-5) - :x - 45
+	} {
+		$s~hop :width - 50		
+	}
+	InlinedText :s string ' ' :num '/' :max ' '	
+	make.local "x lindex ($s~goto) 1
+	$s~hop (:width-5) - :x	
+	
+	$s~config "low.color "set :L.color	
+end
+
+/*
+ * function    : RenderBigTitle
+ * purpose     : Render a text in BigTitle style
+ * input       : 
+ *
+ * s, 		skippy to use
+ * str,		string to display
+ * color,	color to display the text in (Blue by default)
+ *
+ * output      : none
+ * side effect : centered on the slide
+ */
+to RenderBigTitle :s :str [:color :Blue]
+
+	make.local "l split.as.string :str '\n'		
+	make.local "size $AppFont~size "get
+	
+	$AppFont~size "set :bigtitle.size
+	$s~config "font "set :AppFont
+		
+	make.local "old.h $s~config "high.color "get
+	$s~config "high.color "set :color
+	
+	make "pos.y (:height//2) - ((((llength :l)-1)*(:bigtitle.size + 5))//2)
+	make "pos.x :width//2
+	
+	$s~goto :pos.x :pos.y
+	
+	if (llength :l)>1 {	
+		make.local "i 1
+		make.local "last llength :l
+		for.each "e :l { 	
+			$s~c.string string :e
+			if :i < :last {
+				make "pos.y :pos.y + :bigtitle.size + 5
+				GotoNext :s	
+			}
+			make "i :i + 1
+		}
+	} {
+		$s~c.string string :l		
+	}
+
+	$s~config "high.color "set :old.h
+	
+	$AppFont~size "set :size
+	$s~config "font "set :AppFont
+		
+end
+
+/*
+ * function    : RenderTitle
+ * purpose     : Render a text in Title style
+ * input       : 
+ *
+ * s, 		skippy to use
+ * str,		string to display
+ * color,	color to display the text in (Blue by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderTitle :s :str [:color :H.color]
+
+	make.local "size $AppFont~size "get
+	$AppFont~size "set :title.size
+	$s~config "font "set :AppFont
+	
+	make.local "old.h $s~config "high.color "get
+	make.local "old.l $s~config "low.color "get
+
+	$s~config "high.color "set :color	
+	$s~string :str
+	$s~config "high.color "set :old.h
+	$s~config "low.color "set :old.l
+	
+	$AppFont~size "set :size
+	$s~config "font "set :AppFont	
+	
+	make "pos.y :pos.y + 30
+	GotoNext :s
+
+end
+
+/*
+ * function    : RenderNumbered
+ * purpose     : Render a text in numbered list element style
+ * input       : 
+ *
+ * s, 		skippy to use
+ * num,		number of the item
+ * str,		string to display
+ * si,		font size to use
+ * color,	color to display the text in (Blue by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderNumbered :s :num :str :si [:color :H.color]
+
+	make.local "size $AppFont~size "get
+	$AppFont~size "set :si
+	$s~config "font "set :AppFont
+	
+	make.local "old.h $s~config "high.color "get
+
+	$s~config "high.color "set :color
+	$s~string string :num '. '
+	$s~string :str
+	$s~config "high.color "set :old.h
+	
+	$AppFont~size "set :size
+	$s~config "font "set :AppFont	
+	
+	make "pos.y :pos.y + :si + 5
+	GotoNext :s
+
+end
+
+/*
+ * function    : RenderPuce
+ * purpose     : Render the puce of a Itemize element
+ * input       : 
+ *
+ * type,	type of the puce ("triangle "circle)
+ * s, 		skippy to use
+ * si,		font size to use
+ * color,	color to display the text in (Black by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderPuce :type :s :si [:color :H.color]
+
+	make.local "old.h $s~config "high.color "get
+	make.local "old.l $s~config "low.color "get
+	$s~config "color "set :color
+	$s~pen "up
+	$s~hop :si//4
+	$s~heading 0
+	$s~hop (:si//3)+1
+	$s~pen "down
+	switch :type {
+		case "circle {
+			$s~pen "up
+			$s~heading 90
+			$s~hop (:si//4)-1
+			$s~heading 0
+			$s~pen "down
+			$s~round.rect "fill :si//2 :si//2 5 5
+			$s~pen "up
+			$s~heading 270
+			$s~hop (:si//4)-1
+			$s~heading 0
+			$s~pen "down
+		}
+		case "triangle {
+			$s~triangle "fill 0 (:si//3) 90 10 180 (:si//3)	
+		}	
+	}
+	$s~pen "up
+	$s~heading 180
+	$s~hop (:si//3)+1
+	$s~heading  90
+	$s~hop :si*2
+	$s~pen "down
+	$s~config "high.color "set :old.h
+	$s~config "low.color "set :old.l
+	
+end
+
+/*
+ * function    : RenderItemize
+ * purpose     : Render a text in itemize element style (with a "puce")
+ * input       : 
+ *
+ * s, 		skippy to use
+ * type,	type of the puce ("triangle "circle)
+ * str,		string to display
+ * si,		font size to use
+ * color,	color to display the text in (Blue by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderItemize :s :type :str :si [:color :H.color]
+
+	make.local "size $AppFont~size "get
+	$AppFont~size "set :si
+	$s~config "font "set :AppFont
+	
+	RenderPuce :type :s :si :color
+	RenderText :s :str :si :color	
+	
+	$AppFont~size "set :size	
+	$s~config "font "set :AppFont
+	
+	make "pos.y :pos.y + :si + 5
+	GotoNext :s	
+
+end
+
+/*
+ * function    : RenderItemize.link
+ * purpose     : Render a text in itemize element style (with a "puce")
+ *				 if the user click over the item, a given function will be
+ *				 executed
+ * input       : 
+ *
+ * s, 		skippy to use
+ * type,	type of the puce ("triangle "circle)
+ * str,		string to display
+ * si,		font size to use
+ * func,	name of the function to call
+ * color,	color to display the text in (Blue by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderItemize.link :s :type :str :si :func [:color :H.color]
+
+	print :si
+
+	make.local "size $AppFont~size "get
+	make.local "or.x :pos.x
+	$AppFont~size "set :si
+	$s~config "font "set :AppFont
+			
+	; we need the position
+	make.local "pos $s~goto
+	make.local "min.x lindex :pos 1
+	make.local "min.y (lindex :pos 2) - :si - 1
+	
+	RenderPuce :type :s :si :color
+	make "pos.x lindex ($s~goto) 1
+	RenderText :s :str :si :color
+	
+	; we need the position
+	make.local "pos $s~goto
+	make.local "max.x lindex :pos 1
+	make.local "max.y (lindex :pos 2)
+	
+	AddLink :min.x :max.x :min.y :max.y :func	
+	
+	$AppFont~size "set :size
+	$s~config "font "set :AppFont
+	
+	make "pos.x :or.x
+	make "pos.y :pos.y + :si + 5
+	GotoNext :s	
+
+end
+
+/*
+ * function    : RenderText
+ * purpose     : Render a text simple text (can be multi-line)
+ * input       : 
+ *
+ * s, 		skippy to use
+ * str,		string to display
+ * si,		font size to use
+ * color,	color to display the text in (Black by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderText :s :str :si [:color :H.color]
+
+	make.local "l split.as.string :str '\n'		
+	make.local "size $AppFont~size "get
+	
+	$AppFont~size "set :si
+	$s~config "font "set :AppFont
+		
+	make.local "old.h $s~config "high.color "get
+	$s~config "high.color "set :color
+	
+	if (llength :l)>1 {	
+		make.local "i 1
+		make.local "last llength :l
+		for.each "e :l { 	
+			$s~string string :e
+			if :i < :last {
+				make "pos.y :pos.y + :si + 5
+				GotoNext :s
+			}
+			make "i :i + 1
+		}
+	} {
+		$s~string string :l		
+	}
+
+	$s~config "high.color "set :old.h
+	
+	$AppFont~size "set :size
+	$s~config "font "set :AppFont
+	
+end
+
+/*
+ * function    : RenderList
+ * purpose     : Render a list that contain various string
+ * input       : 
+ *
+ * s, 		skippy to use
+ * l,		list to render
+ * si,		font size to use
+ * color,	color to display the text in (Black by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderList :s :l :si [:color :H.color]
+	
+	make.local "size $AppFont~size "get
+	$AppFont~size "set :si
+	$s~config "font "set :AppFont
+	
+	make.local "old.h $s~config "high.color "get
+	make.local "old.l $s~config "low.color "get
+
+	$s~config "high.color "set :color
+	
+	for.each "e :l { 	
+		$s~string string :e
+		make "pos.y :pos.y + :si + 5
+		GotoNext :s
+	}
+	
+	make "pos.y :pos.y - :si - 5
+	GotoNext :s
+
+	$s~config "high.color "set :old.h
+	$s~config "low.color "set :old.l
+	
+	$AppFont~size "set :size
+	$s~config "font "set :AppFont
+	
+end
+
+/*
+ * function    : RenderCode
+ * purpose     : Render a list that contain source code (number the line)
+ * input       : 
+ *
+ * s, 		skippy to use
+ * l,		list to render
+ * si,		font size to use
+ * color,	color to display the text in (Black by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderCode :s :l :si [:color :H.color]
+	
+	make.local "size $AppFont~size "get
+	$AppFont~size "set :si
+	$s~config "font "set :AppFont
+	
+	make.local "old.h $s~config "high.color "get
+	make.local "old.l $s~config "low.color "get
+
+	$s~config "high.color "set :color
+	
+	make.local "i 1	
+	
+	for.each "e :l {
+		$s~config "high.color "set :Blue
+		$s~string string :i ' '	 
+		$s~config "high.color "set :color	
+		$s~string string :e
+		make "pos.y :pos.y + :si + 5
+		GotoNext :s
+		make "i :i + 1
+	}
+	
+	make "pos.y :pos.y - :si - 5
+	GotoNext :s
+
+	$s~config "high.color "set :old.h
+	$s~config "low.color "set :old.l
+	
+	$AppFont~size "set :size
+	$s~config "font "set :AppFont
+	
+end
+
+/*
+ * function    : GetLength
+ * purpose     : Compute the width of all the element of a list
+ * input       : 
+ *
+ * s, 		skippy to use
+ * l,		list of things
+ *
+ * output      : a list of the width
+ * side effect : none
+ */
+to GetLength :s :l
+	make.local "o clone []
+	for.each "e :l {
+		lappend :o  $s~w.string string :e		
+	}	
+	output :o
+end
+
+/*
+ * function    : OnlyTheMax
+ * purpose     : Compute the maximum width of all the column
+ * input       : 
+ *
+ * out,		list that contains the maximum
+ * in,		list that contains the new value
+ *
+ * output      : none
+ * side effect : modify out
+ */
+to OnlyTheMax :out :in
+
+	local "a "b
+
+	for ["i 1 (llength :out)] {
+		make "a lindex :out :i 
+		make "b lindex :in :i
+		if :b>:a {
+			lindex :out :i :b	
+		}	
+	}	
+	
+end
+
+/*
+ * function    : RendeLine
+ * purpose     : Render the line of a table
+ * input       : 
+ *
+ * s,		skippy to use
+ * line,	list that contains the column content for that line
+ * size,	list that contains the maximum width for the columns
+ * space,	number of space to put between the columns
+ * color,	color to render the line in
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderLine :s :line :size :space :color
+	
+	make.local "x :pos.x	
+			
+	for ["i 1 (llength :line)]	{
+		$s~string lindex :line :i
+		make "pos.x :pos.x+(lindex :size :i)+(($s~w.string '#')*:space)
+		$s~goto :pos.x :pos.y	
+	}
+	
+	make "pos.x :x	
+		
+end
+
+/*
+ * function    : RenderTable
+ * purpose     : Render a table
+ * input       : 
+ *
+ * s,		skippy to use
+ * cols,	number of columns of the table
+ * l,		list that contains the table contents
+ * si,		font size to render with
+ * color,	color to render the table in (Black by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderTable :s :cols :l :si :space [:color :H.color]
+
+	make.local "size $AppFont~size "get
+	$AppFont~size "set :si
+	$s~config "font "set :AppFont
+	
+	make.local "old.h $s~config "high.color "get
+	make.local "old.l $s~config "low.color "get
+
+	$s~config "high.color "set :color
+	
+	make.local "lsize clone []
+	
+	; we fill the list with an empty size
+	for ["i 1 :cols] {
+		lappend :lsize 0 		
+	}
+	
+	; we need to compute the size of the text
+	for.each "e :l {
+		OnlyTheMax :lsize GetLength :s :e				
+	}
+		
+	; we render the contents
+	for.each "e :l {
+		RenderLine :s :e :lsize :space :color
+		NewLine :s :si				
+	}	
+	
+	make "pos.y :pos.y - :si - 5
+	GotoNext :s
+
+	$s~config "high.color "set :old.h
+	$s~config "low.color "set :old.l
+	
+	$AppFont~size "set :size
+	$s~config "font "set :AppFont	
+	
+end
+
+/*
+ * function    : RenderImage
+ * purpose     : Render an image
+ * input       : 
+ *
+ * s,		skippy to use
+ * image,	image to display
+ * x,		left position of the image
+ * y,		top position of the image
+ *
+ * output      : none
+ * side effect : none
+ */
+to RenderImage :s :image :x :y
+	$s~goto :x :y	
+	$s~draw :image
+	GotoNext :s
+end
+
+/*
+ * function    : GotoTop
+ * purpose     : Next rendering must be done at the top of the page
+ * input       : 
+ *
+ * s, skippy used
+ * c, x position (:top.col by default)
+ * l, y position (:top.line by default)
+ *
+ * output      : none
+ * side effect : none
+ */
+to GotoTop :s [:c :top.col] [:l :top.line]
+	$s~goto :c :l
+	make "pos.x :c
+	make "pos.y :l
+end
+
+/*
+ * function    : GotoNext
+ * purpose     : Next rendering must be done on the next line
+ * input       : 
+ *
+ * s, skippy used
+ *
+ * output      : none
+ * side effect : none
+ */
+to GotoNext :s
+	$s~goto :pos.x :pos.y	
+end
+
+/*
+ * function    : NewLine
+ * purpose     : Next rendering must be done on a new line
+ * input       : 
+ *
+ * s, 	skippy used
+ * si,	font size
+ *
+ * output      : none
+ * side effect : none
+ */
+to NewLine :s :si
+	make "pos.y :pos.y + :si + 5
+	GotoNext :s
+end
+
+/*
+ * function    : Space
+ * purpose     : Next rendering must be done after a certain vertical space
+ * input       : 
+ *
+ * s, skippy used
+ * si, size of the space
+ *
+ * output      : none
+ * side effect : none
+ */
+to Space :s :si
+	make "pos.y :pos.y + :si
+	$s~goto :pos.x :pos.y	
+end
+
+/*
+ * function    : Tab
+ * purpose     : Next rendering must be done after a certain horizontal space (tabulation)
+ * input       : 
+ *
+ * s, skippy used
+ * si, size of the space
+ *
+ * output      : none
+ * side effect : none
+ */
+to Tab :s :si
+	make "pos.x :pos.x + :si
+	$s~goto :pos.x :pos.y
+end	
+
+/*
+ * function    : UnTab
+ * purpose     : Next rendering must be done before a certain horizontal space (inverse of tabulation)
+ * input       : 
+ *
+ * s, skippy used
+ * si, size of the space
+ *
+ * output      : none
+ * side effect : none
+ */
+to UnTab :s :si
+	make "pos.x :pos.x - :si
+	$s~goto :pos.x :pos.y
+end	
+
+/*
+ * function    : InitLink
+ * purpose     : Init the Link list (Linked Itemized items)
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to InitLink
+	make "link clone []
+end
+
+/*
+ * function    : AddLink
+ * purpose     : Add a Link (Linked Itemized items)
+ * input       :
+ *
+ * minx,maxx,miny,maxy,	describe the box that the user have to click in for the function to be eecuted
+ * func,				name of the function to execute
+ *
+ *
+ * output      : none
+ * side effect : add a new item to the link list
+ */
+to AddLink :minx :maxx :miny :maxy :func
+	lappend :link list :minx :maxx :miny :maxy :func
+end
+
+/*
+ * function    : Bold
+ * purpose     : Set the font style to BOLD
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to Bold
+	$AppFont~style "set "Bold	
+end
+
+/*
+ * function    : Roman
+ * purpose     : Set the font style to ROMAN
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to Roman
+	$AppFont~style "set "Roman	
+end
+
+/*
+ * function    : Regular
+ * purpose     : Set the font style to Regular
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to Regular
+	$AppFont~style "set "Regular	
+end
+
+/*
+ * function    : Italic
+ * purpose     : Set the font style to ITALIC
+ * input       : none
+ * output      : none
+ * side effect : none
+ */
+to Italic
+	$AppFont~style "set "Italic
+end

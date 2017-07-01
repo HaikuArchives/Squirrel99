@@ -1,0 +1,32 @@
+/*
+ * beMegaphone
+ *
+ * file ?	Valid.sqi
+ * what	?	beMegaphone Application (domains part)
+ * who	?	jlv
+ * when	?	10/14/00
+ * last	?	10/26/00
+ *
+ *
+ * [e-] 2000
+ */
+
+/*
+ * function    : IsValid
+ * purpose     : Check if an email @ is valid
+ * input       :
+ *
+ * email, email to test
+ *
+ * output      : true or false
+ * side effect : none
+ */
+to IsValid :email
+
+	local "dom
+	
+	make "dom substr :email (sfind.last :email '.')
+	
+	output (ValidDom :dom) and (not (Banned :email))
+		
+end

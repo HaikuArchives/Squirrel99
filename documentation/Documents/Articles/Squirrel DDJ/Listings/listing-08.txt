@@ -1,0 +1,5 @@
+-- Listing 8 (number on the far left are line number and not in the script) --------
+1 to WantIt :l :i
+2	output lindex :l :i
+3 end
+-- end of Listing 8 ----------------------------------------------------------------- 

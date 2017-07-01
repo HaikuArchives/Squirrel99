@@ -1,0 +1,10 @@
+if ( (LA(1)==A_or_B) && (
+LA(2)==X || LA(2)==Y)&&(!(((LA(1)==A_or_B))||((LA(1)==A_or_B)
+))||
+(((((LA(1)==A_or_B)))&&(isa(LT(1)->getText())))||
+((((LA(1)==A_or_B)))&&(isb(LT(1)->getText()) )))) ) {
+$
+	if ( (
+LA(1)==A_or_B) && (LA(2)==X)&&(!(((LA(1)==A_or_B)))||
+(isb(LT(1)->getText()) )) ) {
+$

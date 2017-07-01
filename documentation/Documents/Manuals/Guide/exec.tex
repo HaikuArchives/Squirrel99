@@ -1,0 +1,38 @@
+\section{Exec}
+
+This Add-on allows us to execute external programs and to collect their output.
+
+\subsection*{exec.bg} \index{\verb+exec.bg+}
+
+{\tt exec.bg}  {\it word \verb?|? [word things...] string (thing)*}
+\newline\newline
+Execute the program given as the second input. All the inputs to the primitive after the second, will be given as arguments to the program. The first input is
+the name of a function to execute each time the program outputs a line. The output will be given as the first input of the command. If a list is used instead of a word, it will contain as its first element, the name and inputs of the function to call. The primitive outputs the id of the thread.
+\begin{verbatimtab}
+to process :line
+	print :line	
+end
+
+@> exec.bg "process '/bin/ls'
+\end{verbatimtab}
+
+\subsection*{exec.wait} \index{\verb+exec.wait+}
+
+{\tt exec.wait} {\it word string (thing)*}
+\newline\newline
+Execute a program given as the second input. All the inputs to the primitive after the second, will be given as arguments to the program. The first input is
+a variable name. This variable will contain a list of all the outputs from the program. The primitive returns when the program has finished and output the error code returned by the programmed executed.
+\begin{verbatimtab}
+@> exec.wait "term '/bin/sh' '-c' 'exec echo $TERM' 
+@> print :term
+dumb
+\end{verbatimtab}
+
+\subsection*{launch} \index{\verb+launch+}
+
+{\tt launch} {\it string}
+\newline\newline
+Launch the preferred application of the file given as input (complete path).
+\begin{verbatimtab}
+@> launch 'mydoc.html'
+\end{verbatimtab}

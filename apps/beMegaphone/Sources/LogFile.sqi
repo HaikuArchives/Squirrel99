@@ -1,0 +1,66 @@
+/*
+ * beMegaphone
+ *
+ * file ?	LogFile.sqi
+ * what	?	Parse the log file that contains the list of recipients
+ * who	?	jlv
+ * when	?	09/20/00
+ * last	?	10/24/00
+ *
+ *
+ * [e-] 2000
+ */
+
+/*
+ * function    : ParseLog
+ * purpose     : Parse the log file and fill a dictionary
+ * input       :
+ *
+ * file, the file to load from
+ *
+ * output      : a list with a Dictionary and an integer
+ 				 or a list with a number if an error has
+ 				 occured
+ * side effect : none
+ */
+to ParseLog :path
+	
+	local "line	"news "letter "n "l "mail "wrong
+	
+	make.local "lnum 0		
+	make.local "wrong 0		
+	make.local "d Dictionary			
+	
+	catch "error {	
+
+		make.local "f fopen "in :path
+		
+		make "lnum 1	
+				
+		while not (feof :f) {
+			make "lnum :lnum + 1
+			make "line split.as.string (fgets :f) :set_separator
+			if not (lempty :line) {
+				make "news lindex :line :set_field_news
+				make "letter lindex :line :set_field_letter			
+				make "l list (:news = :set_wish_yes) (:letter = :set_wish_yes)
+				if (:l <> [false false]) {
+					make "mail (lindex :line :set_field_email)
+					if (IsValid :mail) {
+						$d~set :mail :l
+					} {
+						make "wrong :wrong + 1	
+					}	
+				}
+			}	
+		}	
+	
+		fclose :f
+			
+		output [:d :wrong]	
+	
+	} {
+		output [:lnum]	
+	}
+							
+end

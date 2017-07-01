@@ -1,0 +1,430 @@
+\chapter{The Window}
+
+The top-level container in \squirrel is the Window\index{Window@\textbf{Window}}. This widget is derived from the BWindow class from the {\em Be Interface Kit}. This chapter provides a complete reference to this object.
+
+\section{Types of Window}
+
+The Window in \beos could bare several looks and feels, with each one giving the window a different behavior. When creating a window, it's possible to specify the type of window, look or feel. The type is actually a shortcut for a certain look and feel. According to the {\em BeBook} (\beos development guide) we have devised the following looks and feels.
+
+\subsection{Window Look (or Type)}
+
+The following table shows and describes the difference between all the possible looks :
+
+\begin{longtable}{|c|p{5cm}|p{4cm}|}
+\hline
+\bf Look & \bf Description & \bf Example \endfirsthead
+\hline
+\bf Look & \bf Description & \bf Example \\
+\multicolumn{3}{|p{0.6666\linewidth}|}{\em Continuing ...} \\
+\endhead
+\hline
+\multicolumn{3}{|p{0.6666\linewidth}|}{\em Continue on next page} \\
+\hline
+\endfoot
+\multicolumn{3}{c}{} \\
+\endlastfoot
+\hline
+\tt "bordered & The window have a border, no title table and can't be moved, resized or closed by the user & \shot{3cm}{ex2-1.eps} \\
+\hline
+\tt "document & The window have a border and a title tab with a zoom and iconify buttons. The window may be resized by the user by using the right-bottom corner tab (also called: resize corner). The gray tab around the window frame could be used to move the window. & \shot{3cm}{ex2-2.eps}\\
+\hline
+\tt "floating & The window has a thinner border than the previous look and a smaller title. This look is usually used as a member window of an application. The resize corner (bottom-right) has been replaced by a more simple corner allowing the user to resize the window & \shot{3cm}{ex2-3.eps}\\
+\hline
+\tt "modal & The window has a thick border and a simple resize corner but no title tab. This window disables access to any other window of the application when shown on the screen. The window can be closed by the user & \shot{3cm}{ex2-4.eps}\\
+\hline
+\tt "no.bordered & The window has no title tab, no border, and no resize corner. The user can close the window. (The red border in the picture is in fact part of the screen background image; it has been left to show the window which is all white) & \shot{3cm}{ex2-5.eps}\\
+\hline
+\tt "titled & The window has a border, a title tab with a zoom and iconify button. The window may be resized by the user by using a simple resize corner. The gray tab around the window frame could be used to move the window & \shot{3cm}{ex2-6.eps}\\
+\hline
+\caption{Window's Look}
+\end{longtable}
+
+\subsection{Window Feel}
+
+The feel of a window determines a window's behavior relative to other windows of the same application.
+
+\newpage
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|p{6cm}|}
+\hline
+\bf Name & \bf Description \\
+\hline
+\tt "floating.all & The window will float on top of any other window of the application of its subset. \\
+\hline
+\tt "floating.app & The window will float on top of any other window of the application of its subset. The window will only be visible when one of the windows in the application is active. \\
+\hline
+\tt "floating.subset & The window will float on top of any other window of the application of its subset. The window will only be visible when one of the windows in the subset is active. \\
+\hline
+\tt "modal.all & When on screen, the window will block the activity of all other window of the applications and will be present on every screen. \\
+\hline
+\tt "modal.app & When on screen, the window will block the activity of all other window of the applications and will be present on every screen. The window will be visible only if one window of the application is visible. \\
+\hline
+\tt "modal.subset & When on screen, the window will block the activity of all other window of the applications and will be present on every screen. The window will be visible only if another window of the application or subset is visible. \\
+\hline
+\tt "normal & The window will not float or be modal. It's the default feel of the window of type : {\tt "titled} , {\tt "document}, {\tt "no.bordered} and {\tt "bordered}. \\
+\hline
+\end{tabular}
+\caption{Window's Feel}
+\end{table}
+
+\subsection{Subset \& Application}
+
+The look and feel of a window introduces the notion of {\em subsets} and {\em applications}. By default, every window created in an application is part of this application. But it's possible to create within this application several subsets of a window. Being part of a subset will only affect the modal and floating windows.
+
+\section{Creating a window}
+
+As mentioned in the first chapter, creating a window in \squirrel is done by calling the {\tt Window} primitive. Although using this primitive is simple, several options could be inputs to the primitive in order to change the behavior of the window.\\
+
+The syntax of the Window primitive is : \\
+
+{\tt Window} {\it word \verb+|+ list string list (word)*} \\
+
+The first input could be either a word or a list. It describes the look and feel of the window. When a word is given, it will be taken as the type (defined mix of Look and Feel) of the window. A list will be seen as the Look and Feel of the window and so must have two words as elements.\\
+
+The second input is a string (or a word) which will be used as the title of the window. Window must have a title even if there's no title tab.\\
+
+The third input is a list of two numbers which supplies the position on the screen where the window must be displayed. The first element of the list is the x-axis and the second element of the list is the y-axis.\\
+
+The other input to the primitive will be seen (if they exist) as a flag to the window, describing what the user will be allowed to do on the window, such as resizing or moving. The next table describes all the flags:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|p{10cm}|}
+\hline
+\bf Name & \bf Description \\
+\hline
+\tt "accept.first.click & The window will receive a mouse click when the window is not the active window, otherwise the window will be activated when the user clicks on it.  The click will not be received by the widget which the user has clicked. \\
+\hline
+\tt "not.closable & The window will not be closable by the user. The title tab will not display the usual closing button. \\
+\hline
+\tt "not.h.resizable & The window will not be horizontally resizable by the user. \\
+\hline
+\tt "not.minimizable & The window will not be minimizable by the user (put in the DeskBar). Double clicking on the title tab will not minimize the window. \\
+\hline 
+\tt "not.movable & The user will not be able to move the window around. Although, it will be possible to put the window on another screen. \\
+\hline
+\tt "not.resizable & The window will not be resizable at all by the user. Neither vertically nor horizontally. Note that the two gray lines on the right bottom corner which indicate where to drag the window border for resizing. \\
+\hline
+\tt "not.v.resizable & The window will not be horizontally resizable by the user. \\
+\hline
+\tt "not.zoomable & The user will not be able to zoom (maximize) the window. \\
+\hline
+\end{tabular}
+\caption{Window's Flags}
+\end{table}
+
+Let's now look at some examples of window creation :
+
+\example{ex19}	
+\begin{listing}{1}
+make "win Window "titled "Test [200 100] "not.closable
+$win~show
+\end{listing}
+
+The window is created with the type {\em titled} and will not be closable by the user as shown on the next figure :
+
+\screen{s19}{ex2-7.eps}{Not closable window}
+
+\example{ex20}	
+\begin{listing}{1}
+make "win Window "modal "Question [200 100] "not.resizable
+$win~show
+\end{listing}
+
+The modal window will have no title table and will block all other windows of the application.
+
+\screen{s20}{ex2-8.eps}{Modal window not resizable}
+
+\example{ex21}	
+\begin{listing}{1}
+make "win Window "document "Question [200 100] "not.zoomable
+$win~show
+\end{listing}
+
+\screen{s21}{ex2-9.eps}{Simple window without zoom button}
+
+\section{Methods}
+
+When using the ability of any \squirrel object to call methods\index{Window@\textbf{Window}!Methods}, a window has several primitives which are accessible only to the window.\\
+
+{\bf activate\index{Window@\textbf{Window}!Methods!activate}}
+\begin{verbatimtab}
+$window~activate
+\end{verbatimtab}
+Make the window the active window.\\
+
+{\bf add.to.subset\index{Window@\textbf{Window}!Methods!add.to.subset}}
+\begin{verbatimtab}
+$window~add.to.subset window
+\end{verbatimtab}
+Add a window given as input to the window's subset.\\
+
+{\bf bounds} \index{Window@\textbf{Window}!Methods!bounds}
+\begin{verbatimtab}
+$window~bounds
+\end{verbatimtab}
+Output the bounds of the window as a list of four numbers (left-top right-bottom).\\
+
+{\bf center} \index{Window@\textbf{Window}!Methods!center}
+\begin{verbatimtab}
+$window~center word (list)
+\end{verbatimtab}
+Set or get the center of the window. When the first input is the word {\tt "get}, the method output a list that contain the coordinates on the screen of the center of the window. If the input is {\tt "set}, the method need a second input that must be a list of two numbers. The window then move on the screen to center itself on those coordinates.\\
+
+{\bf close} \index{Window@\textbf{Window}!Methods!close}
+\begin{verbatimtab}
+$window~close
+\end{verbatimtab}
+Close the window. If the window is the last window of the application, the application will be terminated. This method has the same effect than the {\tt Quit} method.\\
+
+{\bf deactivate} \index{Window@\textbf{Window}!Methods!deactivate}
+\begin{verbatimtab}
+$window~deactivate
+\end{verbatimtab}
+If the window was the active window, the window will lose its active status.\\
+
+{\bf enable} \index{Window@\textbf{Window}!Methods!enable}
+\begin{verbatimtab}
+$window~enable boolean
+\end{verbatimtab}
+If the input is {\tt true}, all the widgets will be enabled to the user. If the input is {\tt false}, all the widgets will be disabled and the user will not be able to interact with them.\\
+
+{\bf frame} \index{Window@\textbf{Window}!Methods!frame}
+\begin{verbatimtab}
+$window~frame
+\end{verbatimtab}
+Output the frame of the window as a list of four numbers.\\
+
+{\bf hide} \index{Window@\textbf{Window}!Methods!hide}
+\begin{verbatimtab}
+$window~hide
+\end{verbatimtab}
+The window is removed from the screen but not destroyed.  It is hidden from the user.\\
+
+{\bf is.active} \index{Window@\textbf{Window}!Methods!is.active}
+\begin{verbatimtab}
+$window~is.active
+\end{verbatimtab}
+Output {\tt true} if the window is the active window, {\tt false} if not.\\
+
+{\bf is.front} \index{Window@\textbf{Window}!Methods!is.front}
+\begin{verbatimtab}
+$window~is.front
+\end{verbatimtab}
+Output {\tt true} if the window is the front most window on the screen, {\tt false} if not.\\
+
+{\bf is.hidden} \index{Window@\textbf{Window}!Methods!is.hidden}
+\begin{verbatimtab}
+$window~is.hidden
+\end{verbatimtab}
+Output {\tt true} if the window is hidden, {\tt false} if not.\\
+
+{\bf minimize} \index{Window@\textbf{Window}!Methods!minimize}
+\begin{verbatimtab}
+$window~minimize
+\end{verbatimtab}
+The window is removed from the screen and placed on the DeskBar.\\
+
+{\bf move.by} \index{Window@\textbf{Window}!Methods!move.by}
+\begin{verbatimtab}
+$window~move.by [horizontal vertical]
+\end{verbatimtab}
+Shift the position of the window by the value given horizontally and vertically. A positive value is given for a shift right or a shift to the top. A negative value is given for a shift left or a shift to the bottom.\\
+
+{\bf move.to} \index{Window@\textbf{Window}!Methods!move.to}
+\begin{verbatimtab}
+$window~move.to [x y]
+\end{verbatimtab}
+The window is moved to a new position on the screen as given by the coordinates of the new left upper corner of the window.\\
+
+\cbstart
+{\bf quit} \index{Window@\textbf{Window}!Methods!quit}
+\begin{verbatimtab}
+$window~quit
+\end{verbatimtab}
+Close the window. If the window is the last window of the application, the application will be terminated. Using the keyboard shortcut {\tt COMMAND-Q} will have the same effect than calling this method. If a menu use the same shortcut, the menu callback will NOT be executed.\\
+\cbend
+
+{\bf reglue} \index{Window@\textbf{Window}!Methods!reglue}
+\begin{verbatimtab}
+$window~reglue
+\end{verbatimtab}
+Restart the gluing of all the widgets of the window. Usually done when a widget had been removed or resized within its parent.\\
+
+{\bf rem.from.subset} \index{Window@\textbf{Window}!Methods!rem.from.subset}
+\begin{verbatimtab}
+$window~rem.from.subset window
+\end{verbatimtab}
+Remove a window given as input from the window's subset.\\
+
+{\bf resize.by} \index{Window@\textbf{Window}!Methods!resize.by}
+\begin{verbatimtab}
+$window~resize.by number number
+\end{verbatimtab}
+Resize the window by the value given as inputs (width, height).\\
+
+{\bf resize.to} \index{Window@\textbf{Window}!Methods!resize.to}
+\begin{verbatimtab}
+$window~resize.to number number
+\end{verbatimtab}
+Resize the window to the value given as inputs (width, height).\\
+
+{\bf show} \index{Window@\textbf{Window}!Methods!show}
+\begin{verbatimtab}
+$window~show
+\end{verbatimtab}
+The window is displayed on the screen. This method is used after the window has been hidden or when the window has been created.\\
+
+{\bf unmimimize} \index{Window@\textbf{Window}!Methods!unminimize}
+\begin{verbatimtab}
+$window~unminimize
+\end{verbatimtab}
+The window is "unmimimized" from the desk bar and displayed on the screen. The method is the reverse of minimize.\\
+
+{\bf widgets} \index{Window@\textbf{Window}!Methods!widgets}
+\begin{verbatimtab}
+$window~widgets
+\end{verbatimtab}
+Output a list of all the widgets glued on the window.\\
+
+\section{Configuration}
+
+One of the window's methods allows one to set or get the window configuration. This method is {\tt config} and follows the syntax :\\
+
+{\tt \verb?$w?indow~config "get} {\it word}\\
+
+or\\
+
+{\tt \verb?$?window~config "set} {\it word thing}\\
+
+Using {\tt "get} as a first argument will retrieve the value for the specified configuration, given as the second input. {\tt "set} will set the configuration to the  value of the third input. The configuration of a Window may be changed at anytime during the application's lifetime.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|p{7cm}|p{3.5cm}|}
+\hline
+\bf Item & \bf Description & \bf value \\
+\hline
+\tt "constraint & Window size constraint & A valid word (\tt "auto "none "manual)\\
+\hline
+\tt "defaultbutton & Button by default of the window. When the user hits the Enter key of the keyboard, the window is active and this button will be invoked. & A button object is needed as input to set\\
+\hline
+\tt "feel & Feel of the window & A valid word \\
+\hline
+\tt "focus & Widget of the window having the focus & A widget object glued on the window \\
+\hline
+\tt "font & Default font used by the widgets of the window & A font object \\
+\hline
+\tt "limit & Size limit of the window & A list of 2 integers\\
+\hline
+\tt "look & Look of the window & A valid word \\
+\hline
+\tt "pulserate & How often the widget of the window will receive the pulse event (in ms) & An integer \\
+\hline
+\tt "title & Title of the window & A string or word \\
+\hline
+\tt "zoom & Maximum size the window could take when the user zoom it & A list of 2 integers (width and height)\\
+\hline
+\end{tabular}
+\caption{Window's Configuration}
+\end{table}
+
+One word about {\tt constraint} and {\tt limit}: By default, the {\tt constraint} is set to {\tt "auto}. The window will in this case not allow the
+user to resize the window smaller than the size that fit perfectly the window contents. If this config is set to {\tt "none}, the user will be allowed to resize the window however he want. In {\tt "manual}, the maximun and minimum
+size can be set by the script with the config {\tt "limit}. This config take as 
+third input the word {\tt "max} or {\tt "min} wheter you want to set the minimum size or the maximum. 
+
+\section{Hooks}
+
+Like widgets, functions could be defined in \squirrel to serve as {\em callbacks} for events generated by the user on the window. Those hooks\index{Window@\textbf{Window}!Hooks} could be used to perform several tasks according to the application's need.\\
+
+The following table describes all the possible hooks.Note that the name of the callback function could be anything.
+
+\begin{longtable}{|c|p{4cm}|p{7.5cm}|}
+\hline
+\bf Name & \bf Description & \bf Function prototype \endfirsthead
+\hline
+\bf Name & \bf Description & \bf Function prototype \\
+\multicolumn{3}{|p{0.6666\linewidth}|}{\em Continuing ...} \\
+\endhead
+\hline
+\multicolumn{3}{|p{0.6666\linewidth}|}{\em Continue on next page} \\
+\hline
+\endfoot
+\multicolumn{3}{c}{} \\
+\endlastfoot
+\hline
+enter\index{Window@\textbf{Window}!Hooks!enter} & The mouse pointer enters the window frame & {\tt
+to enter :win\newline
+; win is the window object\newline
+end
+} \\
+\hline
+leave\index{Window@\textbf{Window}!Hooks!leave} & The mouse pointer leaves the window frame & {\tt
+to leave :win\newline
+; win is the window object\newline
+end
+} \\
+\hline
+maximize\index{Window@\textbf{Window}!Hooks!maximize} & The window has been unminimized & {\tt
+to maximize :win\newline
+; win is the window object\newline
+end
+} \\
+\hline
+minimize\index{Window@\textbf{Window}!Hooks!minimize} & The window has been mimimized (put in the Desk Bar) & {\tt
+to minimize :win\newline
+; win is the window object\newline
+end
+} \\
+\hline
+move\index{Window@\textbf{Window}!Hooks!move} & The window has been moved within the screen & {\tt
+to move :win ::x :y\newline
+/* win is the window object\newline
+   x and y are the new coordinates\newline 
+   of the left-top corner of the window */\newline
+end
+} \\
+\hline
+quit\index{Window@\textbf{Window}!Hooks!quit} & The window has been asked to quit. The function should return {\tt true} if the window must quit, {\tt false} else & {\tt
+to quit :win\newline
+; win is the window object\newline
+end
+} \\ 
+\hline
+resize\index{Window@\textbf{Window}!Hooks!resize} & The window has been resized by the user & {\tt
+to resize :win :w :h\newline
+; win is the window object\newline
+; w is the new width (integer)\newline
+; h is the new height (integer)\newline
+end
+} \\
+\hline
+workspaceactivate\index{Window@\textbf{Window}!Hooks!workspaceactivate} & The workspace where the window is, has become the active workspace or has lost this status & {\tt
+to wsactivate :win :ws :status\newline
+; win is the window object\newline
+; ws are the workspace number (integer)\newline
+; status is true when the workspace is active, false else.\newline
+end
+} \\
+\hline
+workspacechange\index{Window@\textbf{Window}!Hooks!workspacechange} & The window has been moved to another workspace & {\tt
+to wschange :win :old :new\newline
+; win is the window object\newline
+; old is the previous workspace number\newline
+; new is the new workspace number\newline
+end
+} \\
+\hline
+zoom\index{Window@\textbf{Window}!Hooks!zoom} & The user has zoomed the window & {\tt
+to zoom :win :x :y :w :h\newline
+; win is the window object\newline
+; x and y are the new left-top corner coordinate of the window\newline
+; w and h and the new width and height\newline
+end
+} \\
+\hline
+\caption{Window's Hooks}
+\end{longtable}

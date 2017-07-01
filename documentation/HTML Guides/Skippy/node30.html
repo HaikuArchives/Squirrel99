@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.43)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>w.string</TITLE>
+<META NAME="description" CONTENT="w.string">
+<META NAME="keywords" CONTENT="skippy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="skippy.css">
+
+<LINK REL="previous" HREF="node29.html">
+<LINK REL="up" HREF="node12.html">
+<LINK REL="next" HREF="node31.html">
+</HEAD>
+
+<BODY  bgcolor="White" text="Black" link="Blue" vlink="#00007A" alink="Red">
+<!--Navigation Panel-->
+<A NAME="tex2html574"
+  HREF="node31.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/boot/home/config/lib/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html568"
+  HREF="node12.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/boot/home/config/lib/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html564"
+  HREF="node29.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/boot/home/config/lib/latex2html/icons/prev.gif"></A> 
+<A NAME="tex2html570"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/boot/home/config/lib/latex2html/icons/contents.gif"></A> 
+<A NAME="tex2html572"
+  HREF="node47.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="file:/boot/home/config/lib/latex2html/icons/index.gif"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html575"
+  HREF="node31.html">Release notes</A>
+<B> Up:</B> <A NAME="tex2html569"
+  HREF="node12.html">The Skippy object</A>
+<B> Previous:</B> <A NAME="tex2html565"
+  HREF="node29.html">triangle</A>
+ &nbsp <B>  <A NAME="tex2html571"
+  HREF="node1.html">Contents</A></B> 
+ &nbsp <B>  <A NAME="tex2html573"
+  HREF="node47.html">Index</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION006218000000000000000">
+w.string</A>
+</H2><A NAME="445"></A> 
+<PRE>
+$sk~w.string string
+</PRE>
+Compute and output the width (in pixel) used to draw the input with the current
+font.  
+<PRE>
+@&gt; $sk~w.string 'HELLO'
+13
+</PRE>
+
+<P>
+
+<P>
+
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="s8"></A><A NAME="550"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.6:</STRONG>
+Drawing a triangle</CAPTION>
+<TR><TD><IMG
+ WIDTH="337" HEIGHT="367" BORDER="0"
+ SRC="img17.gif"
+ ALT="\begin{figure}\centering\psfig{figure=images/eps/sk8.eps}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+
+<P>
+The configuration of a <I>Skippy</I> allows one to set the color, font, size and home position.
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="371"></A>
+<TABLE>
+<CAPTION><STRONG>Table 3.1:</STRONG>
+Skippy's configuration</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TH ALIGN="CENTER"><B>Configuration </B></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=142><B>Purpose </B></TH>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=142><B>Value </B></TH>
+</TR>
+<TR><TD ALIGN="CENTER"><TT>"color<A NAME="447"></A> </TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Set or get the pen color</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>a color list.</TD>
+</TR>
+<TR><TD ALIGN="CENTER"><TT>"font<A NAME="448"></A> </TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Set or get the font to use</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>a font object.</TD>
+</TR>
+<TR><TD ALIGN="CENTER"><TT>"high.color<A NAME="449"></A> </TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Set or get the high color of the pen</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>a color list</TD>
+</TR>
+<TR><TD ALIGN="CENTER"><TT>"home<A NAME="450"></A> </TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Set or get the home position</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>2 numbers or a list of 2 numbers</TD>
+</TR>
+<TR><TD ALIGN="CENTER"><TT>"low.color<A NAME="451"></A> </TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Set or get the low color of the pen</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>a color list</TD>
+</TR>
+<TR><TD ALIGN="CENTER"><TT>"size<A NAME="452"></A> </TT></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>Set or get the size of the pen</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142>a number</TD>
+</TR>
+</TABLE>
+</DIV></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html574"
+  HREF="node31.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/boot/home/config/lib/latex2html/icons/next.gif"></A> 
+<A NAME="tex2html568"
+  HREF="node12.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/boot/home/config/lib/latex2html/icons/up.gif"></A> 
+<A NAME="tex2html564"
+  HREF="node29.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/boot/home/config/lib/latex2html/icons/prev.gif"></A> 
+<A NAME="tex2html570"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/boot/home/config/lib/latex2html/icons/contents.gif"></A> 
+<A NAME="tex2html572"
+  HREF="node47.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index"
+ SRC="file:/boot/home/config/lib/latex2html/icons/index.gif"></A> 
+<BR>
+<B> Next:</B> <A NAME="tex2html575"
+  HREF="node31.html">Release notes</A>
+<B> Up:</B> <A NAME="tex2html569"
+  HREF="node12.html">The Skippy object</A>
+<B> Previous:</B> <A NAME="tex2html565"
+  HREF="node29.html">triangle</A>
+ &nbsp <B>  <A NAME="tex2html571"
+  HREF="node1.html">Contents</A></B> 
+ &nbsp <B>  <A NAME="tex2html573"
+  HREF="node47.html">Index</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2000-11-19
+</ADDRESS>
+</BODY>
+</HTML>

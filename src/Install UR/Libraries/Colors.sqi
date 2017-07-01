@@ -1,0 +1,47 @@
+/*
+ * Squirrel project
+ *
+ * file ?	Colors.sqi
+ * what	?	Colors constants
+ * who	?	jlv
+ * when	?	09/20/99
+ * last	?	09/20/99
+ *
+ *
+ * Kirilla 1999
+ */
+
+; Be standard UI colors
+
+make "BeBackgroundGrey 		[216 216 216 255]
+make "BeInactiveControlGrey [240 240 240 255]
+make "BeFocusBlue 			[  0   0 229 255]
+make "BeHighlight 			[255 255 255 255]
+make "BeShadow 				[152 152 152 255]
+make "BeDarkShadow 			[108 108 108 255]
+make "BeLightShadow 		[194 194 194 255]
+make "BeButtonGrey 			[232 232 232 255]
+make "BeInactiveGrey 		[127 127 127 255]
+make "BeListSelectGrey 		[178 178 178 255]
+make "BeTitleBarYellow 		[255 203   0 255]
+
+; various colors
+make "Black [0 0 0 255]
+make "White [255 255 255 255]
+make "Red [255 0 0 255]
+make "Green [0 167 0 255]
+make "LightGreen [90 240 90	255]
+make "Blue [49 61 225 255]
+make "LightBlue [64 162 255	255]
+make "Purple [144 64 221 255]
+make "LightPurple [166 74 255 255]
+make "Lavender [193 122 255	255]
+make "Yellow [255 203 0	255]
+make "Orange [255 163 0 255]
+make "Flesh [255 231 186 255]
+make "Tan [208 182 121 255]
+make "Brown [154 110 45 255]
+make "Grey [200 200 200 255]
+make "LightMetallicBlue [143 166 240 255]
+make "MedMetallicBlue [75 96 154 255]
+make "DarkMetallicBlue [78 89 126 255]

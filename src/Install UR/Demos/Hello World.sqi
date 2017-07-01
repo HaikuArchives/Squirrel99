@@ -1,0 +1,41 @@
+#!/boot/apps/Squirrel/Squirrel.5.4
+/* 
+	Hello World
+
+	Kirilla January 2000
+*/
+
+use 'GUI'
+
+;we load the current fonts installed on the computer
+
+Font.init
+
+;now we select a standard font
+
+make "font Font 'Monospac821 BT'
+
+$font~size "set 12
+
+make "hello Window "titled 'Squirrel' [100 100]
+
+make "button Button 'Hello World !'
+
+$button~config "font "set :font
+$button~config "align "set "center "center
+
+Hook :button "invoked {
+	make "r Question "idea ['Way to go!' 'No way!'] 'Forget the norm ... free your mind !'
+	if :r=1 {
+		$button~config "label "set 'You\'re the man !'
+		$hello~reglue
+	} {
+		$button~config "label "set 'Be that way !'
+		$hello~reglue			
+	}	
+}
+
+Glue :hello "top [5 5] :button 
+
+$hello~show
+

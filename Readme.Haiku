@@ -1,0 +1,205 @@
+Notes on the initial github commit
+===========================
+
+Squirrel99 is a computer language originally written for the BE Operating System by Jean-Louis Villecroze between 1997 and 1999. It was then known as Squirrel.
+
+I came across Villecroze's name on a social network and wrote to him asking if he was the same person and if so, if he still had the source code. He replied in the affirmative and that he was willing to donate the code to the Haiku project.
+
+Since the BeOS era, another language called squirrel has come into existence. I suggested that a name change would be advisable. After further discussion and consultation on the Haiku discussion forum, we settled on the name "Squirrel99" and he indicated that it could be relicensed under the MIT license.
+
+The initial github release also contains the original license for Squirrel for historical reference, in the file "src/Install UR/ReadMe"
+
+The section below contains the email exchange between myself and Jean-Louis Villecroze to document the change in name and license conditions. The discussion on the Haiku forums can be found at https://discuss.haiku-os.org/t/squirrel-source-code/5833/2
+
+Michel Clasquin-Johnson <clasqm@gmail.com>
+1 July 2017
+
+----------------------------------------------------------------------------------------------------------------
+
+From: Jean-Louis Villecroze <jeanlouis.villecroze@gmail.com>
+Date: Thu, 22 Jun 2017 08:16:03 -0700
+Subject: Squirrel for BeOS
+To: clasqm@gmail.com
+
+Hello Michel,
+
+Sorry for the extremely late answer, but today was the first time since
+2013 that I logged into Quora and noticed your message about Squirrel,
+which I was the author of back in 1998-1999.
+
+I still have the source code for it, let me know if you are still
+interested in it.
+
+Out of curiosity, why the interest in it?
+
+Cheers,
+
+
+From: Michel Clasquin-Johnson <clasqm@gmail.com>
+To: Jean-Louis Villecroze <jeanlouis.villecroze@gmail.com>
+
+Hi there, Jean-Louis
+
+Yes, I'm very interested. OK, I don't know to what extent you've kept up
+with developments since Be, Inc went under, so skip the next paragraph
+or two if it's too boring.
+
+I am part of the Haiku <http://www.haiku-os.org/> community that is
+creating a binary-compatible replacement for BeOS. It runs, and we have
+actually progressed far beyond the old BeOS 5 - we have a killer
+packaging system now. I last tried squirrell about a year ago and your
+old binaries still run on Haiku. Except ... you have to set your system
+clock back twenty years! besides that, we have variants of the OS that
+require recompilation of old software to run on modern X86_64
+processors. This is strictly a hobbyist community, there's no money :-(
+
+I'm not one of the core developers - My C++ skills are rudimentary. I do
+program in the yab language, and I've actually produced an e-book
+<https://www.smashwords.com/books/view/691720> on that. I also maintain
+a software repository for Haiku software with 1300 packages in it: see
+my website <http://clasquin-johnson.co.za/michel/haiku/repo/index.html>
+and blog <https://yahbblog.wordpress.com/>.
+
+OK, that is just to convince you that I am a serious person, not someone
+asking out of idle curiosity.=20
+
+We have a number of ways to write or port Haiku GUI software: native
+C++, native yab, C++ with QT4/5 and Java 7. But there is a need for a
+really simple, easy to learn language. Squirrell filled that gap back in
+the BeOS days and it would be wonderful if you could see your way clear
+to donating the code to the project under an open-source license (we
+tend towards BSD/MIT licenses but GPL2/3 are also fine). We could then
+update it and make it available again.
+
+That would probably not be done by me: we'd put it up on the
+HaikuArchives <https://github.com/HaikuArchives> github site and our
+devs could take it from there (and if you wanted to join in the effort,
+well, of course). I just happen to be the one who noticed your name on
+Quora. But I can get the ball rolling.
+
+We might need to change the name. There is another language called
+Squirrell <http://www.squirrel-lang.org/> out there now. Ground
+Squirrell, maybe?
+
+Thanks for your time
+Michel
+
+
+From: Jean-Louis Villecroze <jeanlouis.villecroze@gmail.com>
+Date: Sat, 24 Jun 2017 20:01:34 -0700
+Subject: Re: Squirrel for BeOS
+To: Michel Clasquin-Johnson <clasqm@gmail.com>
+
+Hi Michel,
+
+That sounds good. I haven't keep up with Haiku for a while. Last time I
+tried one of the alpha image it didn't boot on my PC :(
+
+I have no problem donating the code so that Squirrel (even as "Ground
+Squirrel") can live on Haiku. How do we proceed?
+
+Cheers,
+
+From: Michel Clasquin-Johnson <clasqm@gmail.com>
+Date: Sun, 25 Jun 2017 10:49:29 +0200
+To: Jean-Louis Villecroze <jeanlouis.villecroze@gmail.com>
+
+Hello Jean-Louis
+
+I've put up a notice on our discussion forum asking our lead devs to
+contact you. You will probably hear from Augustin Cavalier (aka
+waddlesplash) soon. He is in charge of HaikuArchives.
+
+If they are not interested/too busy/whatever it comes back down to me,
+but as I said, I'll have to really pull up my socks to work on something
+like this, so let's give them a chance first.
+
+Thanks for everything.
+
+Michel
+
+From: Michel Clasquin-Johnson <clasqm@gmail.com>
+To: Jean-Louis Villecroze <jeanlouis.villecroze@gmail.com>
+
+Hi Jean-Louis
+
+OK, I spoke to the lead devs and they are enthusiastic about Squirrel. They
+also told me they trust me to get it up and running on the github repo.
+
+We talked a bit about the name issue and someone suggested Squirrel97 in
+the tradition of Algol68 or Fortran90. That way, we honour the history of
+the project and your contribution and we can avoid confusion with the other
+Squirrel (which we may want to port some day). Also we don't need to
+rewrite the manuals immediately!
+
+So, the process will be:
+
+1. You approve the name or we talk about another one
+2. You decide on a license. Most of Haiku is covered by MIT, but it is
+entirely up to you. In any case your position as the original author must
+be documented in that license.
+3. You send me the code or a link to it.
+4. I start formatting it on Github in the format HaikuArchives needs. Don't
+worry, I've done this before.
+5. I transfer the github repo to HaikuArchives
+6. I let you know where to find your baby so you can see the devs working
+on it. And if you like, help out with code or advice.
+
+How soon after that Squirrel97 will be incorporated into the Haiku
+distribution is a little unpredictable.But at least we will have started.
+
+One of the reasons yab has become popular  on Haiku is because we have
+established a little support community with its own discussion forum where
+people swap tips and code snippets. I would try to do that same thing for
+Squirrel97. We need an easier way for people to become involved in Haiku
+development. C++ is too high a bar.
+
+Regards,
+Michel
+
+From: Jean-Louis Villecroze <jeanlouis.villecroze@gmail.com>
+Date: Wed, 28 Jun 2017 07:33:43 -0700
+To: Michel Clasquin-Johnson <clasqm@gmail.com>
+
+Hello Michel,
+
+'Squirrel97' sounds good but 'Squirrel99' will probably be more accurate
+since I did most of the work late '98 and '99. As for the licence, the MIT
+one is fine. I'll dig the code up and send it to you tonight (PST) :-)
+
+Cheers,
+
+From: Michel Clasquin-Johnson <clasqm@gmail.com>
+Date: Wed, 28 Jun 2017 19:39:44 +0200
+To: Jean-Louis Villecroze <jeanlouis.villecroze@gmail.com>
+In-Reply-To: <CAOaq_2qtU--VJuDE75JnyTDX+wrqnGFWPtXd7tC6xjM1=8_Y7w@mail.gmail.com>
+
+Squirrel99 it is. I look forward to it.
+
+I'm in the middle of exams (grading, not writing), so it will take a few
+days for me to get to it. But I will be in touch.
+
+
+From: "Jean-Louis Villecroze (via Google Drive)" <jeanlouis.villecroze@gmail.com>
+To: clasqm@gmail.com
+Here's the archive file that contains Squirrel. Let me know if it decompress properly.
+
+
+From: Michel Clasquin-Johnson <clasqm@gmail.com>
+Date: Thu, 29 Jun 2017 23:29:45 +0200
+To: Jean-Louis Villecroze <jeanlouis.villecroze@gmail.com>
+
+Perfectly thanks (good old tarball - format
+hasn't changed in 30 years). I have a few work and family matters to
+clear up, but I'll start on it ASAP.
+
+From: Jean-Louis Villecroze <jeanlouis.villecroze@gmail.com>
+Date: Fri, 30 Jun 2017 11:38:10 -0700
+To: Michel Clasquin-Johnson <clasqm@gmail.com>
+
+Great. Let me know if you have a question. It's been 16 years since I last
+worked on it so I may not remember much, but you never know.
+
+Cheers,
+
+
